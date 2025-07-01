@@ -8,7 +8,7 @@ const Header = () => {
         <div className='Header'>
             <div className='headerContent'>
                 <div className='clgLogoDiv'></div>
-                <h1>ANDHRA POLYTECHNIC</h1>
+                <h1 className='clgTitle'>ANDHRA POLYTECHNIC</h1>
                 <div className='sbtetLogoDiv'></div>
 
             </div>
