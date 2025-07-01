@@ -1,6 +1,14 @@
-//home page
-import React from 'react';
+import React from 'react'
+import HeroSection from '../components/AboutusComponenets/HeroSection'
+import LeaderShip from '../components/AboutusComponenets/LeaderShip'
 
-export default function About() {
-  return <h2>About Page</h2>;
+const About = () => {
+  return (
+    <div className='About'>
+      <HeroSection />
+      <LeaderShip />
+    </div>
+  )
 }
+
+export default About

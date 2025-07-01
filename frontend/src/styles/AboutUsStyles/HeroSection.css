@@ -1,0 +1,86 @@
+.AbouutUsHeroSection {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.AboutClgDiv {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.AboutClg {
+    height: 82%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(165, 164, 164);
+    border-radius: 5px;
+    padding: 1% 1%;
+}
+
+.AboutClgTitle {
+    text-align: center;
+}
+
+.SpanForPara {
+    padding-left: 200px;
+}
+
+.AboutClgNote {}
+
+.clgImg {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AptImg {
+    height: 90%;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.KeyStatsTitle {
+    height: 50px;
+    padding-left: 80px;
+    font-size: 25px;
+    color: rgb(58, 58, 158);
+    font-weight: bold;
+
+}
+
+.KeyStats {
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.StudentsEnrollDiv {
+    padding: 10px 10px;
+    height: 75%;
+    width: 10%;
+    background-color: rgb(165, 164, 164);
+    border-radius: 5px;
+}
+
+.Main {
+    text-align: center;
+    font-size: 25px;
+    color: rgb(58, 58, 158);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.MainPara {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 5px;
+}

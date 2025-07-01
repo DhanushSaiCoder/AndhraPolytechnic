@@ -1,0 +1,52 @@
+.LeaderShip{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.LeadershipDiv{
+    height:400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.PrincipleImg{
+    height: 90%;
+    width:40%;
+}
+
+.PrincipleImg{
+    height:100%;
+    width:100%;
+}
+
+.PrincipleMessage{
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MessageDetails{
+
+}
+
+.MessageTitle{
+    margin-top: 20px;
+}
+
+.MessagePara{
+    margin-top: 20px;   
+}
+
+.SpanForMessage{
+    padding-left: 200px;
+}
+
+.EndParaForMessage{
+    margin-top:20px;
+    text-align: end;
+    padding-right:40px ;
+}
+
