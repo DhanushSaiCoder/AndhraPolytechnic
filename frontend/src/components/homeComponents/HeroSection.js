@@ -1,9 +1,15 @@
 import React from 'react';
-import '../../styles/HomeStyles/HeroSection.css'; // Assuming you have a CSS file for styles
+import '../../styles/HomeStyles/HeroSection.css';
+
+import clgLogo from '../../images/clgLogo.webp'; 
 const HeroSection = () => {
     return (
         <div className='HeroSection'>
-            Herl
+
+            <div className='heroSection_CTADiv'>
+                <h1>Andhra Polytechnic</h1>
+                <p>Kakinada, Andhra Pradesh</p>
+            </div>
         </div>
     );
 }

@@ -1,3 +1,39 @@
-.HeroSection{
-    height: 550px;
+.HeroSection {
+  height: 550px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+
+  /* add a 50% black overlay */
+  background: 
+    linear-gradient(rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.8)),
+    url('../../images/aptCampus.jpeg') center center/cover;
+}
+
+.heroSection_clgLogoDiv img{
+    border-radius: 20px;
+    width: 250px;
+    height: auto;
+    
+}
+
+.heroSection_CTADiv{
+    color: #F9F7F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.heroSection_CTADiv h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.heroSection_CTADiv p {
+    color: #DBE2EF;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
