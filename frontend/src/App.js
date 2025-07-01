@@ -6,6 +6,7 @@ import About from './pages/About';
 import Admissions from './pages/Admissions';
 import Departments from './pages/Departments';
 import Results from './pages/Results';
+import Footer from './components/Footer';
 // import NotFound from './pages/NotFound'; // optional
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
         {/* catch-all route, optional */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
+
+      <Footer />
     </div>
   );
 }
