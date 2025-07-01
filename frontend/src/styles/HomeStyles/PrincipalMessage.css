@@ -1,44 +1,44 @@
-.CommissionerMessage {
+.PrincipalMessage {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-evenly;
     background-color: #dbe2ef40;
     padding: 40px 0;
 }
-.commissionerImgAndName {
+.princialImgAndName {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.commName{
+.prpName{
     font-size: 1.5rem;
     font-weight: 600;
     color: #112D4E;
     margin: 0;
     margin-top: 10px;
 }
-.commName span {
+.prpName span {
     font-weight: 400;
     color: rgb(221, 93, 46);
 }
-.commRole{
+.prpRole{
     font-size: 1.2rem;
     color: #3F72AF;
     margin-top: 5px;
     margin-bottom: 20px;
 }
-.commImg {
+.prpImg {
     aspect-ratio: 1/1;
     width: 200px;
     border-radius: 50%;
     object-fit: cover;
     border: 6px solid #DBE2EF;
 }
-.commMessage{
+.prpMessage{
     width: 35%;
     height: 100%;
     display: flex;
@@ -51,7 +51,7 @@
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
-.commMessage p {
+.prpMessage p {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@
     color: #3F72AF;
 
 }
-.commMessage p svg{
+.prpMessage p svg{
     width: 60px;
     color: #3F72AF;
     margin-right: 10px;

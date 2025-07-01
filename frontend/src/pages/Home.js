@@ -4,11 +4,13 @@ import '../styles/HomeStyles/Home.css';
 import HeroSection from '../components/homeComponents/HeroSection';
 import NoticeBoard from './../components/homeComponents/NoticeBoard';
 import CommissionerMessage from './../components/homeComponents/CommissionerMessage';
+import PrincipalMessage from '../components/homeComponents/PrincipalMessage';
 export default function Home() {
   return (
     <div className='Home'>
       <HeroSection />
       <NoticeBoard />
       <CommissionerMessage />
+      <PrincipalMessage />
     </div>)
 }
