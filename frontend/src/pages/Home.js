@@ -7,6 +7,7 @@ import CommissionerMessage from './../components/homeComponents/CommissionerMess
 import PrincipalMessage from '../components/homeComponents/PrincipalMessage';
 import CurrentInfo from '../components/homeComponents/CurrentInfo';
 import MessageFromLeaders from './../components/homeComponents/MessageFromLeaders';
+import CollegeGallery from './../components/homeComponents/CollegeGallery';
 export default function Home() {
   return (
     <div className='Home'>
@@ -14,5 +15,6 @@ export default function Home() {
       <NoticeBoard />
       <MessageFromLeaders />
       <CurrentInfo />
+      <CollegeGallery />
     </div>)
 }

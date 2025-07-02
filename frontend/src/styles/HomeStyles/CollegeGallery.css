@@ -1,0 +1,39 @@
+.campus-gallery {
+  padding-top: 3rem; /* py-12 */
+  padding-bottom: 3rem;
+  background-color: #ffffff; /* bg-white */
+}
+
+.container {
+  max-width: 1280px; /* roughly matches container mx-auto */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+}
+
+.header {
+  text-align: center; /* text-center */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.25rem; /* md:text-4xl */
+  }
+}
+
+.subtitle {
+  font-size: 1.125rem; /* text-lg */
+  color: #4b5563; /* text-gray-600 */
+  max-width: 42rem; /* max-w-2xl */
+  margin-left: auto; /* mx-auto */
+  margin-right: auto;
+}

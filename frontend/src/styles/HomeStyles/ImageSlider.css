@@ -1,0 +1,142 @@
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.slides-container {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .slides-container {
+    height: 600px;
+  }
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  transition: all 0.7s ease-in-out;
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide.left {
+  transform: translateX(-100%);
+}
+
+.slide.right {
+  transform: translateX(100%);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 1rem;
+}
+
+.arrow.right {
+  right: 1rem;
+}
+
+.arrow:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.4), transparent);
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+}
+
+.slide-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .slide-title {
+    font-size: 2.25rem;
+  }
+}
+
+.slide-subtitle {
+  font-size: 1.125rem;
+  color: #e5e7eb;
+}
+
+.dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active-dot {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+.dot:hover {
+  background: rgba(255,255,255,0.75);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  background: rgba(0,0,0,0.2);
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #60a5fa, #2563eb);
+  transition: width 0.3s ease;
+}
