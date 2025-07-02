@@ -1,0 +1,27 @@
+.MessageFromLeaders {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Message_header {
+    padding-top: 2rem;
+    text-align: center;
+    background-color: #dbe2ef40;
+    width: 100%;
+}
+
+.Message_title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.Message_subtitle {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 32rem;
+    margin: 0 auto;
+}

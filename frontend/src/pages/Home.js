@@ -6,13 +6,13 @@ import NoticeBoard from './../components/homeComponents/NoticeBoard';
 import CommissionerMessage from './../components/homeComponents/CommissionerMessage';
 import PrincipalMessage from '../components/homeComponents/PrincipalMessage';
 import CurrentInfo from '../components/homeComponents/CurrentInfo';
+import MessageFromLeaders from './../components/homeComponents/MessageFromLeaders';
 export default function Home() {
   return (
     <div className='Home'>
       <HeroSection />
       <NoticeBoard />
-      <CommissionerMessage />
-      <PrincipalMessage />
+      <MessageFromLeaders />
       <CurrentInfo />
     </div>)
 }
