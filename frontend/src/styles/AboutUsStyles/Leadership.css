@@ -1,0 +1,100 @@
+.LeaderShip {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.LeadershipDiv {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #DBE2EF40;
+}
+
+.PrincipleImgDiv {
+    height: 90%;
+    width: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.PrincipleImg {
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+}
+
+.PrincipleMessage {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MessageDetails {}
+
+.MessageTitle {
+    margin-top: 20px;
+}
+
+.MessagePara {
+    margin-top: 20px;
+}
+
+.SpanForMessage {
+    padding-left: 200px;
+}
+
+.EndParaForMessage {
+    margin-top: 20px;
+    text-align: end;
+    padding-right: 40px;
+}
+
+.timeline-container {
+    height: 100px;
+    text-align: center;
+    padding: 20px;
+}
+
+.timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #004aad;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    position: relative;
+    text-align: center;
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #004aad;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translateY(-115%);
+}
+
+.timeline-year {
+    color: #004aad;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.timeline-title {
+    margin-top: 5px;
+    font-size: 14px;
+    margin-left: 15px;
+}
