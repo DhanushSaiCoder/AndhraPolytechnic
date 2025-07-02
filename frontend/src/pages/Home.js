@@ -11,7 +11,7 @@ import CollegeGallery from './../components/homeComponents/CollegeGallery';
 export default function Home() {
   return (
     <div className='Home'>
-      <HeroSection />
+      {/* <HeroSection /> */}
       <NoticeBoard />
       <MessageFromLeaders />
       <CurrentInfo />
