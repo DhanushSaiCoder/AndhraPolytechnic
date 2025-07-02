@@ -1,129 +1,141 @@
-
 .footer {
-  background-color: #112D4E; /* gray-900 */
-  color: #ffffff;
-  padding: 3rem 0;
+    background-color: #112d4e; /* gray-900 */
+    color: #ffffff;
+    padding: 3rem 0;
 }
 
 .footer-container {
-  max-width: 112rem;
-  margin: 0 auto;
-  padding: 0 1rem;
+    max-width: 112rem;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
 
 @media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .info-col {
-    grid-column: span 2;
-  }
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .info-col {
+        grid-column: span 2;
+    }
 }
 
 .logo-section {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
 .outer-logo {
-  width: 3rem;
-  height: 3rem;
-  background-color: #2563eb; /* blue-600 */
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: #2563eb; /* blue-600 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
 }
 
 .inner-logo {
-  width: 2rem;
-  height: 2rem;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #2563eb;
-  font-weight: bold;
-  font-size: 0.875rem;
+    width: 2rem;
+    height: 2rem;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    font-weight: bold;
+    font-size: 0.875rem;
 }
 
 .college-name {
-  font-size: 1.5rem;
-  font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: bold;
     margin: 0;
 }
 
 .college-location {
-  color: #9ca3af; /* gray-400 */
-  margin: 0;
+    color: #9ca3af; /* gray-400 */
+    margin: 0;
 }
 
 .college-desc {
-  color: #d1d5db; /* gray-300 */
-  line-height: 1.6;
-  max-width: 35rem;
-  margin-bottom: 1.5rem;
+    color: #d1d5db; /* gray-300 */
+    line-height: 1.6;
+    max-width: 35rem;
+    margin-bottom: 1.5rem;
 }
 
 .contact-list .contact-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
 }
 
 .contact-list svg {
-  color: #60a5fa; /* blue-400 */
-  margin-right: 0.5rem;
+    color: #60a5fa; /* blue-400 */
+    margin-right: 0.5rem;
 }
 
 .links-col h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
 }
 
 .links-col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .links-col li {
-  margin-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .links-col a {
-  color: #d1d5db; /* gray-300 */
-  text-decoration: none;
-  transition: color 0.2s;
+    color: #d1d5db; /* gray-300 */
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
 .links-col a:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .footer-bottom {
-  border-top: 1px solid #374151; /* gray-800 */
-  margin-top: 3rem;
-  padding-top: 2rem;
-  text-align: center;
+    border-top: 1px solid #374151; /* gray-800 */
+    margin-top: 3rem;
+    padding-top: 2rem;
+    text-align: center;
 }
 
 .footer-bottom p {
-  margin: 0.25rem 0;
-  color: #9ca3af; /* gray-400 */
+    margin: 0.25rem 0;
+    color: #9ca3af; /* gray-400 */
 }
 
 .dev-note {
-  font-size: 0.875rem;
-  color: #6b7280; /* gray-500 */
+    font-size: 0.875rem;
+    color: #6b7280; /* gray-500 */
+}
+
+.footerLogo {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: url("../images/clgLogo.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #01a8e9;
+margin-right: 20px;
+    border: 3px solid #dbe2ef;
 }

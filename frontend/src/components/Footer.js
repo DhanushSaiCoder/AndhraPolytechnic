@@ -11,9 +11,8 @@ const Footer = () => {
           {/* College Info */}
           <div className="footer-col info-col">
             <div className="logo-section">
-              <div className="outer-logo">
-                <div className="inner-logo">AP</div>
-              </div>
+              <div className='clgLogoDiv footerLogo'></div>
+
               <div>
                 <h3 className="college-name">ANDHRA POLYTECHNIC</h3>
                 <p className="college-location">Kakinada, Andhra Pradesh</p>
@@ -21,7 +20,7 @@ const Footer = () => {
             </div>
 
             <p className="college-desc">
-              Committed to providing quality technical education and fostering innovation. 
+              Committed to providing quality technical education and fostering innovation.
               Empowering students with the skills and knowledge necessary to excel in their chosen fields.
             </p>
 
@@ -49,7 +48,7 @@ const Footer = () => {
           <div className="footer-col links-col">
             <h4>Quick Links</h4>
             <ul>
-              {['About Us','Admissions','Departments','Faculty','Results','Placements'].map((link, i) => (
+              {['About Us', 'Admissions', 'Departments', 'Faculty', 'Results', 'Placements'].map((link, i) => (
                 <li key={i}><a href="#">{link}</a></li>
               ))}
             </ul>
@@ -59,7 +58,7 @@ const Footer = () => {
           <div className="footer-col links-col">
             <h4>Resources</h4>
             <ul>
-              {['Library','Campus Life','Student Portal','Downloads','Contact Us','Alumni'].map((res, i) => (
+              {['Library', 'Campus Life', 'Student Portal', 'Downloads', 'Contact Us', 'Alumni'].map((res, i) => (
                 <li key={i}><a href="#">{res}</a></li>
               ))}
             </ul>
