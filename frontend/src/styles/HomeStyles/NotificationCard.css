@@ -42,12 +42,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #6b7280;
-  font-size: 0.875rem;
+ color: #3F72AF;
+  font-size: 0.75rem;
   padding-top: 0.5rem;
 }
 
 .notification-card-icon {
-  width: 1rem;
-  height: 1rem;
+  width: .85rem;
+  height: .85rem;
 }
