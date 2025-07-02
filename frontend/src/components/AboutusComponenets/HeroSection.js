@@ -8,7 +8,7 @@ const HeroSection = () => {
         <div className='AbouutUsHeroSection'>
             <div className='AboutClgDiv'>
                 <div className='AboutClg'>
-                    <h1 className='AboutClgTitle'>About Andhra Polytechnic</h1>
+                    <h1 className='AboutClgTitle'>Andhra Polytechnic</h1>
                     <p className='AboutClgNote'><span className='SpanForPara'>Established with a legacy of over 75 years</span>, Andhra Polytechnic stands as a pioneer in technical education. Accredited by NAAC and NBA, the college is renowned for delivering quality education with a strong focus on skill development and industry readiness. With a 75% placement rate, we empower students with practical knowledge, modern facilities, and experienced faculty, shaping them into competent professionals ready for the future.</p>
                 </div>
                 <div className='clgImg'>
