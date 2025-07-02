@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: rgb(165, 164, 164);
+    background-color: #DBE2EF40;
     border-radius: 5px;
     padding: 1% 1%;
 }
@@ -67,7 +67,7 @@
     padding: 10px 10px;
     height: 75%;
     width: 10%;
-    background-color: rgb(165, 164, 164);
+    background-color: #DBE2EF40;
     border-radius: 5px;
 }
 
