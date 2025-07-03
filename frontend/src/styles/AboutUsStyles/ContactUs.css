@@ -56,7 +56,7 @@
   border: 1px solid #f1f5f9;
   border-radius: 1rem;
   padding: 2.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  /* box-shadow: 0 10px 25px rgba(0,0,0,0.05); */
 }
 
 .contact-card__title {
@@ -147,11 +147,11 @@
 
 /* Map Card */
 .map-card {
-  background: #ffffff;
+  background: #G;
   border: 1px solid #f1f5f9;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  /* box-shadow: 0 10px 25px rgba(0,0,0,0.05); */
   display: flex;
   flex-direction: column;
 }
