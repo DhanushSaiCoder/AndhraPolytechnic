@@ -1,27 +1,20 @@
 import React from 'react';
 import '../../styles/AboutUsStyles/Accreditations.css'; // Adjust the path as necessary
+import aicteLogo from '../../images/Aicte.png'; // Example logo import, adjust path as necessary
+import nbaLogo from '../../images/NBA.png';
+
 
 const Accreditations = () => {
   const accreditations = [
     {
       name: 'AICTE',
-      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      logo: aicteLogo,
       alt: 'AICTE Accreditation Logo'
     },
     {
       name: 'NBA',
-      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      logo: nbaLogo,
       alt: 'NBA Accreditation Logo'
-    },
-    {
-      name: 'NAAC',
-      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
-      alt: 'NAAC Accreditation Logo'
-    },
-    {
-      name: 'ISO',
-      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
-      alt: 'ISO Certification Logo'
     }
   ];
 
