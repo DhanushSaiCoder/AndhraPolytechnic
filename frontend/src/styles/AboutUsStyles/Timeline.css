@@ -1,0 +1,154 @@
+/* Timeline.css */
+
+.timeline-section {
+  padding: 4rem 0;
+  background: linear-gradient(to top left, #F9F7F7, #DBE2EF);
+  height: 400px;
+}
+
+.timeline-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.timeline-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4rem;
+}
+
+/* Desktop */
+.timeline-desktop {
+  display: none;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .timeline-desktop {
+    display: block;
+  }
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e2e8f0;
+  transform: translateY(-50%);
+}
+
+.timeline-line-fill {
+  height: 100%;
+  background-color: #2563eb;
+  transition: width 2s ease-out;
+  transition-delay: 0.5s;
+}
+
+.timeline-events {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-year {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-left: 0;
+}
+
+.timeline-node {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 4px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.active-node {
+  background-color: #2563eb;
+  transform: scale(1.1);
+}
+
+.inactive-node {
+  background-color: #cbd5e1;
+  transform: scale(1);
+}
+
+.timeline-card {
+  margin-top: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.active-card {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.inactive-card {
+  transform: translateY(1rem);
+  opacity: 0.6;
+}
+
+/* Mobile */
+.timeline-mobile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .timeline-mobile {
+    display: none;
+  }
+}
+
+.timeline-mobile-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.timeline-mobile-card.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.timeline-mobile-card.hidden {
+  transform: translateX(-2rem);
+  opacity: 0;
+}
+
+.mobile-year {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}

@@ -4,13 +4,6 @@ import '../../styles/AboutUsStyles/Leadership.css'
 
 const LeaderShip = () => {
 
-    const events = [
-    { year: '1946', title: 'Established 1946' },
-    { year: '1993', title: 'NACA Attcitation' },
-    { year: '1988', title: 'AITCE Accreditation' },
-    { year: '2023', title: 'NBA Accreditation' },
-  ];
-
     return (
         <div className='LeaderShip'>
             <div className='LeadershipDiv'>
@@ -25,18 +18,6 @@ const LeaderShip = () => {
                     </div>
                 </div>
             </div>
-            <div className="timeline-container">
-            <h2>Timeline</h2>
-            <div className="timeline">
-                {events.map((event, index) => (
-                    <div key={index} className="timeline-item">
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-year">{event.year}</div>
-                        <div className="timeline-title">{event.title}</div>
-                    </div>
-                ))}
-            </div>
-        </div>
         </div >
     )
 }

@@ -1,24 +1,64 @@
-import React from 'react'
-import AICTE from '../../images/Aicte.png'
-import NBA from '../../images/NBA.png'
-import '../../styles/AboutUsStyles/Accerditations.css'
+import React from 'react';
+import '../../styles/AboutUsStyles/Accreditations.css'; // Adjust the path as necessary
 
-const Accerditations = () => {
+const Accreditations = () => {
+  const accreditations = [
+    {
+      name: 'AICTE',
+      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      alt: 'AICTE Accreditation Logo'
+    },
+    {
+      name: 'NBA',
+      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      alt: 'NBA Accreditation Logo'
+    },
+    {
+      name: 'NAAC',
+      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      alt: 'NAAC Accreditation Logo'
+    },
+    {
+      name: 'ISO',
+      logo: '/lovable-uploads/98c231e0-1d42-4410-99bd-45ee797d5267.png',
+      alt: 'ISO Certification Logo'
+    }
+  ];
+
   return (
-    <div className='Accerditations'>
-      <h1 className='AccerditationsTitle'>Accerditations</h1>
-      <div className='AccerditationsDiv'>
-        <div className='AccerditationsImg'>
-          <img className='AccerditationsLogo' src={AICTE} alt="Aicte Logo" />
-          <p className='Title'>AITCE</p>
+    <section className="accreditations-section">
+      <div className="accreditations-container">
+        <h2 className="accreditations-title">Accreditations</h2>
+        <div className="accreditations-grid">
+          {accreditations.map((accreditation) => (
+            <div
+              key={accreditation.name}
+              className="accreditation-item group"
+              role="listitem"
+              aria-label={`${accreditation.name} Accreditation`}
+            >
+              <div className="accreditation-card">
+                <div className="accreditation-logo">
+                  <img
+                    src={accreditation.logo}
+                    alt={accreditation.alt}
+                    className="logo-img"
+                  />
+                </div>
+              </div>
+              <p className="accreditation-caption">{accreditation.name}</p>
+            </div>
+          ))}
         </div>
-        <div className='AccerditationsImg'>
-          <img className='AccerditationsLogo' src={NBA} alt="Aicte Logo" />
-          <p className='Title1'>NBA</p>
+        <div className="accreditations-trust">
+          <p>
+            Our accreditations reflect our commitment to maintaining the highest standards
+            in technical education and ensuring quality learning experiences for all students.
+          </p>
         </div>
       </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Accerditations
+export default Accreditations;
