@@ -8,7 +8,6 @@ const About = () => {
   return (
     <div className='About'>
       <HeroSection />
-      <LeaderShip />
       <Accerditations />
       <ContactSection />
     </div>
