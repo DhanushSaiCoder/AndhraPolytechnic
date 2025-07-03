@@ -5,7 +5,7 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    padding-top: 20px;
+    padding: 20px 0;
     background-color: #3F72AF;
 }
 .headerNav{
@@ -15,8 +15,13 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: #DBE2EF;
     border-top: 1px solid #112D4E20;
+    background-color: rgba(219, 226, 239, 0.68);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
 }
 .clgTitle{

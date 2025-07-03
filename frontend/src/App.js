@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Admissions from './pages/Admissions';
@@ -13,6 +14,7 @@ function App() {
   return (
     <div>
       <Header /> {/* always visible on all pages */}
+      <NavigationBar />
 
       <Routes>
         <Route path="/" element={<Home />} />
