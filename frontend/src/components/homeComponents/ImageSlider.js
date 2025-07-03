@@ -3,30 +3,34 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import SliderCard from "./SliderCard";
 import "../../styles/HomeStyles/ImageSlider.css"; // Adjust the path as necessary
 
-const slides = [
-  { id: 1, image: "https://picsum.photos/1200/600?random=1", title: "Main Academic Block", subtitle: "Historic architecture housing modern education since 1952" },
-  { id: 2, image: "https://picsum.photos/1200/600?random=2", title: "Innovation Laboratory", subtitle: "State-of-the-art equipment for hands-on technical learning" },
-  { id: 3, image: "https://picsum.photos/1200/600?random=3", title: "Central Library", subtitle: "Extensive collection of technical books and digital resources" },
-  { id: 4, image: "https://picsum.photos/1200/600?random=4", title: "Campus Grounds", subtitle: "Spacious green campus promoting student well-being" },
-  { id: 5, image: "https://picsum.photos/1200/600?random=5", title: "Cultural Activities", subtitle: "Vibrant student life with festivals and competitions" },
-  { id: 6, image: "https://picsum.photos/1200/600?random=6", title: "Engineering Workshop", subtitle: "Advanced machinery for practical engineering experience" }
-];
-
-const ImageSlider = () => {
+const ImageSlider = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || !slides || slides.length === 0) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, slides]);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  const goToSlide = (index) => setCurrentSlide(index);
+  const nextSlide = () => {
+    if (!slides || slides.length === 0) return;
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+  const prevSlide = () => {
+    if (!slides || slides.length === 0) return;
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+  const goToSlide = (index) => {
+    if (!slides || slides.length === 0) return;
+    setCurrentSlide(index);
+  };
+
+  if (!slides || slides.length === 0) {
+    return <div>No slides to display.</div>;
+  }
 
   return (
     <div 

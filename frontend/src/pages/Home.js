@@ -8,6 +8,9 @@ import PrincipalMessage from '../components/homeComponents/PrincipalMessage';
 import CurrentInfo from '../components/homeComponents/CurrentInfo';
 import MessageFromLeaders from './../components/homeComponents/MessageFromLeaders';
 import CollegeGallery from './../components/homeComponents/CollegeGallery';
+import ImageSlider from '../components/homeComponents/ImageSlider';
+
+
 export default function Home() {
   return (
     <div className='Home'>
