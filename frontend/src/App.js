@@ -8,6 +8,7 @@ import Admissions from './pages/Admissions';
 import Departments from './pages/Departments';
 import Results from './pages/Results';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 // import NotFound from './pages/NotFound'; // optional
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     <div>
       <Header /> {/* always visible on all pages */}
       <NavigationBar />
-
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
