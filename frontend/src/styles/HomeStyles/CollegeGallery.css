@@ -37,3 +37,14 @@
   margin-left: auto; /* mx-auto */
   margin-right: auto;
 }
+.acheivements {
+  background-color: #3F72AF; /* bg-white */
+}
+.acheivementsTitle{
+  color: #F9F7F7;
+  margin-bottom: 0;
+}
+.acheivementsSubtitle {
+  color: #bfdbfe;
+  margin-top: 0.5rem; /* mt-2 */
+}

@@ -45,11 +45,11 @@ const achievements = [
 
 const Acheivements = () => {
     return (
-        <div className="campus-gallery">
+        <div className="campus-gallery acheivements">
             <div className="container">
                 <div className="header">
-                    <h2 className="title">Acheivements</h2>
-                    <p className="subtitle">
+                    <h2 className="title acheivementsTitle">Acheivements</h2>
+                    <p className="subtitle acheivementsSubtitle">
                         Discover our learning spaces and student activities
                     </p>
                 </div>
