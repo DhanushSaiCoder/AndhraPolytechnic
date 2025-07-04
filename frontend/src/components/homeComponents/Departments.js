@@ -61,7 +61,7 @@ const departmentsData = [
 
 const Departments = () => {
   return (
-    <section className="departments-section">
+    <section className="departmentsComponent-section">
       <div className="departments-container">
         {/* Header */}
         <div className="departments-header">
