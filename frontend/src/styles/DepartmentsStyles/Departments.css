@@ -1,0 +1,125 @@
+.departments-container {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.department-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.department-card:hover {
+    transform: translateY(-5px);
+}
+
+.department-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.department-icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 1.5rem;
+}
+
+.department-info h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #333;
+}
+
+.department-info p {
+    margin: 0;
+    color: #666;
+}
+
+.department-body p {
+    line-height: 1.6;
+    color: #444;
+}
+
+.department-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.department-details div {
+    text-align: center;
+}
+
+.department-details h4 {
+    margin: 0 0 0.5rem 0;
+    color: #555;
+}
+
+.department-details p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.department-links {
+    margin-top: 1.5rem;
+}
+
+.department-links a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.department-links a:hover {
+    text-decoration: underline;
+}
+
+.labs-section {
+    margin-top: 2rem;
+}
+
+.labs-section h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.labs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.lab-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.lab-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 1.5rem;
+}
+
+.lab-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.lab-info p {
+    margin: 0;
+    color: #666;
+}
