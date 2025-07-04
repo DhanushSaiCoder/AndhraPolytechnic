@@ -95,7 +95,7 @@ const Departments = () => {
                 
                 {/* Icon */}
                 <div className="department-icon">
-                  <IconComponent className="icon" />
+                  <IconComponent className="departmentIcon" />
                 </div>
 
                 {/* Department Code */}
