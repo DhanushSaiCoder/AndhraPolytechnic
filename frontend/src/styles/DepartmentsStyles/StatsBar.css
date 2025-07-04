@@ -1,0 +1,76 @@
+
+.stats-bar {
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stat-icon {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.users-icon {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.award-icon {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.trending-icon {
+  background-color: #fed7aa;
+  color: #ea580c;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.125rem 0;
+}
+
+.stat-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.stat-value-small {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}

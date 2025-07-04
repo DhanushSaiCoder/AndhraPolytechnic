@@ -1,149 +1,234 @@
-.departments-container {
-    padding: 2rem;
-    background-color: #f9f9f9;
+
+.departments-section {
+  padding: 4rem 1rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  min-height: 100vh;
 }
 
+.departments-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: #64748b;
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+.section-divider {
+  width: 6rem;
+  height: 0.25rem;
+  background-color: #2563eb;
+  margin: 1.5rem auto 0;
+  border-radius: 9999px;
+}
+
+/* Departments Grid */
+.departments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .departments-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Department Card */
 .department-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    padding: 2rem;
-    transition: transform 0.3s ease;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .department-card:hover {
-    transform: translateY(-5px);
+  transform: scale(1.02);
+  box-shadow: 0 25px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.department-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
+/* Card Header */
+.card-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 1.5rem;
 }
 
-.department-icon {
-    width: 60px;
-    height: 60px;
-    margin-right: 1.5rem;
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
-.department-info h2 {
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
+.department-emoji {
+  font-size: 2rem;
 }
 
-.department-info p {
-    margin: 0;
-    color: #666;
+.department-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
 }
 
-.department-body p {
-    line-height: 1.6;
-    color: #444;
+.department-head {
+  color: #bfdbfe;
+  font-size: 0.875rem;
+  margin: 0;
 }
 
-.department-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #eee;
+/* Card Content */
+.card-content {
+  padding: 1.5rem;
 }
 
-.department-details div {
-    text-align: center;
+.department-description {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  line-height: 1.625;
 }
 
-.department-details h4 {
-    margin: 0 0 0.5rem 0;
-    color: #555;
-}
-
-.department-details p {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.department-links {
-    margin-top: 1.5rem;
-}
-
-.department-links a {
-    text-decoration: none;
-    color: #007bff;
-    margin-right: 1rem;
-    font-weight: bold;
-}
-
-.department-links a:hover {
-    text-decoration: underline;
-}
-
+/* Labs Section */
 .labs-section {
-    margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
-.labs-section h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1rem;
+.labs-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.labs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+.title-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #2563eb;
+  border-radius: 50%;
 }
 
-.lab-card {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
+/* Card Footer */
+.card-footer {
+  padding: 1.5rem;
+  padding-top: 0;
+  display: flex;
+  gap: 0.75rem;
 }
 
-.lab-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+/* Buttons */
+.btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.lab-card:hover .lab-image {
-    transform: scale(1.05);
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
 }
 
-.lab-info-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    display: flex;
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.btn-secondary:hover {
+  background-color: #eff6ff;
+}
+
+/* Call to Action */
+.cta-section {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.cta-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-width: 32rem;
+  margin: 0 auto;
+  border: 1px solid #e0f2fe;
+}
+
+.cta-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.cta-description {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+  flex: none;
+  padding: 0.75rem 2rem;
+}
+
+@media (max-width: 640px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .departments-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-footer {
     flex-direction: column;
-    justify-content: center;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
     align-items: center;
-    text-align: center;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.lab-card:hover .lab-info-overlay {
-    opacity: 1;
-}
-
-.lab-info-overlay h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
-}
-
-.lab-info-overlay p {
-    margin: 0;
-    font-size: 1rem;
+  }
+  
+  .cta-buttons .btn {
+    width: 100%;
+    max-width: 200px;
+  }
 }
