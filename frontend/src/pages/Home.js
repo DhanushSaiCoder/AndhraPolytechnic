@@ -9,6 +9,7 @@ import CurrentInfo from '../components/homeComponents/CurrentInfo';
 import MessageFromLeaders from './../components/homeComponents/MessageFromLeaders';
 import CollegeGallery from './../components/homeComponents/CollegeGallery';
 import ImageSlider from '../components/homeComponents/ImageSlider';
+import Departments from '../components/homeComponents/Departments';
 
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <NoticeBoard />
       <MessageFromLeaders />
       <CurrentInfo />
+      <Departments />
       <CollegeGallery />
     </div>)
 }
