@@ -210,7 +210,7 @@ const Departments = () => {
           ))}
         </div>
 
-        {/* Call to Action */}
+        {/* Call to Action
         <div className="cta-section">
           <div className="cta-card">
             <h3 className="cta-title">Ready to Start Your Journey?</h3>
@@ -222,7 +222,7 @@ const Departments = () => {
               <button className="btn btn-secondary">Schedule Campus Visit</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

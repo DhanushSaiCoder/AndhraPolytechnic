@@ -9,7 +9,7 @@ const StatsBar = ({ totalSeats, highestPackage, averagePackage }) => {
                 {/* Total Seats */}
                 <div className="stat-item">
                     <div className="stat-icon users-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <svg className='stat-icon-svg' width="16" height="16" viewBox="0 0 24 24" fill="none">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
