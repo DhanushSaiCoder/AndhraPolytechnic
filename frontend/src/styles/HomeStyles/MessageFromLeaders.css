@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
 }
 
 .Message_header {

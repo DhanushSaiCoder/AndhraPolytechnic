@@ -14,6 +14,13 @@ const NavigationBar = () => {
             >
                 Home
             </NavLink>
+             <NavLink
+                to="/departments"
+                className={({ isActive }) => isActive ? 'navLink activeNavLink' : 'navLink'}
+                style={({ isActive }) => ({ marginRight: 10, fontWeight: isActive ? 'bold' : 'normal' })}
+            >
+                Departments
+            </NavLink>
             <NavLink
                 to="/about"
                 className={({ isActive }) => isActive ? 'navLink activeNavLink' : 'navLink'}
@@ -28,13 +35,7 @@ const NavigationBar = () => {
             >
                 Admissions
             </NavLink>
-            <NavLink
-                to="/departments"
-                className={({ isActive }) => isActive ? 'navLink activeNavLink' : 'navLink'}
-                style={({ isActive }) => ({ marginRight: 10, fontWeight: isActive ? 'bold' : 'normal' })}
-            >
-                Departments
-            </NavLink>
+           
             <NavLink
                 to="/results"
                 className={({ isActive }) => isActive ? 'navLink activeNavLink' : 'navLink'}
