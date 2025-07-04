@@ -134,25 +134,7 @@ const Departments = () => {
           })}
         </div>
 
-        {/* CTA Section */}
-        <div className="cta-section">
-          <div className="cta-card">
-            <h3 className="cta-title">
-              Ready to Start Your Journey?
-            </h3>
-            <p className="cta-description">
-              Explore our programs and find the perfect fit for your academic and career goals.
-            </p>
-            <div className="cta-buttons">
-              <button className="btn-primary">
-                Apply Now
-              </button>
-              <button className="btn-secondary">
-                Schedule Visit
-              </button>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </section>
   );
