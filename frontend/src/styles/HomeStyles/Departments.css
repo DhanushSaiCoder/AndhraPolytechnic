@@ -1,0 +1,46 @@
+.Depatments {
+    height: 600px;
+}
+
+.DepatmentsTitleDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.DepatmentsNote {
+    text-align: center;
+}
+
+.DepatmentBranchesDiv{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BranchsDiv{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.BranchsDiv h1{
+    text-align: center;
+}
+
+.SpanForDescription{
+    margin-left: 300px;
+}
+
+.stat-card{
+    height: 100%;
+    width: 100%;
+}
