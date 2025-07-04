@@ -7,6 +7,7 @@ import About from './pages/About';
 import Admissions from './pages/Admissions';
 import Departments from './pages/Departments';
 import Results from './pages/Results';
+import Department from './pages/Department';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 // import NotFound from './pages/NotFound'; // optional
@@ -23,6 +24,7 @@ function App() {
         <Route path="admissions" element={<Admissions />} />
         <Route path="departments" element={<Departments />} />
         <Route path="results" element={<Results />} />
+        <Route path="departments/:deptName" element={<Department />} />
         {/* catch-all route, optional */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
