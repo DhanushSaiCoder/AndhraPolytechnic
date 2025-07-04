@@ -9,7 +9,7 @@ const Departments = () => {
             {departmentsData.map((department) => (
                 <div key={department.id} className='department-card'>
                     <div className='department-header'>
-                        <img src={department.departmentIcon} alt={`${department.departmentName} icon`} className='department-icon' />
+                        <img src={`https://picsum.photos/60?random=${department.id}`} alt={`${department.departmentName} icon`} className='department-icon' />
                         <div className='department-info'>
                             <h2>{department.departmentName}</h2>
                             <p>Head of Department: {department.headOfDepartment}</p>
@@ -41,8 +41,8 @@ const Departments = () => {
                         <div className='labs-grid'>
                             {department.labs.map((lab, index) => (
                                 <div key={index} className='lab-card'>
-                                    <img src={lab.labImage} alt={`${lab.labName} image`} className='lab-image' />
-                                    <div className='lab-info'>
+                                    <img src={`https://picsum.photos/300/200?random=${index}`} alt={`${lab.labName} image`} className='lab-image' />
+                                    <div className="lab-info-overlay">
                                         <h4>{lab.labName}</h4>
                                         <p>{lab.labDescription}</p>
                                     </div>

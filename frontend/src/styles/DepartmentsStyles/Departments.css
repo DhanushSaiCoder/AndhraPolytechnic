@@ -100,26 +100,50 @@
 }
 
 .lab-card {
-    background-color: #f9f9f9;
+    position: relative;
     border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
 }
 
 .lab-image {
-    width: 80px;
-    height: 80px;
-    margin-right: 1.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.lab-info h4 {
+.lab-card:hover .lab-image {
+    transform: scale(1.05);
+}
+
+.lab-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lab-card:hover .lab-info-overlay {
+    opacity: 1;
+}
+
+.lab-info-overlay h4 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-    color: #333;
+    font-size: 1.5rem;
 }
 
-.lab-info p {
+.lab-info-overlay p {
     margin: 0;
-    color: #666;
+    font-size: 1rem;
 }
