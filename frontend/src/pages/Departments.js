@@ -155,7 +155,7 @@ const Departments = () => {
         {/* Departments Grid */}
         <div className="departments-grid">
           {departmentsData.map((department) => (
-            <div key={department.id} className="department-card">
+            <div key={department.id} className="departmentPage-department-card">
               <div className="card-header">
                 <div className="header-content">
                   <span className="department-emoji">{getIconEmoji(department.departmentName)}</span>
