@@ -31,11 +31,11 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <Phone size={18} />
-                <span>+91 884 123 4567</span>
+                <span>099123 42010</span>
               </div>
               <div className="contact-item">
                 <Mail size={18} />
-                <span>info@andhrapolytechnic.edu.in</span>
+                <span>principal_apt@yahoo.co.in</span>
               </div>
               <div className="contact-item">
                 <Globe size={18} />

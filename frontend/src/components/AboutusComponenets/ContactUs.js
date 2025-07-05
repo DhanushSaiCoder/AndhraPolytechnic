@@ -31,8 +31,8 @@ const ContactUs = () => {
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Address</h4>
                   <p className="contact-item__text">
-                    Andhra Polytechnic, Bapatla,<br />
-                    Andhra Pradesh - 522101
+                    Andhra Polytechnic, Kakinada,<br />
+                    Andhra Pradesh - 533002
                   </p>
                 </div>
               </div>
@@ -45,7 +45,8 @@ const ContactUs = () => {
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Phone</h4>
                   <a href="tel:+918643224244" className="contact-item__link">
-                    (08643) 224244
+                    099123 42010
+
                   </a>
                 </div>
               </div>
@@ -57,8 +58,8 @@ const ContactUs = () => {
                 </div>
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Email</h4>
-                  <a href="mailto:info@andhrapolytechnic.edu.in" className="contact-item__link">
-                    info@andhrapolytechnic.edu.in
+                  <a href="mailto:principal_apt@yahoo.co.in" className="contact-item__link">
+                    principal_apt@yahoo.co.in
                   </a>
                 </div>
               </div>
