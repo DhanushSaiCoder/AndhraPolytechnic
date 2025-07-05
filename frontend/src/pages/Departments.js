@@ -146,10 +146,10 @@ const Departments = () => {
         <div className="section-header">
           <h2 className="section-title">Academic Departments</h2>
           <p className="section-description">
-            Explore our diverse range of engineering departments, each equipped with 
-            state-of-the-art facilities and experienced faculty
+            Explore our diverse academic departments, each dedicated to providing quality education and research opportunities. 
+            
           </p>
-          <div className="section-divider"></div>
+          {/* <div className="section-divider"></div> */}
         </div>
 
         {/* Departments Grid */}

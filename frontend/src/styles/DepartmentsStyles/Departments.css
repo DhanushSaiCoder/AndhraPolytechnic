@@ -146,6 +146,7 @@
 /* Card Footer */
 .card-footer {
   padding: 1.5rem;
+  margin-top: 10px;
   padding-top: 0;
   display: flex;
   gap: 0.75rem;
