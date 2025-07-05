@@ -7,7 +7,6 @@ const Timeline = () => {
 
   const events = [
     { year: '1946', label: 'Established 1946', id: '1946' },
-    { year: '1993', label: 'NACA Attolcitation', id: '1993' },
     { year: '1988', label: 'AICTE Accreditation', id: '1988' },
     { year: '2023', label: 'NBA Accreditation', id: '2023' },
   ];
