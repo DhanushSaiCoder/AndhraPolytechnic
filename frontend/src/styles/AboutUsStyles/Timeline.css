@@ -2,7 +2,8 @@
 
 .timeline-section {
   padding: 4rem 0;
-  background-color: #dbe2ef60;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+
   height: 400px;
 }
 
