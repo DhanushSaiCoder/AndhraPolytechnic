@@ -34,6 +34,24 @@
     text-align: center;
     margin: 0;
 }
+.clgSubtitle{
+    font-size: 1.5rem;
+    color: #DBE2EF;
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -1.2px;
+    text-align: center;
+    margin: 0;
+}
+.clgTitleDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #F9F7F7;
+}
 .headerContent{
     width: 100%;
     display: flex;

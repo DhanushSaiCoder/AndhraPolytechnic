@@ -7,7 +7,11 @@ const Header = () => {
         <div className='Header'>
             <div className='headerContent'>
                 <div className='clgLogoDiv'></div>
-                <h1 className='clgTitle'>ANDHRA POLYTECHNIC</h1>
+                <div className='clgTitleDiv'>
+
+                    <h1 className='clgTitle'>ANDHRA POLYTECHNIC</h1>
+                    <h2 className='clgSubtitle'>KAKINADA, ANDHRA PRADESH</h2>
+                </div>
                 <div className='sbtetLogoDiv'></div>
 
             </div>
