@@ -5,16 +5,16 @@ import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessar
 const departmentsData = [
   {
     id: 1,
-    title: "Computer Science & Engineering",
-    code: "CSE",
-    description: "Cutting-edge curriculum in software development, artificial intelligence, and computer systems, preparing students for leadership roles in the tech industry.",
+    title: "Computer Engineering",
+    code: "CE",
+    description: "Focuses on computer systems, software development, and programming, preparing students for leadership roles in the tech industry.",
     icon: Cpu,
     established: "1985",
     students: "850+"
   },
   {
     id: 2,
-    title: "Electronics & Communication",
+    title: "Electronics and Communication Engineering",
     code: "ECE", 
     description: "Advanced training in electronic devices, circuits, and communication systems, building expertise for careers in electronics and telecommunications.",
     icon: Globe,
@@ -23,12 +23,12 @@ const departmentsData = [
   },
   {
     id: 3,
-    title: "Mechanical Engineering",
-    code: "ME",
-    description: "Comprehensive program covering design, manufacturing, and thermal systems, with state-of-the-art labs and industry partnerships.",
-    icon: Building,
-    established: "1970",
-    students: "950+"
+    title: "Electrical Engineering",
+    code: "EE",
+    description: "Deals with the study and application of electricity, electronics, and electromagnetism, preparing students for careers in power, control, and electronics.",
+    icon: BookOpen, // Using BookOpen as a placeholder, consider adding a specific electrical icon if available
+    established: "1975",
+    students: "650+"
   },
   {
     id: 4,
@@ -41,21 +41,30 @@ const departmentsData = [
   },
   {
     id: 5,
-    title: "Business Administration",
-    code: "MBA",
-    description: "Strategic management education with emphasis on leadership, entrepreneurship, and global business perspectives.",
-    icon: Users,
-    established: "1990",
-    students: "420+"
+    title: "Mechanical Engineering",
+    code: "ME",
+    description: "Comprehensive program covering design, manufacturing, and thermal systems, with state-of-the-art labs and industry partnerships.",
+    icon: Building, // Using Building as a placeholder, consider adding a specific mechanical icon if available
+    established: "1970",
+    students: "950+"
   },
   {
     id: 6,
-    title: "Liberal Arts & Sciences",
-    code: "LAS",
-    description: "Interdisciplinary approach to humanities, social sciences, and natural sciences, fostering critical thinking and creativity.",
-    icon: BookOpen,
-    established: "1995",
-    students: "380+"
+    title: "Architecture Engineering",
+    code: "AE",
+    description: "Combines architectural design with engineering principles, focusing on the structural and environmental aspects of buildings.",
+    icon: Building, // Using Building as a placeholder, consider adding a specific architecture icon if available
+    established: "1998",
+    students: "350+"
+  },
+  {
+    id: 7,
+    title: "Automobile Engineering",
+    code: "AUTO",
+    description: "Focuses on the design, manufacturing, and operation of automobiles, including vehicle dynamics, engines, and automotive electronics.",
+    icon: Globe, // Using Globe as a placeholder, consider adding a specific automobile icon if available
+    established: "2005",
+    students: "400+"
   }
 ];
 
