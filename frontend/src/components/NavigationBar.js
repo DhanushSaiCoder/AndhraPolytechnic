@@ -40,7 +40,7 @@ const NavigationBar = () => {
                 className={({ isActive }) => isActive ? 'navLink activeNavLink' : 'navLink'}
                 style={({ isActive }) => ({ marginRight: 10, fontWeight: isActive ? 'bold' : 'normal' })}
             >
-                About
+                About Us
             </NavLink>
         </nav>
     );
