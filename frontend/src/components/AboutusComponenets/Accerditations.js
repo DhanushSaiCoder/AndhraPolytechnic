@@ -9,45 +9,47 @@ const Accreditations = () => {
     {
       name: 'AICTE',
       logo: aicteLogo,
-      alt: 'AICTE Accreditation Logo'
+      alt: 'AICTE Accreditation Logo',
+      description: 'Approved by the All India Council for Technical Education.'
     },
     {
       name: 'NBA',
       logo: nbaLogo,
-      alt: 'NBA Accreditation Logo'
+      alt: 'NBA Accreditation Logo',
+      description: 'Accredited by the National Board of Accreditation.'
     }
   ];
 
   return (
     <section className="accreditations-section">
       <div className="accreditations-container">
-        <h2 className="accreditations-title">Accreditations</h2>
+        <div className="accreditations-header">
+          <h2 className="accreditations-title">Our Accreditations</h2>
+          <p className="accreditations-subtitle">
+            We are proud to be recognized by the following prestigious bodies, a testament to our commitment to academic excellence.
+          </p>
+        </div>
         <div className="accreditations-grid">
           {accreditations.map((accreditation) => (
             <div
               key={accreditation.name}
-              className="accreditation-item group"
+              className="accreditation-card"
               role="listitem"
               aria-label={`${accreditation.name} Accreditation`}
             >
-              <div className="accreditation-card">
-                <div className="accreditation-logo">
-                  <img
-                    src={accreditation.logo}
-                    alt={accreditation.alt}
-                    className="logo-img"
-                  />
-                </div>
+              <div className="accreditation-logo-container">
+                <img
+                  src={accreditation.logo}
+                  alt={accreditation.alt}
+                  className="accreditation-logo"
+                />
               </div>
-              <p className="accreditation-caption">{accreditation.name}</p>
+              <div className="accreditation-content">
+                <h3 className="accreditation-name">{accreditation.name}</h3>
+                <p className="accreditation-description">{accreditation.description}</p>
+              </div>
             </div>
           ))}
-        </div>
-        <div className="accreditations-trust">
-          <p>
-            Our accreditations reflect our commitment to maintaining the highest standards
-            in technical education and ensuring quality learning experiences for all students.
-          </p>
         </div>
       </div>
     </section>
