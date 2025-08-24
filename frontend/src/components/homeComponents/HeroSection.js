@@ -6,7 +6,7 @@ const HeroSection = () => {
     return (
         <div className='HeroSection'>
 
-            <div className='heroSection_CTADiv'>
+            <div className='hero-section-cta-div'>
                 <h1>Andhra Polytechnic</h1>
                 <p>Kakinada, Andhra Pradesh</p>
             </div>

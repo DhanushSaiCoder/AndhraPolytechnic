@@ -1,0 +1,13 @@
+ERROR
+DepartmentsPage is not defined
+ReferenceError: DepartmentsPage is not defined
+    at ./src/pages/DepartmentsPage.js (http://localhost:3000/static/js/bundle.js:42297:65)
+    at options.factory (http://localhost:3000/static/js/bundle.js:45679:30)
+    at __webpack_require__ (http://localhost:3000/static/js/bundle.js:45100:32)
+    at fn (http://localhost:3000/static/js/bundle.js:45307:21)
+    at hotRequire (http://localhost:3000/static/js/bundle.js:45662:47)
+    at ./src/App.js (http://localhost:3000/static/js/bundle.js:36921:80)
+    at options.factory (http://localhost:3000/static/js/bundle.js:45679:30)
+    at __webpack_require__ (http://localhost:3000/static/js/bundle.js:45100:32)
+    at fn (http://localhost:3000/static/js/bundle.js:45307:21)
+    at hotRequire (http://localhost:3000/static/js/bundle.js:45662:47)

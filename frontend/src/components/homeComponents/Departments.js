@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { GraduationCap, Cpu, Building, Users, Globe, BookOpen } from 'lucide-react';
 import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessary
@@ -6,7 +5,7 @@ const departmentsData = [
   {
     id: 1,
     title: "Computer Engineering",
-    code: "CE",
+    code: "CME",
     description: "Focuses on computer systems, software development, and programming, preparing students for leadership roles in the tech industry.",
     icon: Cpu,
     established: "1985",
@@ -24,7 +23,7 @@ const departmentsData = [
   {
     id: 3,
     title: "Electrical Engineering",
-    code: "EE",
+    code: "EEE",
     description: "Deals with the study and application of electricity, electronics, and electromagnetism, preparing students for careers in power, control, and electronics.",
     icon: BookOpen, // Using BookOpen as a placeholder, consider adding a specific electrical icon if available
     established: "1975",
@@ -104,7 +103,7 @@ const Departments = () => {
                 
                 {/* Icon */}
                 <div className="department-icon">
-                  <IconComponent className="departmentIcon" />
+                  <IconComponent />
                 </div>
 
                 {/* Department Code */}

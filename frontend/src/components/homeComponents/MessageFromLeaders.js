@@ -7,7 +7,7 @@ const MessageFromLeaders = () => {
         <div className='MessageFromLeaders'>
             <div className="Message_header">
                 <h1 className="Message_title">Message From Leaders</h1>
-                <p className="Message_subtitle">
+                <p className="message-subtitle">
                     A Message to Encourage and Guide
                 </p>
             </div>
