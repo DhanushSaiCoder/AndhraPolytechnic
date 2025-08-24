@@ -101,4 +101,10 @@
     color: #112D4E;
     text-decoration: none;
     text-transform: uppercase;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.navLink:hover {
+    color: #3F72AF; /* Change text color on hover */
+    background-color: #3F72AF10; /* Light background on hover */
 }
