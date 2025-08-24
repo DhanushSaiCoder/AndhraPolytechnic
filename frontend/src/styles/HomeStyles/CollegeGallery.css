@@ -2,6 +2,7 @@
   padding-top: 3rem; /* py-12 */
   padding-bottom: 3rem;
   background-color: #F9F7F7; /* bg-white */
+  
 }
 
 .container {
@@ -20,7 +21,7 @@
 .title {
   font-size: 1.875rem; /* text-3xl */
   font-weight: 700; /* font-bold */
-  color: #112D4E; /* text-gray-800 */
+  color: #F9F7F7;
   margin-bottom: 1rem; /* mb-4 */
 }
 
