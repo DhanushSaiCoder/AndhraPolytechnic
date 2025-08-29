@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageSlider from '../homeComponents/ImageSlider';
+import ImageSlider from '../HomeComponents/ImageSlider';
 import '../../styles/HomeStyles/CollegeGallery.css'; // Adjust the path as necessary
 
 const achievements = [
@@ -48,8 +48,8 @@ const Acheivements = () => {
         <div className="campus-gallery acheivements">
             <div className="container">
                 <div className="header">
-                    <h2 className="title acheivementsTitle">Acheivements</h2>
-                    <p className="subtitle acheivementsSubtitle">
+                    <h2 className="title acheivementsTitle">Achievements</h2>
+                    <p className="subtitle achievementsSubtitle">
                         Discover our learning spaces and student activities
                     </p>
                 </div>

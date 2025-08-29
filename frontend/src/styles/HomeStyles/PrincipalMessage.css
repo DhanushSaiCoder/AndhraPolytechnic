@@ -38,7 +38,7 @@
     object-fit: cover;
     border: 6px solid #DBE2EF;
 }
-.prpMessage{
+.prp-message{
     width: 35%;
     height: 100%;
     display: flex;
@@ -52,7 +52,7 @@
 
 }
 
-.prpMessage p {
+.prp-message p {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +62,7 @@
     color: #3F72AF;
 
 }
-.prpMessage p svg{
+.prp-message p svg{
     width: 60px;
     color: #3F72AF;
     margin-right: 10px;

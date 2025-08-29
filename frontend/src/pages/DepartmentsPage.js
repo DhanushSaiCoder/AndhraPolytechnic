@@ -1,7 +1,7 @@
 
 import React from 'react';
-import LabCarousel from '../components/departmentsComponents/LabCarousel';
-import StatsBar from '../components/departmentsComponents/StatsBar';
+import LabCarousel from '../components/DepartmentsComponents/LabCarousel';
+import StatsBar from '../components/DepartmentsComponents/StatsBar';
 import '../styles/DepartmentsStyles/Departments.css'; // Adjust the path as necessary
 import {departmentsData} from '../data/departmentsData'; // Adjust the path as necessary
 
@@ -20,7 +20,7 @@ const getIconEmoji = (departmentName) => {
   }
 };
 
-const Departments = () => {
+const DepartmentsPage = () => {
   return (
     <section className="departments-section">
       <div className="departments-container">
@@ -37,7 +37,7 @@ const Departments = () => {
         {/* Departments Grid */}
         <div className="departments-grid">
           {departmentsData.map((department) => (
-            <div key={department.id} className="departmentPage-department-card">
+            <div key={department.id} className="department-page-department-card">
               <div className="card-header">
                 <div className="header-content">
                   <span className="department-emoji">{getIconEmoji(department.departmentName)}</span>
@@ -54,7 +54,7 @@ const Departments = () => {
                 {/* Stats Bar */}
                 <StatsBar 
                   totalSeats={department.totalSeats}
-                  highestPackage={`${department.highestPackage.packageCTC} (${department.highestPackage.companyName})`}
+                  highestPackageInfo={department.highestPackage}
                   averagePackage={department.averagePackage}
                 />
 
@@ -110,4 +110,4 @@ const Departments = () => {
   );
 };
 
-export default Departments;
+export default DepartmentsPage;

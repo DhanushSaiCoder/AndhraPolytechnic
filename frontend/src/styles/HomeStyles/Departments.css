@@ -122,9 +122,10 @@ html {
 
 .department-card:hover .department-icon {
     transform: scale(1.1);
+
 }
 
-.departmentIcon {
+.department-icon svg {
     width: 2rem;
     height: 2rem;
     color: white;
@@ -140,8 +141,8 @@ html {
 
 .department-code {
     padding: 0.25rem 0.75rem;
-    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
-    color: white;
+    background-color: #E6F2FF;
+    color: #2563EB;
     font-size: 0.875rem;
     font-weight: 600;
     border-radius: 9999px;

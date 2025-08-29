@@ -10,7 +10,7 @@ const PrincipalMessage = () => {
                 <p className='prpRole'>Principal</p>
             </div>
 
-            <div className='prpMessage'>
+            <div className='prp-message'>
                 <p>
                     Dear Students, Faculty, and Esteemed Visitors,
 
