@@ -1,7 +1,7 @@
 # Andhra Polytechnic — Official Website
 
 <div align="center">
-  <img src="frontend/build/clgLogo.png" alt="College Logo" width="140"/>
+  <img src="frontend/src/images/clgLogo.png" alt="College Logo" width="140"/>
   <h3>Andhra Polytechnic, Kakinada, Andhra Pradesh</h3>
   <p>
     **This repo hosts the official website for Andhra Polytechnic.**
