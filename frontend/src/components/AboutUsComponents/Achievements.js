@@ -48,7 +48,7 @@ const Acheivements = () => {
         <div className="campus-gallery acheivements">
             <div className="container">
                 <div className="header">
-                    <h2 className="title achievementsTitle">Achievements</h2>
+                    <h2 className="title acheivementsTitle">Achievements</h2>
                     <p className="subtitle achievementsSubtitle">
                         Discover our learning spaces and student activities
                     </p>

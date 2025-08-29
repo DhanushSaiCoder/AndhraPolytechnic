@@ -17,7 +17,7 @@ const CollegeGallery = () => {
     <div className="campus-gallery">
       <div className="container">
         <div className="header">
-          <h2 className="title" sx={{color: "#F9F7F7"}}>Campus Gallery</h2>
+          <h2 className="title" >Campus Gallery</h2>
           <p className="subtitle">
             Discover our learning spaces and student activities
           </p>
