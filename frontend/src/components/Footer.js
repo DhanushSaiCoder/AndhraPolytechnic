@@ -67,7 +67,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>© 2025 Andhra Polytechnic. All rights reserved.</p>
-          <p className="dev-note">Developed with ❤️ for educational excellence</p>
+          <p className="dev-note">Developed with ❤️ by 2023 CME <a href='#devs'>Students</a>.</p>
         </div>
       </div>
     </footer>

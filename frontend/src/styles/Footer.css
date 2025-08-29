@@ -127,6 +127,16 @@
     color: #6b7280; /* gray-500 */
 }
 
+.dev-note a {
+    color: #60a5fa; /* A lighter blue, similar to other links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dev-note a:hover {
+    text-decoration: underline; /* Add underline on hover for interactivity */
+}
+
 .footerLogo {
     width: 55px;
     height: 55px;
