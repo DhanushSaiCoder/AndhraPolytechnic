@@ -90,6 +90,13 @@
     transform: scale(0.95); /* Slightly shrink the link on click */
 }
 
+.currentPageName {
+  font-size: 1.2rem; /* Adjust as needed */
+  color: var(--nav-text); /* Use existing nav text color */
+  font-weight: bold;
+  display: none; /* Hidden by default, shown on mobile */
+}
+
 /* -----------------------
   Shared variables & small tweaks
    ----------------------- */
@@ -221,113 +228,399 @@
 }
 
 @media (max-width: 600px) {
-    /* stack header vertically */
-    .headerContent {
-        flex-direction: column;
-        gap: 8px;
-        padding: 12px 8px;
-    }
+  /* stack header vertically */
+  .headerContent {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 8px;
+  }
 
-    .clgTitle {
-        font-size: 1.6rem;
-        letter-spacing: -1.2px;
-    }
-    .clgSubtitle {
-        font-size: 1rem;
-        letter-spacing: -0.6px;
-    }
+  .clgTitle {
+    font-size: 1.6rem;
+    letter-spacing: -1.2px;
+  }
+  .clgSubtitle {
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+  }
 
-    /* show hamburger, move links into overlay below header */
-    .hamburger {
-        display: inline-flex;
-    }
+  /* show hamburger, move links into overlay below header */
+  .hamburger {
+    display: inline-flex;
+  }
 
-    /* hide default navLinks row; we'll use the panel approach */
-    .navLinks {
-        position: absolute;
-        right: 0;
-        left: 0;
-        top: 100%; /* drop down below headerNav */
-        background: #dbe2ef;
-        border-top: 1px solid rgba(17, 45, 78, 0.08);
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 280ms ease;
-        z-index: 999;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-    }
+  /* Adjust navInner for mobile to place page name next to hamburger */
+  .headerNav .navInner {
+    justify-content: flex-start; /* Align items to the start */
+    gap: 10px; /* Space between hamburger and page name */
+  }
 
-    /* when open, allow it to expand - max-height large enough to fit links */
-    .navLinks.open {
-        max-height: 1000px; /* large value for smooth transition */
-        padding: 0;
-    }
+  .currentPageName {
+    display: block; /* Show page name on mobile */
+  }
 
-    .navLink {
-        width: 100%;
-        padding: 12px 16px 12px 72px;
-        justify-content: flex-start;
-        border-radius: 0;
-        text-align: left;
-    }
+  /* hide default navLinks row; we'll use the panel approach */
+  .navLinks {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 100%; /* drop down below headerNav */
+    background: #dbe2ef;
+    border-top: 1px solid rgba(17, 45, 78, 0.08);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 280ms ease;
+    z-index: 999;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  }
 
-    .navLink + .navLink {
-        border-top: 1px solid rgba(17, 45, 78, 0.04);
-    }
+  /* Hide navLinks when menu is closed, but ensure it's still absolute */
+  .navLinks:not(.open) {
+    display: none; /* Hide when not open */
+  }
 
-    .activeNavLink {
-        border-bottom: none;
-        background-color: rgba(63, 114, 175, 0.08);
-        color: var(--primary);
-    }
+  /* when open, allow it to expand - max-height large enough to fit links */
+  .navLinks.open {
+    max-height: 1000px; /* large value for smooth transition */
+    padding: 0;
+  }
 
-    /* optional: hide the right logo on small screens to save space */
-    .rightLogo {
-        display: none;
-    }
+  .navLink {
+    width: 100%;
+    padding: 12px 16px 12px 72px;
+    justify-content: flex-start;
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .navLink + .navLink {
+    border-top: 1px solid rgba(17, 45, 78, 0.04);
+  }
+
+  .activeNavLink {
+    border-bottom: none;
+    background-color: rgba(63, 114, 175, 0.08);
+    color: var(--primary);
+  }
+
+  /* optional: hide the right logo on small screens to save space */
+  .rightLogo {
+    display: none;
+  }
 }
 
 /* tidy up small spacing for tablet */
 @media (min-width: 601px) and (max-width: 900px) {
-    .headerContent {
-        gap: 20px;
-        padding: 16px 8px;
-    }
-    .logoWrap {
-        width: 90px;
-        height: 90px;
-    }
-    .clgTitle {
-        font-size: 2.4rem;
-    }
-    .clgSubtitle {
-        font-size: 1.2rem;
-    }
+  .headerContent {
+    gap: 20px;
+    padding: 16px 8px;
+  }
+  .logoWrap {
+    width: 90px;
+    height: 90px;
+  }
+  .clgTitle {
+    font-size: 2.4rem;
+  }
+  .clgSubtitle {
+    font-size: 1.2rem;
+  }
 }
 
 /* keep desktop nav as before but ensure it's centered and responsive */
 @media (min-width: 901px) {
-    .headerContent {
-        flex-direction: row;
+  .headerContent {
+    flex-direction: row;
+  }
+  .headerNav {
+    height: 56px;
+    align-items: center;
+    background-color: var(--muted-bg);
+  }
+  .headerNav .navInner {
+    justify-content: center;
+    height: 100%;
+  }
+  .navLinks {
+    gap: 14px;
+    height: 100%;
+  }
+  .navLink {
+    padding: 0 12px;
+    height: 100%;
+  }
+  .currentPageName {
+    display: none; /* Hide page name on desktop */
+  }
+}
+
+
+.currentPageName {
+  font-size: 1.2rem; /* Adjust as needed */
+  color: var(--nav-text); /* Use existing nav text color */
+  font-weight: bold;
+  display: none; /* Hidden by default, shown on mobile */
+}
+
+/* -----------------------
+  Shared variables & small tweaks
+   ----------------------- */
+:root {
+    --primary: #3f72af;
+    --muted-bg: rgba(219, 226, 239, 0.68);
+    --nav-text: #112d4e;
+}
+
+/* Make header content more flexible */
+.logoWrap {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.clgLogoImg,
+.sbtetLogoImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 3px solid #dbe2ef;
+    background-color: #01a8e9;
+}
+.sbtetLogoImg {
+    object-fit: cover;
+}
+
+/* navInner keeps hamburger and navLinks grouped */
+.headerNav .navInner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: relative;
+}
+
+/* Hamburger button */
+.hamburger {
+    display: none; /* shown on small screens later */
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    outline: none;
+    --hb-color: var(--nav-text, #112d4e);
+}
+
+/* Hamburger -> X (pixel-perfect, accessible, production-ready) */
+/* Ensure SVG is treated as a layout element and use high-quality rendering */
+.hamburger svg {
+    display: block;
+}
+
+/* Common: rotate/translate around each rect's own center consistently */
+.hamburger svg rect {
+    fill: var(--hb-color);
+    /* Make transforms use the element's bounding box (reliable across browsers) */
+    transform-box: fill-box;
+    transform-origin: center;
+    /* Smooth, slightly snappy motion for transform and opacity */
+    transition: transform 320ms cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 180ms linear;
+    will-change: transform, opacity;
+    /* Improve rendering on some devices */
+    shape-rendering: geometricPrecision;
+}
+
+/* Middle bar: keep it visible normally, then shrink+fade on active */
+.hamburger svg rect:nth-child(2) {
+    transition: transform 220ms cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 140ms linear;
+    transform-origin: center;
+}
+
+/* Active state: top and bottom move to the vertical center and rotate, middle collapses */
+.hamburger.is-active svg rect:nth-child(1) {
+    /* Move down to center and rotate 45deg — movement and rotation around its center */
+    transform: translateY(30px) rotate(45deg);
+    opacity: 1;
+}
+
+.hamburger.is-active svg rect:nth-child(2) {
+    /* Shrink horizontally and fade out instead of just hiding — keeps the center perfect */
+    transform: scaleX(0.05);
+    opacity: 0;
+}
+
+.hamburger.is-active svg rect:nth-child(3) {
+    /* Move up to center and rotate -45deg */
+    transform: translateY(-30px) rotate(-45deg);
+    opacity: 1;
+}
+
+/* Optional: keyboard focus ring on the button for accessibility */
+.hamburger:focus {
+    outline: none;
+}
+.hamburger:focus-visible {
+    box-shadow: 0 0 0 3px rgba(63, 114, 175, 0.18);
+    border-radius: 6px;
+}
+
+/* container for links (desktop: row, mobile: will become column) */
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Mobile styles: collapse navLinks into a vertical panel */
+@media (max-width: 900px) {
+    .clgTitle {
+        font-size: 2.2rem;
     }
-    .headerNav {
-        height: 56px;
-        align-items: center;
-        background-color: var(--muted-bg);
+    .clgSubtitle {
+        font-size: 1.1rem;
     }
-    .headerNav .navInner {
-        justify-content: center;
-        height: 100%;
+    .logoWrap {
+        width: 80px;
+        height: 80px;
     }
-    .navLinks {
-        gap: 14px;
-        height: 100%;
-    }
-    .navLink {
-        padding: 0 12px;
-        height: 100%;
-    }
+}
+
+@media (max-width: 600px) {
+  /* stack header vertically */
+  .headerContent {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 8px;
+  }
+
+  .clgTitle {
+    font-size: 1.6rem;
+    letter-spacing: -1.2px;
+  }
+  .clgSubtitle {
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+  }
+
+  /* show hamburger, move links into overlay below header */
+  .hamburger {
+    display: inline-flex;
+  }
+
+  /* Adjust navInner for mobile to place page name next to hamburger */
+  .headerNav .navInner {
+    justify-content: flex-start; /* Align items to the start */
+    gap: 10px; /* Space between hamburger and page name */
+  }
+
+  .currentPageName {
+    display: block; /* Show page name on mobile */
+  }
+
+  /* hide default navLinks row; we'll use the panel approach */
+  .navLinks {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 100%; /* drop down below headerNav */
+    background: #dbe2ef;
+    border-top: 1px solid rgba(17, 45, 78, 0.08);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 280ms ease;
+    z-index: 999;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Hide navLinks when menu is closed, but ensure it's still absolute */
+  .navLinks:not(.open) {
+    display: none; /* Hide when not open */
+  }
+
+  /* when open, allow it to expand - max-height large enough to fit links */
+  .navLinks.open {
+    max-height: 1000px; /* large value for smooth transition */
+    padding: 0;
+  }
+
+  .navLink {
+    width: 100%;
+    padding: 12px 16px 12px 72px;
+    justify-content: flex-start;
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .navLink + .navLink {
+    border-top: 1px solid rgba(17, 45, 78, 0.04);
+  }
+
+  .activeNavLink {
+    border-bottom: none;
+    background-color: rgba(63, 114, 175, 0.08);
+    color: var(--primary);
+  }
+
+  /* optional: hide the right logo on small screens to save space */
+  .rightLogo {
+    display: none;
+  }
+}
+
+/* tidy up small spacing for tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+  .headerContent {
+    gap: 20px;
+    padding: 16px 8px;
+  }
+  .logoWrap {
+    width: 90px;
+    height: 90px;
+  }
+  .clgTitle {
+    font-size: 2.4rem;
+  }
+  .clgSubtitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* keep desktop nav as before but ensure it's centered and responsive */
+@media (min-width: 901px) {
+  .headerContent {
+    flex-direction: row;
+  }
+  .headerNav {
+    height: 56px;
+    align-items: center;
+    background-color: var(--muted-bg);
+  }
+  .headerNav .navInner {
+    justify-content: center;
+    height: 100%;
+  }
+  .navLinks {
+    gap: 14px;
+    height: 100%;
+  }
+  .navLink {
+    padding: 0 12px;
+    height: 100%;
+  }
+  .currentPageName {
+    display: none; /* Hide page name on desktop */
+  }
 }

@@ -32,6 +32,14 @@ const NavigationBar = () => {
     { to: '/about', label: 'About Us' },
   ];
 
+  // Derive current page name
+  const currentPage = links.find(link => {
+    if (link.exact) {
+      return location.pathname === link.to;
+    }
+    return location.pathname.startsWith(link.to);
+  })?.label || 'Page'; // Default to 'Page' if not found
+
   return (
     <nav className="headerNav" role="navigation" aria-label="Main">
       <div className="navInner" ref={navRef}>
@@ -49,6 +57,9 @@ const NavigationBar = () => {
             <rect y="60" width="100" height="12" rx="8"></rect>
           </svg>
         </button>
+
+        {/* Display current page name */}
+        <span className="currentPageName">{currentPage}</span>
 
         <div
           id="primary-navigation"
