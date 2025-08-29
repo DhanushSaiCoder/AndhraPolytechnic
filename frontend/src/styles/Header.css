@@ -97,11 +97,15 @@
 
 }
 .navLink{
+    height: 100%;
     padding: 0 10px;
     color: #112D4E;
     text-decoration: none;
     text-transform: uppercase;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navLink:hover {
