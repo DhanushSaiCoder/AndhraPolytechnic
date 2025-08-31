@@ -16,6 +16,7 @@ const NavigationBar = () => {
   // Close when clicking outside (nice touch)
   useEffect(() => {
     const handleClick = (e) => {
+      // if open and click is outside navInner -> close
       if (open && navRef.current && !navRef.current.contains(e.target)) {
         setOpen(false);
       }
@@ -38,34 +39,44 @@ const NavigationBar = () => {
       return location.pathname === link.to;
     }
     return location.pathname.startsWith(link.to);
-  })?.label || 'Page'; // Default to 'Page' if not found
+  })?.label || 'Page';
 
   return (
-    <nav className="headerNav" role="navigation" aria-label="Main">
+    <nav
+      className={`headerNav ${open ? 'open' : ''}`}
+      role="navigation"
+      aria-label="Main"
+    >
+      {/* BACKDROP: always present so it can fade in/out smoothly */}
+      <div
+        className="nav-backdrop"
+        onClick={() => setOpen(false)}
+        aria-hidden={!open}
+      />
+
       <div className="navInner" ref={navRef}>
         <button
           className={`hamburger ${open ? 'is-active' : ''}`}
           onClick={() => setOpen(v => !v)}
           aria-controls="primary-navigation"
           aria-expanded={open}
-          aria-label="Toggle navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
         >
-          {/* Simple accessible SVG hamburger */}
-          <svg width="28" height="28" viewBox="0 0 100 80" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 100 80" aria-hidden="true" focusable="false">
             <rect width="100" height="12" rx="8"></rect>
             <rect y="30" width="100" height="12" rx="8"></rect>
             <rect y="60" width="100" height="12" rx="8"></rect>
           </svg>
         </button>
 
-        {/* Display current page name */}
         <span className="currentPageName">{currentPage}</span>
 
         <div
           id="primary-navigation"
           className={`navLinks ${open ? 'open' : ''}`}
+          aria-hidden={!open}
         >
-          {links.map(({ to, label, exact }) => (
+          {links.map(({ to, label, exact }, index) => (
             <NavLink
               key={to}
               to={to}
@@ -73,8 +84,12 @@ const NavigationBar = () => {
               className={({ isActive }) =>
                 isActive ? 'navLink activeNavLink' : 'navLink'
               }
-              style={({ isActive }) => ({ marginRight: 10, fontWeight: isActive ? 'bold' : 'normal' })}
-              onClick={() => setOpen(false)} // close on click
+              style={{
+                marginRight: 10,
+                fontWeight: undefined, // keep CSS control
+                '--i': index // used for stagger when open
+              }}
+              onClick={() => setOpen(false)}
             >
               {label}
             </NavLink>
