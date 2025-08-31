@@ -85,3 +85,29 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+@media (max-width: 768px) {
+  .notice-board {
+    padding: 2rem 1rem;
+  }
+
+  .notice-board-title {
+    font-size: 1.75rem;
+  }
+
+  .notice-board-subtitle {
+    font-size: 1rem;
+  }
+
+  .notice-board-grid {
+    gap: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .section-header {
+    margin-bottom: 1rem;
+  }
+}
