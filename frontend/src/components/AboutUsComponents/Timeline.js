@@ -28,7 +28,7 @@ const Timeline = () => {
       { threshold: 0.3 }
     );
 
-    const timelineElement = document.getElementById('timeline-container');
+    const timelineElement = document.querySelector('.timeline-container');
     if (timelineElement) {
       observer.observe(timelineElement);
     }
@@ -42,7 +42,7 @@ const Timeline = () => {
         <h2 className="timeline-title">Timeline</h2>
 
         {/* Desktop Timeline */}
-        <div id="timeline-container" className="timeline-desktop">
+        <div className="timeline-desktop">
           <div className="timeline-line">
             <div
               className="timeline-line-fill"
@@ -82,16 +82,20 @@ const Timeline = () => {
 
         {/* Mobile Timeline */}
         <div className="timeline-mobile">
+          <div className="timeline-mobile-line">
+            <div className="timeline-mobile-line-fill" style={{ height: isVisible ? '100%' : '0%' }}></div>
+          </div>
           {events.map((event, index) => (
-            <div
-              key={event.id}
-              className={`timeline-mobile-card ${isVisible ? 'visible' : 'hidden'}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-              role="listitem"
-              aria-label={`${event.year} ${event.label}`}
+            <div 
+              key={event.id} 
+              className="timeline-mobile-event"
+              style={{ top: `${(index / (events.length - 1)) * 100}%` }}
             >
-              <span className="mobile-year">{event.year}</span>
-              <p>{event.label}</p>
+              <div className={`timeline-mobile-node ${animatedNodes.has(event.id) ? 'active' : ''}`}></div>
+              <div className={`timeline-mobile-event-content ${isVisible ? 'visible' : 'hidden'}`}>
+                <span className="mobile-year">{event.year}</span>
+                <p className="mobile-label">{event.label}</p>
+              </div>
             </div>
           ))}
         </div>
