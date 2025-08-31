@@ -1,6 +1,7 @@
 // frontend/src/components/NavigationBar.js
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { LogIn } from 'lucide-react';
 import "../styles/Header.css";
 
 const NavigationBar = () => {
@@ -96,6 +97,11 @@ const NavigationBar = () => {
           ))}
         </div>
       </div>
+      {/* Login Button for Mobile */}
+      <NavLink to="/login" className="loginButton">
+        <LogIn size={20} />
+        <span>Login</span>
+      </NavLink>
     </nav>
   );
 }

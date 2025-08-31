@@ -26,7 +26,6 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    border-top: 1px solid #112d4e20;
     background-color: rgba(219, 226, 239, 0.68);
     position: sticky;
     top: 0;
@@ -401,5 +400,35 @@
     }
     .currentPageName {
         display: none; /* Hide page name on desktop */
+    }
+}
+
+/* Login Button Styles */
+.loginButton {
+    height: 100%; /* Takes 100% of nav bar height */
+    background-color: #3f72af20;
+    
+    border-radius: 0; /* No border radius */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        color: #3f72af;
+
+    padding: 0 15px; /* Add some padding */
+    text-decoration: none; /* Remove underline for NavLink */
+    font-weight: bold;
+    gap: 5px; /* Space between icon and text */
+    margin-left: auto; /* Push to the right */
+}
+
+.loginButton:hover {
+    background-color: var(--primary); /* Keep same background on hover */
+    opacity: 0.9; /* Slight opacity change on hover */
+}
+
+/* Hide login button on desktop */
+@media (min-width: 601px) {
+    .loginButton {
+        display: none;
     }
 }
