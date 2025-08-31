@@ -287,7 +287,7 @@
         width: 80%; /* Changed from 85% to 80% */
         max-width: 420px;
         background: #dbe2ef;
-        border-left: 1px solid rgba(17, 45, 78, 0.08);
+        /* border-left: 1px solid rgba(17, 45, 78, 0.08); */
         flex-direction: column;
         align-items: center;
         gap: 0;
@@ -403,17 +403,15 @@
     }
 }
 
-/* Login Button Styles */
+/* Login Button Styles - Mobile */
 .loginButton {
     height: 100%; /* Takes 100% of nav bar height */
     background-color: #3f72af20;
-    
     border-radius: 0; /* No border radius */
     display: flex;
     align-items: center;
     justify-content: center;
-        color: #3f72af;
-
+    color: #3f72af;
     padding: 0 15px; /* Add some padding */
     text-decoration: none; /* Remove underline for NavLink */
     font-weight: bold;
@@ -422,13 +420,48 @@
 }
 
 .loginButton:hover {
-    background-color: var(--primary); /* Keep same background on hover */
+    background-color: var(--primary);
+    color: white;
     opacity: 0.9; /* Slight opacity change on hover */
 }
 
-/* Hide login button on desktop */
+/* Desktop Login Button Styles */
+.desktopLoginButton {
+    height: 100%;
+    background-color: #3f72af20;
+    border-radius: 0;
+    display: none; /* Hidden by default, shown on desktop */
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    padding: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    gap: 5px;
+    margin-left: 10px;
+    transition: background-color .3s ease-in-out ;
+}
+
+.desktopLoginButton:hover {
+    background-color: var(--primary);
+    color: white;
+    opacity: 0.9;
+}
+
+/* Hide mobile login button on desktop, show desktop login button */
 @media (min-width: 601px) {
     .loginButton {
         display: none;
+    }
+    
+    .desktopLoginButton {
+        display: flex;
+    }
+}
+
+/* Hide desktop login button on mobile */
+@media (max-width: 600px) {
+    .desktopLoginButton {
+        display: none !important;
     }
 }

@@ -95,6 +95,12 @@ const NavigationBar = () => {
               {label}
             </NavLink>
           ))}
+          
+          {/* Login Button for Desktop */}
+          <NavLink to="/login" className="desktopLoginButton">
+            <LogIn size={20} />
+            <span>Login</span>
+          </NavLink>
         </div>
       </div>
       {/* Login Button for Mobile */}
