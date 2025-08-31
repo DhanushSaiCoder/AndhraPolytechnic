@@ -275,7 +275,7 @@
     top: 0; /* Changed from 45px to 0 */
     right: 0;
     bottom: 0;
-    width: 78%;
+    width: 80%; /* Changed from 85% to 80% */
     max-width: 420px;
     background: #dbe2ef;
     border-left: 1px solid rgba(17,45,78,0.08);
@@ -283,8 +283,8 @@
     align-items: center;
     gap: 0;
     overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 380ms cubic-bezier(.22,.9,.37,1);
+    transform: translateX(100%) translateZ(0) !important; /* Added translateZ(0) */
+    transition: transform 380ms cubic-bezier(.22,.9,.37,1) !important;
     will-change: transform;
     z-index: 999;
     box-shadow: -6px 0 12px rgba(0,0,0,0.06);
@@ -294,29 +294,30 @@
 
   /* when open: slide in and enable interactions */
   .navLinks.open {
-    transform: translateX(0);
+    transform: translateX(0) translateY(-0.5px) translateZ(0) !important; /* Added translateY(-0.5px) */
     pointer-events: auto;
   }
 
   /* Nav link base state: hidden and immediate (no delay) */
   .navLink {
     width: 100%;
-    height: 48px; /* Added fixed height */
+    height: 56px; /* Changed fixed height from 48px to 56px */
     padding: 12px 16px 12px 72px;
     justify-content: flex-start;
     border-radius: 0;
     text-align: left;
-    opacity: 0;
-    transform: translateY(10px) scale(.98);
-    transition: transform 360ms cubic-bezier(.2,.9,.3,1), opacity 360ms ease;
+    box-sizing: border-box; /* Added to prevent horizontal scrollbar */
+    opacity: 0 !important; /* Added !important */
+    transform: translateY(10px) scale(.98) !important; /* Added !important */
+    transition: transform 360ms cubic-bezier(.2,.9,.3,1), opacity 360ms ease !important; /* Added !important */
     transition-delay: 0ms; /* important: no delay on close */
     will-change: transform, opacity;
   }
 
   /* OPEN state: reveal with staggered delays applied ONLY when open */
   .navLinks.open .navLink {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    opacity: 1 !important; /* Added !important */
+    transform: translateY(0) scale(1) !important; /* Added !important */
     transition-delay: calc(var(--i, 0) * 60ms); /* stagger only on show */
   }
 
