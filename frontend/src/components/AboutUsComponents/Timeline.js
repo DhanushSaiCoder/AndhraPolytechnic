@@ -25,7 +25,7 @@ const Timeline = () => {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.8 }
     );
 
     const timelineElement = document.querySelector('.timeline-container');
