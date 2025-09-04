@@ -26,10 +26,20 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: rgba(219, 226, 239, 0.68);
+    background-color: transparent;
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.headerNav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--muted-bg);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 .clgTitle {
     font-size: 3rem;
@@ -110,7 +120,7 @@
    ----------------------- */
 :root {
     --primary: #3f72af;
-    --muted-bg: rgba(219, 226, 239, 0.68);
+    --muted-bg: rgba(219, 226, 239, 0.5);
     --nav-text: #112d4e;
 }
 
@@ -384,7 +394,7 @@
     .headerNav {
         height: 56px;
         align-items: center;
-        background-color: var(--muted-bg);
+        background-color: transparent;
     }
     .headerNav .navInner {
         justify-content: center;
