@@ -14,7 +14,7 @@ const AcademicAchievementsPage = () => {
             <h3>{achievement.title}</h3>
             <p>{achievement.description}</p>
             {achievement.images && achievement.images.length > 0 && (
-              <ImageSlider images={achievement.images} />
+              <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: img, title: '', subtitle: '' }))} />
             )}
           </div>
         ))}
@@ -27,7 +27,7 @@ const AcademicAchievementsPage = () => {
             <h3>{achievement.title}</h3>
             <p>{achievement.description}</p>
             {achievement.images && achievement.images.length > 0 && (
-              <ImageSlider images={achievement.images} />
+              <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: img, title: '', subtitle: '' }))} />
             )}
           </div>
         ))}
