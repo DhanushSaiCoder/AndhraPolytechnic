@@ -272,21 +272,20 @@ const SyllabusSection = () => {
           <div className="search-controls-wrapper">
             <label htmlFor="syllabus-search" className="visually-hidden">Search syllabus</label>
             <div className="search-input">
-              <Search size={16} />
-              <input
-                id="syllabus-search"
-                type="search"
-                placeholder="Search subjects, codes or keywords..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search syllabus"
-              />
-              {searchQuery ? (
-                <button className="icon-clear" onClick={() => setSearchQuery("")} aria-label="Clear search">×</button>
-              ) : null}
-            </div>
-
-            <div className="controls-inline">
+              <div className="search-input-row"> {/* New div */}
+                <Search size={16} />
+                <input
+                  id="syllabus-search"
+                  type="search"
+                  placeholder="Search subjects, codes or keywords..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label="Search syllabus"
+                />
+                {searchQuery ? (
+                  <button className="icon-clear" onClick={() => setSearchQuery("")} aria-label="Clear search">×</button>
+                ) : null}
+              </div>
               <CurriculumPills />
             </div>
           </div>
