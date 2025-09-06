@@ -577,8 +577,8 @@
         margin-right: 16px; /* Add some right margin */
     }
 
-    .navLinkWrapper:hover .dropdown-arrow {
-        transform: rotate(0deg); /* No rotation on hover for mobile, or adjust as needed */
+    .navLinkWrapper.active .dropdown-arrow {
+        transform: rotate(180deg);
     }
 
     /* Hide dropdown on mobile by default, show only when active */

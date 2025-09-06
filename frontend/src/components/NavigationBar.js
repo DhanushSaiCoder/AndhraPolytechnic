@@ -10,11 +10,13 @@ const NavigationBar = () => {
   const navRef = useRef();
 
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileActiveDropdown, setMobileActiveDropdown] = useState(null);
 
   // Close menu on route change
   useEffect(() => {
     setOpen(false);
-    setActiveDropdown(null); // Close dropdown on route change
+    setActiveDropdown(null); // Close desktop dropdown on route change
+    setMobileActiveDropdown(null); // Close mobile dropdown on route change
   }, [location]);
 
   // Close when clicking outside (nice touch)
@@ -23,7 +25,8 @@ const NavigationBar = () => {
       // if open and click is outside navInner -> close
       if (open && navRef.current && !navRef.current.contains(e.target)) {
         setOpen(false);
-        setActiveDropdown(null); // Close dropdown on outside click
+        setActiveDropdown(null); // Close desktop dropdown on outside click
+        setMobileActiveDropdown(null); // Close mobile dropdown on outside click
       }
     };
     document.addEventListener('click', handleClick);
@@ -140,16 +143,16 @@ const NavigationBar = () => {
           className={`navLinks ${open ? 'open' : ''}`}
           aria-hidden={!open}
         >
-          {links.map(({ to, label, exact, Icon, subLinks }, index) => (
+          {links.map((link, index) => (
             <div
-              key={to}
-              className="navLinkWrapper"
-              onMouseEnter={() => handleMouseEnter(label)}
-              onMouseLeave={handleMouseLeave}
+              key={link.to}
+              className={`navLinkWrapper ${activeDropdown === link.label || mobileActiveDropdown === link.label ? 'active' : ''}`}
+              onMouseEnter={() => setActiveDropdown(link.label)}
+              onMouseLeave={() => setActiveDropdown(null)}
             >
               <NavLink
-                to={to}
-                end={exact}
+                to={link.to}
+                end={link.exact}
                 className={({ isActive }) =>
                   isActive ? 'navLink activeNavLink' : 'navLink'
                 }
@@ -158,15 +161,24 @@ const NavigationBar = () => {
                   fontWeight: undefined, // keep CSS control
                   '--i': index // used for stagger when open
                 }}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  if (link.subLinks) {
+                    e.preventDefault(); // Prevent navigation for links with sub-menus
+                    setMobileActiveDropdown(mobileActiveDropdown === link.label ? null : link.label);
+                  } else {
+                    setOpen(false); // Close main menu for regular links
+                    setActiveDropdown(null); // Close any open desktop dropdown
+                    setMobileActiveDropdown(null); // Close any open mobile dropdown
+                  }
+                }}
               >
-                {Icon && <Icon size={20} />}
-                <span>{label}</span>
-                {subLinks && <ChevronDown size={16} className="dropdown-arrow" />}
+                {link.Icon && <link.Icon size={20} />}
+                <span>{link.label}</span>
+                {link.subLinks && <ChevronDown size={16} className="dropdown-arrow" />}
               </NavLink>
-              {subLinks && activeDropdown === label && (
-                <div className={`dropdownMenu ${activeDropdown === label ? 'open' : ''}`}>
-                  {subLinks.map((subLink) => (
+              {link.subLinks && (activeDropdown === link.label || mobileActiveDropdown === link.label) && (
+                <div className={`dropdownMenu ${activeDropdown === link.label || mobileActiveDropdown === link.label ? 'open' : ''}`}>
+                  {link.subLinks.map((subLink) => (
                     <NavLink
                       key={subLink.to}
                       to={subLink.to}
