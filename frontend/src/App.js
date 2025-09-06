@@ -17,6 +17,8 @@ import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
+
+
 // import NotFound from './pages/NotFound'; // optional
 
 function App() {

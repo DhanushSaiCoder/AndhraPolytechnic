@@ -1,141 +1,384 @@
-import React, { useState, useMemo, useEffect } from "react";
-import syllabusData from "../../data/syllabusData.json";
-import '../../styles/AcademicsStyles/Syllabus.css';
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  Select,
+  Stack,
+  Tab,
+  Tabs,
+  TextField,
+  Typography
+} from "@mui/material";
 
-function formatDate(iso){ if(!iso) return ''; return new Date(iso).toLocaleDateString(); }
+import { Search, Download, Eye, FileText, AlertCircle, X } from "lucide-react";
 
-export default function SyllabusSection() {
-  const curricula = syllabusData.curricula || [];
-  const defaultCurriculum = useMemo(()=> curricula.slice().sort((a,b)=>b.start_year-a.start_year)[0] || null, [curricula]);
-  const [selectedCurriculumId, setSelectedCurriculumId] = useState(defaultCurriculum?.id || null);
+import syllabusData from "../../data/syllabusData.json"; // adjust path if needed
+import "../../styles/AcademicsStyles/Syllabus.css"; // custom styles
 
-  useEffect(()=> { if(defaultCurriculum?.id) setSelectedCurriculumId(defaultCurriculum.id); }, [defaultCurriculum]);
-
-  const selectedCurriculum = useMemo(()=> curricula.find(c=>c.id===selectedCurriculumId) || defaultCurriculum, [curricula, selectedCurriculumId, defaultCurriculum]);
-  const branches = selectedCurriculum?.branches || [];
-  const [selectedBranchId, setSelectedBranchId] = useState(branches[0]?.id || null);
-  useEffect(()=> setSelectedBranchId(selectedCurriculum?.branches?.[0]?.id || null), [selectedCurriculum]);
-
-  const selectedBranch = useMemo(()=> branches.find(b=>b.id===selectedBranchId) || branches[0], [branches, selectedBranchId]);
-  const semesters = selectedBranch?.semesters || [];
-  const [selectedSemesterId, setSelectedSemesterId] = useState(semesters[0]?.id || null);
-  useEffect(()=> setSelectedSemesterId(selectedBranch?.semesters?.[0]?.id || null), [selectedBranch]);
-
-  const selectedSemester = useMemo(()=> semesters.find(s=>s.id===selectedSemesterId) || semesters[0], [semesters, selectedSemesterId]);
-
-  // Search across subjects in selected curriculum/branch/semester or all curricula if requested
-  const [query, setQuery] = useState("");
+const SyllabusSection = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCurriculum, setSelectedCurriculum] = useState("c23");
+  const [selectedBranch, setSelectedBranch] = useState("");
   const [searchAllCurricula, setSearchAllCurricula] = useState(false);
+  const [previewSubject, setPreviewSubject] = useState(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(null);
 
-  const [previewPdf, setPreviewPdf] = useState(null); // {url, title}
+  const curricula = syllabusData.curricula || [];
 
-  const subjectList = useMemo(() => {
-    if(searchAllCurricula){
-      // flatten all subjects in all curricula
-      return curricula.flatMap(c => c.branches.flatMap(b => b.semesters.flatMap(s => s.subjects.map(sub => ({...sub, curriculum: c.code, branch: b.name, semester: s.name})))));
+  // current curriculum and branches
+  const currentCurriculum = useMemo(
+    () => curricula.find((c) => c.id === selectedCurriculum) || curricula[0],
+    [curricula, selectedCurriculum]
+  );
+
+  const availableBranches = currentCurriculum?.branches || [];
+
+  // default branch when curriculum changes
+  useEffect(() => {
+    if (availableBranches.length > 0) {
+      setSelectedBranch((prev) => (prev ? prev : availableBranches[0].id));
+    } else {
+      setSelectedBranch("");
     }
-    if(!selectedSemester) return [];
-    return (selectedSemester.subjects || []).map(sub => ({...sub, curriculum: selectedCurriculum?.code}));
-  }, [searchAllCurricula, curricula, selectedSemester, selectedCurriculum]);
+  }, [selectedCurriculum, availableBranches]);
 
-  const filtered = useMemo(()=> {
-    if(!query) return subjectList;
-    const q = query.trim().toLowerCase();
-    return subjectList.filter(s => (s.name + ' ' + (s.code||'') + ' ' + (s.description||'')).toLowerCase().includes(q));
-  }, [subjectList, query]);
+  // Build filteredSubjects: array of { id, name, code, subjects: [...] } representing semesters
+  const filteredSubjects = useMemo(() => {
+    // no search and not searching across curricula -> show current branch semesters
+    if (!searchQuery && !searchAllCurricula) {
+      const branch = availableBranches.find((b) => b.id === selectedBranch);
+      return branch?.semesters || [];
+    }
 
-  function openPreview(sub){
-    if(sub.syllabus_pdf) setPreviewPdf({ url: sub.syllabus_pdf, title: sub.name });
-    else alert("Syllabus file missing — contact admin.");
-  }
+    const q = (searchQuery || "").toLowerCase().trim();
+
+    if (searchAllCurricula) {
+      // flatten subjects across all curricula
+      const allSubjects = [];
+      curricula.forEach((curr) => {
+        curr.branches.forEach((br) => {
+          br.semesters.forEach((sem) => {
+            sem.subjects.forEach((sub) => {
+              if (
+                !q ||
+                (sub.name && sub.name.toLowerCase().includes(q)) ||
+                (sub.code && sub.code.toLowerCase().includes(q)) ||
+                (sub.description && sub.description.toLowerCase().includes(q))
+              ) {
+                allSubjects.push({
+                  ...sub,
+                  curriculum: curr.code,
+                  branch: br.code,
+                  semester: sem.name
+                });
+              }
+            });
+          });
+        });
+      });
+
+      // group by curriculum-branch-semester
+      const grouped = {};
+      allSubjects.forEach((s) => {
+        const key = `${s.curriculum}-${s.branch}-${s.semester}`;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(s);
+      });
+
+      return Object.entries(grouped).map(([key, subs]) => ({
+        id: key,
+        name: subs[0].semester,
+        code: key,
+        subjects: subs
+      }));
+    } else {
+      // search inside current branch
+      const branch = availableBranches.find((b) => b.id === selectedBranch);
+      if (!branch) return [];
+
+      return branch.semesters
+        .map((sem) => ({
+          ...sem,
+          subjects: sem.subjects.filter(
+            (sub) =>
+              (sub.name && sub.name.toLowerCase().includes(q)) ||
+              (sub.code && sub.code.toLowerCase().includes(q)) ||
+              (sub.description && sub.description.toLowerCase().includes(q))
+          )
+        }))
+        .filter((sem) => sem.subjects && sem.subjects.length > 0);
+    }
+  }, [searchQuery, searchAllCurricula, curricula, availableBranches, selectedBranch]);
+
+  // update selected tab when filteredSubjects changes
+  useEffect(() => {
+    if (filteredSubjects && filteredSubjects.length > 0) {
+      setSelectedTab(filteredSubjects[0].id);
+    } else {
+      setSelectedTab(null);
+    }
+  }, [filteredSubjects]);
+
+  const handlePreview = (subject) => {
+    setPreviewSubject(subject);
+    setIsPreviewOpen(true);
+  };
+
+  const handleDownload = (subject) => {
+    if (subject?.syllabus_pdf) {
+      window.open(subject.syllabus_pdf, " ");
+    }
+  };
+
+  const CurriculumPills = () => (
+    <Stack direction="row" spacing={1} alignItems="center" className="curriculum-pills">
+      {curricula.map((c) => (
+        <Button
+          key={c.id}
+          variant={selectedCurriculum === c.id ? "contained" : "outlined"}
+          onClick={() => {
+            setSelectedCurriculum(c.id);
+            setSearchAllCurricula(false);
+          }}
+          className={selectedCurriculum === c.id ? "pill contained-pill" : "pill"}
+          size="small"
+        >
+          {c.code}
+        </Button>
+      ))}
+
+      <Button
+        variant={searchAllCurricula ? "contained" : "outlined"}
+        onClick={() => setSearchAllCurricula((s) => !s)}
+        className={searchAllCurricula ? "pill accent-pill" : "pill"}
+        size="small"
+      >
+        Search all curricula
+      </Button>
+    </Stack>
+  );
+
+  const SubjectCard = ({ subject, showMetadata = false }) => {
+    return (
+      <Card className="subject-card">
+        <CardHeader
+          title={
+            <Typography variant="h6" className="subject-title">
+              {subject.name}
+            </Typography>
+          }
+          subheader={
+            subject.description ? (
+              <Typography variant="body2" className="subject-desc">
+                {subject.description}
+              </Typography>
+            ) : null
+          }
+        />
+        <CardContent className="card-content">
+          <div className="meta-row">
+            {showMetadata && subject.curriculum && (
+              <Typography variant="caption" className="meta-badge">
+                {subject.curriculum}
+              </Typography>
+            )}
+            {subject.code && <Typography variant="caption" className="meta-badge">{subject.code}</Typography>}
+            {subject.version && <Typography variant="caption" className="meta-text">v{subject.version}</Typography>}
+            {subject.last_updated && (
+              <Typography variant="caption" className="meta-text">
+                Updated {new Date(subject.last_updated).toLocaleDateString()}
+              </Typography>
+            )}
+          </div>
+
+          <div className="actions-row">
+            {subject.syllabus_pdf ? (
+              <>
+                <Button
+                  variant="contained"
+                  className="btn-primary"
+                  startIcon={<Eye />}
+                  onClick={() => handlePreview(subject)}
+                >
+                  Preview
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  className="btn-download"
+                  startIcon={<Download />}
+                  onClick={() => handleDownload(subject)}
+                >
+                  Download
+                </Button>
+              </>
+            ) : (
+              <div className="missing-row">
+                <div className="missing-left">
+                  <AlertCircle size={18} />
+                  <Typography variant="body2" className="missing-text">Syllabus not uploaded yet</Typography>
+                </div>
+                <Button variant="outlined" size="small" className="btn-request">
+                  Request
+                </Button>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
-    <section className="syllabus-section">
-      <h2>Syllabus</h2>
+    <Box className="syllabus-root">
+      <Box className="container">
+        <Typography variant="h4" className="page-title">Syllabus</Typography>
 
-      <div className="syllabus-topbar">
-        <div className="syllabus-search">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by subject or code" aria-label="Search subjects"/>
-        </div>
+        <Box className="controls-row">
+          <TextField
+            placeholder="Search by subject name, code or keywords"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outlined"
+            size="small"
+            className="search-field"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search size={16} />
+                </InputAdornment>
+              )
+            }}
+          />
 
-        <div className="curriculum-pills" role="tablist" aria-label="Curricula">
-          {curricula.map(c => (
-            <button
-              key={c.id}
-              className={`curriculum-pill ${c.id === selectedCurriculumId ? 'active' : ''}`}
-              aria-pressed={c.id === selectedCurriculumId}
-              onClick={()=>{ setSelectedCurriculumId(c.id); setSearchAllCurricula(false); }}
-            >
-              {c.code} <span className="badge" style={{marginLeft:8}}> {c.start_year}-{c.end_year} </span>
-            </button>
-          ))}
-          <button className={`curriculum-pill ${searchAllCurricula ? 'active' : ''}`} onClick={()=> setSearchAllCurricula(s=>!s)}>
-            Search all curricula
-          </button>
-        </div>
-      </div>
+          <CurriculumPills />
+        </Box>
 
-      {/* Branch select for narrow screens or additional meta */}
-      <div className="syllabus-controls" style={{justifyContent:'flex-start', gap:12}}>
-        <select id="branchSelect" value={selectedBranchId || ''} onChange={e=>setSelectedBranchId(e.target.value)} aria-label="Branch">
-          {branches.map(b=> <option key={b.id} value={b.id}>{b.name}</option>)}
-        </select>
-      </div>
+        {!searchAllCurricula && availableBranches.length > 0 && (
+          <Box className="branch-row">
+            <FormControl variant="outlined" size="small" className="branch-select">
+              <Select value={selectedBranch} onChange={(e) => setSelectedBranch(e.target.value)}>
+                {availableBranches.map((b) => (
+                  <MenuItem key={b.id} value={b.id}>
+                    {b.name} ({b.code})
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        )}
 
-      {/* Semesters */}
-      <div className="semester-tabs" role="tablist">
-        {semesters.map(s => (
-          <button key={s.id} role="tab" aria-selected={s.id === selectedSemesterId} className={`semester-tab ${s.id===selectedSemesterId ? 'active' : ''}`} onClick={()=> setSelectedSemesterId(s.id)}>{s.name}</button>
-        ))}
-      </div>
+        <Box mt={3}>
+          {filteredSubjects.length === 0 ? (
+            <Box textAlign="center" py={8}>
+              <FileText size={48} className="muted-icon" />
+              <Typography variant="h6" mt={2}>
+                {searchQuery ? `No results for "${searchQuery}"` : "No subjects available"}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" mt={1}>
+                {searchQuery
+                  ? 'Try different keywords or enable "Search all curricula".'
+                  : "Select a branch to view available subjects."}
+              </Typography>
+            </Box>
+          ) : (
+            <>
+              <Tabs
+                value={selectedTab}
+                onChange={(e, v) => setSelectedTab(v)}
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
+                className="semester-tabs"
+              >
+                {filteredSubjects.map((sem) => (
+                  <Tab key={sem.id} label={sem.name} value={sem.id} className="semester-tab" />
+                ))}
+              </Tabs>
 
-      {/* Subjects */}
-      <div className="subject-list" role="region" aria-live="polite">
-        {filtered.length === 0 && <p>No subjects found.</p>}
-        {filtered.map(sub => (
-          <article key={sub.id} className="subject-card">
-            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-              <h3>{sub.name}</h3>
-              <div className="meta-row">
-                <span className="badge">{sub.code}</span>
-                <span className="badge">{sub.curriculum}</span>
-              </div>
-            </div>
+              <Box mt={3}>
+                {filteredSubjects.map((sem) => (
+                  <div
+                    key={sem.id}
+                    role="tabpanel"
+                    hidden={selectedTab !== sem.id}
+                    aria-labelledby={`tab-${sem.id}`}
+                  >
+                    {selectedTab === sem.id && (
+                      <Grid container spacing={3}>
+                        {sem.subjects.map((sub) => (
+                          <Grid item xs={12} sm={6} md={4} key={sub.id}>
+                            <SubjectCard subject={sub} showMetadata={searchAllCurricula} />
+                          </Grid>
+                        ))}
+                      </Grid>
+                    )}
+                  </div>
+                ))}
+              </Box>
+            </>
+          )}
+        </Box>
 
-            {sub.description && <p className="subject-description">{sub.description}</p>}
+        <Dialog open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} maxWidth="lg" fullWidth>
+          <DialogTitle>
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <Box display="flex" alignItems="center" gap={1}>
+                <FileText size={18} />
+                <Typography variant="subtitle1">{previewSubject?.name}</Typography>
+              </Box>
+              <IconButton onClick={() => setIsPreviewOpen(false)}>
+                <X size={18} />
+              </IconButton>
+            </Box>
+          </DialogTitle>
+          <DialogContent dividers className="pdf-dialog">
+            {previewSubject?.syllabus_pdf ? (
+              <iframe
+                src={previewSubject.syllabus_pdf}
+                title={`${previewSubject.name} Syllabus`}
+                className="pdf-iframe"
+              />
+            ) : (
+              <Box textAlign="center" py={8}>
+                <FileText size={48} className="muted-icon" />
+                <Typography variant="body1" mt={2}>
+                  PDF preview not available
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Download the file to view.
+                </Typography>
+              </Box>
+            )}
+          </DialogContent>
 
-            <div className="meta-row">
-              <small>Version: {sub.version || '—'}</small>
-              <small>Last updated: {formatDate(sub.last_updated)}</small>
-            </div>
+          <Box display="flex" justifyContent="space-between" p={2} pt={1} borderTop="1px solid var(--s-border)">
+            <Button variant="outlined" onClick={() => setIsPreviewOpen(false)} startIcon={<X />}>
+              Close
+            </Button>
 
-            <div className="subject-actions">
-              <button className="btn btn-primary" onClick={()=> openPreview(sub)} disabled={!sub.syllabus_pdf}>
-                Preview
-              </button>
-              <a className={`btn ${sub.syllabus_pdf ? 'btn-success' : 'btn-disabled'}`} href={sub.syllabus_pdf || '#'} target="_blank" rel="noopener noreferrer" aria-disabled={!sub.syllabus_pdf}>
-                {sub.syllabus_pdf ? 'Download' : 'Not available'}
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {/* PDF Modal */}
-      {previewPdf && (
-        <div className="pdf-modal" role="dialog" aria-modal="true" aria-label={`Preview: ${previewPdf.title}`}>
-          <div className="modal-card">
-            <div className="modal-toolbar">
-              <div>{previewPdf.title}</div>
-              <div>
-                <button onClick={()=> setPreviewPdf(null)} className="btn">Close</button>
-              </div>
-            </div>
-            <iframe className="modal-iframe" src={previewPdf.url} title={previewPdf.title} loading="lazy" />
-          </div>
-        </div>
-      )}
-    </section>
+            {previewSubject?.syllabus_pdf && (
+              <Button variant="contained" color="success" onClick={() => handleDownload(previewSubject)} startIcon={<Download />}>
+                Download PDF
+              </Button>
+            )}
+          </Box>
+        </Dialog>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default SyllabusSection;
