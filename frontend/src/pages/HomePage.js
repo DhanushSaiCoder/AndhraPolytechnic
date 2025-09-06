@@ -11,6 +11,7 @@ import CollegeGallery from './../components/HomeComponents/CollegeGallery';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 import Departments from '../components/HomeComponents/Departments';
 import Hero from '../components/Hero';
+import UpdatesMarquee from '../components/HomeComponents/UpdatesMarquee';
 
 const slides = [
   {
@@ -37,6 +38,7 @@ export default function HomePage() {
   return (
     <div className='Home'>
       <Hero slides={slides} />
+      <UpdatesMarquee />
       <NoticeBoard />
       <MessageFromLeaders />
       <CurrentInfo />
