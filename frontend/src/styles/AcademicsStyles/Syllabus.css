@@ -1,12 +1,12 @@
 :root{
-  --s-bg: #f7f8fb;
-  --s-surface: #ffffff;
+  --s-bg: #F9F7F7;
+  --s-surface: #DBE2EF;
   --s-muted: #6b7280;
-  --s-primary: #2563eb;
-  --s-primary-hover: #1d4ed8;
-  --s-accent: #7c3aed;
+  --s-primary: #3F72AF;
+  --s-primary-hover: #5284c2;
+  --s-accent: #1e4b7e;
   --s-success: #16a34a;
-  --s-border: #e6e9ef;
+  --s-border: #DBE2EF;
   --s-radius: 10px;
   --s-shadow: 0 6px 18px rgba(12,20,37,0.06);
 }
