@@ -9,6 +9,9 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
   const animationFrameId = useRef(null);
   const position = useRef(0);
 
+  const [currentPage, setCurrentPage] = useState(0); // 0-indexed
+  const ITEMS_PER_PAGE = 3; // For mobile pagination
+
   const [lastAnnouncedUpdateId, setLastAnnouncedUpdateId] = useState(null);
 
   const announceNewUpdate = useCallback((newUpdate) => {
@@ -245,6 +248,16 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
     stopMarquee();
   };
 
+  const totalPages = Math.ceil(updates.length / ITEMS_PER_PAGE);
+
+  const goToNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+  };
+
   const handleBlur = () => {
     setIsPaused(false);
     if (isAnimating && !reducedMotion && !isMobile) startMarquee();
@@ -368,33 +381,58 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
 
       {/* Mobile or reduced-motion view: stacked list */}
       {(reducedMotion || isMobile) && (
-        <div className="static-updates-list" aria-hidden={false}>
-          {updates.map((update) => (
-            <a
-              key={update.id}
-              href={update.link}
-              target={update.link.startsWith('/') ? '_self' : '_blank'}
-              rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
-              className={`marquee-item ${update.severity}`}
-              data-ga="marquee-item-click"
-              data-id={update.id}
-            >
-              {update.severity !== 'info' && (
-                <span className={`severity-badge ${update.severity}`} aria-hidden="true">
-                  {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+        <>
+          <div className="static-updates-list" aria-hidden={false}>
+            {updates.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE).map((update) => (
+              <a
+                key={update.id}
+                href={update.link}
+                target={update.link.startsWith('/') ? '_self' : '_blank'}
+                rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
+                className={`marquee-item ${update.severity}`}
+                data-ga="marquee-item-click"
+                data-id={update.id}
+              >
+                {update.severity !== 'info' && (
+                  <span className={`severity-badge ${update.severity}`} aria-hidden="true">
+                    {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+                  </span>
+                )}
+                <span className="item-title">
+                  {lang === 'en' ? update.titleEn : update.titleHi}
                 </span>
-              )}
-              <span className="item-title">
-                {lang === 'en' ? update.titleEn : update.titleHi}
+                {update.date && (
+                  <span className="item-date" aria-hidden="true">
+                    {' '}- {new Date(update.date).toLocaleDateString()}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+          {totalPages > 1 && ( // Only show controls if more than one page
+            <div className="pagination-controls">
+              <button
+                onClick={goToPreviousPage}
+                disabled={currentPage === 0}
+                className="pagination-button"
+                aria-label="Previous page"
+              >
+                Previous
+              </button>
+              <span className="pagination-info">
+                Page {currentPage + 1} of {totalPages}
               </span>
-              {update.date && (
-                <span className="item-date" aria-hidden="true">
-                  {' '}- {new Date(update.date).toLocaleDateString()}
-                </span>
-              )}
-            </a>
-          ))}
-        </div>
+              <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages - 1}
+                className="pagination-button"
+                aria-label="Next page"
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
