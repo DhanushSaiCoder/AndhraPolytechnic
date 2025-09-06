@@ -130,9 +130,9 @@
 
 /* Buttons: ensure minimum 44x44 tap targets */
 .control-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: transparent; /* Make background transparent */
+  color: #444; /* Darker text color */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
   border-radius: 8px;
   padding: 10px 12px;
   cursor: pointer;
@@ -142,13 +142,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 16px rgba(8, 20, 40, 0.16);
+  box-shadow: none; /* Remove box-shadow */
+  transition: all 0.2s ease-in-out; /* Keep transition for hover */
 }
 .control-button:hover,
 .control-button:focus {
-  background-color: #0056b3;
-  outline: 3px solid rgba(0, 86, 179, 0.14);
-  outline-offset: 2px;
+  background-color: rgba(0, 0, 0, 0.05); /* Light background on hover */
+  color: #007bff; /* Blue text on hover */
+  outline: 3px solid rgba(0, 123, 255, 0.14); /* Adjust outline color */
 }
 
 /* Static list (mobile / reduced motion) */
