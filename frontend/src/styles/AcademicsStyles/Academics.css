@@ -24,7 +24,149 @@
   transform: translateX(-50%);
   width: 120px; /* Wider for the wave */
   height: 15px; /* Taller for the wave */
+  /* General page styling */
+.academic-achievements-page {
+  padding: 60px 20px; /* More generous padding */
+  background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%); /* Consistent with Departments.css */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Consistent font stack */
+  color: #343a40; /* Darker text for better contrast */
+  line-height: 1.6;
+}
+
+.academic-achievements-page h1 {
+  text-align: center;
+  color: #112D4E; /* Consistent dark blue from CollegeGallery/CommissionerMessage */
+  margin-bottom: 70px; /* More space below heading */
+  font-size: 3.5em; /* Larger, more prominent title */
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.academic-achievements-page h1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 120px; /* Wider for the wave */
+  height: 15px; /* Taller for the wave */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 15'%3E%3Cpath fill='%23007bff' d='M0,10 C30,0 90,20 120,10 L120,15 L0,15 Z'/%3E%3C/svg%3E"); /* Blue wave SVG */
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Section styling (Student/Faculty Achievements) */
+.academic-achievements-page section {
+  max-width: 1000px; /* Constrain content width */
+  margin: 0 auto 60px auto; /* Center sections and maintain vertical spacing */
+  background: rgba(255, 255, 255, 0.8); /* Frosted glass effect */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border-radius: 15px; /* More rounded corners */
+  box-shadow: 0 10px 30px rgba(63, 114, 175, 0.1); /* Consistent blue-tinted shadow */
+  padding: 40px; /* More internal padding */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transitions */
+  border: 1px solid rgba(63, 114, 175, 0.1); /* Subtle blue border */
+}
+
+.academic-achievements-page section:hover {
+  transform: translateY(-8px); /* More pronounced lift on hover */
+  box-shadow: 0 25px 60px rgba(63, 114, 175, 0.15); /* Stronger blue-tinted shadow on hover */
+}
+
+.academic-achievements-page h2 {
+  color: #3F72AF; /* Consistent medium blue accent */
+  margin-bottom: 30px; /* More space below subheading */
+  font-size: 2.5em; /* Larger section titles */
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.academic-achievements-page h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px; /* Wider for the wave */
+  height: 10px; /* Taller for the wave */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 10'%3E%3Cpath fill='%23007bff' d='M0,7 C20,0 60,10 80,7 L80,10 L0,10 Z'/%3E%3C/svg%3E"); /* Blue wave SVG */
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Achievement Item Styling */
+.achievement-item {
+  background: rgba(255, 255, 255, 0.9); /* Frosted glass effect for cards */
+  backdrop-filter: blur(8px); /* Frosted glass effect for cards */
+  border-radius: 12px; /* Consistent rounded corners */
+  box-shadow: 0 6px 20px rgba(63, 114, 175, 0.08); /* Softer blue-tinted shadow */
+  margin-bottom: 40px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid rgba(63, 114, 175, 0.05); /* Very subtle blue border */
+}
+
+.achievement-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(63, 114, 175, 0.15); /* More pronounced blue-tinted shadow on hover */
+}
+
+.achievement-item h3 {
+  color: #112D4E; /* Darker for title, consistent */
+  margin-bottom: 10px;
+  padding: 25px 30px 0;
+  font-size: 1.6em;
+  font-weight: 600;
+}
+
+.achievement-item p {
+  color: #4a5568; /* Muted color for description, consistent */
+  line-height: 1.8;
+  padding: 0 30px 25px;
+  font-size: 1.05em;
+}
+
+/* Style for the container around the image slider within achievement-item */
+.achievement-item .slider {
+  margin-bottom: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .academic-achievements-page {
+    padding: 40px 15px;
+  }
+  .academic-achievements-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+  }
+  .academic-achievements-page h2 {
+    font-size: 2em;
+  }
+  .academic-achievements-page section {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .academic-achievements-page h1 {
+    font-size: 2em;
+  }
+  .academic-achievements-page h2 {
+    font-size: 1.8em;
+  }
+  .academic-achievements-page p, .academic-achievements-page ul li, .academic-achievements-page ol li {
+    font-size: 1em;
+  }
+}
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -101,4 +243,111 @@
   margin-bottom: 25px; /* More space between slider and text */
   border-radius: 8px; /* Match item border-radius */
   overflow: hidden; /* Ensure slider content respects border-radius */
+}
+/* Admissions Page Specific Styling */
+.admissions-page {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%); /* Consistent with Departments.css */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Consistent font stack */
+  color: #343a40; /* Darker text for better contrast */
+  line-height: 1.6;
+}
+
+.admissions-page h1 {
+  font-size: 3.5em;
+  color: #112D4E; /* Consistent dark blue from CollegeGallery/CommissionerMessage */
+  text-align: center;
+  margin-bottom: 70px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05); /* Lighter text shadow */
+  position: relative;
+}
+
+.admissions-page section {
+  max-width: 900px;
+  margin: 0 auto 60px auto;
+  background: rgba(255, 255, 255, 0.8); /* Frosted glass effect */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(63, 114, 175, 0.1); /* Consistent blue-tinted shadow */
+  padding: 40px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid rgba(63, 114, 175, 0.1); /* Subtle blue border */
+}
+
+.admissions-page section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(63, 114, 175, 0.15); /* More pronounced blue-tinted shadow on hover */
+}
+
+.admissions-page h2 {
+  font-size: 2.5em;
+  color: #3F72AF; /* Consistent medium blue accent */
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(63, 114, 175, 0.2); /* Lighter, subtle blue underline */
+}
+
+.admissions-page p {
+  font-size: 1.1em;
+  color: #4a5568; /* Consistent muted color from Departments */
+  margin-bottom: 20px;
+}
+
+.admissions-page ul, .admissions-page ol {
+  list-style-position: inside;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.admissions-page ul li, .admissions-page ol li {
+  font-size: 1.05em;
+  color: #4a5568; /* Consistent muted color */
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 10px;
+}
+
+/* Custom bullet for unordered lists */
+.admissions-page ul li::before {
+  content: '•';
+  color: #3F72AF; /* Consistent accent color for bullet */
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admissions-page {
+    padding: 40px 15px;
+  }
+  .admissions-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+  }
+  .admissions-page h2 {
+    font-size: 2em;
+  }
+  .admissions-page section {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admissions-page h1 {
+    font-size: 2em;
+  }
+  .admissions-page h2 {
+    font-size: 1.8em;
+  }
+  .admissions-page p, .admissions-page ul li, .admissions-page ol li {
+    font-size: 1em;
+  }
 }
