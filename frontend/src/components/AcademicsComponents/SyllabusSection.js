@@ -1,71 +1,109 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  Grid,
-  IconButton,
-  InputAdornment,
-  MenuItem,
-  Select,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography
-} from "@mui/material";
-
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Search, Download, Eye, FileText, AlertCircle, X } from "lucide-react";
-
 import syllabusData from "../../data/syllabusData.json"; // adjust path if needed
-import "../../styles/AcademicsStyles/Syllabus.css"; // custom styles
+import "../../styles/AcademicsStyles/Syllabus.css";
+
+const noop = () => {};
+
+/* Simple Modal (focus lock & body scroll lock basic) */
+const Modal = ({ open, onClose = noop, title, children, footer }) => {
+  const overlayRef = useRef();
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      // focus first focusable element inside modal
+      const t = setTimeout(() => {
+        const el = overlayRef.current?.querySelector("button, a, input, textarea, select");
+        el?.focus();
+      }, 50);
+      return () => {
+        clearTimeout(t);
+        document.body.style.overflow = "";
+      };
+    }
+  }, [open]);
+
+  if (!open) return null;
+  return (
+    <div className="modal-overlay" role="dialog" aria-modal="true" aria-label={title || "Dialog"} ref={overlayRef}>
+      <div className="modal-card" role="document">
+        <header className="modal-header">
+          <div className="modal-title">
+            <FileText size={18} />
+            <h3>{title}</h3>
+          </div>
+          <button className="icon-btn" aria-label="Close dialog" onClick={onClose}>
+            <X size={18} />
+          </button>
+        </header>
+
+        <div className="modal-body">{children}</div>
+
+        {footer ? <div className="modal-footer">{footer}</div> : null}
+      </div>
+    </div>
+  );
+};
+
+/* Custom simple Select using native select for accessibility + styling */
+const StyledSelect = ({ value, onChange, options = [], id, ariaLabel }) => {
+  return (
+    <div className="styled-select">
+      <select id={id} value={value} onChange={(e) => onChange(e.target.value)} aria-label={ariaLabel}>
+        {options.map((opt) => (
+          <option key={opt.id || opt.value || opt} value={opt.id ?? opt.value ?? opt}>
+            {opt.label ?? opt.name ?? opt}
+          </option>
+        ))}
+      </select>
+      <svg className="select-caret" viewBox="0 0 20 20" focusable="false" aria-hidden="true">
+        <path d="M5 7l5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+    </div>
+  );
+};
 
 const SyllabusSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCurriculum, setSelectedCurriculum] = useState("c23");
   const [selectedBranch, setSelectedBranch] = useState("");
   const [searchAllCurricula, setSearchAllCurricula] = useState(false);
+
   const [previewSubject, setPreviewSubject] = useState(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
   const [selectedTab, setSelectedTab] = useState(null);
 
-  const curricula = syllabusData.curricula || [];
+  const curricula = syllabusData?.curricula || [];
 
-  // current curriculum and branches
   const currentCurriculum = useMemo(
-    () => curricula.find((c) => c.id === selectedCurriculum) || curricula[0],
+    () => curricula.find((c) => c.id === selectedCurriculum) || curricula[0] || { branches: [] },
     [curricula, selectedCurriculum]
   );
 
   const availableBranches = currentCurriculum?.branches || [];
 
-  // default branch when curriculum changes
   useEffect(() => {
+    // set default branch when curriculum changes
     if (availableBranches.length > 0) {
       setSelectedBranch((prev) => (prev ? prev : availableBranches[0].id));
     } else {
       setSelectedBranch("");
     }
-  }, [selectedCurriculum, availableBranches]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCurriculum, availableBranches.length]);
 
-  // Build filteredSubjects: array of { id, name, code, subjects: [...] } representing semesters
+  // Build filteredSubjects (same structure as prior: array of {id, name, subjects: [...] })
   const filteredSubjects = useMemo(() => {
-    // no search and not searching across curricula -> show current branch semesters
-    if (!searchQuery && !searchAllCurricula) {
+    const q = (searchQuery || "").toLowerCase().trim();
+
+    // Show branch semesters if no search and not searching all curricula
+    if (!q && !searchAllCurricula) {
       const branch = availableBranches.find((b) => b.id === selectedBranch);
       return branch?.semesters || [];
     }
 
-    const q = (searchQuery || "").toLowerCase().trim();
-
     if (searchAllCurricula) {
-      // flatten subjects across all curricula
       const allSubjects = [];
       curricula.forEach((curr) => {
         curr.branches.forEach((br) => {
@@ -81,7 +119,7 @@ const SyllabusSection = () => {
                   ...sub,
                   curriculum: curr.code,
                   branch: br.code,
-                  semester: sem.name
+                  semester: sem.name,
                 });
               }
             });
@@ -101,13 +139,12 @@ const SyllabusSection = () => {
         id: key,
         name: subs[0].semester,
         code: key,
-        subjects: subs
+        subjects: subs,
       }));
     } else {
-      // search inside current branch
+      // search only within current branch
       const branch = availableBranches.find((b) => b.id === selectedBranch);
       if (!branch) return [];
-
       return branch.semesters
         .map((sem) => ({
           ...sem,
@@ -116,16 +153,19 @@ const SyllabusSection = () => {
               (sub.name && sub.name.toLowerCase().includes(q)) ||
               (sub.code && sub.code.toLowerCase().includes(q)) ||
               (sub.description && sub.description.toLowerCase().includes(q))
-          )
+          ),
         }))
         .filter((sem) => sem.subjects && sem.subjects.length > 0);
     }
   }, [searchQuery, searchAllCurricula, curricula, availableBranches, selectedBranch]);
 
-  // update selected tab when filteredSubjects changes
+  // Ensure selected tab is valid when filteredSubjects change
   useEffect(() => {
     if (filteredSubjects && filteredSubjects.length > 0) {
-      setSelectedTab(filteredSubjects[0].id);
+      setSelectedTab((prev) => {
+        const exists = filteredSubjects.some((s) => s.id === prev);
+        return exists ? prev : filteredSubjects[0].id;
+      });
     } else {
       setSelectedTab(null);
     }
@@ -138,246 +178,215 @@ const SyllabusSection = () => {
 
   const handleDownload = (subject) => {
     if (subject?.syllabus_pdf) {
-      window.open(subject.syllabus_pdf, " ");
+      window.open(subject.syllabus_pdf, "_blank", "noopener");
     }
   };
 
+  /* UI components */
   const CurriculumPills = () => (
-    <Stack direction="row" spacing={1} alignItems="center" className="curriculum-pills">
-      {curricula.map((c) => (
-        <Button
-          key={c.id}
-          variant={selectedCurriculum === c.id ? "contained" : "outlined"}
-          onClick={() => {
-            setSelectedCurriculum(c.id);
-            setSearchAllCurricula(false);
-          }}
-          className={selectedCurriculum === c.id ? "pill contained-pill" : "pill"}
-          size="small"
-        >
-          {c.code}
-        </Button>
-      ))}
+    <div className="pills-row" role="tablist" aria-label="Curriculum selection">
+      {curricula.map((c) => {
+        const active = selectedCurriculum === c.id && !searchAllCurricula;
+        return (
+          <button
+            key={c.id}
+            className={`pill ${active ? "pill-active" : ""}`}
+            onClick={() => {
+              setSelectedCurriculum(c.id);
+              setSearchAllCurricula(false);
+            }}
+            aria-pressed={active}
+          >
+            {c.code}
+          </button>
+        );
+      })}
 
-      <Button
-        variant={searchAllCurricula ? "contained" : "outlined"}
-        onClick={() => setSearchAllCurricula((s) => !s)}
-        className={searchAllCurricula ? "pill accent-pill" : "pill"}
-        size="small"
+      <button
+        className={`pill pill-searchall ${searchAllCurricula ? "pill-active" : ""}`}
+        onClick={() => {
+          setSearchAllCurricula((s) => !s);
+          if (!searchAllCurricula) {
+            setSelectedTab(null);
+          }
+        }}
+        aria-pressed={searchAllCurricula}
       >
         Search all curricula
-      </Button>
-    </Stack>
+      </button>
+    </div>
   );
 
   const SubjectCard = ({ subject, showMetadata = false }) => {
     return (
-      <Card className="subject-card">
-        <CardHeader
-          title={
-            <Typography variant="h6" className="subject-title">
-              {subject.name}
-            </Typography>
-          }
-          subheader={
-            subject.description ? (
-              <Typography variant="body2" className="subject-desc">
-                {subject.description}
-              </Typography>
-            ) : null
-          }
-        />
-        <CardContent className="card-content">
-          <div className="meta-row">
-            {showMetadata && subject.curriculum && (
-              <Typography variant="caption" className="meta-badge">
-                {subject.curriculum}
-              </Typography>
-            )}
-            {subject.code && <Typography variant="caption" className="meta-badge">{subject.code}</Typography>}
-            {subject.version && <Typography variant="caption" className="meta-text">v{subject.version}</Typography>}
-            {subject.last_updated && (
-              <Typography variant="caption" className="meta-text">
-                Updated {new Date(subject.last_updated).toLocaleDateString()}
-              </Typography>
-            )}
-          </div>
+      <article className="subject-card" aria-labelledby={`sub-${subject.id}`}>
+        <div className="card-head">
+          <h4 id={`sub-${subject.id}`} className="subject-name">
+            {subject.name}
+          </h4>
+          {subject.description ? <p className="subject-desc">{subject.description}</p> : null}
+        </div>
 
-          <div className="actions-row">
-            {subject.syllabus_pdf ? (
-              <>
-                <Button
-                  variant="contained"
-                  className="btn-primary"
-                  startIcon={<Eye />}
-                  onClick={() => handlePreview(subject)}
-                >
-                  Preview
-                </Button>
+        <div className="card-meta">
+          {showMetadata && subject.curriculum && <span className="chip">{subject.curriculum}</span>}
+          {subject.code && <span className="chip subtle">{subject.code}</span>}
+          {subject.version && <span className="meta-text">v{subject.version}</span>}
+          {subject.last_updated && <span className="meta-text">Updated {new Date(subject.last_updated).toLocaleDateString()}</span>}
+        </div>
 
-                <Button
-                  variant="outlined"
-                  className="btn-download"
-                  startIcon={<Download />}
-                  onClick={() => handleDownload(subject)}
-                >
-                  Download
-                </Button>
-              </>
-            ) : (
-              <div className="missing-row">
-                <div className="missing-left">
-                  <AlertCircle size={18} />
-                  <Typography variant="body2" className="missing-text">Syllabus not uploaded yet</Typography>
-                </div>
-                <Button variant="outlined" size="small" className="btn-request">
-                  Request
-                </Button>
+        <div className="card-actions">
+          {subject.syllabus_pdf ? (
+            <>
+              <button className="btn primary" onClick={() => handlePreview(subject)} aria-label={`Preview ${subject.name}`}>
+                <Eye size={14} /> Preview
+              </button>
+              <button className="btn outline" onClick={() => handleDownload(subject)} aria-label={`Download ${subject.name}`}>
+                <Download size={14} /> Download
+              </button>
+            </>
+          ) : (
+            <div className="missing-block">
+              <div className="missing-left">
+                <AlertCircle size={16} />
+                <span className="missing-text">Syllabus not uploaded</span>
               </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+              <button className="btn small" onClick={() => alert("Request sent to admin")}>
+                Request
+              </button>
+            </div>
+          )}
+        </div>
+      </article>
     );
   };
 
   return (
-    <Box className="syllabus-root">
-      <Box className="container">
-        <Typography variant="h4" className="page-title">Syllabus</Typography>
+    <section className="syllabus-root">
+      <div className="container">
+        <header className="page-header">
+          <div>
+            <h1 className="page-title">Syllabus</h1>
+            <p className="page-sub">Find subject syllabi for your curriculum and branch. Preview or download PDFs quickly.</p>
+          </div>
 
-        <Box className="controls-row">
-          <TextField
-            placeholder="Search by subject name, code or keywords"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            variant="outlined"
-            size="small"
-            className="search-field"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search size={16} />
-                </InputAdornment>
-              )
-            }}
-          />
+          <div className="search-wrap">
+            <label htmlFor="syllabus-search" className="visually-hidden">Search syllabus</label>
+            <div className="search-input">
+              <Search size={16} />
+              <input
+                id="syllabus-search"
+                type="search"
+                placeholder="Search subjects, codes or keywords..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search syllabus"
+              />
+              {searchQuery ? (
+                <button className="icon-clear" onClick={() => setSearchQuery("")} aria-label="Clear search">×</button>
+              ) : null}
+            </div>
 
-          <CurriculumPills />
-        </Box>
+            <div className="controls-inline">
+              <CurriculumPills />
+            </div>
+          </div>
+          </header>
 
-        {!searchAllCurricula && availableBranches.length > 0 && (
-          <Box className="branch-row">
-            <FormControl variant="outlined" size="small" className="branch-select">
-              <Select value={selectedBranch} onChange={(e) => setSelectedBranch(e.target.value)}>
-                {availableBranches.map((b) => (
-                  <MenuItem key={b.id} value={b.id}>
-                    {b.name} ({b.code})
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-        )}
+        <div className="branch-row">
+          {!searchAllCurricula && availableBranches.length > 0 ? (
+            <>
+              <label htmlFor="branch-select" className="small-label">Branch</label>
+              <StyledSelect
+                id="branch-select"
+                ariaLabel="Select branch"
+                value={selectedBranch}
+                onChange={(v) => setSelectedBranch(v)}
+                options={availableBranches.map((b) => ({ id: b.id, label: `${b.name} (${b.code})` }))}
+              />
+            </>
+          ) : null}
+        </div>
 
-        <Box mt={3}>
+        <div className="content-area">
           {filteredSubjects.length === 0 ? (
-            <Box textAlign="center" py={8}>
-              <FileText size={48} className="muted-icon" />
-              <Typography variant="h6" mt={2}>
-                {searchQuery ? `No results for "${searchQuery}"` : "No subjects available"}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" mt={1}>
-                {searchQuery
-                  ? 'Try different keywords or enable "Search all curricula".'
-                  : "Select a branch to view available subjects."}
-              </Typography>
-            </Box>
+            <div className="empty-state" role="status" aria-live="polite">
+              <FileText size={56} className="muted-large" />
+              <h3>{searchQuery ? `No results for “${searchQuery}”` : "No subjects available"}</h3>
+              <p className="muted"> {searchQuery ? 'Try different keywords or enable "Search all curricula".' : "Select a branch to view available subjects."}</p>
+            </div>
           ) : (
             <>
-              <Tabs
-                value={selectedTab}
-                onChange={(e, v) => setSelectedTab(v)}
-                variant="scrollable"
-                scrollButtons="auto"
-                allowScrollButtonsMobile
-                className="semester-tabs"
-              >
+              {/* Tabs */}
+              <div className="tabs-row" role="tablist" aria-label="Semesters">
                 {filteredSubjects.map((sem) => (
-                  <Tab key={sem.id} label={sem.name} value={sem.id} className="semester-tab" />
+                  <button
+                    key={sem.id}
+                    role="tab"
+                    aria-selected={selectedTab === sem.id}
+                    className={`tab ${selectedTab === sem.id ? "tab-active" : ""}`}
+                    onClick={() => setSelectedTab(sem.id)}
+                  >
+                    {sem.name}
+                    <span className="tab-count">{sem.subjects?.length ?? 0}</span>
+                  </button>
                 ))}
-              </Tabs>
+              </div>
 
-              <Box mt={3}>
+              {/* Tab panels */}
+              <div className="tab-panels">
                 {filteredSubjects.map((sem) => (
                   <div
                     key={sem.id}
                     role="tabpanel"
                     hidden={selectedTab !== sem.id}
                     aria-labelledby={`tab-${sem.id}`}
+                    className="panel"
                   >
                     {selectedTab === sem.id && (
-                      <Grid container spacing={3}>
+                      <div className="grid-subjects">
                         {sem.subjects.map((sub) => (
-                          <Grid item xs={12} sm={6} md={4} key={sub.id}>
-                            <SubjectCard subject={sub} showMetadata={searchAllCurricula} />
-                          </Grid>
+                          <SubjectCard subject={sub} showMetadata={searchAllCurricula} key={sub.id} />
                         ))}
-                      </Grid>
+                      </div>
                     )}
                   </div>
                 ))}
-              </Box>
+              </div>
             </>
           )}
-        </Box>
+        </div>
 
-        <Dialog open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} maxWidth="lg" fullWidth>
-          <DialogTitle>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
-              <Box display="flex" alignItems="center" gap={1}>
-                <FileText size={18} />
-                <Typography variant="subtitle1">{previewSubject?.name}</Typography>
-              </Box>
-              <IconButton onClick={() => setIsPreviewOpen(false)}>
-                <X size={18} />
-              </IconButton>
-            </Box>
-          </DialogTitle>
-          <DialogContent dividers className="pdf-dialog">
-            {previewSubject?.syllabus_pdf ? (
+        {/* Preview modal */}
+        <Modal
+          open={isPreviewOpen}
+          onClose={() => setIsPreviewOpen(false)}
+          title={previewSubject?.name}
+          footer={
+            <div className="modal-actions">
+              <button className="btn outline" onClick={() => setIsPreviewOpen(false)}><X size={14} /> Close</button>
+              {previewSubject?.syllabus_pdf ? (
+                <button className="btn primary" onClick={() => handleDownload(previewSubject)}><Download size={14} /> Download PDF</button>
+              ) : null}
+            </div>
+          }
+        >
+          {previewSubject?.syllabus_pdf ? (
+            <div className="pdf-frame-wrap">
               <iframe
+                title={`${previewSubject.name} syllabus`}
                 src={previewSubject.syllabus_pdf}
-                title={`${previewSubject.name} Syllabus`}
                 className="pdf-iframe"
               />
-            ) : (
-              <Box textAlign="center" py={8}>
-                <FileText size={48} className="muted-icon" />
-                <Typography variant="body1" mt={2}>
-                  PDF preview not available
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Download the file to view.
-                </Typography>
-              </Box>
-            )}
-          </DialogContent>
-
-          <Box display="flex" justifyContent="space-between" p={2} pt={1} borderTop="1px solid var(--s-border)">
-            <Button variant="outlined" onClick={() => setIsPreviewOpen(false)} startIcon={<X />}>
-              Close
-            </Button>
-
-            {previewSubject?.syllabus_pdf && (
-              <Button variant="contained" color="success" onClick={() => handleDownload(previewSubject)} startIcon={<Download />}>
-                Download PDF
-              </Button>
-            )}
-          </Box>
-        </Dialog>
-      </Box>
-    </Box>
+            </div>
+          ) : (
+            <div className="empty-preview">
+              <FileText size={48} />
+              <p>PDF preview not available. You can download to view the file.</p>
+            </div>
+          )}
+        </Modal>
+      </div>
+    </section>
   );
 };
 
