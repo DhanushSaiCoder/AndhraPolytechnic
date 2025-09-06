@@ -9,6 +9,7 @@ import AcademicAchievementsPage from './pages/AcademicAchievementsPage';
 import PlacementsPage from './pages/PlacementsPage';
 import EventsPage from './pages/EventsPage';
 import AlumniPage from './pages/AlumniPage';
+import AdmissionsPage from './pages/AdmissionsPage';
 
 import DepartmentsPage from './pages/DepartmentsPage';
 import ResultsPage from './pages/ResultsPage';
@@ -33,6 +34,7 @@ function App() {
         <Route path="academics" element={<AcademicsPage />} />
         <Route path="academics/syllabus" element={<SyllabusPage />} />
         <Route path="academics/academic-achievements" element={<AcademicAchievementsPage />} />
+        <Route path="academics/admissions" element={<AdmissionsPage />} />
         <Route path="placements" element={<PlacementsPage />} />
         <Route path="events" element={<EventsPage />} />
         <Route path="alumni" element={<AlumniPage />} />

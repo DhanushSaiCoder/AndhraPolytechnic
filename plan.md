@@ -20,7 +20,7 @@ This document outlines the key sections and their proposed content for the Andhr
 
 ## 3. Academics
 <!-- *   Syllabus (Department-wise links) -->
-*   Academic Achievements (Student & Faculty)
+<!-- *   Academic Achievements (Student & Faculty) -->
 *   Admissions (Eligibility, Process, Important Dates)
 *   Examinations & Results
 
