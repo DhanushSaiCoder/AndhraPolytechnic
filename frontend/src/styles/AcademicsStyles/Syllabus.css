@@ -11,6 +11,7 @@
   --shadow-sm: 0 6px 20px rgba(33,41,63,0.06);
   --shadow-lg: 0 18px 50px rgba(33,41,63,0.08);
   --glass: rgba(255,255,255,0.6);
+  --filter-bg: #f0f4f8; /* Light grey for filter section background */
   font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
@@ -58,23 +59,27 @@
 }
 
 .search-input{
+  box-sizing: border-box; /* Add this */
   display:flex;
   flex-direction: column; /* Stack search input and pills vertically */
   align-items: flex-start; /* Align items to the start */
   gap: 12px; /* Add gap between search input and pills */
-  background: var(--card);
+  background: var(--card); /* White background for search input */
   border-radius: 14px; /* Slightly larger border-radius for better appearance */
-  padding: 12px 16px; /* Increased padding */
+  padding: 16px; /* Adjusted padding */
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border);
+  border: 1px solid var(--filter-bg); /* Border color from filter background */
   max-width: 720px;
   width: 100%;
 }
 .search-input-row{
+  box-sizing: border-box; /* Add this */
   display:flex;
   align-items:center;
   gap:8px; /* Gap between icon, input, and clear button */
   width: 100%; /* Ensure it takes full width within its parent */
+  padding-bottom: 12px; /* Add padding below the search input row */
+  border-bottom: 1px solid var(--border); /* Add a subtle line to separate */
 }
 .search-input svg{ opacity: 0.7; }
 .search-input input{
@@ -97,12 +102,45 @@
 
 /* Pills */
 .pills-row{
+  box-sizing: border-box; /* Add this */
   display:flex;
   gap:8px;
   align-items:center;
   flex-wrap:wrap;
   width: 100%; /* Ensure pills take full width within search-input */
   margin-top: 8px; /* Add some top margin to separate from input */
+}
+
+.branch-filter-section .pills-row{
+  width: 100%; /* Ensure pills take full width within filter section */
+  margin-top: 0; /* Remove top margin as it's now handled by gap in parent */
+}
+
+.branch-filter-section{
+  box-sizing: border-box; /* Add this */
+  width: 100%;
+  padding: 16px; /* Adjusted padding for better visual separation */
+  margin-top: 16px; /* Adjusted margin-top */
+  border: 1px solid var(--border); /* Border for the filter section */
+  border-radius: 14px; /* Rounded corners */
+  background-color: var(--filter-bg); /* Background color for filter section */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 12px; /* Gap between items */
+}
+.branch-filter-section h3{
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  width: 100%;
+  margin-bottom: 8px;
+}
+@media (max-width: 480px) {
+  .branch-filter-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 .pill{
   padding:6px 12px;
@@ -124,19 +162,7 @@
 
 
 
-/* Branch select */
-.branch-row{
-  margin: 16px 0 6px;
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-@media (max-width: 480px) {
-  .branch-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
+
 .small-label{
   color:var(--muted);
   font-size:0.88rem;
@@ -174,6 +200,14 @@
   transform: translateY(-50%);
   pointer-events: none;
   color: var(--muted);
+}
+
+.branch-filter-section .styled-select{
+  width: 100%; /* Ensure select takes full width within filter section */
+  min-width: unset; /* Remove min-width constraint */
+}
+.branch-filter-section .styled-select select{
+  width: 100%; /* Ensure the select element itself takes full width */
 }
 
 /* Content */

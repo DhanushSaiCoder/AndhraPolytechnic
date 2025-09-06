@@ -286,25 +286,22 @@ const SyllabusSection = () => {
                   <button className="icon-clear" onClick={() => setSearchQuery("")} aria-label="Clear search">×</button>
                 ) : null}
               </div>
-              <CurriculumPills />
+              {!searchAllCurricula && availableBranches.length > 0 ? (
+                <div className="branch-filter-section"> {/* New div for visual distinction */}
+                  <h3>FILTER</h3> {/* New heading */}
+                  <CurriculumPills /> {/* Moved here */}
+                  <StyledSelect
+                    id="branch-select"
+                    ariaLabel="Select branch"
+                    value={selectedBranch}
+                    onChange={(v) => setSelectedBranch(v)}
+                    options={availableBranches.map((b) => ({ id: b.id, label: `${b.name} (${b.code})` }))}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
           </header>
-
-        <div className="branch-row">
-          {!searchAllCurricula && availableBranches.length > 0 ? (
-            <>
-              <label htmlFor="branch-select" className="small-label">Branch</label>
-              <StyledSelect
-                id="branch-select"
-                ariaLabel="Select branch"
-                value={selectedBranch}
-                onChange={(v) => setSelectedBranch(v)}
-                options={availableBranches.map((b) => ({ id: b.id, label: `${b.name} (${b.code})` }))}
-              />
-            </>
-          ) : null}
-        </div>
 
         <div className="content-area">
           {filteredSubjects.length === 0 ? (
