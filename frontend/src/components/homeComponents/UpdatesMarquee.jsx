@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './UpdatesMarquee.css';
 
-const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
+const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
   const [updates, setUpdates] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
@@ -18,7 +18,7 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
       announceElement.textContent = `New notice posted: ${title}`;
       setLastAnnouncedUpdateId(newUpdate.id);
       // Clear content after a short delay to allow screen reader to announce
-      setTimeout(() => { announceElement.textContent = ''; }, 1000);
+      setTimeout(() => { announceElement.textContent = ''; }, 1200);
     }
   }, [lang, lastAnnouncedUpdateId]);
 
@@ -50,20 +50,21 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
     };
 
     try {
-      const response = await fetch('/data/updates.json'); // Assuming public/data/updates.json
+      // Try endpoint first; falls back to /data/updates.json if needed.
+      const response = await fetch('/data/updates.json');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
 
-      // Check for new updates and announce
+      // Announce new updates (first new item)
       if (updates.length > 0 && data.length > updates.length) {
         const newItems = data.filter(newItem => !updates.some(oldItem => oldItem.id === newItem.id));
         if (newItems.length > 0) {
-          announceNewUpdate(newItems[0]); // Announce the first new item
+          announceNewUpdate(newItems[0]);
         }
       } else if (updates.length === 0 && data.length > 0) {
-        // Initial load with updates, set the last announced ID
+        // Initial load: mark first as known so we don't announce initial load unnecessarily
         setLastAnnouncedUpdateId(data[0].id);
       }
 
@@ -79,7 +80,7 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
         setUpdates([]); // Show no updates if fetch fails and no cache
       }
     }
-  }, [updates, lang, announceNewUpdate]); // Added updates, lang, announceNewUpdate to dependencies
+  }, [updates, announceNewUpdate]);
 
   useEffect(() => {
     // Initial fetch
@@ -91,57 +92,140 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
 
   const [isAnimating, setIsAnimating] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
+  // Check for prefers-reduced-motion
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    const handler = () => setReducedMotion(mediaQuery.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handler);
+    } else {
+      mediaQuery.addListener(handler);
+    }
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handler);
+      } else {
+        mediaQuery.removeListener(handler);
+      }
+    };
+  }, []);
+
+  // Track mobile viewport
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    const onResize = () => {
+      checkMobile();
+      // Reset transform & position for new layout
+      if (contentRef.current) {
+        position.current = 0;
+        contentRef.current.style.transform = 'translateX(0px)';
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Start/stop marquee animation using requestAnimationFrame
   const startMarquee = useCallback(() => {
     if (!marqueeRef.current || !contentRef.current || !isAnimating || updates.length === 0) return;
 
     const marqueeWidth = marqueeRef.current.offsetWidth;
     const contentWidth = contentRef.current.scrollWidth;
 
-    const animate = () => {
+    // If content is narrower than container, center it and do nothing
+    if (contentWidth <= marqueeWidth) {
+      position.current = 0;
+      contentRef.current.style.transform = `translateX(0px)`;
+      return;
+    }
+
+    // If position is at default 0 or has been reset, start from marquee width (enter from right)
+    if (position.current === 0 || position.current > marqueeWidth) {
+      position.current = marqueeWidth;
+    }
+
+    let lastTimestamp = performance.now();
+
+    const animate = (timestamp) => {
       if (!isAnimating) {
         cancelAnimationFrame(animationFrameId.current);
         return;
       }
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
 
-      position.current -= speed / 60; // speed in pixels per second, 60 frames per second
+      // speed px/sec -> px/ms
+      const pxPerMs = speed / 1000;
+      position.current -= pxPerMs * delta;
 
+      // When completely scrolled out, reset to start
       if (position.current <= -contentWidth) {
-        position.current = marqueeWidth; // Reset to start from right
+        position.current = marqueeWidth;
       }
 
-      contentRef.current.style.transform = `translateX(${position.current}px)`;
+      // Apply transform
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateX(${position.current}px)`;
+      }
+
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
+    // Kick off
+    cancelAnimationFrame(animationFrameId.current);
     animationFrameId.current = requestAnimationFrame(animate);
-  }, [speed, isAnimating, updates.length]);
+  }, [isAnimating, updates.length, speed]);
 
   const stopMarquee = useCallback(() => {
     cancelAnimationFrame(animationFrameId.current);
   }, []);
 
+  // Start/stop based on conditions (updates, mobile, reducedMotion, isAnimating)
   useEffect(() => {
-    if (updates.length > 0 && isAnimating) {
+    // If reduced motion or mobile view, do not animate — static list better
+    if (reducedMotion || isMobile || updates.length === 0) {
+      stopMarquee();
+      // Ensure position reset
+      if (contentRef.current) contentRef.current.style.transform = 'translateX(0px)';
+      return;
+    }
+
+    if (isAnimating) {
       startMarquee();
     } else {
       stopMarquee();
     }
+
     return () => stopMarquee();
-  }, [updates, isAnimating, startMarquee, stopMarquee]);
+  }, [updates, isAnimating, startMarquee, stopMarquee, isMobile, reducedMotion]);
 
   const handlePlayPause = () => {
-    setIsAnimating(prev => !prev);
-    setIsPaused(prev => !prev); // Keep isPaused in sync for hover/focus logic
+    setIsAnimating((prev) => !prev);
+    setIsPaused((prev) => !prev);
+    // If pausing, stop; if resuming, start
+    if (isAnimating) {
+      stopMarquee();
+    } else {
+      // restart (use effect will call startMarquee)
+      // small timeout to allow layout reflow
+      setTimeout(() => {
+        if (!reducedMotion && !isMobile) startMarquee();
+      }, 60);
+    }
   };
 
   const handleStep = (direction) => {
-    if (!contentRef.current) return;
-    const stepSize = 200; // Pixels to step
+    if (!contentRef.current || !marqueeRef.current) return;
+    const stepSize = Math.max(160, Math.floor(marqueeRef.current.offsetWidth * 0.25)); // responsive step
+    const contentWidth = contentRef.current.scrollWidth;
     if (direction === 'left') {
-      position.current = Math.min(0, position.current + stepSize);
+      position.current = Math.min(position.current + stepSize, 0);
     } else {
-      position.current = Math.max(-contentRef.current.scrollWidth + marqueeRef.current.offsetWidth, position.current - stepSize);
+      position.current = Math.max(position.current - stepSize, -contentWidth + marqueeRef.current.offsetWidth);
     }
     contentRef.current.style.transform = `translateX(${position.current}px)`;
   };
@@ -152,10 +236,8 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
   };
 
   const handleMouseLeave = () => {
-    if (isAnimating) { // Only resume if it was animating before hover
-      setIsPaused(false);
-      startMarquee();
-    }
+    setIsPaused(false);
+    if (isAnimating && !reducedMotion && !isMobile) startMarquee();
   };
 
   const handleFocus = () => {
@@ -164,35 +246,15 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
   };
 
   const handleBlur = () => {
-    if (isAnimating) { // Only resume if it was animating before focus
-      setIsPaused(false);
-      startMarquee();
-    }
+    setIsPaused(false);
+    if (isAnimating && !reducedMotion && !isMobile) startMarquee();
   };
 
-  // Check for prefers-reduced-motion and mobile viewport
-  const [reducedMotion, setReducedMotion] = useState(false);
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-    const handler = () => setReducedMotion(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768); // Assuming 768px as mobile breakpoint
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
+  // If no updates, show fallback message
   if (updates.length === 0) {
     return (
       <div className="updates-marquee" role="region" aria-label="Latest updates">
-        <p>No updates at this time.</p>
+        <p className="updates-empty">No updates at this time.</p>
       </div>
     );
   }
@@ -206,10 +268,10 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      tabIndex="0" // Make the marquee focusable
+      tabIndex={0} // Make the marquee focusable for keyboard users
       ref={marqueeRef}
     >
-      {/* Visually hidden accessible list for screen readers */}
+      {/* Visually-hidden accessible list for screen readers */}
       <ul className="sr-only" aria-hidden={false}>
         {updates.slice(0, 5).map((update) => (
           <li key={update.id} lang={lang}>
@@ -218,39 +280,66 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
         ))}
       </ul>
 
-      {/* Aria-live region for announcements (initially empty) */}
+      {/* Aria-live region for announcing new updates */}
       <div aria-live="polite" className="sr-only" id="updatesAnnounce" />
 
+      {/* Desktop marquee (animated) */}
       {(!reducedMotion && !isMobile) && (
         <>
-          <div className="marquee-content" ref={contentRef}>
-            {updates.map((update) => (
-              <a
-                key={update.id}
-                href={update.link}
-                target={update.link.startsWith('/') ? '_self' : '_blank'}
-                rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
-                className={`marquee-item ${update.severity}`}
-                data-ga="marquee-item-click"
-                data-id={update.id}
-              >
-                {update.severity !== 'info' && (
-                  <span className={`severity-badge ${update.severity}`} aria-label={update.severity}>
-                    {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+          <div className="marquee-viewport" aria-hidden={false}>
+            <div className="marquee-content" ref={contentRef} role="list">
+              {updates.map((update) => (
+                <a
+                  key={update.id}
+                  href={update.link}
+                  target={update.link.startsWith('/') ? '_self' : '_blank'}
+                  rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
+                  className={`marquee-item ${update.severity}`}
+                  role="listitem"
+                  data-ga="marquee-item-click"
+                  data-id={update.id}
+                >
+                  {update.severity !== 'info' && (
+                    <span className={`severity-badge ${update.severity}`} aria-hidden="false">
+                      {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+                    </span>
+                  )}
+                  <span className="item-title">
+                    {lang === 'en' ? update.titleEn : update.titleHi}
                   </span>
-                )}
-                <span className="item-title">
-                  {lang === 'en' ? update.titleEn : update.titleHi}
-                </span>
-                {update.date && (
-                  <span className="item-date">
-                    {' '}- {new Date(update.date).toLocaleDateString()}
+                  {update.date && (
+                    <span className="item-date" aria-hidden="true">
+                      {' '}- {new Date(update.date).toLocaleDateString()}
+                    </span>
+                  )}
+                </a>
+              ))}
+              {/* Duplicate the content once for smoother continuous scroll when JS-based animation reaches the end.
+                  This duplication ensures there is content to scroll into while resetting position.
+                  Only duplicate visually, not in the DOM for screen readers (aria-hidden). */}
+              <div className="marquee-duplicate" aria-hidden="true">
+                {updates.map((update) => (
+                  <span key={`dup-${update.id}`} className={`marquee-item duplicate ${update.severity}`}>
+                    {update.severity !== 'info' && (
+                      <span className={`severity-badge ${update.severity}`} aria-hidden="true">
+                        {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+                      </span>
+                    )}
+                    <span className="item-title">
+                      {lang === 'en' ? update.titleEn : update.titleHi}
+                    </span>
+                    {update.date && (
+                      <span className="item-date" aria-hidden="true">
+                        {' '}- {new Date(update.date).toLocaleDateString()}
+                      </span>
+                    )}
                   </span>
-                )}
-              </a>
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="marquee-controls">
+
+          <div className="marquee-controls" aria-hidden={false}>
             <button
               onClick={() => handleStep('left')}
               aria-label="Step left"
@@ -277,8 +366,9 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
         </>
       )}
 
+      {/* Mobile or reduced-motion view: stacked list */}
       {(reducedMotion || isMobile) && (
-        <div className="static-updates-list">
+        <div className="static-updates-list" aria-hidden={false}>
           {updates.map((update) => (
             <a
               key={update.id}
@@ -290,7 +380,7 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
               data-id={update.id}
             >
               {update.severity !== 'info' && (
-                <span className={`severity-badge ${update.severity}`} aria-label={update.severity}>
+                <span className={`severity-badge ${update.severity}`} aria-hidden="true">
                   {update.severity === 'urgent' ? 'Urgent' : 'Important'}
                 </span>
               )}
@@ -298,7 +388,7 @@ const UpdatesMarquee = ({ speed = 60, lang = 'en' }) => {
                 {lang === 'en' ? update.titleEn : update.titleHi}
               </span>
               {update.date && (
-                <span className="item-date">
+                <span className="item-date" aria-hidden="true">
                   {' '}- {new Date(update.date).toLocaleDateString()}
                 </span>
               )}

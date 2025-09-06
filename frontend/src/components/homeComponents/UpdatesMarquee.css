@@ -1,171 +1,168 @@
+/* Base container */
 .updates-marquee {
-  background-color: rgba(0, 123, 255, 0.08); /* Subtle primary-blue overlay */
-  padding: 10px 0;
+  background-color: rgba(0, 123, 255, 0.06); /* subtle blue band */
+  padding: 10px 16px;
   overflow: hidden;
-  white-space: nowrap;
   position: relative;
   font-family: inherit;
-  color: #333;
-  min-height: 44px; /* Ensure minimum tap target size */
+  color: #222;
+  min-height: 56px; /* comfortable hit area */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Distribute space between content and controls */
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
 }
 
+/* Focus ring for the whole region */
 .updates-marquee:focus {
-  outline: 2px solid #007bff; /* Visible focus outline */
+  outline: 3px solid rgba(0, 123, 255, 0.18);
+  outline-offset: 2px;
 }
 
+/* Empty state */
+.updates-empty {
+  margin: 0;
+  padding: 8px 12px;
+  color: #444;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+}
+
+/* Viewport that masks the moving content */
+.marquee-viewport {
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-width: 0; /* allow the flex item to shrink */
+}
+
+/* The moving content - we will transform this via inline styles from JS */
 .marquee-content {
-  display: inline-block;
-  animation: marquee-scroll linear infinite;
+  display: inline-flex;
+  gap: 40px;
+  align-items: center;
+  white-space: nowrap;
   will-change: transform;
-  flex-grow: 1; /* Allow content to take available space */
+  transform: translateX(0px); /* default */
 }
 
+/* Duplicate content container (for smooth looping) */
+.marquee-duplicate {
+  display: inline-flex;
+  gap: 40px;
+  align-items: center;
+  margin-left: 60px; /* small visual gap before duplicate set */
+}
+
+/* Individual item */
 .marquee-item {
   display: inline-flex;
   align-items: center;
-  margin-right: 40px; /* Space between items */
+  gap: 10px;
+  margin-right: 36px;
   text-decoration: none;
   color: inherit;
-  font-size: 1rem;
-  line-height: 1.4;
-  padding: 5px 0; /* Ensure clickable area */
-  min-height: 44px; /* Ensure minimum tap target size */
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.2;
+  padding: 8px 4px;
+  min-height: 44px;
+  min-width: 88px;
+  box-sizing: border-box;
 }
 
+/* Hover / Focus styling */
 .marquee-item:hover,
 .marquee-item:focus {
   text-decoration: underline;
-  color: #0056b3;
+  color: #004a9f;
+  outline: none;
 }
 
+/* Badges for severity */
 .severity-badge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: white;
-  margin-right: 10px;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
-
 .severity-badge.urgent {
   background-color: #dc3545; /* Red */
 }
-
 .severity-badge.important {
-  background-color: #ffc107; /* Amber */
-  color: #333; /* Darker text for amber */
+  background-color: #ffb703; /* Amber-ish */
+  color: #111;
 }
-
 .severity-badge.info {
-  background-color: #007bff; /* Blue */
+  background-color: #0d6efd; /* Blue */
 }
 
+/* Title and date styling */
 .item-title {
-  font-weight: bold;
+  font-weight: 600;
+  color: #0b2b4a;
 }
-
 .item-date {
   font-size: 0.9rem;
   color: #666;
-  margin-left: 5px;
+  margin-left: 6px;
 }
 
-/* Animation for desktop scrolling */
-@keyframes marquee-scroll {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Pause on hover/focus */
-.updates-marquee:hover .marquee-content,
-.updates-marquee:focus-within .marquee-content {
-  animation-play-state: paused;
-}
-
-/* Reduced motion */
-.updates-marquee.reduced-motion .marquee-content {
-  animation: none !important;
-}
-
-.static-updates-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 0 20px;
-  width: 100%; /* Ensure it takes full width in static mode */
-}
-
-.static-updates-list .marquee-item {
-  margin-right: 0;
-}
-
+/* Controls container */
 .marquee-controls {
   display: flex;
-  gap: 5px;
-  padding-right: 10px; /* Space from the right edge */
-  flex-shrink: 0; /* Prevent controls from shrinking */
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
+/* Buttons: ensure minimum 44x44 tap targets */
 .control-button {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
+  border-radius: 8px;
+  padding: 10px 12px;
   cursor: pointer;
   font-size: 1rem;
-  min-width: 44px; /* Ensure tap target size */
-  min-height: 44px; /* Ensure tap target size */
-  display: flex;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 6px 16px rgba(8, 20, 40, 0.16);
 }
-
 .control-button:hover,
 .control-button:focus {
   background-color: #0056b3;
-  outline: 2px solid #0056b3; /* Visible focus outline */
+  outline: 3px solid rgba(0, 86, 179, 0.14);
+  outline-offset: 2px;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .updates-marquee {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    white-space: normal;
-    padding: 10px 20px;
-  }
-
-  .updates-marquee.mobile-view .marquee-content {
-    animation: none; /* Disable horizontal scroll on mobile */
-    display: block;
-    width: 100%;
-  }
-
-  .updates-marquee.mobile-view .marquee-item {
-    display: flex;
-    margin-right: 0;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-
-  .updates-marquee.mobile-view .marquee-controls {
-    display: none; /* Hide controls on mobile */
-  }
-
-  .static-updates-list {
-    flex-direction: column;
-    padding: 0;
-  }
+/* Static list (mobile / reduced motion) */
+.static-updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+.static-updates-list .marquee-item {
+  display: flex;
+  gap: 12px;
+  margin-right: 0;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
 }
 
-/* Screen reader only styles */
+/* Accessibility: screen-reader only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -175,5 +172,94 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border-width: 0;
+  border: 0;
+}
+
+/* Reduced-motion modifier */
+.updates-marquee.reduced-motion .marquee-content,
+.updates-marquee.mobile-view .marquee-content {
+  transform: translateX(0) !important;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+  .updates-marquee {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 12px;
+    min-height: auto;
+  }
+
+  .marquee-viewport {
+    width: 100%;
+  }
+
+  .marquee-content {
+    display: block;
+    white-space: normal;
+    transform: none !important;
+    gap: 0;
+  }
+
+  .marquee-item {
+    display: flex;
+    flex-wrap: wrap; /* Added this for better mobile responsiveness */
+    align-items: flex-start;
+    gap: 10px;
+    margin-right: 0;
+    padding: 10px 8px;
+    font-size: clamp(0.95rem, 2.8vw, 1rem);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .marquee-item .item-title {
+    display: block;
+    font-size: 0.96rem; /* Keep existing mobile font size */
+  }
+
+  .marquee-item .item-date {
+    display: block;
+    margin-left: 0; /* Remove desktop margin */
+    margin-top: 2px; /* Add small top margin */
+    font-size: 0.85rem; /* Keep existing mobile font size */
+  }
+
+  .marquee-duplicate {
+    display: none;
+  }
+
+  .marquee-controls {
+    align-self: flex-end;
+    margin-right: 4px;
+  }
+
+  .control-button {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+  }
+
+  .static-updates-list {
+    gap: 8px;
+    padding: 0;
+  }
+}
+
+/* Smaller screens: extra spacing tweaks */
+@media (max-width: 480px) {
+  .updates-marquee {
+    padding: 8px 10px;
+  }
+  .item-title {
+    font-size: 0.96rem;
+  }
+  .item-date {
+    font-size: 0.85rem;
+  }
+  .control-button {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 8px;
+  }
 }
