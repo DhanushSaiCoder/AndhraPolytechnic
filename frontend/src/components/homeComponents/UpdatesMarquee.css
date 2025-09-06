@@ -63,18 +63,25 @@
   color: inherit;
   font-size: clamp(0.95rem, 1.05vw, 1.05rem);
   line-height: 1.2;
-  padding: 8px 4px;
+  padding: 12px 16px; /* Increased padding */
   min-height: 44px;
   min-width: 88px;
   box-sizing: border-box;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  transition: all 0.2s ease-in-out; /* Smooth transitions */
 }
 
 /* Hover / Focus styling */
 .marquee-item:hover,
 .marquee-item:focus {
-  text-decoration: underline;
+  text-decoration: none; /* Remove underline on hover */
   color: #004a9f;
   outline: none;
+  background-color: #f0f8ff; /* Light blue background on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
 }
 
 /* Badges for severity */
@@ -157,9 +164,8 @@
   display: flex;
   gap: 12px;
   margin-right: 0;
-  padding: 8px 12px;
-  background: rgba(255,255,255,0.02);
-  border-radius: 6px;
+  padding: 12px 16px; /* Match general padding for consistency */
+  /* Removed background and border-radius to let general .marquee-item styles apply */
 }
 
 /* Accessibility: screen-reader only */
