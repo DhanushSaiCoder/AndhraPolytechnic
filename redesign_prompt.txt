@@ -1,0 +1,529 @@
+Nice — this is a great starting point. I’ll keep things practical: first I’ll explain high-level design improvements, then point out small bugs/UX edge-cases in your current code, and finally give ready-to-paste design assets: a modern design system (colors, type, spacing), an updated CSS snippet (with variables + accessible states), and a compact React UI sketch (search + curriculum pills + improved subject cards + PDF preview modal). You can drop the CSS into your project and use the component sketch as a guide or paste-ready scaffold.
+
+# Key goals for the redesign
+
+* Clear information hierarchy: curriculum → branch → semester → subject.
+* Fast discovery: search + filters + “latest curriculum” default.
+* Calm, modern visual language (soft card surfaces, roomy spacing, readable type).
+* Accessible controls (keyboard, screen reader labels, visible focus states).
+* Mobile-first responsive layout and compact controls for narrow screens.
+* Better PDF UX: preview modal + fallback download + graceful 404 handling.
+
+---
+
+# What's working in your current implementation
+
+* Good data model: curricula → branches → semesters → subjects.
+* Reasonable component structure and ARIA basics (tablist/tabpanel).
+* Responsive grid for subjects and sensible use of select + tabs.
+* Good basics for focus/hover states in form controls and buttons.
+
+# What to improve (priority)
+
+1. **Discoverability** — add a search box and curriculum/branch breadcrumbs so students can quickly find a subject.
+2. **Curriculum control** — present curricula as a visible segmented control (C-23, C-20) — shows “Latest” clearly.
+3. **PDF experience** — preview inside a modal (iframe or PDF.js) with lazy loading and a fallback download button.
+4. **Metadata visible** — show `version`, `last_updated`, and an “Available in X curriculum” tag on each subject.
+5. **Accessibility** — ensure keyboard nav for tabs (arrow keys), `:focus-visible` rules, and sufficient color contrast.
+6. **Design system** — centralize colors, spacing, typography with CSS variables for consistent theming.
+7. **Edge handling** — show “not available in selected curriculum” messages and a way to search across all curricula.
+8. **Performance** — lazy-load PDFs and preview only when requested; if dataset grows, fetch JSON asynchronously and cache.
+
+---
+
+# Design system (copy to CSS root)
+
+Use a few CSS variables. This gives a modern and consistent look.
+
+```css
+:root{
+  /* Colors */
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --muted: #6b7280;         /* gray-500 */
+  --primary: #2563eb;       /* blue-600 */
+  --primary-600: #1d4ed8;
+  --accent: #7c3aed;        /* violet */
+  --success: #16a34a;       /* green-600 */
+  --danger: #dc2626;
+  --border: #e6e9ef;
+  --shadow: 0 6px 18px rgba(12, 20, 37, 0.06);
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial;
+  --text-base: 16px;
+  --radius: 10px;
+}
+```
+
+---
+
+# Typography & spacing recommendations
+
+* Use **Inter** or a similar modern sans for UI. Add `font-display: swap;` when loading webfont.
+* Base font-size: **16px** → scale: 16 / 18 / 20 / 28 for body, small headings, card headings, page headings.
+* Line-height 1.45 for body; 1.25 for headings.
+* Use generous vertical rhythm — 1.5 × `--space-md` between stacked elements.
+
+---
+
+# Color & contrast guidance
+
+* Primary: `--primary` for action and active states.
+* Success: `--success` for download/available badges.
+* Neutral surfaces: `--surface` on cards with soft shadow.
+* Maintain WCAG AA contrast: don't use pale blue on white for body text. Reserve subtle greys for secondary labels.
+
+---
+
+# Interaction & microcopy
+
+* Replace plain select for curricula with a segmented control or pills: it’s faster to scan.
+* Add small microcopy under the search bar: “Search by subject name, code or keywords”.
+* Show `Last updated: Aug 01, 2024` on subject cards.
+* On PDF missing: show a lightweight toast with steps to request the syllabus.
+
+---
+
+# Accessibility checklist (must-haves)
+
+* Keyboard support for tabs (arrow left/right to change tabs).
+* `role="tablist"`, `role="tab"`, `aria-selected`, `aria-controls`, `role="tabpanel"`. You already do this — add keyboard handlers.
+* Focus styling via `:focus-visible` (not `:focus` for mouse).
+* Ensure `select` alternatives remain accessible if you swap to custom controls.
+* Add invisible text (`.sr-only`) where needed (you already have this).
+
+---
+
+# Updated CSS (paste-ready replacement / enhancement for Syllabus.css)
+
+This builds on what you have but modernizes look, spacing, variables and adds modal & search styles.
+
+```css
+/* Replace or import this AFTER your root variables */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --accent: #7c3aed;
+  --success: #16a34a;
+  --border: #e6e9ef;
+  --shadow: 0 6px 18px rgba(12,20,37,0.06);
+  --radius: 12px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --container: 1100px;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+}
+
+/* Page container */
+.syllabus-section {
+  max-width: var(--container);
+  margin: 32px auto;
+  padding: var(--space-lg);
+  background: linear-gradient(180deg, var(--bg), #fff);
+  font-family: var(--font-sans);
+  color: #111827;
+}
+
+/* Header */
+.syllabus-section h2{
+  font-size: 28px;
+  margin: 0 0 12px;
+  text-align: left;
+}
+
+/* Top row: search + curriculum pills */
+.syllabus-topbar {
+  display:flex;
+  gap: var(--space-md);
+  align-items: center;
+  margin-bottom: var(--space-md);
+  flex-wrap:wrap;
+}
+
+.syllabus-search {
+  flex: 1 1 420px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:8px;
+  border-radius:10px;
+  box-shadow: var(--shadow);
+}
+
+.syllabus-search input{
+  border: none;
+  outline: none;
+  font-size:16px;
+  width:100%;
+  padding:8px;
+}
+
+/* Curriculum pills */
+.curriculum-pills {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.curriculum-pill{
+  padding:8px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius:999px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all .18s ease;
+}
+.curriculum-pill[aria-pressed="true"],
+.curriculum-pill.active{
+  background: linear-gradient(90deg,var(--primary),var(--primary-600));
+  color:#fff;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.14);
+}
+
+/* Semester tabs (pills style) */
+.semester-tabs{
+  display:flex;
+  gap:8px;
+  margin: 18px 0;
+  flex-wrap:wrap;
+}
+.semester-tab{
+  padding:10px 14px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--border);
+  cursor:pointer;
+  font-weight:600;
+  color:var(--muted);
+}
+.semester-tab.active{
+  background: linear-gradient(90deg,var(--accent),var(--primary));
+  color:#fff;
+  box-shadow: var(--shadow);
+}
+
+/* Subject grid */
+.subject-list{
+  display:grid;
+  gap:20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Card */
+.subject-card{
+  background:var(--surface);
+  padding:16px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height:140px;
+}
+.subject-card h3{
+  margin:0;
+  font-size:18px;
+}
+.meta-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--muted);
+  font-size:13px;
+}
+.badge {
+  background:#f3f4f6;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* Actions */
+.subject-actions{
+  margin-top:auto;
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+}
+.btn {
+  padding:8px 12px;
+  border-radius:8px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn-primary{ background:var(--primary); color:#fff; }
+.btn-success{ background:var(--success); color:#fff; }
+.btn-disabled{ background:#f3f4f6; color:#9ca3af; cursor:not-allowed; }
+
+/* PDF Modal (simple) */
+.pdf-modal {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(7,12,17,0.6);
+  z-index:1200;
+  padding:20px;
+}
+.pdf-modal .modal-card{
+  width:min(1000px, 96%);
+  height:min(90vh, 900px);
+  background:var(--surface);
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.modal-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 12px;
+  border-bottom:1px solid var(--border);
+  gap:12px;
+}
+.modal-iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* Focus */
+:focus-visible { outline: 3px solid rgba(37,99,235,0.18); border-radius:6px; }
+
+/* Responsive tweaks */
+@media (max-width:720px){
+  .syllabus-section { padding:16px; }
+  .syllabus-search { flex-basis: 100%; }
+  .curriculum-pills { width:100%; justify-content:flex-start; overflow:auto; }
+}
+```
+
+---
+
+# React UI sketch (improved SyllabusSection features)
+
+Below is a compact scaffold (logic only — you can expand styling and PDF viewer). Paste into your component to add search, curriculum pills, metadata, and a modal preview.
+
+```jsx
+// Sketch: Add these inside SyllabusSection (replace parts or merge)
+import React, { useState, useMemo, useEffect } from "react";
+// assume syllabusData imported already
+
+function formatDate(iso){ if(!iso) return ''; return new Date(iso).toLocaleDateString(); }
+
+export default function SyllabusSection() {
+  const curricula = syllabusData.curricula || [];
+  const defaultCurriculum = useMemo(()=> curricula.slice().sort((a,b)=>b.start_year-a.start_year)[0] || null, [curricula]);
+  const [selectedCurriculumId, setSelectedCurriculumId] = useState(defaultCurriculum?.id || null);
+
+  useEffect(()=> { if(defaultCurriculum?.id) setSelectedCurriculumId(defaultCurriculum.id); }, [defaultCurriculum]);
+
+  const selectedCurriculum = useMemo(()=> curricula.find(c=>c.id===selectedCurriculumId) || defaultCurriculum, [curricula, selectedCurriculumId, defaultCurriculum]);
+  const branches = selectedCurriculum?.branches || [];
+  const [selectedBranchId, setSelectedBranchId] = useState(branches[0]?.id || null);
+  useEffect(()=> setSelectedBranchId(selectedCurriculum?.branches?.[0]?.id || null), [selectedCurriculum]);
+
+  const selectedBranch = useMemo(()=> branches.find(b=>b.id===selectedBranchId) || branches[0], [branches, selectedBranchId]);
+  const semesters = selectedBranch?.semesters || [];
+  const [selectedSemesterId, setSelectedSemesterId] = useState(semesters[0]?.id || null);
+  useEffect(()=> setSelectedSemesterId(selectedBranch?.semesters?.[0]?.id || null), [selectedBranch]);
+
+  const selectedSemester = useMemo(()=> semesters.find(s=>s.id===selectedSemesterId) || semesters[0], [semesters, selectedSemesterId]);
+
+  // Search across subjects in selected curriculum/branch/semester or all curricula if requested
+  const [query, setQuery] = useState("");
+  const [searchAllCurricula, setSearchAllCurricula] = useState(false);
+
+  const [previewPdf, setPreviewPdf] = useState(null); // {url, title}
+
+  const subjectList = useMemo(() => {
+    if(searchAllCurricula){
+      // flatten all subjects in all curricula
+      return curricula.flatMap(c => c.branches.flatMap(b => b.semesters.flatMap(s => s.subjects.map(sub => ({...sub, curriculum: c.code, branch: b.name, semester: s.name})))));
+    }
+    if(!selectedSemester) return [];
+    return (selectedSemester.subjects || []).map(sub => ({...sub, curriculum: selectedCurriculum?.code}));
+  }, [searchAllCurricula, curricula, selectedSemester, selectedCurriculum]);
+
+  const filtered = useMemo(()=> {
+    if(!query) return subjectList;
+    const q = query.trim().toLowerCase();
+    return subjectList.filter(s => (s.name + ' ' + (s.code||'') + ' ' + (s.description||'')).toLowerCase().includes(q));
+  }, [subjectList, query]);
+
+  function openPreview(sub){
+    if(sub.syllabus_pdf) setPreviewPdf({ url: sub.syllabus_pdf, title: sub.name });
+    else alert("Syllabus file missing — contact admin.");
+  }
+
+  return (
+    <section className="syllabus-section">
+      <h2>Syllabus</h2>
+
+      <div className="syllabus-topbar">
+        <div className="syllabus-search">
+          <svg /* search icon */ />
+          <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by subject or code" aria-label="Search subjects"/>
+        </div>
+
+        <div className="curriculum-pills" role="tablist" aria-label="Curricula">
+          {curricula.map(c => (
+            <button
+              key={c.id}
+              className={`curriculum-pill ${c.id === selectedCurriculumId ? 'active' : ''}`}
+              aria-pressed={c.id === selectedCurriculumId}
+              onClick={()=>{ setSelectedCurriculumId(c.id); setSearchAllCurricula(false); }}
+            >
+              {c.code} <span className="badge" style={{marginLeft:8}}> {c.start_year}-{c.end_year} </span>
+            </button>
+          ))}
+          <button className={`curriculum-pill ${searchAllCurricula ? 'active' : ''}`} onClick={()=> setSearchAllCurricula(s=>!s)}>
+            Search all curricula
+          </button>
+        </div>
+      </div>
+
+      {/* Branch select for narrow screens or additional meta */}
+      <div className="syllabus-controls" style={{justifyContent:'flex-start', gap:12}}>
+        <select id="branchSelect" value={selectedBranchId || ''} onChange={e=>setSelectedBranchId(e.target.value)} aria-label="Branch">
+          {branches.map(b=> <option key={b.id} value={b.id}>{b.name}</option>)}
+        </select>
+      </div>
+
+      {/* Semesters */}
+      <div className="semester-tabs" role="tablist">
+        {semesters.map(s => (
+          <button key={s.id} role="tab" aria-selected={s.id === selectedSemesterId} className={`semester-tab ${s.id===selectedSemesterId ? 'active' : ''}`} onClick={()=> setSelectedSemesterId(s.id)}>{s.name}</button>
+        ))}
+      </div>
+
+      {/* Subjects */}
+      <div className="subject-list" role="region" aria-live="polite">
+        {filtered.length === 0 && <p>No subjects found.</p>}
+        {filtered.map(sub => (
+          <article key={sub.id} className="subject-card">
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+              <h3>{sub.name}</h3>
+              <div className="meta-row">
+                <span className="badge">{sub.code}</span>
+                <span className="badge">{sub.curriculum}</span>
+              </div>
+            </div>
+
+            {sub.description && <p className="subject-description">{sub.description}</p>}
+
+            <div className="meta-row">
+              <small>Version: {sub.version || '—'}</small>
+              <small>Last updated: {formatDate(sub.last_updated)}</small>
+            </div>
+
+            <div className="subject-actions">
+              <button className="btn btn-primary" onClick={()=> openPreview(sub)} disabled={!sub.syllabus_pdf}>
+                Preview
+              </button>
+              <a className={`btn ${sub.syllabus_pdf ? 'btn-success' : 'btn-disabled'}`} href={sub.syllabus_pdf || '#'} target="_blank" rel="noopener noreferrer" aria-disabled={!sub.syllabus_pdf}>
+                {sub.syllabus_pdf ? 'Download' : 'Not available'}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* PDF Modal */}
+      {previewPdf && (
+        <div className="pdf-modal" role="dialog" aria-modal="true" aria-label={`Preview: ${previewPdf.title}`}>
+          <div className="modal-card">
+            <div className="modal-toolbar">
+              <div>{previewPdf.title}</div>
+              <div>
+                <button onClick={()=> setPreviewPdf(null)} className="btn">Close</button>
+              </div>
+            </div>
+            <iframe className="modal-iframe" src={previewPdf.url} title={previewPdf.title} loading="lazy" />
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+```
+
+Notes:
+
+* This sketch keeps your original logic but adds search, "search all curricula", better card metadata, and a simple iframe-based PDF preview modal. Replace the `iframe` with a PDF.js viewer later for better controls (page nav, zoom).
+* For actual production, sanitize `sub.syllabus_pdf` URLs, handle CORS if PDFs are served from a different domain, and fallback to `window.open` if `iframe` fails.
+
+---
+
+# Small code/logic fixes & tips
+
+* **Default selection race**: If you plan to fetch `syllabusData.json` asynchronously later, initialize selection via `useEffect` when data arrives:
+
+```js
+useEffect(()=> {
+  if (defaultCurriculum?.id) setSelectedCurriculumId(defaultCurriculum.id);
+}, [defaultCurriculum]);
+```
+
+* **404 PDF handling**: Do a HEAD request before opening a preview (or catch iframe `onerror`) to show a friendly message. Example:
+
+```js
+fetch(url, { method:'HEAD' }).then(r => {
+  if (!r.ok) { /* show toast */ } else openPreview();
+});
+```
+
+* **Keyboard nav for tabs**: listen for ArrowLeft/ArrowRight and update `selectedSemesterId` accordingly.
+* **Lazy loading**: Don’t load many iframes — only when preview requested.
+
+---
+
+# Admin & content workflow suggestions (future)
+
+* Enforce file naming: `c23_cse_3sem_ds_v1.pdf`.
+* Store metadata in a small DB so admin UI can update `last_updated` and `version` without editing JSON.
+* If you add authentication, you can serve signed URLs for protected PDFs.
+
+---
+
+# Final checklist to implement (prioritized)
+
+* [ ] Add search + “search all curricula” toggle.
+* [ ] Replace curriculum select with pills/segmented control and mark latest.
+* [ ] Add subject metadata (version, last\_updated) on cards.
+* [ ] Add PDF preview modal (iframe or PDF.js) + download fallback + 404 handling.
+* [ ] Add keyboard handlers for tab navigation + focus-visible styles.
+* [ ] Export CSS variables and use them across components for consistent spacing/typography.
+* [ ] Add runtime validation for JSON shape (zod / ajv) if admin can edit files.
+
+---
+
+If you want I’ll:
+
+1. produce a **complete, copy-paste SyllabusSection.js** implementing everything above (search, pills, modal + keyboard support), **and**
+2. provide a **single CSS file** to replace `Syllabus.css` (or a Tailwind variant if you prefer).
+
+Tell me which one you want first (component or CSS) and I’ll generate the full code now.

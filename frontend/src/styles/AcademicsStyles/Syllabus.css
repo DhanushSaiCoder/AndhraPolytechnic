@@ -1,159 +1,211 @@
+/* Replace or import this AFTER your root variables */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --accent: #7c3aed;
+  --success: #16a34a;
+  --border: #e6e9ef;
+  --shadow: 0 6px 18px rgba(12,20,37,0.06);
+  --radius: 12px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --container: 1100px;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+}
+
+/* Page container */
 .syllabus-section {
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+  max-width: var(--container);
+  margin: 32px auto;
+  padding: var(--space-lg);
+  background: linear-gradient(180deg, var(--bg), #fff);
+  font-family: var(--font-sans);
+  color: #111827;
 }
 
-.syllabus-section h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
+/* Header */
+.syllabus-section h2{
+  font-size: 28px;
+  margin: 0 0 12px;
+  text-align: left;
 }
 
-.syllabus-controls {
-  margin-bottom: 20px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  gap: 15px; /* Space between selects */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+/* Top row: search + curriculum pills */
+.syllabus-topbar {
+  display:flex;
+  gap: var(--space-md);
+  align-items: center;
+  margin-bottom: var(--space-md);
+  flex-wrap:wrap;
 }
 
-.curriculum-select,
-.branch-select {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
+.syllabus-search {
+  flex: 1 1 420px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:8px;
+  border-radius:10px;
+  box-shadow: var(--shadow);
+}
+
+.syllabus-search input{
+  border: none;
   outline: none;
-  transition: border-color 0.3s ease;
+  font-size:16px;
+  width:100%;
+  padding:8px;
 }
 
-.curriculum-select:focus,
-.branch-select:focus {
-  border-color: #007bff;
+/* Curriculum pills */
+.curriculum-pills {
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 
-.semester-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eee;
+.curriculum-pill{
+  padding:8px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius:999px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all .18s ease;
+}
+.curriculum-pill[aria-pressed="true"],
+.curriculum-pill.active{
+  background: linear-gradient(90deg,var(--primary),var(--primary-600));
+  color:#fff;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.14);
 }
 
-.semester-tab {
-  background-color: #f8f8f8;
-  border: none;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #555;
-  border-bottom: 2px solid transparent;
-  transition: all 0.3s ease;
-  margin: 0 5px;
-  border-radius: 5px 5px 0 0;
+/* Semester tabs (pills style) */
+.semester-tabs{
+  display:flex;
+  gap:8px;
+  margin: 18px 0;
+  flex-wrap:wrap;
+}
+.semester-tab{
+  padding:10px 14px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--border);
+  cursor:pointer;
+  font-weight:600;
+  color:var(--muted);
+}
+.semester-tab.active{
+  background: linear-gradient(90deg,var(--accent),var(--primary));
+  color:#fff;
+  box-shadow: var(--shadow);
 }
 
-.semester-tab:hover {
-  background-color: #e9e9e9;
+/* Subject grid */
+.subject-list{
+  display:grid;
+  gap:20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.semester-tab.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-  font-weight: bold;
+/* Card */
+.subject-card{
+  background:var(--surface);
+  padding:16px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height:140px;
+}
+.subject-card h3{
+  margin:0;
+  font-size:18px;
+}
+.meta-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--muted);
+  font-size:13px;
+}
+.badge {
+  background:#f3f4f6;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  color:var(--muted);
 }
 
-.subject-list {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+/* Actions */
+.subject-actions{
+  margin-top:auto;
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+}
+.btn {
+  padding:8px 12px;
+  border-radius:8px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn-primary{ background:var(--primary); color:#fff; }
+.btn-success{ background:var(--success); color:#fff; }
+.btn-disabled{ background:#f3f4f6; color:#9ca3af; cursor:not-allowed; }
+
+/* PDF Modal (simple) */
+.pdf-modal {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(7,12,17,0.6);
+  z-index:1200;
+  padding:20px;
+}
+.pdf-modal .modal-card{
+  width:min(1000px, 96%);
+  height:min(90vh, 900px);
+  background:var(--surface);
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.modal-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 12px;
+  border-bottom:1px solid var(--border);
+  gap:12px;
+}
+.modal-iframe{
+  width:100%;
+  height:100%;
+  border:0;
 }
 
-.subject-card {
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+/* Focus */
+:focus-visible { outline: 3px solid rgba(37,99,235,0.18); border-radius:6px; }
 
-.subject-card h3 {
-  color: #007bff;
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.2em;
-}
-
-.subject-description {
-  color: #666;
-  font-size: 0.9em;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  flex-grow: 1;
-}
-
-.subject-actions {
-  text-align: right;
-}
-
-.syllabus-download-button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
-}
-
-.syllabus-download-button:hover:not(:disabled) {
-  background-color: #218838;
-}
-
-.syllabus-download-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .syllabus-controls {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .semester-tabs {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .semester-tab {
-    margin: 5px 0;
-    border-radius: 5px;
-  }
-
-  .subject-list {
-    grid-template-columns: 1fr;
-  }
+/* Responsive tweaks */
+@media (max-width:720px){
+  .syllabus-section { padding:16px; }
+  .syllabus-search { flex-basis: 100%; }
+  .curriculum-pills { width:100%; justify-content:flex-start; overflow:auto; }
 }
