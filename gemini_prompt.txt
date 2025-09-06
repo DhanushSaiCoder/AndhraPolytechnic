@@ -1,0 +1,16 @@
+You are a content writer for a government polytechnic institution.
+The institution is named 'Andhra Polytechnic'.
+I need a new title and a subtitle for the hero section of its official website's homepage.
+The current title is 'Welcome to Andhra Polytechnic' and the current subtitle is 'A Premier Institution for Technical Education and Innovation.'
+The tone should be formal, prominent, and convey the importance and quality of the institution, suitable for a government-style website.
+Please provide 3-5 options for a new title and subtitle pair.
+Each option should include both English and Hindi translations.
+The title should be concise and impactful.
+The subtitle should elaborate on the institution's mission or benefits.
+
+Example format:
+Option 1:
+Title (English): [Title suggestion]
+Title (Hindi): [Title suggestion in Hindi]
+Subtitle (English): [Subtitle suggestion]
+Subtitle (Hindi): [Subtitle suggestion in Hindi]

@@ -10,12 +10,33 @@ import MessageFromLeaders from './../components/HomeComponents/MessageFromLeader
 import CollegeGallery from './../components/HomeComponents/CollegeGallery';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 import Departments from '../components/HomeComponents/Departments';
-import AboutUsHeroSection from '../components/AboutUsComponents/AboutUsHeroSection'
+import Hero from '../components/Hero';
+
+const slides = [
+  {
+    id: 's1',
+    image: 'https://picsum.photos/seed/picsum1/1920/1080',
+    image2x: 'https://picsum.photos/seed/picsum1/1920/1080',
+    alt: 'Random placeholder image from Lorem Picsum',
+  },
+  {
+    id: 's2',
+    image: 'https://picsum.photos/seed/picsum2/1920/1080',
+    image2x: 'https://picsum.photos/seed/picsum2/1920/1080',
+    alt: 'Random placeholder image from Lorem Picsum',
+  },
+  {
+    id: 's3',
+    image: 'https://picsum.photos/seed/picsum3/1920/1080',
+    image2x: 'https://picsum.photos/seed/picsum3/1920/1080',
+    alt: 'Random placeholder image from Lorem Picsum',
+  }
+];
 
 export default function HomePage() {
   return (
     <div className='Home'>
-      <AboutUsHeroSection />
+      <Hero slides={slides} />
       <NoticeBoard />
       <MessageFromLeaders />
       <CurrentInfo />
