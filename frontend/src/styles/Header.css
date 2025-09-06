@@ -93,15 +93,19 @@
     color: #112d4e;
     text-decoration: none;
     text-transform: uppercase;
+    white-space: nowrap; /* Ensure text stays on one line */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px; /* Added gap for spacing between icon and text */
 }
 
-.navLink:hover {
-    color: #3f72af; /* Change text color on hover */
-    background-color: #3f72af10; /* Light background on hover */
+@media (min-width: 601px) {
+    .navLink:hover {
+        color: #3f72af; /* Change text color on hover */
+        background-color: #3f72af10; /* Light background on hover */
+    }
 }
 
 .navLink:active {
@@ -475,3 +479,140 @@
         display: none !important;
     }
 }
+
+/* Dropdown Styles */
+.navLinkWrapper {
+    position: relative;
+    height: 100%; /* Ensure wrapper takes full height for proper alignment */
+    display: flex;
+    align-items: center;
+}
+
+.navLinkWrapper .navLink {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 12px; /* Adjust padding as needed */
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%; /* Position directly below the navLink */
+    left: 0;
+    background-color: #dbe2ef; /* Reverted to original background */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; /* Above other content */
+    min-width: 200px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 10px; /* Add padding to create visual margin */
+    overflow: hidden; /* Ensures rounded corners apply to children */
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdownMenu.open {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+
+.dropdownItem {
+    color: #112d4e;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+@media (min-width: 601px) {
+    .dropdownItem:hover {
+        background-color: #3f72af10;
+        color: #3f72af;
+    }
+}
+
+.dropdown-arrow {
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+@media (min-width: 601px) {
+    .navLinkWrapper:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 600px) {
+    .navLinkWrapper {
+        width: 100%;
+        height: auto; /* Allow height to adjust for dropdown */
+        flex-direction: column; /* Stack main link and dropdown vertically */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .navLinkWrapper .navLink {
+        width: 100%;
+        justify-content: flex-start; /* Align content to the start */
+        padding-left: 32px; /* Match existing mobile navLink padding */
+        height: 56px; /* Match existing mobile navLink height */
+    }
+
+    .dropdownMenu {
+        position: static; /* Remove absolute positioning for mobile */
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: #dbe2ef; /* Ensure consistent background */
+        padding-left: 20px; /* Indent sub-items */
+    }
+
+    .dropdownItem {
+        padding: 10px 16px 10px 52px; /* Adjust padding for mobile sub-items */
+    }
+
+    .dropdown-arrow {
+        margin-left: auto; /* Push arrow to the right */
+        margin-right: 16px; /* Add some right margin */
+    }
+
+    .navLinkWrapper.active .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Hide dropdown on mobile by default, show only when active */
+    .dropdownMenu {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transition: max-height 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
+    }
+
+    .dropdownMenu.open {
+        max-height: 500px; /* Sufficiently large value */
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Desktop specific adjustments for navLinks */
+@media (min-width: 901px) {
+    .navLinks {
+        gap: 0; /* Remove gap between navLinkWrappers to allow full width for dropdowns */
+    }
+    .navLinkWrapper {
+        height: 100%;
+    }
+    .navLinkWrapper .navLink {
+        height: 100%;
+    }
+}
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 import './UpdatesMarquee.css';
 
 const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
@@ -358,7 +359,7 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
               aria-label="Step left"
               className="control-button"
             >
-              &lt;
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={handlePlayPause}
@@ -366,14 +367,14 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
               aria-pressed={!isAnimating}
               className="control-button"
             >
-              {isAnimating ? '❚❚' : '▶'}
+              {isAnimating ? <Pause size={20} /> : <Play size={20} />}
             </button>
             <button
               onClick={() => handleStep('right')}
               aria-label="Step right"
               className="control-button"
             >
-              &gt;
+              <ChevronRight size={20} />
             </button>
           </div>
         </>
