@@ -249,6 +249,7 @@
   .static-updates-list {
     gap: 8px;
     padding: 0;
+    transition: all 0.3s ease-in-out; /* Attempt to smooth height changes */
   }
 }
 
