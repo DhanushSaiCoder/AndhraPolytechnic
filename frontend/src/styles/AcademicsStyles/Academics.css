@@ -1,58 +1,104 @@
-.AcademicsPage {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.AcademicsPage h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 40px;
-}
-
+/* General page styling */
 .academic-achievements-page {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 40px 20px; /* Keep vertical padding, allow horizontal to expand */
+  background-color: #f8f9fa; /* Light background for the page */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Modern font stack */
+  color: #343a40; /* Darker text for better contrast */
 }
 
 .academic-achievements-page h1 {
   text-align: center;
-  color: #333;
-  margin-bottom: 40px;
+  color: #212529; /* Darker heading */
+  margin-bottom: 60px; /* More space below heading */
+  font-size: 2.8em; /* Larger, more impactful heading */
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
 }
 
+.academic-achievements-page h1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 120px; /* Wider for the wave */
+  height: 15px; /* Taller for the wave */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 15'%3E%3Cpath fill='%23007bff' d='M0,10 C30,0 90,20 120,10 L120,15 L0,15 Z'/%3E%3C/svg%3E"); /* Blue wave SVG */
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+
+
+/* Section styling (Student/Faculty Achievements) */
 .academic-achievements-page section {
-  margin-bottom: 40px;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background-color: #fff;
+  max-width: 1000px; /* Constrain content width */
+  margin: 0 auto 50px auto; /* Center sections and maintain vertical spacing */
+  padding: 30px; /* More padding inside sections */
+  background-color: #ffffff; /* White background for sections */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
 }
 
 .academic-achievements-page h2 {
-  color: #0056b3;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #0056b3;
-  padding-bottom: 10px;
+  color: #007bff; /* Accent color for subheadings */
+  margin-bottom: 30px; /* More space below subheading */
+  font-size: 2.2em;
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
 }
 
+.academic-achievements-page h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px; /* Wider for the wave */
+  height: 10px; /* Taller for the wave */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 10'%3E%3Cpath fill='%23007bff' d='M0,7 C20,0 60,10 80,7 L80,10 L0,10 Z'/%3E%3C/svg%3E"); /* Blue wave SVG */
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+
+
+/* Achievement Item Styling */
 .achievement-item {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px dashed #ccc;
+  background-color: #ffffff; /* Keep white background */
+  border-radius: 10px; /* Slightly more rounded than section */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); /* Softer shadow */
+  margin-bottom: 40px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effect */
 }
 
-.achievement-item:last-child {
-  border-bottom: none;
+.achievement-item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12); /* More pronounced shadow on hover */
 }
 
 .achievement-item h3 {
-  color: #555;
+  color: #343a40; /* Darker for title */
   margin-bottom: 10px;
+  padding: 25px 30px 0; /* More padding */
+  font-size: 1.6em; /* Adjusted font size */
+  font-weight: 600;
 }
 
 .achievement-item p {
-  color: #666;
-  line-height: 1.6;
+  color: #6c757d; /* Muted color for description */
+  line-height: 1.8;
+  padding: 0 30px 25px; /* More padding */
+  font-size: 1.05em;
+}
+
+/* Style for the container around the image slider within achievement-item */
+.achievement-item .slider {
+  margin-bottom: 25px; /* More space between slider and text */
+  border-radius: 8px; /* Match item border-radius */
+  overflow: hidden; /* Ensure slider content respects border-radius */
 }
