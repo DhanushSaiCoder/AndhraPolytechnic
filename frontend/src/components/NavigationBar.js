@@ -1,45 +1,50 @@
-// frontend/src/components/NavigationBar.js
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { LogIn, Home, BookOpen, Award, Briefcase, Calendar, Building, ClipboardList, Info, Users, ChevronDown } from 'lucide-react';
 import "../styles/Header.css";
 
 const NavigationBar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // mobile panel open (hamburger)
   const location = useLocation();
   const navRef = useRef();
 
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const [mobileActiveDropdown, setMobileActiveDropdown] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState(null); // desktop hover/focus dropdown
+  const [mobileActiveDropdown, setMobileActiveDropdown] = useState(null); // mobile accordion dropdown
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Close menu on route change
+  // Track breakpoint so behavior can differ between desktop & mobile
+  useEffect(() => {
+    const mm = typeof window !== 'undefined' ? window.matchMedia('(max-width: 600px)') : null;
+    const apply = () => setIsMobile(!!(mm && mm.matches));
+    if (mm) {
+      apply();
+      mm.addEventListener('change', apply);
+      return () => mm.removeEventListener('change', apply);
+    }
+    return undefined;
+  }, []);
+
+  // Close menu / dropdowns on route change
   useEffect(() => {
     setOpen(false);
-    setActiveDropdown(null); // Close desktop dropdown on route change
-    setMobileActiveDropdown(null); // Close mobile dropdown on route change
+    setActiveDropdown(null);
+    setMobileActiveDropdown(null);
   }, [location]);
 
-  // Close when clicking outside (nice touch)
+  // Close when clicking outside - works for both desktop (hover/focus dropdowns) and mobile panel
   useEffect(() => {
     const handleClick = (e) => {
-      // if open and click is outside navInner -> close
-      if (open && navRef.current && !navRef.current.contains(e.target)) {
+      if (!navRef.current) return;
+      // if any menu state is open and click is outside navInner -> close all
+      if ((open || activeDropdown || mobileActiveDropdown) && !navRef.current.contains(e.target)) {
         setOpen(false);
-        setActiveDropdown(null); // Close desktop dropdown on outside click
-        setMobileActiveDropdown(null); // Close mobile dropdown on outside click
+        setActiveDropdown(null);
+        setMobileActiveDropdown(null);
       }
     };
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
-  }, [open]);
-
-  const handleMouseEnter = (label) => {
-    setActiveDropdown(label);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveDropdown(null);
-  };
+  }, [open, activeDropdown, mobileActiveDropdown]);
 
   const links = [
     { to: '/', label: 'Home', exact: true, Icon: Home },
@@ -108,6 +113,13 @@ const NavigationBar = () => {
     return location.pathname.startsWith(link.to);
   })?.label || 'Page';
 
+  // Helpers for accessibility / toggles
+  const isDropdownOpen = (label) => activeDropdown === label || mobileActiveDropdown === label;
+
+  const toggleMobileDropdown = (label) => {
+    setMobileActiveDropdown(prev => (prev === label ? null : label));
+  };
+
   return (
     <nav
       className={`headerNav ${open ? 'open' : ''}`}
@@ -117,14 +129,21 @@ const NavigationBar = () => {
       {/* BACKDROP: always present so it can fade in/out smoothly */}
       <div
         className="nav-backdrop"
-        onClick={() => setOpen(false)}
+        onClick={() => {
+          setOpen(false);
+          setMobileActiveDropdown(null);
+        }}
         aria-hidden={!open}
       />
 
       <div className="navInner" ref={navRef}>
         <button
           className={`hamburger ${open ? 'is-active' : ''}`}
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen(v => {
+            // when opening mobile panel, clear desktop hover state
+            if (!v) setActiveDropdown(null);
+            return !v;
+          })}
           aria-controls="primary-navigation"
           aria-expanded={open}
           aria-label={open ? "Close navigation" : "Open navigation"}
@@ -141,14 +160,15 @@ const NavigationBar = () => {
         <div
           id="primary-navigation"
           className={`navLinks ${open ? 'open' : ''}`}
-          aria-hidden={!open}
+          aria-hidden={!open && isMobile}
         >
           {links.map((link, index) => (
             <div
               key={link.to}
-              className={`navLinkWrapper ${activeDropdown === link.label || mobileActiveDropdown === link.label ? 'active' : ''}`}
-              onMouseEnter={() => setActiveDropdown(link.label)}
-              onMouseLeave={() => setActiveDropdown(null)}
+              className={`navLinkWrapper ${isDropdownOpen(link.label) ? 'active' : ''}`}
+              // Desktop hover shows dropdown (only when not on mobile)
+              onMouseEnter={() => { if (!isMobile) setActiveDropdown(link.label); }}
+              onMouseLeave={() => { if (!isMobile) setActiveDropdown(null); }}
             >
               <NavLink
                 to={link.to}
@@ -163,27 +183,55 @@ const NavigationBar = () => {
                 }}
                 onClick={(e) => {
                   if (link.subLinks) {
-                    e.preventDefault(); // Prevent navigation for links with sub-menus
-                    setMobileActiveDropdown(mobileActiveDropdown === link.label ? null : link.label);
+                    if (isMobile) {
+                      // on mobile: prevent navigation and toggle accordion
+                      e.preventDefault();
+                      toggleMobileDropdown(link.label);
+                    } else {
+                      // on desktop: allow normal navigation when user clicks a parent
+                      // do nothing special (hover already opens dropdown)
+                    }
                   } else {
-                    setOpen(false); // Close main menu for regular links
-                    setActiveDropdown(null); // Close any open desktop dropdown
-                    setMobileActiveDropdown(null); // Close any open mobile dropdown
+                    // regular link: close mobile panel if it was open
+                    setOpen(false);
+                    setActiveDropdown(null);
+                    setMobileActiveDropdown(null);
                   }
                 }}
+                // keyboard support: toggle mobile dropdown with Enter/Space when on mobile
+                onKeyDown={(e) => {
+                  if (link.subLinks && isMobile && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    toggleMobileDropdown(link.label);
+                  }
+                }}
+                aria-haspopup={!!link.subLinks}
+                aria-expanded={link.subLinks ? !!isDropdownOpen(link.label) : undefined}
+                aria-controls={link.subLinks ? `dropdown-${link.label.replace(/\s+/g, '-').toLowerCase()}` : undefined}
               >
                 {link.Icon && <link.Icon size={20} />}
                 <span>{link.label}</span>
-                {link.subLinks && <ChevronDown size={16} className="dropdown-arrow" />}
+                {link.subLinks && <ChevronDown size={16} className="dropdown-arrow" aria-hidden="true" />}
               </NavLink>
-              {link.subLinks && (activeDropdown === link.label || mobileActiveDropdown === link.label) && (
-                <div className={`dropdownMenu ${activeDropdown === link.label || mobileActiveDropdown === link.label ? 'open' : ''}`}>
+
+              {link.subLinks && (isDropdownOpen(link.label)) && (
+                <div
+                  id={`dropdown-${link.label.replace(/\s+/g, '-').toLowerCase()}`}
+                  className={`dropdownMenu ${(isDropdownOpen(link.label)) ? 'open' : ''}`}
+                  role="menu"
+                >
                   {link.subLinks.map((subLink) => (
                     <NavLink
                       key={subLink.to}
                       to={subLink.to}
                       className="dropdownItem"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        // clicking a sub-item should always close the mobile panel
+                        setOpen(false);
+                        setActiveDropdown(null);
+                        setMobileActiveDropdown(null);
+                      }}
+                      role="menuitem"
                     >
                       {subLink.label}
                     </NavLink>
@@ -192,7 +240,7 @@ const NavigationBar = () => {
               )}
             </div>
           ))}
-          
+
           {/* Login Button for Desktop */}
           <NavLink to="/login" className="desktopLoginButton">
             <LogIn size={20} />
