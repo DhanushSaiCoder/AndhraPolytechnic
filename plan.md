@@ -1,6 +1,6 @@
-~HOME
+<!-- ~HOME
     image slider
-    [new] updates
+    [new] updates -->
 
 +ACADEMICS
     syllabus
