@@ -54,21 +54,12 @@ const NavigationBar = () => {
       Icon: BookOpen,
       subLinks: [
         { to: '/academics/syllabus', label: 'Syllabus' },
-        { to: '/academics/achievements', label: 'Academic Achievements' },
+        { to: '/academics/academic-achievements', label: 'Academic Achievements' },
         { to: '/academics/admissions', label: 'Admissions' },
         { to: '/academics/examinations', label: 'Examinations' },
       ],
     },
-    {
-      to: '/achievements',
-      label: 'Achievements',
-      Icon: Award,
-      subLinks: [
-        { to: '/achievements/academic', label: 'Academic Achievements' },
-        { to: '/achievements/sports', label: 'Sports Achievements' },
-        { to: '/achievements/others', label: 'Others' },
-      ],
-    },
+    
     {
       to: '/placements',
       label: 'Placements',
