@@ -53,9 +53,10 @@ const NavigationBar = () => {
       label: 'Academics',
       Icon: BookOpen,
       subLinks: [
-        { to: '/academics/programs-offered', label: 'Programs Offered' },
         { to: '/academics/syllabus', label: 'Syllabus' },
         { to: '/academics/achievements', label: 'Academic Achievements' },
+        { to: '/academics/admissions', label: 'Admissions' },
+        { to: '/academics/examinations', label: 'Examinations' },
       ],
     },
     {

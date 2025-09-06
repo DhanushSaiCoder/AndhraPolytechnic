@@ -1,27 +1,25 @@
 # Website Plan for Andhra Polytechnic
 
 This document outlines the key sections and their proposed content for the Andhra Polytechnic website.
-
+<!-- 
 ## 1. Home
 *   Image Slider / Hero Section
 *   Latest Updates / News & Announcements
 *   Quick Links (e.g., Admissions, Results, Departments)
 *   About the College (brief overview)
 *   Principal's Message / Welcome Note
-*   Photo Gallery / Campus Life highlights
+*   Photo Gallery / Campus Life highlights -->
 
 ## 2. About Us
-*   Vision & Mission
+<!-- *   Vision & Mission -->
 *   History
 *   Leadership / Administration (Principal, Vice-Principal, etc.)
-*   Accreditations & Affiliations
-*   Achievements & Awards
-*   Contact Us / Location Map
+<!-- *   Accreditations & Affiliations -->
+<!-- *   Achievements & Awards -->
+<!-- *   Contact Us / Location Map -->
 
 ## 3. Academics
-*   Programs Offered (Diploma courses, etc.)
-*   Syllabus (Department-wise links)
-*   Academic Calendar
+<!-- *   Syllabus (Department-wise links) -->
 *   Academic Achievements (Student & Faculty)
 *   Admissions (Eligibility, Process, Important Dates)
 *   Examinations & Results
