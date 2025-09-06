@@ -13,8 +13,10 @@ import AlumniPage from './pages/AlumniPage';
 import DepartmentsPage from './pages/DepartmentsPage';
 import ResultsPage from './pages/ResultsPage';
 import DepartmentPage from './pages/DepartmentPage';
+import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+
 // import NotFound from './pages/NotFound'; // optional
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="academics" element={<AcademicsPage />} />
+        <Route path="academics/syllabus" element={<SyllabusPage />} />
         <Route path="achievements" element={<AchievementsPage />} />
         <Route path="placements" element={<PlacementsPage />} />
         <Route path="events" element={<EventsPage />} />

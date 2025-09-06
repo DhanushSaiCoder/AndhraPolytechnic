@@ -1,0 +1,159 @@
+.syllabus-section {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.syllabus-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.syllabus-controls {
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between selects */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.curriculum-select,
+.branch-select {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.curriculum-select:focus,
+.branch-select:focus {
+  border-color: #007bff;
+}
+
+.semester-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.semester-tab {
+  background-color: #f8f8f8;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+  border-radius: 5px 5px 0 0;
+}
+
+.semester-tab:hover {
+  background-color: #e9e9e9;
+}
+
+.semester-tab.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+.subject-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.subject-card {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.subject-card h3 {
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.subject-description {
+  color: #666;
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.subject-actions {
+  text-align: right;
+}
+
+.syllabus-download-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.syllabus-download-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.syllabus-download-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .syllabus-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .semester-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .semester-tab {
+    margin: 5px 0;
+    border-radius: 5px;
+  }
+
+  .subject-list {
+    grid-template-columns: 1fr;
+  }
+}

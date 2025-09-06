@@ -1,0 +1,123 @@
+{
+  "curricula": [
+    {
+      "id": "c20",
+      "code": "C-20",
+      "start_year": 2020,
+      "end_year": 2022,
+      "branches": [
+        {
+          "id": "cse",
+          "name": "Computer Science Engineering (CSE)",
+          "code": "CSE",
+          "semesters": [
+            {
+              "id": "cse-1yr",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "cse-em1-c20",
+                  "name": "Engineering Mathematics",
+                  "code": "EM1",
+                  "description": "Introduction to engineering mathematics.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-ep1-c20",
+                  "name": "Engineering Physics",
+                  "code": "EP1",
+                  "description": "Fundamentals of engineering physics.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/1yr/ep1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "cse-3sem",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "cse-ds-c20",
+                  "name": "Data Structures",
+                  "code": "DS",
+                  "description": "Concepts of data structures and algorithms.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/3sem/ds.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-oops-c20",
+                  "name": "Object Oriented Programming",
+                  "code": "OOPS",
+                  "description": "Principles of object-oriented programming.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/3sem/oops.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c23",
+      "code": "C-23",
+      "start_year": 2023,
+      "end_year": 2025,
+      "branches": [
+        {
+          "id": "cse",
+          "name": "Computer Science Engineering (CSE)",
+          "code": "CSE",
+          "semesters": [
+            {
+              "id": "cse-1yr",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "cse-em1-c23",
+                  "name": "Engineering Mathematics",
+                  "code": "EM1",
+                  "description": "Introduction to engineering mathematics (C-23).",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ece",
+          "name": "Electronics and Communication Engineering (ECE)",
+          "code": "ECE",
+          "semesters": [
+            {
+              "id": "ece-1yr",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "ece-em1-c23",
+                  "name": "Engineering Mathematics",
+                  "code": "EM1",
+                  "description": "Introduction to engineering mathematics (C-23).",
+                  "syllabus_pdf": "/assets/syllabus/c23/ece/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
