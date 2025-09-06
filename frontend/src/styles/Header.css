@@ -101,9 +101,11 @@
     gap: 8px; /* Added gap for spacing between icon and text */
 }
 
-.navLink:hover {
-    color: #3f72af; /* Change text color on hover */
-    background-color: #3f72af10; /* Light background on hover */
+@media (min-width: 601px) {
+    .navLink:hover {
+        color: #3f72af; /* Change text color on hover */
+        background-color: #3f72af10; /* Light background on hover */
+    }
 }
 
 .navLink:active {
@@ -529,9 +531,11 @@
     transition: background-color 0.2s ease;
 }
 
-.dropdownItem:hover {
-    background-color: #3f72af10;
-    color: #3f72af;
+@media (min-width: 601px) {
+    .dropdownItem:hover {
+        background-color: #3f72af10;
+        color: #3f72af;
+    }
 }
 
 .dropdown-arrow {
@@ -586,12 +590,14 @@
         max-height: 0;
         opacity: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        visibility: hidden;
+        transition: max-height 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
     }
 
-    .navLinkWrapper.active .dropdownMenu {
+    .dropdownMenu.open {
         max-height: 500px; /* Sufficiently large value */
         opacity: 1;
+        visibility: visible;
     }
 }
 
