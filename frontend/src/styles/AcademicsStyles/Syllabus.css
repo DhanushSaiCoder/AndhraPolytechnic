@@ -32,10 +32,9 @@
 /* Header */
 .page-header{
   display: flex;
+  flex-direction: column; /* Stack title/subtitle and search/controls */
   gap: 18px;
-  justify-content: space-between;
-  align-items: start;
-  flex-wrap: wrap;
+  align-items: flex-start; /* Align content to the start */
   margin-bottom: 18px;
 }
 .page-title{
@@ -50,12 +49,25 @@
   font-size: 0.95rem;
 }
 
-/* Search input */
-.search-wrap{
+/* Search input and controls wrapper */
+.search-controls-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%; /* Take full width */
+}
+
+.search-input{
   display:flex;
-  gap:12px;
   align-items:center;
-  margin-left:auto;
+  gap:8px;
+  background: var(--card);
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  min-width: 340px;
+  max-width: 720px; /* Keep max-width for larger screens */
 }
 .search-input{
   display:flex;
@@ -106,7 +118,7 @@
   color: #0f1724;
   transition: transform .12s ease, box-shadow .12s ease;
 }
-.pill:hover{ transform: translateY(-2px); }
+.pill:hover{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33,41,63,0.04); }
 .pill-active{
   background: linear-gradient(90deg,var(--primary),var(--primary-2));
   color: #fff;
@@ -206,8 +218,9 @@
   display:flex;
   align-items:center;
   gap:8px;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-.tab:hover{ transform: translateY(-2px); }
+.tab:hover{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33,41,63,0.04); }
 .tab-active{
   background: linear-gradient(90deg,var(--primary),var(--primary-2));
   color: #fff;
@@ -240,7 +253,7 @@
   border:1px solid var(--border);
   box-shadow: var(--shadow-sm);
   transition: transform .14s ease, box-shadow .14s ease;
-  min-height: 160px;
+  justify-content: space-between; /* Distribute content vertically */
 }
 .subject-card:hover{
   transform: translateY(-6px);
@@ -256,6 +269,7 @@
   gap:8px;
   align-items:center;
   flex-wrap:wrap;
+  margin-top: auto; /* Push meta to bottom if card content is short */
 }
 .chip{
   background: linear-gradient(180deg,#f6f9ff,#eef6ff);
@@ -273,7 +287,7 @@
 
 /* actions */
 .card-actions{
-  margin-top:auto;
+  margin-top:12px; /* Add some space above actions */
   display:flex;
   gap:10px;
   align-items:center;
@@ -290,17 +304,20 @@
   cursor: pointer;
   font-weight:600;
   font-size:0.92rem;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
 .btn.primary{
   background: linear-gradient(90deg,var(--primary),var(--primary-2));
   color: #fff;
   box-shadow: 0 8px 26px rgba(74,130,214,0.12);
 }
+.btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px rgba(74,130,214,0.18); }
 .btn.outline{
   background: transparent;
   color: var(--success);
   border: 1px solid rgba(22,163,74,0.12);
 }
+.btn.outline:hover{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(22,163,74,0.08); }
 .btn.small{
   padding:6px 10px;
   border-radius:8px;
@@ -310,10 +327,15 @@
 /* missing block */
 .missing-block{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+  flex-direction: column; /* Stack content vertically */
+  justify-content:center;
+  align-items:flex-start; /* Align items to start */
   gap:8px;
   width:100%;
+  padding: 12px; /* Add padding */
+  border: 1px dashed var(--border); /* Add dashed border */
+  border-radius: 8px; /* Rounded corners */
+  background: rgba(246,248,251,0.5); /* Light background */
 }
 .missing-left{ display:flex; gap:8px; align-items:center; color:var(--muted); }
 .missing-text{ font-size:0.95rem; }
@@ -346,6 +368,7 @@
   justify-content:space-between;
   padding: 14px 18px;
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15,23,42,0.04); /* Add shadow to modal header */
 }
 .modal-title{ display:flex; gap:10px; align-items:center; }
 .modal-title h3{ margin:0; font-size:1rem; font-weight:700; }
@@ -403,7 +426,7 @@
   .page-header{ gap:12px; align-items:flex-start; }
 }
 @media (max-width: 700px){
-  .search-wrap{ width:100%; display:flex; flex-direction:column; align-items:stretch; gap:10px; }
+  .search-input{ min-width: unset; width: 100%; }
   .pills-row{ justify-content:flex-start; }
   .grid-subjects{ grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); }
   .modal-card{ width: 98%; }

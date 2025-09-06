@@ -269,7 +269,7 @@ const SyllabusSection = () => {
             <p className="page-sub">Find subject syllabi for your curriculum and branch. Preview or download PDFs quickly.</p>
           </div>
 
-          <div className="search-wrap">
+          <div className="search-controls-wrapper">
             <label htmlFor="syllabus-search" className="visually-hidden">Search syllabus</label>
             <div className="search-input">
               <Search size={16} />
