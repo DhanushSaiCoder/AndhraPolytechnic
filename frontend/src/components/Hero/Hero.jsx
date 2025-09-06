@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Hero.module.css";
+import { GraduationCap } from 'lucide-react';
 
 const Hero = ({
     slides,
@@ -131,6 +132,10 @@ const Hero = ({
             </div>
 
             <div className={styles.content}>
+                                <div className={styles.badge}>
+                    <GraduationCap className={styles.badgeIcon} />
+                    <span className={styles.badgeText}>Excellence in Polytechnic Education</span>
+                </div>
                 <h1 className={styles.title}>
                     Welcome to Andhra Polytechnic
                 </h1>

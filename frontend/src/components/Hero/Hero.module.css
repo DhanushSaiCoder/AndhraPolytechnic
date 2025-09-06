@@ -95,6 +95,28 @@
   background-color: #0056b3;
 }
 
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+}
+
+.badgeIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.badgeText {
+    color: #3f72af;
+    font-weight: 500;
+}
+
 .controls {
   position: absolute;
   bottom: 40px;
