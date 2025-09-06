@@ -543,8 +543,10 @@
     transition: transform 0.2s ease;
 }
 
-.navLinkWrapper:hover .dropdown-arrow {
-    transform: rotate(180deg);
+@media (min-width: 601px) {
+    .navLinkWrapper:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
 }
 
 /* Adjustments for mobile view */
