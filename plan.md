@@ -21,8 +21,7 @@ This document outlines the key sections and their proposed content for the Andhr
 ## 3. Academics
 <!-- *   Syllabus (Department-wise links) -->
 <!-- *   Academic Achievements (Student & Faculty) -->
-*   Admissions (Eligibility, Process, Important Dates)
-*   Examinations & Results
+<!-- *   Admissions (Eligibility, Process, Important Dates) -->
 
 ## 4. Departments
 *   List of Departments (e.g., Civil, Mechanical, Electrical, Computer Science, Electronics, etc.)

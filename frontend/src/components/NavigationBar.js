@@ -56,7 +56,6 @@ const NavigationBar = () => {
         { to: '/academics/syllabus', label: 'Syllabus' },
         { to: '/academics/academic-achievements', label: 'Academic Achievements' },
         { to: '/academics/admissions', label: 'Admissions' },
-        { to: '/academics/examinations', label: 'Examinations' },
       ],
     },
     
