@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/AcademicsStyles/Academics.css';
 
 // Placeholder imports for Academics components
-import ProgramsOffered from '../components/AcademicsComponents/ProgramsOffered';
+
 import SyllabusSection from '../components/AcademicsComponents/SyllabusSection';
 import AcademicCalendar from '../components/AcademicsComponents/AcademicCalendar';
 import AcademicAchievements from '../components/AcademicsComponents/AcademicAchievements';
@@ -13,7 +13,7 @@ const AcademicsPage = () => {
   return (
     <div className='AcademicsPage'>
       <h1>Academics</h1>
-      <ProgramsOffered />
+      
       <SyllabusSection />
       <AcademicCalendar />
       <AcademicAchievements />

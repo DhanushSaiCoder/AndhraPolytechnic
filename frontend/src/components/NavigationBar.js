@@ -53,7 +53,6 @@ const NavigationBar = () => {
       label: 'Academics',
       Icon: BookOpen,
       subLinks: [
-        { to: '/academics/programs-offered', label: 'Programs Offered' },
         { to: '/academics/syllabus', label: 'Syllabus' },
         { to: '/academics/academic-calendar', label: 'Academic Calendar' },
         { to: '/academics/academic-achievements', label: 'Academic Achievements' },
