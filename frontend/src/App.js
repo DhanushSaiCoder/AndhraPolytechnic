@@ -4,7 +4,12 @@ import Header from './components/Header';
 import NavigationBar from './components/NavigationBar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import AdmissionsPage from './pages/AdmissionsPage';
+import AcademicsPage from './pages/AcademicsPage';
+import AchievementsPage from './pages/AchievementsPage';
+import PlacementsPage from './pages/PlacementsPage';
+import EventsPage from './pages/EventsPage';
+import AlumniPage from './pages/AlumniPage';
+
 import DepartmentsPage from './pages/DepartmentsPage';
 import ResultsPage from './pages/ResultsPage';
 import DepartmentPage from './pages/DepartmentPage';
@@ -21,7 +26,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
-        <Route path="admissions" element={<AdmissionsPage />} />
+        <Route path="academics" element={<AcademicsPage />} />
+        <Route path="achievements" element={<AchievementsPage />} />
+        <Route path="placements" element={<PlacementsPage />} />
+        <Route path="events" element={<EventsPage />} />
+        <Route path="alumni" element={<AlumniPage />} />
+        
         <Route path="departments" element={<DepartmentsPage />} />
         <Route path="results" element={<ResultsPage />} />
         <Route path="departments/:deptName" element={<DepartmentPage />} />

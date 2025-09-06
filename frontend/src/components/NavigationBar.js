@@ -28,10 +28,14 @@ const NavigationBar = () => {
 
   const links = [
     { to: '/', label: 'Home', exact: true },
+    { to: '/academics', label: 'Academics' },
+    { to: '/achievements', label: 'Achievements' },
+    { to: '/placements', label: 'Placements' },
+    { to: '/events', label: 'Events' },
     { to: '/departments', label: 'Departments' },
-    { to: '/admissions', label: 'Admissions' },
     { to: '/results', label: 'Results' },
     { to: '/about', label: 'About Us' },
+    { to: '/alumni', label: 'Alumni' },
   ];
 
   // Derive current page name
