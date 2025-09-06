@@ -93,10 +93,12 @@
     color: #112d4e;
     text-decoration: none;
     text-transform: uppercase;
+    white-space: nowrap; /* Ensure text stays on one line */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px; /* Added gap for spacing between icon and text */
 }
 
 .navLink:hover {

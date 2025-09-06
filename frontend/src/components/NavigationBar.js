@@ -1,7 +1,7 @@
 // frontend/src/components/NavigationBar.js
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn, Home, BookOpen, Award, Briefcase, Calendar, Building, ClipboardList, Info, Users } from 'lucide-react';
 import "../styles/Header.css";
 
 const NavigationBar = () => {
@@ -27,15 +27,15 @@ const NavigationBar = () => {
   }, [open]);
 
   const links = [
-    { to: '/', label: 'Home', exact: true },
-    { to: '/academics', label: 'Academics' },
-    { to: '/achievements', label: 'Achievements' },
-    { to: '/placements', label: 'Placements' },
-    { to: '/events', label: 'Events' },
-    { to: '/departments', label: 'Departments' },
-    { to: '/results', label: 'Results' },
-    { to: '/about', label: 'About Us' },
-    { to: '/alumni', label: 'Alumni' },
+    { to: '/', label: 'Home', exact: true, Icon: Home },
+    { to: '/academics', label: 'Academics', Icon: BookOpen },
+    { to: '/achievements', label: 'Achievements', Icon: Award },
+    { to: '/placements', label: 'Placements', Icon: Briefcase },
+    { to: '/events', label: 'Events', Icon: Calendar },
+    { to: '/departments', label: 'Departments', Icon: Building },
+    { to: '/results', label: 'Results', Icon: ClipboardList },
+    { to: '/about', label: 'About Us', Icon: Info },
+    { to: '/alumni', label: 'Alumni', Icon: Users },
   ];
 
   // Derive current page name
@@ -81,7 +81,7 @@ const NavigationBar = () => {
           className={`navLinks ${open ? 'open' : ''}`}
           aria-hidden={!open}
         >
-          {links.map(({ to, label, exact }, index) => (
+          {links.map(({ to, label, exact, Icon }, index) => (
             <NavLink
               key={to}
               to={to}
@@ -96,7 +96,8 @@ const NavigationBar = () => {
               }}
               onClick={() => setOpen(false)}
             >
-              {label}
+              {Icon && <Icon size={20} />}
+              <span>{label}</span>
             </NavLink>
           ))}
           
