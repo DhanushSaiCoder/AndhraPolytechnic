@@ -1,13 +1,11 @@
 .CommissionerMessage {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     background-color: #dbe2ef40;
     padding: 40px 0;
-    padding-top: 40px;
 }
 .commissionerImgAndName {
     display: flex;
@@ -15,7 +13,7 @@
     align-items: center;
     justify-content: center;
 }
-.commName{
+.commName {
     font-size: 1.5rem;
     font-weight: 600;
     color: #112D4E;
@@ -26,7 +24,7 @@
     font-weight: 400;
     color: rgb(221, 93, 46);
 }
-.commRole{
+.commRole {
     font-size: 1.2rem;
     color: #3F72AF;
     margin-top: 5px;
@@ -39,20 +37,12 @@
     object-fit: cover;
     border: 6px solid #DBE2EF;
 }
-.comm-message{
+.comm-message {
     width: 35%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
-    /* background-color: #DBE2EF; */
     border-radius: 10px;
     font-style: italic;
-
 }
-
 .comm-message p {
     display: flex;
     align-items: center;
@@ -61,10 +51,32 @@
     gap: 20px;
     font-size: 1.2rem;
     color: #3F72AF;
-
 }
-.comm-message p svg{
+.comm-message p svg {
     width: 60px;
     color: #3F72AF;
     margin-right: 10px;
+}
+@media (max-width: 768px) {
+    .CommissionerMessage {
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .comm-message {
+        width: 80%;
+        padding: 20px;
+    }
+    .commImg {
+        width: 150px;
+        height: 150px;
+    }
+    .commName {
+        font-size: 1.2rem;
+    }
+    .commRole {
+        font-size: 1rem;
+    }
+    .comm-message p {
+        font-size: 1rem;
+    }
 }

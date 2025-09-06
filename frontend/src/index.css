@@ -15,3 +15,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a, button, input, textarea, select, * {
+  -webkit-tap-highlight-color: transparent;
+}
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

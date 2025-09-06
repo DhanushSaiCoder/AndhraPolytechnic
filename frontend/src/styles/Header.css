@@ -1,4 +1,15 @@
-.Header{
+/* reduced-motion: override stagger/delays */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+    .navLink {
+        transition-delay: 0ms !important;
+    }
+}
+
+.Header {
     height: min-content;
     display: flex;
     align-items: center;
@@ -6,37 +17,43 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 20px 0;
-    background-color: #3F72AF;
+    background-color: #3f72af;
 }
-.headerNav{
+.headerNav {
     width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    border-top: 1px solid #112D4E20;
-    background-color: rgba(219, 226, 239, 0.68);
+    background-color: transparent;
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
 }
-.clgTitle{
+
+.headerNav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--muted-bg);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+.clgTitle {
     font-size: 3rem;
-    color: #F9F7F7;
-      font-family: "Cinzel", serif;
+    color: #f9f7f7;
+    font-family: "Cinzel", serif;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: -2.4px;
     text-align: center;
     margin: 0;
 }
-.clgSubtitle{
+.clgSubtitle {
     font-size: 1.5rem;
-    color: #DBE2EF;
+    color: #dbe2ef;
     font-family: "Cinzel", serif;
     font-weight: 400;
     text-transform: uppercase;
@@ -44,62 +61,36 @@
     text-align: center;
     margin: 0;
 }
-.clgTitleDiv{
+.clgTitleDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    color: #F9F7F7;
+    color: #f9f7f7;
 }
-.headerContent{
+.headerContent {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    
 }
-.clgLogoDiv{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: url('../images/clgLogo.png');
-    background-size: 70px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #01a8e9   ;
-
-    border: 3px solid #DBE2EF;
-}
-.sbtetLogoDiv{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: url('../images/sbtetLogo.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    border: 3px solid #DBE2EF;
-
-}
-.activeNavLink{
+.activeNavLink {
     height: 100%;
-    
-    color: #3F72AF;
+
+    color: #3f72af;
     text-decoration: none;
-    border-bottom: 2.5px solid #3F72AF;
-    background-color: #3F72AF20;
+    border-bottom: 2.5px solid #3f72af;
+    background-color: #3f72af20;
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
-.navLink{
+.navLink {
     height: 100%;
-    padding: 0 10px;
-    color: #112D4E;
+    padding-left: 0;
+    color: #112d4e;
     text-decoration: none;
     text-transform: uppercase;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
@@ -109,6 +100,378 @@
 }
 
 .navLink:hover {
-    color: #3F72AF; /* Change text color on hover */
-    background-color: #3F72AF10; /* Light background on hover */
+    color: #3f72af; /* Change text color on hover */
+    background-color: #3f72af10; /* Light background on hover */
+}
+
+.navLink:active {
+    transform: scale(0.95); /* Slightly shrink the link on click */
+}
+
+.currentPageName {
+    font-size: 1.2rem; /* Adjust as needed */
+    color: var(--nav-text); /* Use existing nav text color */
+    font-weight: bold;
+    display: none; /* Hidden by default, shown on mobile */
+}
+
+/* -----------------------
+  Shared variables & small tweaks
+   ----------------------- */
+:root {
+    --primary: #3f72af;
+    --muted-bg: rgba(219, 226, 239, 0.5);
+    --nav-text: #112d4e;
+}
+
+/* Make header content more flexible */
+.logoWrap {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.clgLogoImg,
+.sbtetLogoImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 3px solid #dbe2ef;
+    background-color: #01a8e9;
+}
+.sbtetLogoImg {
+    object-fit: cover;
+}
+
+/* navInner keeps hamburger and navLinks grouped */
+.headerNav .navInner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: relative;
+}
+
+/* ---------- HAMBUGER (improved timing & gpu hints) ---------- */
+.hamburger {
+    display: none; /* shown on small screens */
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    outline: none;
+    --hb-color: var(--nav-text, #112d4e);
+}
+
+/* SVG rect tweaks */
+.hamburger svg {
+    display: block;
+}
+.hamburger svg rect {
+    fill: var(--hb-color);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 300ms cubic-bezier(0.22, 0.9, 0.37, 1),
+        opacity 180ms linear;
+    will-change: transform, opacity;
+    shape-rendering: geometricPrecision;
+}
+.hamburger svg rect:nth-child(2) {
+    transition: transform 220ms cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 140ms linear;
+}
+
+/* Transform values tuned for your viewBox (0/30/60 -> center = ~36) */
+.hamburger.is-active svg rect:nth-child(1) {
+    transform: translateY(30px) rotate(45deg);
+}
+.hamburger.is-active svg rect:nth-child(2) {
+    transform: scaleX(0.03);
+    opacity: 0;
+}
+.hamburger.is-active svg rect:nth-child(3) {
+    transform: translateY(-30px) rotate(-45deg);
+    opacity: 1;
+}
+
+/* Focus styles */
+.hamburger:focus-visible {
+    box-shadow: 0 0 0 3px rgba(63, 114, 175, 0.18);
+    border-radius: 6px;
+}
+
+/* container for links (desktop: row, mobile: will become column) */
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Mobile styles: collapse navLinks into a vertical panel */
+@media (max-width: 900px) {
+    .clgTitle {
+        font-size: 2.2rem;
+    }
+    .clgSubtitle {
+        font-size: 1.1rem;
+    }
+    .logoWrap {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    .headerContent {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px;
+        padding: 0px 15px;
+    }
+
+    .clgTitle {
+        font-size: 1.2rem;
+        letter-spacing: -0.5px;
+        text-align: left;
+    }
+    .clgSubtitle {
+        font-size: 0.8rem;
+        letter-spacing: -0.2px;
+        text-align: left;
+    }
+
+    .clgTitleDiv {
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .logoWrap {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* show hamburger, move links into overlay below header */
+    .hamburger {
+        display: inline-flex;
+    }
+
+    .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.28);
+        opacity: 0;
+        transition: opacity 300ms ease;
+        pointer-events: none; /* Don't block clicks when hidden */
+        backdrop-filter: blur(0px); /* Initial blur */
+        z-index: 998; /* Below the navLinks panel */
+    }
+
+    .headerNav.open .nav-backdrop {
+        /* Apply to the backdrop when the nav is open */
+        opacity: 1;
+        pointer-events: auto; /* Allow clicks when visible */
+        backdrop-filter: blur(6px);
+    }
+
+    /* Adjust navInner for mobile to place page name next to hamburger */
+    .headerNav .navInner {
+        justify-content: flex-start; /* Align items to the start */
+        gap: 10px; /* Space between hamburger and page name */
+    }
+
+    .currentPageName {
+        display: block; /* Show page name on mobile */
+    }
+
+    .navLinks {
+        position: fixed;
+        top: 0; /* Changed from 45px to 0 */
+        right: 0;
+        bottom: 0;
+        width: 80%; /* Changed from 85% to 80% */
+        max-width: 420px;
+        background: #dbe2ef;
+        /* border-left: 1px solid rgba(17, 45, 78, 0.08); */
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        overflow-y: auto;
+        transform: translateX(100%) translateZ(0) !important; /* Added translateZ(0) */
+        transition: transform 380ms cubic-bezier(0.22, 0.9, 0.37, 1) !important;
+        will-change: transform;
+        z-index: 999;
+        box-shadow: -6px 0 12px rgba(0, 0, 0, 0.06);
+        padding-top: 15px; /* Adjusted padding-top */
+        pointer-events: none; /* non-interactive while closed */
+    }
+
+    /* when open: slide in and enable interactions */
+    .navLinks.open {
+        transform: translateX(0) translateY(-0.5px) translateZ(0) !important; /* Added translateY(-0.5px) */
+        pointer-events: auto;
+    }
+
+    /* Nav link base state: hidden and immediate (no delay) */
+    .navLink {
+        width: 100%;
+        height: 56px; /* Changed fixed height from 48px to 56px */
+        padding: 12px 16px 12px 72px;
+        justify-content: flex-start;
+        border-radius: 0;
+        text-align: left;
+        box-sizing: border-box; /* Added to prevent horizontal scrollbar */
+        opacity: 0 !important; /* Added !important */
+        transform: translateY(10px) scale(0.98) !important; /* Added !important */
+        transition: transform 360ms cubic-bezier(0.2, 0.9, 0.3, 1),
+            opacity 360ms ease !important; /* Added !important */
+        transition-delay: 0ms; /* important: no delay on close */
+        will-change: transform, opacity;
+        padding-left: 32px;
+    }
+
+    /* OPEN state: reveal with staggered delays applied ONLY when open */
+    .navLinks.open .navLink {
+        opacity: 1 !important; /* Added !important */
+        transform: translateY(0) scale(1) !important; /* Added !important */
+        transition-delay: calc(var(--i, 0) * 60ms); /* stagger only on show */
+    }
+
+    .navLink + .navLink {
+        border-top: 1px solid rgba(17, 45, 78, 0.04);
+    }
+
+    .activeNavLink {
+        border-bottom: none;
+        background-color: rgba(63, 114, 175, 0.08);
+        color: var(--primary);
+    }
+
+    /* optional: hide the right logo on small screens to save space */
+    .rightLogo {
+        display: none;
+    }
+}
+
+/* Ensure reduced-motion removes stagger delays */
+@media (prefers-reduced-motion: reduce) {
+    .navLinks.open .navLink {
+        transition-delay: 0ms !important;
+    }
+    .nav-backdrop {
+        transition: none !important;
+    }
+}
+
+/* tidy up small spacing for tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+    .headerContent {
+        gap: 20px;
+        padding: 16px 8px;
+    }
+    .logoWrap {
+        width: 90px;
+        height: 90px;
+    }
+    .clgTitle {
+        font-size: 2.4rem;
+    }
+    .clgSubtitle {
+        font-size: 1.2rem;
+    }
+}
+
+/* keep desktop nav as before but ensure it's centered and responsive */
+@media (min-width: 901px) {
+    .headerContent {
+        flex-direction: row;
+    }
+    .headerNav {
+        height: 56px;
+        align-items: center;
+        background-color: transparent;
+    }
+    .headerNav .navInner {
+        justify-content: center;
+        height: 100%;
+    }
+    .navLinks {
+        gap: 14px;
+        height: 100%;
+    }
+    .navLink {
+        padding: 0 12px;
+        height: 100%;
+    }
+    .currentPageName {
+        display: none; /* Hide page name on desktop */
+    }
+}
+
+/* Login Button Styles - Mobile */
+.loginButton {
+    height: 100%; /* Takes 100% of nav bar height */
+    background-color: #3f72af20;
+    border-radius: 0; /* No border radius */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    padding: 0 15px; /* Add some padding */
+    text-decoration: none; /* Remove underline for NavLink */
+    font-weight: bold;
+    gap: 5px; /* Space between icon and text */
+    margin-left: auto; /* Push to the right */
+}
+
+.loginButton:hover {
+    background-color: var(--primary);
+    color: white;
+    opacity: 0.9; /* Slight opacity change on hover */
+}
+
+/* Desktop Login Button Styles */
+.desktopLoginButton {
+    height: 100%;
+    background-color: #3f72af20;
+    border-radius: 0;
+    display: none; /* Hidden by default, shown on desktop */
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    padding: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    gap: 5px;
+    margin-left: 10px;
+    transition: background-color .3s ease-in-out ;
+}
+
+.desktopLoginButton:hover {
+    background-color: var(--primary);
+    color: white;
+    opacity: 0.9;
+}
+
+/* Hide mobile login button on desktop, show desktop login button */
+@media (min-width: 601px) {
+    .loginButton {
+        display: none;
+    }
+    
+    .desktopLoginButton {
+        display: flex;
+    }
+}
+
+/* Hide desktop login button on mobile */
+@media (max-width: 600px) {
+    .desktopLoginButton {
+        display: none !important;
+    }
 }

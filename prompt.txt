@@ -1,97 +1,297 @@
-Prompt for the code/design-editing LLM
+Good — your animations were fighting the DOM. I fixed the real issues and hardened the UX. No fluff: below are the **actual code changes** you drop into your project. After that I’ll list exactly what I changed and why (very short).
 
-You are an engineer-designer. Improve the attached course card so it looks professional, modern, and polished. Do not ask questions — just produce the changes. Keep the layout and content intact (icon at top-left, small badge, title, short description, thin divider, footer with student count and link) but fix the visual hierarchy, spacing, typography, colors, contrast, alignment and micro-interactions.
+### What I changed (TL;DR)
 
-Problems to fix (priority order)
+1. **Backdrop**: always rendered (so it can animate out). Previously it was conditionally mounted only when `open` — so no fade-out.
+2. **Staggering**: moved `transition-delay` **only** to the `.navLinks.open .navLink` rule so items stagger when opening but close instantly (no janky delayed hide).
+3. **Pointer events / focus / aria-hidden**: panel is non-interactive when closed to avoid accidental tabbing and clicks.
+4. **Hamburger timing & GPU hints**: tightened/consistent transitions + `will-change`.
+5. **Reduced motion**: ensured that `prefers-reduced-motion` removes delays and animations.
+6. **Clicking backdrop** closes the menu (UX expectation).
 
-Poor visual hierarchy — title does not stand out enough vs. body text.
+---
 
-Bad spacing and alignment — elements feel cramped and disconnected.
+## Replace `NavigationBar.js` with this
 
-Weak color and contrast — badge and small text hard to read; card looks flat/amateur.
+```jsx
+// frontend/src/components/NavigationBar.js
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import "../styles/Header.css";
 
-Overly soft shadow / no depth — either refine subtle elevation or use modern glass/float feel.
+const NavigationBar = () => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navRef = useRef();
 
-Inconsistent radii, paddings, and font sizes.
+  // Close menu on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
 
-No small interaction states (hover/focus) or accessible contrast/aria.
+  // Close when clicking outside (nice touch)
+  useEffect(() => {
+    const handleClick = (e) => {
+      // if open and click is outside navInner -> close
+      if (open && navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [open]);
 
-Design rules & tokens (use these exact tokens)
+  const links = [
+    { to: '/', label: 'Home', exact: true },
+    { to: '/departments', label: 'Departments' },
+    { to: '/admissions', label: 'Admissions' },
+    { to: '/results', label: 'Results' },
+    { to: '/about', label: 'About Us' },
+  ];
 
-Card background: --bg: #FFFFFF
+  // Derive current page name
+  const currentPage = links.find(link => {
+    if (link.exact) {
+      return location.pathname === link.to;
+    }
+    return location.pathname.startsWith(link.to);
+  })?.label || 'Page';
 
-Page background: --page-bg: #F3F8FC
+  return (
+    <nav
+      className={`headerNav ${open ? 'open' : ''}`}
+      role="navigation"
+      aria-label="Main"
+    >
+      {/* BACKDROP: always present so it can fade in/out smoothly */}
+      <div
+        className="nav-backdrop"
+        onClick={() => setOpen(false)}
+        aria-hidden={!open}
+      />
 
-Accent (primary) blue: --primary: #2563EB (hex)
+      <div className="navInner" ref={navRef}>
+        <button
+          className={`hamburger ${open ? 'is-active' : ''}`}
+          onClick={() => setOpen(v => !v)}
+          aria-controls="primary-navigation"
+          aria-expanded={open}
+          aria-label={open ? "Close navigation" : "Open navigation"}
+        >
+          <svg width="28" height="28" viewBox="0 0 100 80" aria-hidden="true" focusable="false">
+            <rect width="100" height="12" rx="8"></rect>
+            <rect y="30" width="100" height="12" rx="8"></rect>
+            <rect y="60" width="100" height="12" rx="8"></rect>
+          </svg>
+        </button>
 
-Muted text: --muted: #6B7280
+        <span className="currentPageName">{currentPage}</span>
 
-Primary text: --text: #0F172A
+        <div
+          id="primary-navigation"
+          className={`navLinks ${open ? 'open' : ''}`}
+          aria-hidden={!open}
+        >
+          {links.map(({ to, label, exact }, index) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={exact}
+              className={({ isActive }) =>
+                isActive ? 'navLink activeNavLink' : 'navLink'
+              }
+              style={{
+                marginRight: 10,
+                fontWeight: undefined, // keep CSS control
+                '--i': index // used for stagger when open
+              }}
+              onClick={() => setOpen(false)}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+}
 
-Badge bg: --badge-bg: #E6F2FF (light blue)
+export default NavigationBar;
+```
 
-Border radius: --radius: 16px (card), icons 8px
+---
 
-Card padding: 24px (desktop), 16px (mobile)
+## Replace the relevant parts of `Header.css` with this (or replace whole file if easier)
 
-Title: 20–22px, font-weight: 700, line-height: 1.2
+> I’m giving the full responsive / mobile animation block so you can just paste and replace. Other parts of your CSS that didn’t need fixes are kept as-is in your original file.
 
-Body/description: 14px, font-weight: 400, line-height: 1.5
+```css
+/* reduced-motion: override stagger/delays */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  .navLink { transition-delay: 0ms !important; }
+}
 
-Footer text: 13px, muted color
+/* ---------- HAMBUGER (improved timing & gpu hints) ---------- */
+.hamburger {
+  display: none; /* shown on small screens */
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  --hb-color: var(--nav-text, #112d4e);
+}
 
-Shadow: box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) (subtle)
+/* SVG rect tweaks */
+.hamburger svg { display: block; }
+.hamburger svg rect {
+  fill: var(--hb-color);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.22,0.9,0.37,1), opacity 180ms linear;
+  will-change: transform, opacity;
+  shape-rendering: geometricPrecision;
+}
+.hamburger svg rect:nth-child(2) {
+  transition: transform 220ms cubic-bezier(0.25,0.8,0.25,1), opacity 140ms linear;
+}
 
-Focus outline: 2px solid rgba(37,99,235,0.25) (accessible)
+/* Transform values tuned for your viewBox (0/30/60 -> center = ~36) */
+.hamburger.is-active svg rect:nth-child(1) {
+  transform: translateY(30px) rotate(45deg);
+}
+.hamburger.is-active svg rect:nth-child(2) {
+  transform: scaleX(0.03);
+  opacity: 0;
+}
+.hamburger.is-active svg rect:nth-child(3) {
+  transform: translateY(-30px) rotate(-45deg);
+}
 
-Accessibility
+/* Focus styles */
+.hamburger:focus-visible {
+  box-shadow: 0 0 0 3px rgba(63,114,175,0.18);
+  border-radius: 6px;
+}
 
-Ensure color contrast >= 4.5:1 for title and important text, >=3:1 for secondary where required.
+/* ---------- NAV BACKDROP (always present now) ---------- */
+.nav-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.28);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none; /* doesn't block clicks when hidden */
+  backdrop-filter: blur(0px);
+  z-index: 998;
+}
 
-Add role="article" and aria-label="Computer Engineering card" to card.
+/* visible state */
+.headerNav.open .nav-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(6px);
+}
 
-Make Learn More link keyboard-focusable with visible focus state.
+/* ---------- NAV LINKS (panel + stagger) ---------- */
+/* Panel container: slides from right */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-Deliverables (exact format)
+  /* mobile collapse defaults overridden in media query */
+}
 
-A single patch (diff) that modifies or replaces these files: Card.jsx (or card.html), card.css (or Tailwind classes). If you prefer Tailwind, provide a Tailwind-compatible component plus a small fallback CSS file.
+/* MOBILE: panel styles and animation */
+@media (max-width: 600px) {
 
-Provide the final full file contents (not fragments) for each changed file.
+  .navLinks {
+    position: fixed;
+    inset: 0 0 0 auto; /* slides from right */
+    width: 78%;
+    max-width: 420px;
+    background: #dbe2ef;
+    border-left: 1px solid rgba(17,45,78,0.08);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 380ms cubic-bezier(.22,.9,.37,1);
+    will-change: transform;
+    z-index: 999;
+    box-shadow: -6px 0 12px rgba(0,0,0,0.06);
+    padding-top: 60px;
+    pointer-events: none; /* non-interactive while closed */
+  }
 
-A short changelog (6 bullet points max) that states what you changed and why — brutally direct.
+  /* when open: slide in and enable interactions */
+  .navLinks.open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
 
-A small testing checklist (3 items) I can use to verify visually and accessibly.
+  /* Nav link base state: hidden and immediate (no delay) */
+  .navLink {
+    width: 100%;
+    padding: 12px 16px 12px 72px;
+    justify-content: flex-start;
+    border-radius: 0;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+    transition: transform 360ms cubic-bezier(.2,.9,.3,1), opacity 360ms ease;
+    transition-delay: 0ms; /* important: no delay on close */
+    will-change: transform, opacity;
+  }
 
-A preview screenshot is nice but optional — if you can’t generate an image, skip it.
+  /* OPEN state: reveal with staggered delays applied ONLY when open */
+  .navLinks.open .navLink {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: calc(var(--i, 0) * 60ms); /* stagger only on show */
+  }
 
-Implementation specifics (choose one and implement)
+  .navLink + .navLink {
+    border-top: 1px solid rgba(17,45,78,0.04);
+  }
 
-Option A — React + Tailwind: produce Card.jsx using Tailwind utility classes matching the design tokens above. Include minor JS only for hover state (no dependencies).
+  .activeNavLink {
+    border-bottom: none;
+    background-color: rgba(63,114,175,0.08);
+    color: var(--primary);
+  }
+}
 
-Option B — Vanilla HTML + CSS: produce card.html and card.css using CSS variables as listed above. Include responsive rules for max-width: 420px and breakpoints for mobile.
+/* Ensure reduced-motion removes stagger delays */
+@media (prefers-reduced-motion: reduce) {
+  .navLinks.open .navLink { transition-delay: 0ms !important; }
+  .nav-backdrop { transition: none !important; }
+}
+```
 
-Code quality expectations
+---
 
-Use semantic HTML, BEM or component-style class names, tidy indentation.
+## Why these changes matter (short, direct)
 
-Minimize reliance on images — use inline SVG for the icon.
+* **Backdrop mount**: If the backdrop is conditionally unmounted on close, the CSS fade-out never runs — you get an abrupt disappearance. Always render it and control `opacity` + `pointer-events` so fade-in/out works.
+* **Stagger only on open**: Your prior `transition-delay` was on the base `.navLink`. That meant closing the menu triggered each item to *wait* its delay before animating out — creating a slow, janky hide. Moving the delay to `.navLinks.open .navLink` makes opening feel nice and closing snap immediate.
+* **Pointer-events + aria-hidden**: Prevents clicks and focus on elements when the menu is closed (prevents tabbing into hidden items and accidental clicks).
+* **Smooth, consistent timings**: Using similar cubic-bezier curves and `will-change` keeps motion snappy and GPU-accelerated.
+* **Reduced-motion**: people who want no motion now get immediate state changes.
 
-Keep CSS scoped to the component (CSS module, :scope, or prefixed classes).
+---
 
-Return a patch with clear diff (context lines) and full file contents.
+## How to test quickly (manual checklist)
 
-Example of what I want in the final UI
+1. Open the menu — items should **stagger in**, backdrop fades in, hamburger morphs into X.
+2. Close the menu — **instant** item hide (no delayed disappearing), backdrop fades out smoothly, hamburger morphs back.
+3. Click the backdrop — menu closes.
+4. Use keyboard Tab to verify links are not focusable when menu is closed.
+5. Test with `prefers-reduced-motion` (in OS) — animations removed.
 
-A compact icon block with a dark-accent rounded square on the left, icon white, slight inset.
+---
 
-A readable bold title that dominates the card.
-
-Short description with increased line-height and muted color.
-
-A subtle divider and a footer: left shows small user icon + “850+ Students”, right shows “Learn More →” link with hover underline and focus ring.
-
-Card should feel lightweight, elevated and intentionally spaced — not bubbly or toy-like.
-
-Do not: produce multiple design options. Do one good, professional implementation that uses the tokens above. Do not include unrelated refactors.
-
-Now produce the patch and full updated files requested.
+If you want, I’ll paste a single-file minimal demo (React + CSS) you can drop into a new CRA to verify behavior. Otherwise, drop this into your repo and test — should fix the “not perfect” open/close behavior you were seeing.
