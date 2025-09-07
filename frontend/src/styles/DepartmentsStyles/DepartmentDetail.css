@@ -120,12 +120,18 @@
     font-size: 1.8rem;
     font-weight: 700;
     color: #3F72AF;
-    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid #DBE2EF;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #DBE2EF;
+  margin-bottom: 1.5rem;
 }
 
 .section-title svg {
@@ -239,10 +245,103 @@
     .department-sections-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    .department-sections-grid .faculty-profiles {
+        grid-column: span 2;
+    }
 }
 
 @media (min-width: 1024px) {
     .department-sections-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+    .department-sections-grid .faculty-profiles {
+        grid-column: span 2;
+    }
+}
+
+/* For the new faculty display */
+.faculty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  margin-bottom: 1.5rem;
+}
+
+
+
+.view-more-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #3F72AF;
+  border: 2px solid #3F72AF;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #DBE2EF;
+  color: #112D4E;
+  border-color: #112D4E;
+}
+
+/* Copied from FacultyCarousel.css for card styling */
+.faculty-card {
+    flex: 0 0 auto;
+    width: 280px;
+    height: auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.faculty-image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    border: 4px solid #fff;
+}
+
+.faculty-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.faculty-details {
+    padding: 0;
+}
+
+.faculty-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 0.5rem;
+}
+
+.faculty-designation {
+    font-size: 0.95rem;
+    color: #3F72AF;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.faculty-specialization {
+    font-size: 0.85rem;
+    color: #6b7280;
 }

@@ -20,7 +20,7 @@ const FacultyCarousel = ({ faculty }) => {
         card.scrollIntoView({
           behavior: 'smooth',
           block: 'nearest',
-          inline: 'center',
+          inline: 'start',
         });
       }
     }

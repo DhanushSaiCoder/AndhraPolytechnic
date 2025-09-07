@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { departmentsData } from '../data/departmentsData';
-import FacultyCarousel from '../components/DepartmentsComponents/FacultyCarousel';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 import {
   ArrowLeft,
@@ -12,6 +11,7 @@ import {
   BookOpen,
   Activity,
   Trophy,
+  ArrowRight,
 } from 'lucide-react';
 
 const DepartmentDetail = () => {
@@ -64,8 +64,28 @@ const DepartmentDetail = () => {
         </div>
 
         <div className="department-section faculty-profiles">
-          <h2 className="section-title"><Users size={24} /> Faculty Profiles</h2>
-          <FacultyCarousel faculty={department.faculty} />
+          <div className="section-header">
+            <h2 className="section-title"><Users size={24} /> Faculty Profiles</h2>
+            {department.faculty.length > 3 && (
+              <button onClick={() => navigate(`/departments/${departmentId}/faculty`)} className="view-more-button">
+                View More <ArrowRight size={16} />
+              </button>
+            )}
+          </div>
+          <div className="faculty-grid">
+            {department.faculty.slice(0, 3).map((member, index) => (
+              <div key={index} className="faculty-card">
+                <div className="faculty-image-wrapper">
+                  <img src={member.imageUrl} alt={member.name} className="faculty-image" />
+                </div>
+                <div className="faculty-details">
+                  <h4 className="faculty-name">{member.name}</h4>
+                  <p className="faculty-designation">{member.designation}</p>
+                  <p className="faculty-specialization">{member.specialization}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="department-section labs-facilities">
