@@ -6,13 +6,15 @@ import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 const LabsSection = ({ department }) => {
   return (
     <div className="department-section">
-      <div className="section-header">
-        <h2 className="section-title">
-          <Beaker size={24} />
-          Our Labs
-        </h2>
+      <div className="department-section-container">
+        <div className="section-header">
+          <h2 className="section-title">
+            <Beaker size={24} />
+            Our Labs
+          </h2>
+        </div>
+        <LabCarousel labs={department.labs} />
       </div>
-      <LabCarousel labs={department.labs} />
     </div>
   );
 };

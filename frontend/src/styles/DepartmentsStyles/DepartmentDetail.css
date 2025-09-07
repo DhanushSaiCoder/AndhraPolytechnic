@@ -1,7 +1,6 @@
 /* DepartmentDetail.css */
 
 .department-detail-container {
-    padding: 2rem 1rem;
     background-color: #F9F7F7;
     color: #112D4E;
     min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
@@ -49,7 +48,6 @@
     position: relative;
     width: 100%;
     height: 500px;
-    border-radius: 1rem;
     overflow: hidden;
     margin-bottom: 3rem;
     display: flex;
@@ -100,42 +98,52 @@
     color: #DBE2EF;
 }
 
-.department-sections-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
 .department-section {
-    background-color: #DBE2EF40;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border: 1px solid #DBE2EF;
-    display: flex;
-    flex-direction: column;
+    padding: 4rem 1rem;
 }
 
-.section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #3F72AF;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+.department-section:nth-of-type(even) {
+    background-color: #F9F7F7;
+}
+
+.department-section:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.department-section-container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .section-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-bottom: 0.75rem;
-  border-bottom: 2px solid #DBE2EF;
-  margin-bottom: 1.5rem;
+  /* border-bottom: 2px solid #DBE2EF; */
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
 }
 
 .section-title svg {
-    color: #112D4E;
+    color: #3F72AF;
+}
+
+.vision-mission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 
 .vision-mission-content .vm-item {
@@ -147,9 +155,12 @@
 }
 
 .vision-mission-content h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #112D4E;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .vision-mission-content p {
@@ -166,6 +177,9 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .faculty-item,
@@ -176,184 +190,14 @@
     background-color: #F9F7F7;
     padding: 1rem 1.2rem;
     border-radius: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     border: 1px solid #DBE2EF;
     font-size: 0.95rem;
     color: #4b5563;
 }
 
-.faculty-item:last-child,
-.lab-item:last-child,
-.course-item:last-child,
-.activity-item:last-child,
-.achievement-item:last-child {
-    margin-bottom: 0;
-}
-
-.faculty-item strong,
-.lab-item strong,
 .course-item strong {
     color: #3F72AF;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .department-detail-header {
-        height: 350px;
-    }
-
-    .department-header-content h1 {
-        font-size: 2rem;
-    }
-
-    .department-header-content p {
-        font-size: 0.9rem;
-    }
-
-    .department-sections-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .department-section {
-        padding: 1.5rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .vision-mission-content h3 {
-        font-size: 1.1rem;
-    }
-
-    .vision-mission-content p {
-        font-size: 0.9rem;
-    }
-
-    .faculty-item,
-    .lab-item,
-    .course-item,
-    .activity-item,
-    .achievement-item {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .department-sections-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .department-sections-grid .faculty-profiles {
-        grid-column: span 2;
-    }
-}
-
-@media (min-width: 1024px) {
-    .department-sections-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .department-sections-grid .faculty-profiles {
-        grid-column: span 2;
-    }
-}
-
-/* For the new faculty display */
-.faculty-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  justify-items: center;
-  margin-bottom: 1.5rem;
-}
-
-
-
-.view-more-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: #3F72AF;
-  border: 2px solid #3F72AF;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-more-button:hover {
-  background-color: #DBE2EF;
-  color: #112D4E;
-  border-color: #112D4E;
-}
-
-/* Copied from FacultyCarousel.css for card styling */
-.faculty-card {
-    flex: 0 0 auto;
-    width: 280px;
-    height: auto;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.faculty-image-wrapper {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    border: 4px solid #fff;
-}
-
-.faculty-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.faculty-details {
-    padding: 0;
-}
-
-.faculty-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #112D4E;
-    margin-bottom: 0.5rem;
-}
-
-.faculty-designation {
-    font-size: 0.95rem;
-    color: #3F72AF;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.faculty-specialization {
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
-@media (min-width: 768px) {
-    .department-sections-grid .labs-facilities {
-        grid-column: span 2;
-    }
-}
-
-@media (min-width: 1024px) {
-    .department-sections-grid .labs-facilities {
-        grid-column: span 3;
-    }
-}
