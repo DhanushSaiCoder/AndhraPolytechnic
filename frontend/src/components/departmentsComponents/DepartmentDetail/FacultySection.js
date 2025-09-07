@@ -5,7 +5,7 @@ import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const FacultySection = ({ department }) => {
   return (
-    <>
+    <div className="department-section">
       <div className="section-header">
         <h2 className="section-title">
           <Users size={24} />
@@ -13,7 +13,7 @@ const FacultySection = ({ department }) => {
         </h2>
       </div>
       <FacultyCarousel faculty={department.faculty} />
-    </>
+    </div>
   );
 };
 

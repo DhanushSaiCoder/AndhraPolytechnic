@@ -22,20 +22,12 @@ const DepartmentDetail = () => {
   return (
     <div className="department-detail-container">
       <DepartmentHero department={department} />
-      <div className="department-sections-grid">
-        <div className="department-section">
-          <VisionMission department={department} />
-        </div>
-        <div className="department-section faculty-profiles">
-          <FacultySection department={department} />
-        </div>
-        <div className="department-section labs-facilities">
-          <LabsSection department={department} />
-        </div>
-        <CoursesSection courses={department.courses} />
-        <ActivitiesSection activities={department.activities} />
-        <AchievementsSection achievements={department.achievements} />
-      </div>
+      <VisionMission department={department} />
+      <FacultySection department={department} />
+      <LabsSection department={department} />
+      <CoursesSection courses={department.courses} />
+      <ActivitiesSection activities={department.activities} />
+      <AchievementsSection achievements={department.achievements} />
     </div>
   );
 };

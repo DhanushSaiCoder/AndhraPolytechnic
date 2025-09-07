@@ -4,7 +4,7 @@ import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const VisionMission = ({ department }) => {
   return (
-    <>
+    <div className="department-section">
       <div className="section-header">
         <h2 className="section-title">
           <Eye size={24} />
@@ -21,7 +21,7 @@ const VisionMission = ({ department }) => {
           <p>{department.mission}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
