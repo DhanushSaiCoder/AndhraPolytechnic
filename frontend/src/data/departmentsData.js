@@ -7,10 +7,10 @@ export const departmentsData = [
         mission: 'To provide quality education in Computer Engineering, equip students with problem-solving skills, and promote ethical values for professional success.',
         description: 'The Department of Computer Engineering offers a comprehensive curriculum covering various aspects of computer science and engineering. Students gain expertise in programming, data structures, algorithms, database management, web development, and more.',
         faculty: [
-            { name: 'Dr. A. Kumar', designation: 'Head of Department', specialization: 'Artificial Intelligence' },
-            { name: 'Prof. B. Singh', designation: 'Professor', specialization: 'Machine Learning' },
-            { name: 'Dr. C. Devi', designation: 'Associate Professor', specialization: 'Cyber Security' },
-            { name: 'Ms. D. Rao', designation: 'Assistant Professor', specialization: 'Web Technologies' },
+            { name: 'Dr. A. Kumar', designation: 'Head of Department', specialization: 'Artificial Intelligence', imageUrl: 'https://picsum.photos/seed/DrAKumar/200/200' },
+            { name: 'Prof. B. Singh', designation: 'Professor', specialization: 'Machine Learning', imageUrl: 'https://picsum.photos/seed/ProfBSingh/200/200' },
+            { name: 'Dr. C. Devi', designation: 'Associate Professor', specialization: 'Cyber Security', imageUrl: 'https://picsum.photos/seed/DrCDevi/200/200' },
+            { name: 'Ms. D. Rao', designation: 'Assistant Professor', specialization: 'Web Technologies', imageUrl: 'https://picsum.photos/seed/MsDRao/200/200' },
         ],
         labs: [
             { name: 'Programming Lab', description: 'Equipped with modern computers and software for hands-on programming experience.' },
@@ -44,9 +44,9 @@ export const departmentsData = [
         mission: 'To impart strong theoretical and practical knowledge in Electronics Engineering, encourage innovation, and foster a spirit of lifelong learning.',
         description: 'The Electronics Engineering Department focuses on the design, development, and testing of electronic circuits and systems. Students learn about analog and digital electronics, microcontrollers, communication systems, and embedded systems.',
         faculty: [
-            { name: 'Dr. E. Prasad', designation: 'Head of Department', specialization: 'Embedded Systems' },
-            { name: 'Prof. F. Reddy', designation: 'Professor', specialization: 'VLSI Design' },
-            { name: 'Dr. G. Sharma', designation: 'Associate Professor', specialization: 'Communication Systems' },
+            { name: 'Dr. E. Prasad', designation: 'Head of Department', specialization: 'Embedded Systems', imageUrl: 'https://picsum.photos/seed/DrEPrasad/200/200' },
+            { name: 'Prof. F. Reddy', designation: 'Professor', specialization: 'VLSI Design', imageUrl: 'https://picsum.photos/seed/ProfFReddy/200/200' },
+            { name: 'Dr. G. Sharma', designation: 'Associate Professor', specialization: 'Communication Systems', imageUrl: 'https://picsum.photos/seed/DrGSharma/200/200' },
         ],
         labs: [
             { name: 'Analog Electronics Lab', description: 'For experimenting with basic electronic components and circuits.' },
@@ -77,8 +77,8 @@ export const departmentsData = [
         mission: 'To educate students with fundamental and advanced concepts in Electrical Engineering, promote research, and develop ethical professionals.',
         description: 'The Electrical Engineering Department covers a wide range of topics including power generation, transmission, distribution, electrical machines, control systems, and renewable energy. Students gain practical skills through laboratory work and projects.',
         faculty: [
-            { name: 'Dr. H. Gupta', designation: 'Head of Department', specialization: 'Power Systems' },
-            { name: 'Prof. I. Khan', designation: 'Professor', specialization: 'Renewable Energy' },
+            { name: 'Dr. H. Gupta', designation: 'Head of Department', specialization: 'Power Systems', imageUrl: 'https://picsum.photos/seed/DrHGupta/200/200' },
+            { name: 'Prof. I. Khan', designation: 'Professor', specialization: 'Renewable Energy', imageUrl: 'https://picsum.photos/seed/ProfIKhan/200/200' },
         ],
         labs: [
             { name: 'Electrical Machines Lab', description: 'For studying the characteristics and operation of various electrical machines.' },
@@ -107,8 +107,8 @@ export const departmentsData = [
         mission: 'To provide a strong foundation in Mechanical Engineering principles, foster creativity, and prepare students for diverse career opportunities.',
         description: 'The Mechanical Engineering Department offers a robust curriculum in areas such as thermodynamics, fluid mechanics, manufacturing processes, machine design, and robotics. Students engage in hands-on projects and simulations.',
         faculty: [
-            { name: 'Dr. J. Singh', designation: 'Head of Department', specialization: 'Robotics' },
-            { name: 'Prof. K. Varma', designation: 'Professor', specialization: 'Thermal Engineering' },
+            { name: 'Dr. J. Singh', designation: 'Head of Department', specialization: 'Robotics', imageUrl: 'https://picsum.photos/seed/DrJSingh/200/200' },
+            { name: 'Prof. K. Varma', designation: 'Professor', specialization: 'Thermal Engineering', imageUrl: 'https://picsum.photos/seed/ProfKVarma/200/200' },
         ],
         labs: [
             { name: 'Workshop Practice Lab', description: 'For hands-on training in various manufacturing processes.' },
@@ -137,8 +137,8 @@ export const departmentsData = [
         mission: 'To educate students with core concepts of Civil Engineering, promote practical skills, and instill a commitment to ethical and sustainable practices.',
         description: 'The Civil Engineering Department focuses on the planning, design, construction, and maintenance of infrastructure projects. Students learn about structural analysis, transportation engineering, environmental engineering, and construction management.',
         faculty: [
-            { name: 'Dr. L. Kumar', designation: 'Head of Department', specialization: 'Structural Engineering' },
-            { name: 'Prof. M. Devi', designation: 'Professor', specialization: 'Transportation Engineering' },
+            { name: 'Dr. L. Kumar', designation: 'Head of Department', specialization: 'Structural Engineering', imageUrl: 'https://picsum.photos/seed/DrLKumar/200/200' },
+            { name: 'Prof. M. Devi', designation: 'Professor', specialization: 'Transportation Engineering', imageUrl: 'https://picsum.photos/seed/ProfMDevi/200/200' },
         ],
         labs: [
             { name: 'Strength of Materials Lab', description: 'For testing the mechanical properties of construction materials.' },
@@ -167,8 +167,8 @@ export const departmentsData = [
         mission: 'To provide comprehensive education in architectural engineering, emphasizing structural design, building systems, and sustainable practices.',
         description: 'The Architectural Engineering Department focuses on the structural and mechanical aspects of buildings, combining engineering rigor with aesthetic design principles. Students learn about building materials, structural analysis, HVAC systems, and sustainable construction.',
         faculty: [
-            { name: 'Dr. N. Sharma', designation: 'Head of Department', specialization: 'Sustainable Building Design' },
-            { name: 'Prof. O. Singh', designation: 'Professor', specialization: 'Structural Analysis' },
+            { name: 'Dr. N. Sharma', designation: 'Head of Department', specialization: 'Sustainable Building Design', imageUrl: 'https://picsum.photos/seed/DrNSharma/200/200' },
+            { name: 'Prof. O. Singh', designation: 'Professor', specialization: 'Structural Analysis', imageUrl: 'https://picsum.photos/seed/ProfOSingh/200/200' },
         ],
         labs: [
             { name: 'Building Materials Lab', description: 'For testing properties of various construction materials.' },
@@ -197,8 +197,8 @@ export const departmentsData = [
         mission: 'To equip students with advanced knowledge in automobile engineering, focusing on vehicle design, manufacturing, and maintenance, and promoting research in emerging automotive technologies.',
         description: 'The Automobile Engineering Department provides specialized education in the design, development, manufacturing, and maintenance of automobiles. Students explore topics such as engine technology, vehicle dynamics, automotive electronics, and alternative fuels.',
         faculty: [
-            { name: 'Dr. P. Rao', designation: 'Head of Department', specialization: 'Automotive Electronics' },
-            { name: 'Prof. Q. Kumar', designation: 'Professor', specialization: 'Vehicle Dynamics' },
+            { name: 'Dr. P. Rao', designation: 'Head of Department', specialization: 'Automotive Electronics', imageUrl: 'https://picsum.photos/seed/DrPRao/200/200' },
+            { name: 'Prof. Q. Kumar', designation: 'Professor', specialization: 'Vehicle Dynamics', imageUrl: 'https://picsum.photos/seed/ProfQKumar/200/200' },
         ],
         labs: [
             { name: 'Automotive Engine Lab', description: 'For hands-on study of internal combustion engines.' },

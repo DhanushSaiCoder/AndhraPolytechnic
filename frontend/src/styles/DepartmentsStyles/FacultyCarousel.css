@@ -1,0 +1,105 @@
+/* FacultyCarousel.css */
+
+.faculty-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+}
+
+.faculty-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+    overflow-x: hidden; /* Hide scrollbar */
+}
+
+.faculty-card {
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+    width: 250px; /* Fixed width for each card */
+    height: 320px; /* Adjust height to make it square-ish with content */
+    margin: 0 1rem; /* Spacing between cards */
+    background-color: #F9F7F7;
+    border-radius: 1rem; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 1rem;
+    scroll-snap-align: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.faculty-image-wrapper {
+    width: 100%;
+    height: 180px; /* Fixed height for image section */
+    overflow: hidden;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.faculty-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.faculty-details {
+    padding: 0 1rem;
+}
+
+.faculty-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 0.25rem;
+}
+
+.faculty-designation {
+    font-size: 0.95rem;
+    color: #3F72AF;
+    margin-bottom: 0.25rem;
+}
+
+.faculty-specialization {
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .faculty-card {
+        width: 200px;
+        height: 280px;
+        margin: 0 0.5rem;
+    }
+
+    .faculty-image-wrapper {
+        height: 140px;
+    }
+
+    .faculty-name {
+        font-size: 1rem;
+    }
+
+    .faculty-designation,
+    .faculty-specialization {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .faculty-card {
+        width: 180px;
+        height: 260px;
+    }
+
+    .faculty-image-wrapper {
+        height: 120px;
+    }
+}

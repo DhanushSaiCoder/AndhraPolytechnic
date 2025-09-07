@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { departmentsData } from '../data/departmentsData';
+import FacultyCarousel from '../components/DepartmentsComponents/FacultyCarousel';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 import {
   ArrowLeft,
@@ -64,13 +65,7 @@ const DepartmentDetail = () => {
 
         <div className="department-section faculty-profiles">
           <h2 className="section-title"><Users size={24} /> Faculty Profiles</h2>
-          <ul className="faculty-list">
-            {department.faculty.map((member, index) => (
-              <li key={index} className="faculty-item">
-                <strong>{member.name}</strong> - {member.designation} ({member.specialization})
-              </li>
-            ))}
-          </ul>
+          <FacultyCarousel faculty={department.faculty} />
         </div>
 
         <div className="department-section labs-facilities">
