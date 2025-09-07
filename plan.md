@@ -27,7 +27,7 @@
     *   For each Department:
         <!-- *   Vision & Mission -->
         <!-- *   Faculty Profiles -->
-        *   Labs & Facilities
+        <!-- *   Labs & Facilities -->
         *   Courses Offered / Syllabus
         *   Student Activities / Projects
         *   Departmental Achievements
