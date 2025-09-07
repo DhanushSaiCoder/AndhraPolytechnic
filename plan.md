@@ -25,8 +25,8 @@
 ## 4. Departments
 *   List of Departments (e.g., Civil, Mechanical, Electrical, Computer Science, Electronics, etc.)
     *   For each Department:
-        *   Vision & Mission
-        *   Faculty Profiles
+        <!-- *   Vision & Mission -->
+        <!-- *   Faculty Profiles -->
         *   Labs & Facilities
         *   Courses Offered / Syllabus
         *   Student Activities / Projects

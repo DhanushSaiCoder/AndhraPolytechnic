@@ -17,10 +17,7 @@ import DepartmentDetail from './pages/DepartmentDetail';
 import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-
-
-
-// import NotFound from './pages/NotFound'; // optional
+import NotFound from './pages/NotFound'; // optional
 
 function App() {
   return (
@@ -43,7 +40,7 @@ function App() {
         <Route path="results" element={<ResultsPage />} />
         <Route path="departments/:departmentId" element={<DepartmentDetail />} />
         {/* catch-all route, optional */}
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
