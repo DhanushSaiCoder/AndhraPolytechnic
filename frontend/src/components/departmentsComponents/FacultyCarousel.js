@@ -15,11 +15,14 @@ const FacultyCarousel = ({ faculty }) => {
 
   useEffect(() => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.children[0].offsetWidth;
-      carouselRef.current.scrollTo({
-        left: currentIndex * cardWidth,
-        behavior: 'smooth',
-      });
+      const card = carouselRef.current.children[currentIndex];
+      if (card) {
+        card.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
+        });
+      }
     }
   }, [currentIndex]);
 
@@ -31,13 +34,7 @@ const FacultyCarousel = ({ faculty }) => {
     <div className="faculty-carousel-container">
       <div className="faculty-carousel-track" ref={carouselRef}>
         {faculty.map((member, index) => (
-          <div
-            key={index}
-            className="faculty-card"
-            style={{
-              transform: `translateX(-${currentIndex * 100}%)`,
-            }}
-          >
+          <div key={index} className="faculty-card">
             <div className="faculty-image-wrapper">
               <img src={member.imageUrl} alt={member.name} className="faculty-image" />
             </div>
