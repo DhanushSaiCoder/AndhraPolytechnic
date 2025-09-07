@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
 import { Maximize } from 'lucide-react'; // Import Maximize icon
+import ImageModal from '../ImageModal'; // Import ImageModal
 import '../../styles/DepartmentsStyles/LabCarousel.css';
 
 const LabCarousel = ({ labs }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null); // State for selected image URL
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const carouselRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -55,7 +58,13 @@ const LabCarousel = ({ labs }) => {
 
   const handleExpandClick = (labName) => {
     const imageUrl = `https://picsum.photos/seed/${labName}/1200/800`; // Larger image for expanded view
-    window.open(imageUrl, '_blank');
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
   };
 
   if (!labs || labs.length === 0) {
@@ -90,6 +99,10 @@ const LabCarousel = ({ labs }) => {
       <button className="carousel-arrow right" onClick={nextSlide} aria-label="Next Lab">
         <FaChevronRight />
       </button>
+
+      {isModalOpen && (
+        <ImageModal imageUrl={selectedImage} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };
