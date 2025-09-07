@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { departmentsData } from '../data/departmentsData';
+import departmentsData from '../data/departmentsData.json';
 import FacultyCarousel from '../components/DepartmentsComponents/FacultyCarousel'; // Import the new component
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';

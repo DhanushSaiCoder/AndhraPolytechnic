@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageSlider from '../components/HomeComponents/ImageSlider'; // Assuming this is the correct path
-import achievementsData from '../data/academicAcheivements';
+import achievementsData from '../data/academicAcheivements.json';
 
 const AcademicAchievementsPage = () => {
   return (

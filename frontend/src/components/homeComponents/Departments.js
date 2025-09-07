@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Cpu, Building, Users, Globe, BookOpen, Zap, Car, Building2 } from 'lucide-react';
 import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessary
-import { departmentsData } from '../../data/departmentsData';
+import departmentsData from '../../data/departmentsData.json';
 
 const iconMap = {
   'Computer Engineering': Cpu,

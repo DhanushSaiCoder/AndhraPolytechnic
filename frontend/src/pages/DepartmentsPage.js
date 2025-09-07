@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { departmentsData } from '../data/departmentsData';
+import departmentsData from '../data/departmentsData.json';
 import '../styles/DepartmentsStyles/DepartmentsPage.css';
 import { Building, ChevronRight } from 'lucide-react';
 
