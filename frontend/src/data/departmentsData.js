@@ -34,7 +34,7 @@ export const departmentsData = [
             'Faculty published research papers in international journals.',
             'Department received funding for a smart campus project.',
         ],
-        image: '/images/departments/computer.jpg', // Placeholder image
+        image: 'https://picsum.photos/seed/computer-engineering/800/600',
     },
     {
         id: 'electronics-engineering',
@@ -67,7 +67,7 @@ export const departmentsData = [
             'Students developed an automated irrigation system.',
             'Department collaborated with local industries for internships.',
         ],
-        image: '/images/departments/electronics.jpg', // Placeholder image
+        image: 'https://picsum.photos/seed/electronics-engineering/800/600',
     },
     {
         id: 'electrical-engineering',
@@ -97,7 +97,7 @@ export const departmentsData = [
             'Students designed a smart grid prototype.',
             'Department organized a national conference on sustainable energy.',
         ],
-        image: '/images/departments/electrical.jpg', // Placeholder image
+        image: 'https://picsum.photos/seed/electrical-engineering/800/600',
     },
     {
         id: 'mechanical-engineering',
@@ -127,7 +127,7 @@ export const departmentsData = [
             'Students built a working prototype of a solar-powered vehicle.',
             'Department secured patents for innovative mechanical designs.',
         ],
-        image: '/images/departments/mechanical.jpg', // Placeholder image
+        image: 'https://picsum.photos/seed/mechanical-engineering/800/600',
     },
     {
         id: 'civil-engineering',
@@ -157,6 +157,66 @@ export const departmentsData = [
             'Students participated in national-level bridge design competitions.',
             'Department provided consultancy for local government projects.',
         ],
-        image: '/images/departments/civil.jpg', // Placeholder image
+        image: 'https://picsum.photos/seed/civil-engineering/800/600',
+    },
+    {
+        id: 'architectural-engineering',
+        name: 'Architectural Engineering',
+        shortName: 'ARCH',
+        vision: 'To integrate engineering principles with architectural design, fostering innovative and sustainable built environments.',
+        mission: 'To provide comprehensive education in architectural engineering, emphasizing structural design, building systems, and sustainable practices.',
+        description: 'The Architectural Engineering Department focuses on the structural and mechanical aspects of buildings, combining engineering rigor with aesthetic design principles. Students learn about building materials, structural analysis, HVAC systems, and sustainable construction.',
+        faculty: [
+            { name: 'Dr. N. Sharma', designation: 'Head of Department', specialization: 'Sustainable Building Design' },
+            { name: 'Prof. O. Singh', designation: 'Professor', specialization: 'Structural Analysis' },
+        ],
+        labs: [
+            { name: 'Building Materials Lab', description: 'For testing properties of various construction materials.' },
+            { name: 'CAD Lab', description: 'Equipped with software for architectural design and drafting.' },
+        ],
+        courses: [
+            { code: 'AR101', title: 'Introduction to Architectural Engineering' },
+            { code: 'AR201', title: 'Building Structures' },
+            { code: 'AR301', title: 'HVAC Systems' },
+        ],
+        activities: [
+            'Architectural Design Competitions',
+            'Workshops on Green Building Technologies',
+        ],
+        achievements: [
+            'Students won awards in national architectural design contests.',
+            'Department collaborated on a smart city planning project.',
+        ],
+        image: 'https://picsum.photos/seed/architectural-engineering/800/600',
+    },
+    {
+        id: 'automobile-engineering',
+        name: 'Automobile Engineering',
+        shortName: 'AUTO',
+        vision: 'To be a leader in automobile engineering education and research, driving innovation in vehicle technology and sustainable mobility.',
+        mission: 'To equip students with advanced knowledge in automobile engineering, focusing on vehicle design, manufacturing, and maintenance, and promoting research in emerging automotive technologies.',
+        description: 'The Automobile Engineering Department provides specialized education in the design, development, manufacturing, and maintenance of automobiles. Students explore topics such as engine technology, vehicle dynamics, automotive electronics, and alternative fuels.',
+        faculty: [
+            { name: 'Dr. P. Rao', designation: 'Head of Department', specialization: 'Automotive Electronics' },
+            { name: 'Prof. Q. Kumar', designation: 'Professor', specialization: 'Vehicle Dynamics' },
+        ],
+        labs: [
+            { name: 'Automotive Engine Lab', description: 'For hands-on study of internal combustion engines.' },
+            { name: 'Vehicle Dynamics Lab', description: 'Equipped for testing vehicle performance and stability.' },
+        ],
+        courses: [
+            { code: 'AT101', title: 'Automotive Chassis' },
+            { code: 'AT201', title: 'Automotive Engines' },
+            { code: 'AT301', title: 'Vehicle Design' },
+        ],
+        activities: [
+            'Go-Kart Design and Fabrication',
+            'Workshops on Electric Vehicles',
+        ],
+        achievements: [
+            'Students designed and built an award-winning electric vehicle.',
+            'Department partnered with leading automotive companies for internships.',
+        ],
+        image: 'https://picsum.photos/seed/automobile-engineering/800/600',
     },
 ];

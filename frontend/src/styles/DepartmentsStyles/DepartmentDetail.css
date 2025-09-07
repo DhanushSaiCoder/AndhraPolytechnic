@@ -38,7 +38,7 @@
 .department-detail-header {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 450px;
     border-radius: 1rem;
     overflow: hidden;
     margin-bottom: 3rem;
@@ -68,7 +68,14 @@
     color: #F9F7F7;
     text-align: center;
     padding: 2rem;
-    max-width: 800px;
+    width: 100%; /* Changed from max-width */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), transparent);
+    border-radius: 0.5rem;
+}
+
+.department-header-text-wrapper {
+    max-width: 800px; /* Max width for the text content */
+    margin: 0 auto; /* Center the text content */
 }
 
 .department-header-content h1 {
@@ -177,7 +184,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .department-detail-header {
-        height: 200px;
+        height: 300px;
     }
 
     .department-header-content h1 {

@@ -41,8 +41,10 @@ const DepartmentDetail = () => {
         <img src={department.image} alt={department.name} className="department-header-image" />
         <div className="department-header-overlay"></div>
         <div className="department-header-content">
-          <h1>{department.name} ({department.shortName})</h1>
-          <p>{department.description}</p>
+          <div className="department-header-text-wrapper">
+            <h1>{department.name} ({department.shortName})</h1>
+            <p>{department.description}</p>
+          </div>
         </div>
       </header>
 
