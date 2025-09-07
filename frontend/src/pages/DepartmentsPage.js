@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import departmentsData from '../data/departmentsData.json';
 import '../styles/DepartmentsStyles/DepartmentsPage.css';
-import { Building, ChevronRight } from 'lucide-react';
+import { ChevronRight, Building } from 'lucide-react';
+import { departmentIcons, DefaultIcon } from '../data/departmentIcons';
 
 const DepartmentsPage = () => {
   return (
@@ -22,23 +23,26 @@ const DepartmentsPage = () => {
 
       <section className="departments-grid-section">
         <div className="departments-grid-container">
-          {departmentsData.map((dept) => (
-            <Link to={`/departments/${dept.id}`} key={dept.id} className="department-card-link">
-              <div className="department-card-item">
-                <div className="card-gradient-bg"></div>
-                <div className="department-icon-wrapper">
-                  <Building className="department-card-icon" />
+          {departmentsData.map((dept) => {
+            const Icon = departmentIcons[dept.id] || DefaultIcon;
+            return (
+              <Link to={`/departments/${dept.id}`} key={dept.id} className="department-card-link">
+                <div className="department-card-item">
+                  <div className="card-gradient-bg"></div>
+                  <div className="department-icon-wrapper">
+                    <Icon className="department-card-icon" />
+                  </div>
+                  <h2 className="department-card-title">{dept.name}</h2>
+                  <p className="department-card-shortname">{dept.shortName}</p>
+                  <p className="department-card-description">{dept.description.substring(0, 150)}...</p>
+                  <div className="department-card-footer">
+                    <span className="learn-more-btn">Learn More <ChevronRight size={16} /></span>
+                  </div>
+                  <div className="accent-line"></div>
                 </div>
-                <h2 className="department-card-title">{dept.name}</h2>
-                <p className="department-card-shortname">{dept.shortName}</p>
-                <p className="department-card-description">{dept.description.substring(0, 150)}...</p>
-                <div className="department-card-footer">
-                  <span className="learn-more-btn">Learn More <ChevronRight size={16} /></span>
-                </div>
-                <div className="accent-line"></div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>

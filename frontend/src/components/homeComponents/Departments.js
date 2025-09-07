@@ -1,18 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GraduationCap, Cpu, Building, Users, Globe, BookOpen, Zap, Car, Building2 } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessary
 import departmentsData from '../../data/departmentsData.json';
-
-const iconMap = {
-  'Computer Engineering': Cpu,
-  'Electronics Engineering': Globe,
-  'Electrical Engineering': Zap,
-  'Civil Engineering': Building,
-  'Mechanical Engineering': BookOpen,
-  'Architectural Engineering': Building2,
-  'Automobile Engineering': Car,
-};
+import { departmentIcons, DefaultIcon } from '../../data/departmentIcons';
 
 const Departments = () => {
   return (
@@ -36,7 +27,7 @@ const Departments = () => {
         {/* Departments Grid */}
         <div className="departments-grid">
           {departmentsData.map((dept, index) => {
-            const IconComponent = iconMap[dept.name]; // Use iconMap with dept.name
+            const IconComponent = departmentIcons[dept.id] || DefaultIcon; // Use iconMap with dept.id
             return (
               <div
                 key={dept.id} // dept.id is now a string
