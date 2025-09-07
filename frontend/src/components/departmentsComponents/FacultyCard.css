@@ -123,8 +123,8 @@
 }
 
 .faculty-card__cta {
-  background: var(--primary);
-  color: #fff;
+  background: transparent;
+  color: var(--primary);
   border: 1px solid var(--primary);
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -134,8 +134,9 @@
 }
 
 .faculty-card__cta:hover {
-  background: var(--navy);
-  border-color: var(--navy);
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary); /* Keep border color consistent on hover */
   transform: none; /* No transform on button hover */
 }
 
