@@ -1,155 +1,32 @@
-
 .lab-carousel {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 0;
 }
 
-.lab-image-card {
-  cursor: pointer;
-  overflow: hidden;
-  border: 2px solid #e2e8f0;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
+.lab-card {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.lab-image-card:hover {
-  border-color: #93c5fd;
+.lab-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
-.lab-image-card:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
+.lab-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #333;
 }
 
-.image-container {
-  position: relative;
-}
-
-.lab-image {
-  width: 100%;
-  height: 8rem;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.lab-image-card:hover .lab-image {
-  transform: scale(1.1);
-}
-
-.image-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.lab-image-card:hover .image-overlay {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.image-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  padding: 0.75rem;
-}
-
-.caption-text {
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Lightbox Styles */
-.lightbox-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1001;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.lightbox-content {
-  position: relative;
-  max-width: 64rem;
-  max-height: 100%;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -3rem;
-  right: 0;
-  color: white;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  z-index: 10;
-  padding: 0.5rem;
-  transition: color 0.2s ease;
-}
-
-.lightbox-close:hover {
-  color: #d1d5db;
-}
-
-.lightbox-image {
-  max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 0.5rem;
-}
-
-.lightbox-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  padding: 1rem;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-}
-
-.lightbox-title {
-  color: white;
-  font-weight: 600;
-  font-size: 1.125rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.lightbox-description {
-  color: #d1d5db;
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-@media (max-width: 640px) {
-  .lightbox-close {
-    top: -2rem;
-    font-size: 1.25rem;
-  }
-  
-  .lightbox-info {
-    padding: 0.75rem;
-  }
-  
-  .lightbox-title {
-    font-size: 1rem;
-  }
-  
-  .lightbox-description {
-    font-size: 0.75rem;
-  }
+.lab-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
 }

@@ -1,115 +1,41 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import departmentsData from '../data/departmentsData.json';
-import FacultyCarousel from '../components/DepartmentsComponents/FacultyCarousel'; // Import the new component
-import ImageSlider from '../components/HomeComponents/ImageSlider';
+import NotFound from './NotFound';
+import DepartmentHero from '../components/DepartmentsComponents/DepartmentDetail/DepartmentHero';
+import VisionMission from '../components/DepartmentsComponents/DepartmentDetail/VisionMission';
+import FacultySection from '../components/DepartmentsComponents/DepartmentDetail/FacultySection';
+import LabsSection from '../components/DepartmentsComponents/DepartmentDetail/LabsSection';
+import CoursesSection from '../components/DepartmentsComponents/DepartmentDetail/CoursesSection';
+import ActivitiesSection from '../components/DepartmentsComponents/DepartmentDetail/ActivitiesSection';
+import AchievementsSection from '../components/DepartmentsComponents/DepartmentDetail/AchievementsSection';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
-import {
-  ArrowLeft,
-  Eye,
-  Users,
-  FlaskConical,
-  BookOpen,
-  Activity,
-  Trophy,
-} from 'lucide-react';
 
 const DepartmentDetail = () => {
-  const { departmentId } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams();
+  const department = departmentsData.find(dep => dep.id === id);
 
-  const department = departmentsData.find((dept) => dept.id === departmentId);
-
-  const labSlides = department.labs.map((lab, index) => ({
-    id: index,
-    image: `https://loremflickr.com/1200/600/${lab.name.toLowerCase().replace(/ /g, ',')}`,
-    title: lab.name,
-    subtitle: lab.description,
-  }));
+  if (!department) {
+    return <NotFound />;
+  }
 
   return (
     <div className="department-detail-container">
-      <header className="department-detail-header">
-        <button onClick={() => navigate(-1)} className="back-button">
-          <ArrowLeft size={20} /> Back
-        </button>
-        <img src={department.image} alt={department.name} className="department-header-image" />
-        <div className="department-header-overlay"></div>
-        <div className="department-header-content">
-          <div className="department-header-text-wrapper">
-            <h1>{department.name} ({department.shortName})</h1>
-            <p>{department.description}</p>
-          </div>
+      <DepartmentHero department={department} />
+      <div className="department-sections-grid">
+        <div className="department-section">
+          <VisionMission department={department} />
         </div>
-      </header>
-
-      <section className="department-sections-grid">
-        <div className="department-section vision-mission">
-          <div className="section-header">
-            <h2 className="section-title"><Eye size={24} /> Vision & Mission</h2>
-          </div>
-          <div className="vision-mission-content">
-            <div className="vm-item">
-              <h3>Vision:</h3>
-              <p>{department.vision}</p>
-            </div>
-            <div className="vm-item">
-              <h3>Mission:</h3>
-              <p>{department.mission}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* === Updated Faculty Section === */}
         <div className="department-section faculty-profiles">
-          <div className="section-header">
-            <h2 className="section-title"><Users size={24} /> Our Expert Faculty</h2>
-          </div>
-          <FacultyCarousel faculty={department.faculty} />
+          <FacultySection department={department} />
         </div>
-
         <div className="department-section labs-facilities">
-          <div className="section-header">
-            <h2 className="section-title"><FlaskConical size={24} /> Labs & Facilities</h2>
-          </div>
-          <ImageSlider slides={labSlides} />
+          <LabsSection department={department} />
         </div>
-
-        <div className="department-section courses-syllabus">
-          <div className="section-header">
-            <h2 className="section-title"><BookOpen size={24} /> Courses Offered / Syllabus</h2>
-          </div>
-          <ul className="courses-list">
-            {department.courses.map((course, index) => (
-              <li key={index} className="course-item">
-                <strong>{course.code}:</strong> {course.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="department-section student-activities">
-          <div className="section-header">
-            <h2 className="section-title"><Activity size={24} /> Student Activities / Projects</h2>
-          </div>
-          <ul className="activities-list">
-            {department.activities.map((activity, index) => (
-              <li key={index} className="activity-item">{activity}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="department-section departmental-achievements">
-          <div className="section-header">
-            <h2 className="section-title"><Trophy size={24} /> Departmental Achievements</h2>
-          </div>
-          <ul className="achievements-list">
-            {department.achievements.map((achievement, index) => (
-              <li key={index} className="achievement-item">{achievement}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        <CoursesSection courses={department.courses} />
+        <ActivitiesSection activities={department.activities} />
+        <AchievementsSection achievements={department.achievements} />
+      </div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ function App() {
         
         <Route path="departments" element={<DepartmentsPage />} />
         <Route path="results" element={<ResultsPage />} />
-        <Route path="departments/:departmentId" element={<DepartmentDetail />} />
+        <Route path="/departments/:id" element={<DepartmentDetail />} />
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
       </Routes>
