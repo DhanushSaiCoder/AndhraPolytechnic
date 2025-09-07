@@ -2,180 +2,152 @@
 /* FacultyCard.css                                                         */
 /* ------------------------------------------------------------------ */
 
-:root{
+:root {
   --primary: #3F72AF;
   --navy: #112D4E;
   --muted: #DBE2EF;
   --bg: #F9F7F7;
   --accent: #ea580c;
   --gradient: linear-gradient(135deg,#3f72af 0%,#2c5aa0 100%);
-  --card-radius: 0.75rem;
-  --card-shadow: 0 6px 18px rgba(17,45,78,0.08);
+  --card-radius: 12px; /* Slightly larger radius */
+  /* New, more subtle shadow */
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.faculty-card{
+.faculty-card {
   display: flex;
-  flex-direction: column; /* Vertical layout */
-  align-items: stretch;
-  min-width: 300px; /* Adjusted width */
+  flex-direction: column;
+  min-width: 280px; /* Slightly smaller min-width */
   background: #fff;
   border-radius: var(--card-radius);
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e7eb; /* A lighter border */
   box-shadow: var(--card-shadow);
   overflow: hidden;
-  transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s, border-color .22s;
-  cursor: pointer;
-  padding: 8px; /* Final padding */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  padding: 0; /* Remove padding from the card itself */
 }
 
-.faculty-card:focus{ outline: 3px solid color-mix(in srgb, var(--primary) 12%, white); outline-offset: 4px; }
-
-.faculty-card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 12px 26px rgba(17,45,78,0.12);
-  border-color: var(--primary);
+.faculty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: transparent; /* Hide border on hover for a cleaner look */
 }
 
-.faculty-card__image-wrap{
-  height: 200px;
+.faculty-card__image-wrap {
+  height: 220px; /* Taller image */
   position: relative;
-  background: var(--muted);
   margin: 0;
-  border-radius: calc(var(--card-radius) - 4px);
   overflow: hidden;
 }
 
-.faculty-card__image-mask{
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  border-radius: inherit;
-}
-
-.faculty-card__image{
+/* Remove the image mask, it's not needed */
+.faculty-card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform .35s ease;
+  transition: transform 0.3s ease;
 }
 
-.faculty-card:hover .faculty-card__image{
+.faculty-card:hover .faculty-card__image {
   transform: scale(1.05);
 }
 
-.faculty-card__content{
-  padding: 1rem 0 0;
+.faculty-card__content {
+  padding: 1.5rem; /* More padding */
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  text-align: left; /* Left align content */
 }
 
-.faculty-card__header{
-  margin-bottom: .5rem;
-  text-align: center;
+.faculty-card__header {
+  margin-bottom: 0.75rem;
+  text-align: left; /* Left align header */
 }
 
-.faculty-card__name{
+.faculty-card__name {
   margin: 0;
   color: var(--navy);
-  font-size: 1.1rem;
+  font-size: 1.25rem; /* Larger name */
   font-weight: 700;
-  line-height: 1.2;
 }
 
-.faculty-card__designation{
-  margin: .25rem 0 0 0;
+.faculty-card__designation {
+  margin: 0.25rem 0 0 0;
   color: var(--primary);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
-.faculty-card__specialization{
-  margin: .75rem 0 0 0;
-  color: #2c4b6c;
-  font-size: 0.95rem;
-  background: transparent;
-  line-height: 1.4;
-  text-align: center;
+.faculty-card__specialization {
+  margin: 0.5rem 0 0 0;
+  color: #4b5563; /* Softer color */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left; /* Left align specialization */
+  flex-grow: 1; /* Allow it to take up space */
 }
 
-.faculty-card__footer{
+.faculty-card__footer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* Space out socials and button */
   align-items: center;
-  gap: 1rem;
-  margin-top: auto;
-  padding-top: 1rem;
+  margin-top: 1.5rem; /* More space above footer */
+  padding-top: 0;
 }
 
-.faculty-card__socials{
+.faculty-card__socials {
   display: flex;
-  gap: .75rem;
+  gap: 0.5rem; /* Tighter gap */
   align-items: center;
 }
 
-.faculty-card__social{
+.faculty-card__social {
   display: inline-flex;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* Circular icons */
   align-items: center;
   justify-content: center;
-  background: rgba(17,45,78,0.04);
-  color: var(--navy);
+  background: #f3f4f6; /* Light gray background */
+  color: #6b7280; /* Gray icon color */
   text-decoration: none;
-  transition: transform .18s ease, background .18s ease;
+  transition: all 0.2s ease;
 }
 
-.faculty-card__social:hover{ transform: translateY(-3px); background: rgba(63,114,175,0.08); }
+.faculty-card__social:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.1);
+}
 
-.faculty-card__cta{
-  background: transparent;
-  color: var(--primary);
-  border: 1px solid var(--muted);
-  padding: .5rem 1rem;
+.faculty-card__cta {
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+  padding: 0.6rem 1.2rem;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background .2s, color .2s, transform .18s;
+  transition: all 0.2s ease;
 }
 
-.faculty-card__cta:hover{ background: var(--primary); color: #fff; transform: translateY(-3px); }
-
-/* Active/centered card styling (for carousel active state) */
-.faculty-card.active{
-  transform: scale(1.03);
-  box-shadow: 0 18px 36px rgba(17,45,78,0.14);
-  border-color: rgba(63,114,175,0.18);
+.faculty-card__cta:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  transform: none; /* No transform on button hover */
 }
 
-/* left-edge gradient accent */
-.faculty-card.active::before{
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: linear-gradient(180deg, rgba(63,114,175,0.9), rgba(42,88,156,0.6));
+/* Remove active state styling for simplicity and to avoid conflicting with hover */
+.faculty-card.active {
+  transform: none;
+  box-shadow: var(--card-shadow);
+  border-color: #e5e7eb;
 }
 
-/* Responsive: stack on narrower screens */
- @media (max-width: 640px){
-  .faculty-card{
-    flex-direction: column;
-    min-width: 220px;
-  }
-  .faculty-card__image-wrap{ flex: 0 0 auto; height: 180px; }
-  .faculty-card__image{ height: 100%; }
-  .faculty-card__content{ padding: 1rem; }
-  .faculty-card__footer{ flex-direction: column; }
-}
-
-/* Accessibility: reduced motion */
- @media (prefers-reduced-motion: reduce){
-  .faculty-card, .faculty-card__image{ transition: none; }
+.faculty-card.active::before {
+  content: none; /* Remove the side bar */
 }
 
 /* Utility visually-hidden for screen readers */

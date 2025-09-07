@@ -50,9 +50,7 @@ export default function FacultyCard({
       aria-pressed={active}
     >
       <div className="faculty-card__image-wrap" aria-hidden="true">
-        <div className="faculty-card__image-mask">
-          <img src={imageUrl} alt={`Photo of ${name}`} className="faculty-card__image" />
-        </div>
+        <img src={imageUrl} alt={`Photo of ${name}`} className="faculty-card__image" />
       </div>
 
       <div className="faculty-card__content">
