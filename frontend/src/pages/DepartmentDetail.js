@@ -33,11 +33,10 @@ const DepartmentDetail = () => {
 
   return (
     <div className="department-detail-container">
-      <button onClick={() => navigate('/departments')} className="back-button">
-        <ArrowLeft size={20} /> Back to Departments
-      </button>
-
       <header className="department-detail-header">
+        <button onClick={() => navigate('/departments')} className="back-button">
+          <ArrowLeft size={20} /> Back to Departments
+        </button>
         <img src={department.image} alt={department.name} className="department-header-image" />
         <div className="department-header-overlay"></div>
         <div className="department-header-content">
