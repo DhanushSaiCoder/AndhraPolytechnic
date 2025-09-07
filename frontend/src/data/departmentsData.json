@@ -4,8 +4,8 @@
         "id": "computer-engineering",
         "name": "Computer Engineering",
         "shortName": "CSE",
-        "vision": "To be a center of excellence in Computer Engineering education, fostering innovation and research for societal development.",
-        "mission": "To provide quality education in Computer Engineering, equip students with problem-solving skills, and promote ethical values for professional success.",
+        "vision": "To empower the students to be technologically adept, innovative, self-motivated and responsible citizen with human values and technical skills and to contribute significantly towards the rapidly changing field of Computer Science",
+        "mission": "To provide Diploma students who are capable to take pivotal role in wide aspects of modern Computer Engineering.\nTo make the students understand basic concepts underlie in Computer Engineering and able to apply them creatively in different fields of Engineering.\nTo Train the student sensitive to the Environment, safety and economic context.\nTo produce technically skilled students through intensive training in computer engineering tools and application and to prepare the students for professional career and further research.",
         "description": "The Department of Computer Engineering offers a comprehensive curriculum covering various aspects of computer science and engineering. Students gain expertise in programming, data structures, algorithms, database management, web development, and more.",
         "faculty": [
             { "name": "Dr. A. Kumar", "designation": "Head of Department", "specialization": "Artificial Intelligence", "imageUrl": "https://picsum.photos/seed/DrAKumar/200/200" },
