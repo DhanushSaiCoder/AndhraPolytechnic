@@ -38,6 +38,8 @@ export const links = [
         { to: '/departments/electrical-engineering', label: 'Electrical Engineering' },
         { to: '/departments/mechanical-engineering', label: 'Mechanical Engineering' },
         { to: '/departments/civil-engineering', label: 'Civil Engineering' },
+        { to: '/departments/architectural-engineering', label: 'Architectural Engineering' },
+        { to: '/departments/automobile-engineering', label: 'Automobile Engineering' },
       ],
     },
     { to: '/results', label: 'Results' },
