@@ -375,3 +375,12 @@
     line-height: 1.6;
     margin-top: 1rem;
 }
+
+.events-section{
+        background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%) !important;
+
+}
+.event-card{
+    background: rgba(255, 255, 255, 0.8);
+
+}

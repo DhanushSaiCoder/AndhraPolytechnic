@@ -13,7 +13,7 @@ const EventsSection = ({ events }) => {
                                 .sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort completed in descending order
 
   return (
-    <div className="department-section">
+    <div className="department-section events-section">
       <div className="department-section-container">
         <div className="section-header">
           <h2 className="section-title">

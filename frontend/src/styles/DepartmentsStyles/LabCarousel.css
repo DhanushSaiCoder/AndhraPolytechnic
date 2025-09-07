@@ -1,164 +1,167 @@
 /* === Lab Carousel Container & Navigation === */
 
 .lab-carousel-container {
-  position: relative;
-  max-width: 1200px;
-  margin: 1.2rem auto;
-  padding: 0 4rem; /* Space for arrows */
+    position: relative;
+    max-width: 1200px;
+    margin: 1.2rem auto;
+    padding: 0 4rem; /* Space for arrows */
 }
 
 .lab-carousel-track {
-  display: flex;
-  gap: 1.5rem; /* Spacing between cards */
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE */
-  padding: 1.5rem 0;
+    display: flex;
+    gap: 1.5rem; /* Spacing between cards */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    padding: 1.5rem 0;
 }
 
 .lab-carousel-track::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+    display: none; /* Chrome, Safari, Opera */
 }
 
 /* --- Carousel Arrows --- */
 .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-  border: 1px solid #e2e8f0;
-  border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #3F72AF;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .carousel-arrow:hover {
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-50%) scale(1.1);
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-arrow.left {
-  left: 1rem;
+    left: 1rem;
 }
 
 .carousel-arrow.right {
-  right: 1rem;
+    right: 1rem;
 }
 
 .no-labs-message {
-  text-align: center;
-  padding: 2rem;
-  font-size: 1.1rem;
-  color: #F9F7F7; /* Adjusted for dark background */
-  background-color: #3F72AF; /* Adjusted for dark background */
-  border-radius: 0.5rem;
-  margin: 2rem auto;
-  max-width: 80%;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: #f9f7f7; /* Adjusted for dark background */
+    background-color: #3f72af; /* Adjusted for dark background */
+    border-radius: 0.5rem;
+    margin: 2rem auto;
+    max-width: 80%;
 }
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
-  .lab-carousel-container {
-    padding: 0;
-  }
+    .lab-carousel-container {
+        padding: 0;
+    }
 
-  .carousel-arrow {
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.8rem;
-  }
+    .carousel-arrow {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8rem;
+    }
 
-  .carousel-arrow.left {
-    left: 0.5rem;
-  }
+    .carousel-arrow.left {
+        left: 0.5rem;
+    }
 
-  .carousel-arrow.right {
-    right: 0.5rem;
-  }
+    .carousel-arrow.right {
+        right: 0.5rem;
+    }
 }
 
 /* Lab Card Base Styles */
 .lab-card {
-  flex: 0 0 auto;
-  width: 300px;
-  scroll-snap-align: start;
-  background-color: #F0F8FF; /* AliceBlue - lighter background */
-  border: 1px solid #DBE2EF; /* Lighter border */
-  border-radius: 12px; /* Slightly larger radius */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  overflow: hidden; /* Ensure image corners are rounded */
-  padding: 0; /* Remove padding from card, add to content */
+    flex: 0 0 auto;
+
+    width: 300px;
+    scroll-snap-align: start;
+    background-color: #f0f8ff; /* AliceBlue - lighter background */
+    background: rgba(255, 255, 255, 0.8);
+
+    border: 1px solid #dbe2ef; /* Lighter border */
+    border-radius: 12px; /* Slightly larger radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* Ensure image corners are rounded */
+    padding: 0; /* Remove padding from card, add to content */
 }
 
 .lab-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .lab-card__image-wrap {
-  height: 180px; /* Fixed height for images */
-  overflow: hidden;
-  border-radius: 12px 12px 0 0; /* Top corners rounded */
-  position: relative; /* Added for positioning the button */
+    height: 180px; /* Fixed height for images */
+    overflow: hidden;
+    border-radius: 12px 12px 0 0; /* Top corners rounded */
+    position: relative; /* Added for positioning the button */
 }
 
 .lab-card__expand-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  z-index: 5; /* Ensure it's above the image */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    z-index: 5; /* Ensure it's above the image */
 }
 
 .lab-card__expand-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .lab-card__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
 .lab-card:hover .lab-card__image {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .lab-card__content {
-  padding: 1.5rem; /* Add padding to content */
+    padding: 1.5rem; /* Add padding to content */
 }
 
 .lab-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem; /* Reduced margin */
-  color: #112D4E; /* Darker color for heading */
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem; /* Reduced margin */
+    color: #112d4e; /* Darker color for heading */
 }
 
 .lab-card p {
-  font-size: 0.95rem; /* Slightly smaller font */
-  color: #4b5563; /* Softer color for description */
-  line-height: 1.6;
+    font-size: 0.95rem; /* Slightly smaller font */
+    color: #4b5563; /* Softer color for description */
+    line-height: 1.6;
 }
