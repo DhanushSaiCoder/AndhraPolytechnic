@@ -50,7 +50,9 @@ const DepartmentDetail = () => {
 
       <section className="department-sections-grid">
         <div className="department-section vision-mission">
-          <h2 className="section-title"><Eye size={24} /> Vision & Mission</h2>
+          <div className="section-header">
+            <h2 className="section-title"><Eye size={24} /> Vision & Mission</h2>
+          </div>
           <div className="vision-mission-content">
             <div className="vm-item">
               <h3>Vision:</h3>
@@ -89,7 +91,9 @@ const DepartmentDetail = () => {
         </div>
 
         <div className="department-section labs-facilities">
-          <h2 className="section-title"><FlaskConical size={24} /> Labs & Facilities</h2>
+          <div className="section-header">
+            <h2 className="section-title"><FlaskConical size={24} /> Labs & Facilities</h2>
+          </div>
           <ul className="labs-list">
             {department.labs.map((lab, index) => (
               <li key={index} className="lab-item">
@@ -100,7 +104,9 @@ const DepartmentDetail = () => {
         </div>
 
         <div className="department-section courses-syllabus">
-          <h2 className="section-title"><BookOpen size={24} /> Courses Offered / Syllabus</h2>
+          <div className="section-header">
+            <h2 className="section-title"><BookOpen size={24} /> Courses Offered / Syllabus</h2>
+          </div>
           <ul className="courses-list">
             {department.courses.map((course, index) => (
               <li key={index} className="course-item">
@@ -111,7 +117,9 @@ const DepartmentDetail = () => {
         </div>
 
         <div className="department-section student-activities">
-          <h2 className="section-title"><Activity size={24} /> Student Activities / Projects</h2>
+          <div className="section-header">
+            <h2 className="section-title"><Activity size={24} /> Student Activities / Projects</h2>
+          </div>
           <ul className="activities-list">
             {department.activities.map((activity, index) => (
               <li key={index} className="activity-item">{activity}</li>
@@ -120,7 +128,9 @@ const DepartmentDetail = () => {
         </div>
 
         <div className="department-section departmental-achievements">
-          <h2 className="section-title"><Trophy size={24} /> Departmental Achievements</h2>
+          <div className="section-header">
+            <h2 className="section-title"><Trophy size={24} /> Departmental Achievements</h2>
+          </div>
           <ul className="achievements-list">
             {department.achievements.map((achievement, index) => (
               <li key={index} className="achievement-item">{achievement}</li>
