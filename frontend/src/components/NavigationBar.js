@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { LogIn, Home, BookOpen, Award, Briefcase, Calendar, Building, ClipboardList, Info, Users, ChevronDown } from 'lucide-react';
 import "../styles/Header.css";
+import { links } from '../data/links';
 
 const NavigationBar = () => {
   const [open, setOpen] = useState(false); // mobile panel open (hamburger)
@@ -46,56 +47,16 @@ const NavigationBar = () => {
     return () => document.removeEventListener('click', handleClick);
   }, [open, activeDropdown, mobileActiveDropdown]);
 
-  const links = [
-    { to: '/', label: 'Home', exact: true, Icon: Home },
-    {
-      to: '/academics',
-      label: 'Academics',
-      Icon: BookOpen,
-      subLinks: [
-        { to: '/academics/syllabus', label: 'Syllabus' },
-        { to: '/academics/academic-achievements', label: 'Academic Achievements' },
-        { to: '/academics/admissions', label: 'Admissions' },
-      ],
-    },
-    
-    {
-      to: '/placements',
-      label: 'Placements',
-      Icon: Briefcase,
-      subLinks: [
-        { to: '/placements/overview', label: 'Placements' },
-        { to: '/placements/coordinators', label: 'Placement Coordinators' },
-        { to: '/placements/company', label: 'Company' },
-      ],
-    },
-    {
-      to: '/events',
-      label: 'Events',
-      Icon: Calendar,
-      subLinks: [
-        { to: '/events/sports', label: 'Sports Events' },
-        { to: '/events/academic', label: 'Academic Events' },
-        { to: '/events/tech', label: 'Tech Events' },
-        { to: '/events/cultural', label: 'Cultural Events' },
-      ],
-    },
-    {
-      to: '/departments',
-      label: 'Departments',
-      Icon: Building,
-      subLinks: [
-        { to: '/departments/computer-engineering', label: 'Computer Engineering' },
-        { to: '/departments/electronics-engineering', label: 'Electronics Engineering' },
-        { to: '/departments/electrical-engineering', label: 'Electrical Engineering' },
-        { to: '/departments/mechanical-engineering', label: 'Mechanical Engineering' },
-        { to: '/departments/civil-engineering', label: 'Civil Engineering' },
-      ],
-    },
-    { to: '/results', label: 'Results', Icon: ClipboardList },
-    { to: '/about', label: 'About Us', Icon: Info },
-    { to: '/alumni', label: 'Alumni', Icon: Users },
-  ];
+  const iconMap = {
+    'Home': Home,
+    'Academics': BookOpen,
+    'Placements': Briefcase,
+    'Events': Calendar,
+    'Departments': Building,
+    'Results': ClipboardList,
+    'About Us': Info,
+    'Alumni': Users,
+  };
 
   // Derive current page name
   const currentPage = links.find(link => {
@@ -201,7 +162,7 @@ const NavigationBar = () => {
                 aria-expanded={link.subLinks ? !!isDropdownOpen(link.label) : undefined}
                 aria-controls={link.subLinks ? `dropdown-${link.label.replace(/\s+/g, '-').toLowerCase()}` : undefined}
               >
-                {link.Icon && <link.Icon size={20} />}
+                {iconMap[link.label] && React.createElement(iconMap[link.label], { size: 20 })}
                 <span>{link.label}</span>
                 {link.subLinks && <ChevronDown size={16} className="dropdown-arrow" aria-hidden="true" />}
               </NavLink>
