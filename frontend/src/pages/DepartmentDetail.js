@@ -24,8 +24,8 @@ const DepartmentDetail = () => {
       <div className="department-detail-container not-found">
         <h2>Department Not Found</h2>
         <p>The department you are looking for does not exist.</p>
-        <button onClick={() => navigate('/departments')} className="back-button">
-          <ArrowLeft size={20} /> Back to Departments
+        <button onClick={() => navigate(-1)} className="back-button">
+          <ArrowLeft size={20} /> Back
         </button>
       </div>
     );
@@ -34,8 +34,8 @@ const DepartmentDetail = () => {
   return (
     <div className="department-detail-container">
       <header className="department-detail-header">
-        <button onClick={() => navigate('/departments')} className="back-button">
-          <ArrowLeft size={20} /> Back to Departments
+        <button onClick={() => navigate(-1)} className="back-button">
+          <ArrowLeft size={20} /> Back
         </button>
         <img src={department.image} alt={department.name} className="department-header-image" />
         <div className="department-header-overlay"></div>
