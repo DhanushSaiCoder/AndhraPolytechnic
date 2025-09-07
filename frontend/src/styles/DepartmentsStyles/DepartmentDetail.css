@@ -345,3 +345,15 @@
     font-size: 0.85rem;
     color: #6b7280;
 }
+
+@media (min-width: 768px) {
+    .department-sections-grid .labs-facilities {
+        grid-column: span 2;
+    }
+}
+
+@media (min-width: 1024px) {
+    .department-sections-grid .labs-facilities {
+        grid-column: span 3;
+    }
+}

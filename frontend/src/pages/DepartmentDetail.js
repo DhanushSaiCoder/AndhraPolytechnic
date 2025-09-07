@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { departmentsData } from '../data/departmentsData';
 import FacultyCarousel from '../components/DepartmentsComponents/FacultyCarousel'; // Import the new component
+import ImageSlider from '../components/HomeComponents/ImageSlider';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 import {
   ArrowLeft,
@@ -19,17 +20,12 @@ const DepartmentDetail = () => {
 
   const department = departmentsData.find((dept) => dept.id === departmentId);
 
-  if (!department) {
-    return (
-      <div className="department-detail-container not-found">
-        <h2>Department Not Found</h2>
-        <p>The department you are looking for does not exist.</p>
-        <button onClick={() => navigate(-1)} className="back-button">
-          <ArrowLeft size={20} /> Back
-        </button>
-      </div>
-    );
-  }
+  const labSlides = department.labs.map((lab, index) => ({
+    id: index,
+    image: `https://loremflickr.com/1200/600/${lab.name.toLowerCase().replace(/ /g, ',')}`,
+    title: lab.name,
+    subtitle: lab.description,
+  }));
 
   return (
     <div className="department-detail-container">
@@ -76,13 +72,7 @@ const DepartmentDetail = () => {
           <div className="section-header">
             <h2 className="section-title"><FlaskConical size={24} /> Labs & Facilities</h2>
           </div>
-          <ul className="labs-list">
-            {department.labs.map((lab, index) => (
-              <li key={index} className="lab-item">
-                <strong>{lab.name}:</strong> {lab.description}
-              </li>
-            ))}
-          </ul>
+          <ImageSlider slides={labSlides} />
         </div>
 
         <div className="department-section courses-syllabus">
