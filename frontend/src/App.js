@@ -13,7 +13,7 @@ import AdmissionsPage from './pages/AdmissionsPage';
 
 import DepartmentsPage from './pages/DepartmentsPage';
 import ResultsPage from './pages/ResultsPage';
-import DepartmentPage from './pages/DepartmentPage';
+import DepartmentDetail from './pages/DepartmentDetail';
 import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -41,7 +41,7 @@ function App() {
         
         <Route path="departments" element={<DepartmentsPage />} />
         <Route path="results" element={<ResultsPage />} />
-        <Route path="departments/:deptName" element={<DepartmentPage />} />
+        <Route path="departments/:departmentId" element={<DepartmentDetail />} />
         {/* catch-all route, optional */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

@@ -1,0 +1,231 @@
+/* DepartmentDetail.css */
+
+.department-detail-container {
+    padding: 2rem 1rem;
+    background-color: #F9F7F7;
+    color: #112D4E;
+    min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+}
+
+.department-detail-container.not-found {
+    text-align: center;
+    padding-top: 5rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #DBE2EF;
+    color: #3F72AF;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.back-button:hover {
+    background-color: #3F72AF;
+    color: #F9F7F7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(63, 114, 175, 0.2);
+}
+
+.department-detail-header {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.department-header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.department-header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17, 45, 78, 0.8), rgba(17, 45, 78, 0.4), transparent);
+}
+
+.department-header-content {
+    position: relative;
+    z-index: 10;
+    color: #F9F7F7;
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+}
+
+.department-header-content h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.department-header-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #DBE2EF;
+}
+
+.department-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.department-section {
+    background-color: #DBE2EF40;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DBE2EF;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3F72AF;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #DBE2EF;
+}
+
+.section-title svg {
+    color: #112D4E;
+}
+
+.vision-mission-content .vm-item {
+    margin-bottom: 1.5rem;
+}
+
+.vision-mission-content .vm-item:last-child {
+    margin-bottom: 0;
+}
+
+.vision-mission-content h3 {
+    font-size: 1.3rem;
+    color: #112D4E;
+    margin-bottom: 0.5rem;
+}
+
+.vision-mission-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+.faculty-list,
+.labs-list,
+.courses-list,
+.activities-list,
+.achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.faculty-item,
+.lab-item,
+.course-item,
+.activity-item,
+.achievement-item {
+    background-color: #F9F7F7;
+    padding: 1rem 1.2rem;
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid #DBE2EF;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.faculty-item:last-child,
+.lab-item:last-child,
+.course-item:last-child,
+.activity-item:last-child,
+.achievement-item:last-child {
+    margin-bottom: 0;
+}
+
+.faculty-item strong,
+.lab-item strong,
+.course-item strong {
+    color: #3F72AF;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .department-detail-header {
+        height: 200px;
+    }
+
+    .department-header-content h1 {
+        font-size: 2rem;
+    }
+
+    .department-header-content p {
+        font-size: 0.9rem;
+    }
+
+    .department-sections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .department-section {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .vision-mission-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .vision-mission-content p {
+        font-size: 0.9rem;
+    }
+
+    .faculty-item,
+    .lab-item,
+    .course-item,
+    .activity-item,
+    .achievement-item {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .department-sections-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .department-sections-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

@@ -1,206 +1,162 @@
 export const departmentsData = [
     {
-        id: 1,
-        departmentIcon: 'https://picsum.photos/200/200?random=1',
-        departmentName: 'Computer Engineering',
-        description: 'Focuses on computer systems, software development, and programming.',
-        headOfDepartment: 'Dr. John Doe',
-        totalSeats: 60,
-        viewFactulty: '/departments/computer-engineering',
-        viewCurriculum: '/departments/computer-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Programming Lab',
-                labImage: 'https://picsum.photos/200/200?random=2',
-                labDescription: 'A lab for hands-on programming experience.',
-                labResources: ['Computers', 'Software Development Tools']
-            },
-            {
-                labName: 'Networking Lab',
-                labImage: 'https://picsum.photos/200/200?random=3',
-                labDescription: 'A lab for networking and communication technologies.',
-                labResources: ['Networking Equipment', 'Simulation Software']
-            }
+        id: 'computer-engineering',
+        name: 'Computer Engineering',
+        shortName: 'CSE',
+        vision: 'To be a center of excellence in Computer Engineering education, fostering innovation and research for societal development.',
+        mission: 'To provide quality education in Computer Engineering, equip students with problem-solving skills, and promote ethical values for professional success.',
+        description: 'The Department of Computer Engineering offers a comprehensive curriculum covering various aspects of computer science and engineering. Students gain expertise in programming, data structures, algorithms, database management, web development, and more.',
+        faculty: [
+            { name: 'Dr. A. Kumar', designation: 'Head of Department', specialization: 'Artificial Intelligence' },
+            { name: 'Prof. B. Singh', designation: 'Professor', specialization: 'Machine Learning' },
+            { name: 'Dr. C. Devi', designation: 'Associate Professor', specialization: 'Cyber Security' },
+            { name: 'Ms. D. Rao', designation: 'Assistant Professor', specialization: 'Web Technologies' },
         ],
-        highestPackage: {
-            packageCTC: '12 LPA',
-            companyName: 'Tech Innovations Ltd.'
-        },
-        averagePackage: '4.6 LPA',
-
+        labs: [
+            { name: 'Programming Lab', description: 'Equipped with modern computers and software for hands-on programming experience.' },
+            { name: 'Networking Lab', description: 'Focuses on network configuration, security, and administration.' },
+            { name: 'Data Science Lab', description: 'Dedicated to data analysis, machine learning, and big data technologies.' },
+        ],
+        courses: [
+            { code: 'CE101', title: 'Introduction to Programming' },
+            { code: 'CE201', title: 'Data Structures and Algorithms' },
+            { code: 'CE301', title: 'Database Management Systems' },
+            { code: 'CE401', title: 'Web Development' },
+        ],
+        activities: [
+            'Coding Competitions',
+            'Hackathons',
+            'Guest Lectures by Industry Experts',
+            'Student Projects on AI/ML',
+        ],
+        achievements: [
+            'Students secured top ranks in state-level coding contests.',
+            'Faculty published research papers in international journals.',
+            'Department received funding for a smart campus project.',
+        ],
+        image: '/images/departments/computer.jpg', // Placeholder image
     },
     {
-        id: 2,
-        departmentIcon: 'https://picsum.photos/200/200?random=4',
-        departmentName: 'Electronics and Communication Engineering',
-        description: 'Covers electronics, communication systems, and signal processing.',
-        headOfDepartment: 'Dr. Jane Smith',
-        totalSeats: 50,
-        viewFactulty: '/departments/electronics-communication-engineering',
-        viewCurriculum: '/departments/electronics-communication-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Circuit Design Lab',
-                labImage: 'https://picsum.photos/200/200?random=5',
-                labDescription: 'A lab for designing and testing electronic circuits.',
-                labResources: ['Oscilloscopes', 'Multimeters']
-            },
-            {
-                labName: 'Communication Systems Lab',
-                labImage: 'https://picsum.photos/200/200?random=6',
-                labDescription: 'A lab for studying communication technologies.',
-                labResources: ['Signal Generators', 'Modulation Equipment']
-            }
+        id: 'electronics-engineering',
+        name: 'Electronics Engineering',
+        shortName: 'ECE',
+        vision: 'To produce competent Electronics Engineers capable of contributing to technological advancements and sustainable development.',
+        mission: 'To impart strong theoretical and practical knowledge in Electronics Engineering, encourage innovation, and foster a spirit of lifelong learning.',
+        description: 'The Electronics Engineering Department focuses on the design, development, and testing of electronic circuits and systems. Students learn about analog and digital electronics, microcontrollers, communication systems, and embedded systems.',
+        faculty: [
+            { name: 'Dr. E. Prasad', designation: 'Head of Department', specialization: 'Embedded Systems' },
+            { name: 'Prof. F. Reddy', designation: 'Professor', specialization: 'VLSI Design' },
+            { name: 'Dr. G. Sharma', designation: 'Associate Professor', specialization: 'Communication Systems' },
         ],
-        highestPackage: {
-            packageCTC: '10 LPA',
-            companyName: 'ElectroTech Solutions'
-        },
-        averagePackage: '4.2 LPA',
+        labs: [
+            { name: 'Analog Electronics Lab', description: 'For experimenting with basic electronic components and circuits.' },
+            { name: 'Digital Electronics Lab', description: 'Focuses on logic gates, combinational and sequential circuits.' },
+            { name: 'Embedded Systems Lab', description: 'Hands-on experience with microcontrollers and IoT devices.' },
+        ],
+        courses: [
+            { code: 'EC101', title: 'Basic Electronics' },
+            { code: 'EC201', title: 'Digital Logic Design' },
+            { code: 'EC301', title: 'Microcontrollers and Applications' },
+        ],
+        activities: [
+            'Robotics Club',
+            'Electronics Project Exhibition',
+            'Workshops on PCB Design',
+        ],
+        achievements: [
+            'Students developed an automated irrigation system.',
+            'Department collaborated with local industries for internships.',
+        ],
+        image: '/images/departments/electronics.jpg', // Placeholder image
     },
     {
-        id: 3,
-        departmentIcon: 'https://picsum.photos/200/200?random=13',
-        departmentName: 'Electrical Engineering',
-        description: 'Deals with the study and application of electricity, electronics, and electromagnetism.',
-        headOfDepartment: 'Dr. Robert Green',
-        totalSeats: 60,
-        viewFactulty: '/departments/electrical-engineering',
-        viewCurriculum: '/departments/electrical-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Power Systems Lab',
-                labImage: 'https://picsum.photos/200/200?random=14',
-                labDescription: 'A lab for studying power generation and distribution.',
-                labResources: ['Generators', 'Transformers']
-            },
-            {
-                labName: 'Control Systems Lab',
-                labImage: 'https://picsum.photos/200/200?random=15',
-                labDescription: 'A lab for designing and analyzing control systems.',
-                labResources: ['PLCs', 'Sensors']
-            }
+        id: 'electrical-engineering',
+        name: 'Electrical Engineering',
+        shortName: 'EEE',
+        vision: 'To be a leading department in Electrical Engineering education and research, addressing global challenges in energy and power systems.',
+        mission: 'To educate students with fundamental and advanced concepts in Electrical Engineering, promote research, and develop ethical professionals.',
+        description: 'The Electrical Engineering Department covers a wide range of topics including power generation, transmission, distribution, electrical machines, control systems, and renewable energy. Students gain practical skills through laboratory work and projects.',
+        faculty: [
+            { name: 'Dr. H. Gupta', designation: 'Head of Department', specialization: 'Power Systems' },
+            { name: 'Prof. I. Khan', designation: 'Professor', specialization: 'Renewable Energy' },
         ],
-        highestPackage: {
-            packageCTC: '9.5 LPA',
-            companyName: 'PowerGrid Corp'
-        },
-        averagePackage: '4.1 LPA',
+        labs: [
+            { name: 'Electrical Machines Lab', description: 'For studying the characteristics and operation of various electrical machines.' },
+            { name: 'Power Electronics Lab', description: 'Focuses on power converters and their applications.' },
+        ],
+        courses: [
+            { code: 'EE101', title: 'Basic Electrical Engineering' },
+            { code: 'EE201', title: 'Electrical Machines' },
+            { code: 'EE301', title: 'Power Systems' },
+        ],
+        activities: [
+            'Industrial Visits to Power Plants',
+            'Energy Conservation Awareness Programs',
+        ],
+        achievements: [
+            'Students designed a smart grid prototype.',
+            'Department organized a national conference on sustainable energy.',
+        ],
+        image: '/images/departments/electrical.jpg', // Placeholder image
     },
     {
-        id: 4,
-        departmentIcon: 'https://picsum.photos/200/200?random=7',
-        departmentName: 'Mechanical Engineering',
-        description: 'Focuses on mechanical systems, design, and manufacturing.',
-        headOfDepartment: 'Dr. Alice Johnson',
-        totalSeats: 70,
-        viewFactulty: '/departments/mechanical-engineering',
-        viewCurriculum: '/departments/mechanical-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Thermodynamics Lab',
-                labImage: 'https://picsum.photos/200/200?random=8',
-                labDescription: 'A lab for studying thermodynamic principles.',
-                labResources: ['Heat Exchangers', 'Thermometers']
-            },
-            {
-                labName: 'Fluid Mechanics Lab',
-                labImage: 'https://picsum.photos/200/200?random=9',
-                labDescription: 'A lab for fluid dynamics experiments.',
-                labResources: ['Flow Meters', 'Pumps']
-            }
+        id: 'mechanical-engineering',
+        name: 'Mechanical Engineering',
+        shortName: 'MECH',
+        vision: 'To excel in Mechanical Engineering education and research, contributing to industrial growth and technological innovation.',
+        mission: 'To provide a strong foundation in Mechanical Engineering principles, foster creativity, and prepare students for diverse career opportunities.',
+        description: 'The Mechanical Engineering Department offers a robust curriculum in areas such as thermodynamics, fluid mechanics, manufacturing processes, machine design, and robotics. Students engage in hands-on projects and simulations.',
+        faculty: [
+            { name: 'Dr. J. Singh', designation: 'Head of Department', specialization: 'Robotics' },
+            { name: 'Prof. K. Varma', designation: 'Professor', specialization: 'Thermal Engineering' },
         ],
-        highestPackage: {
-            packageCTC: '9 LPA',
-            companyName: 'MechTech Industries'
-        },
-        averagePackage: '4.0 LPA',
+        labs: [
+            { name: 'Workshop Practice Lab', description: 'For hands-on training in various manufacturing processes.' },
+            { name: 'Fluid Mechanics Lab', description: 'Experiments related to fluid properties and flow.' },
+        ],
+        courses: [
+            { code: 'ME101', title: 'Engineering Mechanics' },
+            { code: 'ME201', title: 'Thermodynamics' },
+            { code: 'ME301', title: 'Machine Design' },
+        ],
+        activities: [
+            'CAD/CAM Workshops',
+            'Automobile Design Competitions',
+        ],
+        achievements: [
+            'Students built a working prototype of a solar-powered vehicle.',
+            'Department secured patents for innovative mechanical designs.',
+        ],
+        image: '/images/departments/mechanical.jpg', // Placeholder image
     },
     {
-        id: 5,
-        departmentIcon: 'https://picsum.photos/200/200?random=10',
-        departmentName: 'Civil Engineering',
-        description: 'Covers construction, infrastructure, and environmental engineering.',
-        headOfDepartment: 'Dr. Robert Brown',
-        totalSeats: 80,
-        viewFactulty: '/departments/civil-engineering',
-        viewCurriculum: '/departments/civil-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Structural Analysis Lab',
-                labImage: 'https://picsum.photos/200/200?random=11',
-                labDescription: 'A lab for analyzing structural components.',
-                labResources: ['Load Testing Equipment', 'Structural Models']
-            },
-            {
-                labName: 'Geotechnical Engineering Lab',
-                labImage: 'https://picsum.photos/200/200?random=12',
-                labDescription: 'A lab for soil and foundation studies.',
-                labResources: ['Soil Testing Kits', 'Compaction Equipment']
-            }
+        id: 'civil-engineering',
+        name: 'Civil Engineering',
+        shortName: 'CIVIL',
+        vision: 'To be a center of excellence in Civil Engineering, producing skilled professionals for infrastructure development and sustainable solutions.',
+        mission: 'To educate students with core concepts of Civil Engineering, promote practical skills, and instill a commitment to ethical and sustainable practices.',
+        description: 'The Civil Engineering Department focuses on the planning, design, construction, and maintenance of infrastructure projects. Students learn about structural analysis, transportation engineering, environmental engineering, and construction management.',
+        faculty: [
+            { name: 'Dr. L. Kumar', designation: 'Head of Department', specialization: 'Structural Engineering' },
+            { name: 'Prof. M. Devi', designation: 'Professor', specialization: 'Transportation Engineering' },
         ],
-        highestPackage: {
-            packageCTC: '8 LPA',
-            companyName: 'BuildRight Constructions'
-        },
-        averagePackage: '3.8 LPA',
+        labs: [
+            { name: 'Strength of Materials Lab', description: 'For testing the mechanical properties of construction materials.' },
+            { name: 'Surveying Lab', description: 'Hands-on experience with surveying instruments and techniques.' },
+        ],
+        courses: [
+            { code: 'CV101', title: 'Engineering Graphics' },
+            { code: 'CV201', title: 'Strength of Materials' },
+            { code: 'CV301', title: 'Structural Analysis' },
+        ],
+        activities: [
+            'Site Visits to Construction Projects',
+            'Workshops on AutoCAD and Staad.Pro',
+        ],
+        achievements: [
+            'Students participated in national-level bridge design competitions.',
+            'Department provided consultancy for local government projects.',
+        ],
+        image: '/images/departments/civil.jpg', // Placeholder image
     },
-    {
-        id: 6,
-        departmentIcon: 'https://picsum.photos/200/200?random=16',
-        departmentName: 'Architecture Engineering',
-        description: 'Combines architectural design with engineering principles.',
-        headOfDepartment: 'Dr. Emily White',
-        totalSeats: 40,
-        viewFactulty: '/departments/architecture-engineering',
-        viewCurriculum: '/departments/architecture-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Design Studio',
-                labImage: 'https://picsum.photos/200/200?random=17',
-                labDescription: 'A studio for architectural design and drafting.',
-                labResources: ['CAD Software', '3D Printers']
-            },
-            {
-                labName: 'Building Materials Lab',
-                labImage: 'https://picsum.photos/200/200?random=18',
-                labDescription: 'A lab for testing and analyzing building materials.',
-                labResources: ['Material Testing Machines', 'Microscopes']
-            }
-        ],
-        highestPackage: {
-            packageCTC: '7.5 LPA',
-            companyName: 'DesignBuild Associates'
-        },
-        averagePackage: '3.5 LPA',
-    },
-    {
-        id: 7,
-        departmentIcon: 'https://picsum.photos/200/200?random=19',
-        departmentName: 'Automobile Engineering',
-        description: 'Focuses on the design, manufacturing, and operation of automobiles.',
-        headOfDepartment: 'Dr. David Lee',
-        totalSeats: 50,
-        viewFactulty: '/departments/automobile-engineering',
-        viewCurriculum: '/departments/automobile-engineering/curriculum',
-        labs: [
-            {
-                labName: 'Engine Testing Lab',
-                labImage: 'https://picsum.photos/200/200?random=20',
-                labDescription: 'A lab for testing and performance analysis of engines.',
-                labResources: ['Dynamometers', 'Emission Analyzers']
-            },
-            {
-                labName: 'Vehicle Dynamics Lab',
-                labImage: 'https://picsum.photos/200/200?random=21',
-                labDescription: 'A lab for studying vehicle stability and handling.',
-                labResources: ['Suspension Rigs', 'Steering Simulators']
-            }
-        ],
-        highestPackage: {
-            packageCTC: '8.5 LPA',
-            companyName: 'AutoInnovate Corp'
-        },
-        averagePackage: '3.9 LPA',
-    }
-]
+];

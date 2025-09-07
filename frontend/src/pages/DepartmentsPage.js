@@ -1,112 +1,47 @@
-
 import React from 'react';
-import LabCarousel from '../components/DepartmentsComponents/LabCarousel';
-import StatsBar from '../components/DepartmentsComponents/StatsBar';
-import '../styles/DepartmentsStyles/Departments.css'; // Adjust the path as necessary
-import {departmentsData} from '../data/departmentsData'; // Adjust the path as necessary
-
-const getIconEmoji = (departmentName) => {
-  switch (departmentName.toLowerCase()) {
-    case 'computer science':
-      return '💻';
-    case 'electronics and communication':
-      return '⚡';
-    case 'mechanical engineering':
-      return '⚙️';
-    case 'civil engineering':
-      return '🏗️';
-    default:
-      return '🎓';
-  }
-};
+import { Link } from 'react-router-dom';
+import { departmentsData } from '../data/departmentsData';
+import '../styles/DepartmentsStyles/DepartmentsPage.css';
+import { Building, ChevronRight } from 'lucide-react';
 
 const DepartmentsPage = () => {
   return (
-    <section className="departments-section">
-      <div className="departments-container">
-        {/* Section Header */}
-        <div className="section-header">
-          <h2 className="section-title">Academic Departments</h2>
-          <p className="section-description">
-            Explore our diverse academic departments, each dedicated to providing quality education and research opportunities. 
-            
-          </p>
-          {/* <div className="section-divider"></div> */}
+    <div className="departments-page-container">
+      <header className="departments-header-section">
+        <div className="departments-badge">
+          <Building className="badge-icon" />
+          <span className="badge-text">Our Departments</span>
         </div>
+        <h1 className="departments-title-main">
+          Explore Our <span className="title-highlight">Academic Departments</span>
+        </h1>
+        <p className="departments-description-main">
+          Discover the diverse fields of study and innovation offered at Andhra Polytechnic. Each department is dedicated to providing quality education, fostering research, and preparing students for successful careers.
+        </p>
+      </header>
 
-        {/* Departments Grid */}
-        <div className="departments-grid">
-          {departmentsData.map((department) => (
-            <div key={department.id} className="department-page-department-card">
-              <div className="card-header">
-                <div className="header-content">
-                  <span className="department-emoji">{getIconEmoji(department.departmentName)}</span>
-                  <div className="header-text">
-                    <h3 className="department-name">{department.departmentName}</h3>
-                    <p className="department-head">Head of Department: {department.headOfDepartment}</p>
-                  </div>
+      <section className="departments-grid-section">
+        <div className="departments-grid-container">
+          {departmentsData.map((dept) => (
+            <Link to={`/departments/${dept.id}`} key={dept.id} className="department-card-link">
+              <div className="department-card-item">
+                <div className="card-gradient-bg"></div>
+                <div className="department-icon-wrapper">
+                  <Building className="department-card-icon" />
                 </div>
-              </div>
-
-              <div className="card-content">
-                <p className="department-description">{department.description}</p>
-
-                {/* Stats Bar */}
-                <StatsBar 
-                  totalSeats={department.totalSeats}
-                  highestPackageInfo={department.highestPackage}
-                  averagePackage={department.averagePackage}
-                />
-
-                {/* Lab Images Section */}
-                <div className="labs-section">
-                  <h4 className="labs-title">
-                    <span className="title-dot"></span>
-                    Laboratory Facilities
-                  </h4>
-                  <LabCarousel 
-                    images={department.labs.map(lab => ({
-                      src: lab.labImage,
-                      alt: lab.labName,
-                      caption: lab.labDescription
-                    }))}
-                  />
+                <h2 className="department-card-title">{dept.name}</h2>
+                <p className="department-card-shortname">{dept.shortName}</p>
+                <p className="department-card-description">{dept.description.substring(0, 150)}...</p>
+                <div className="department-card-footer">
+                  <span className="learn-more-btn">Learn More <ChevronRight size={16} /></span>
                 </div>
+                <div className="accent-line"></div>
               </div>
-
-              <div className="card-footer">
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => window.location.href = department.viewFactulty}
-                >
-                  View Faculty
-                </button>
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => window.location.href = department.viewCurriculum}
-                >
-                  View Curriculum
-                </button>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
-
-        {/* Call to Action
-        <div className="cta-section">
-          <div className="cta-card">
-            <h3 className="cta-title">Ready to Start Your Journey?</h3>
-            <p className="cta-description">
-              Discover which department aligns with your career goals and interests.
-            </p>
-            <div className="cta-buttons">
-              <button className="btn btn-primary">Apply Now</button>
-              <button className="btn btn-secondary">Schedule Campus Visit</button>
-            </div>
-          </div>
-        </div> */}
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

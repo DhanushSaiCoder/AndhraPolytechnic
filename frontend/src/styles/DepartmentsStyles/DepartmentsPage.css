@@ -1,0 +1,236 @@
+/* DepartmentsPage.css */
+
+.departments-page-container {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+    min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+}
+
+.departments-header-section {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.departments-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.departments-title-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #112d4e;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.title-highlight {
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.departments-description-main {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.departments-grid-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.departments-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.department-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.department-card-item {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(63, 114, 175, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.department-card-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(63, 114, 175, 0.15);
+    border-color: rgba(63, 114, 175, 0.2);
+}
+
+.department-card-item:hover .card-gradient-bg {
+    opacity: 0.03;
+}
+
+.card-gradient-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    opacity: 0;
+    border-radius: 1rem;
+    transition: opacity 0.5s ease;
+}
+
+.department-icon-wrapper {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.department-card-item:hover .department-icon-wrapper {
+    transform: scale(1.1);
+}
+
+.department-card-icon {
+    width: 2rem;
+    height: 2rem;
+    color: white;
+}
+
+.department-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.department-card-item:hover .department-card-title {
+    color: #2d3748;
+}
+
+.department-card-shortname {
+    font-size: 0.9rem;
+    color: #3f72af;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.department-card-description {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+
+.department-card-footer {
+    margin-top: auto; /* Pushes the footer to the bottom */
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.learn-more-btn {
+    color: #3f72af;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.learn-more-btn:hover {
+    color: #2c5aa0;
+    text-decoration: underline;
+}
+
+.accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.department-card-item:hover .accent-line {
+    transform: scaleX(1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .departments-page-container {
+        padding: 2rem 0.5rem;
+    }
+
+    .departments-title-main {
+        font-size: 2rem;
+    }
+
+    .departments-description-main {
+        font-size: 1rem;
+    }
+
+    .departments-grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .department-card-item {
+        padding: 1.5rem;
+    }
+
+    .department-card-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .departments-title-main {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .departments-title-main {
+        font-size: 3.5rem;
+    }
+}
