@@ -6,7 +6,7 @@ import DepartmentHero from '../components/DepartmentsComponents/DepartmentDetail
 import VisionMission from '../components/DepartmentsComponents/DepartmentDetail/VisionMission';
 import FacultySection from '../components/DepartmentsComponents/DepartmentDetail/FacultySection';
 import LabsSection from '../components/DepartmentsComponents/DepartmentDetail/LabsSection';
-import EventsSection from '../components/DepartmentsComponents/DepartmentDetail/EventsSection';
+import EventsSection from '../components/DepartmentsComponents/DepartmentDetail/EventsSection'; // Import EventsSection
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const DepartmentDetail = () => {
@@ -23,7 +23,7 @@ const DepartmentDetail = () => {
       <VisionMission department={department} />
       <FacultySection department={department} />
       <LabsSection department={department} />
-      <EventsSection />
+      <EventsSection events={department.events} /> {/* Pass events prop */}
     </div>
   );
 };

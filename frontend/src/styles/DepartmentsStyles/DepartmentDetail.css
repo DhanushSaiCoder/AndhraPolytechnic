@@ -260,3 +260,118 @@
     color: #4b5563;
     margin: 0;
 }
+
+.events-category {
+    margin-top: 3rem;
+}
+
+.events-category:first-of-type {
+    margin-top: 0; /* No top margin for the first category */
+}
+
+.events-category-title {
+    font-size: 1.75rem;
+    color: #112D4E;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.event-card.completed {
+    opacity: 0.7;
+    background-color: #f0f0f0; /* Slightly different background for completed */
+    border-color: #d0d0d0;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.event-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+    font-size: 1.25rem;
+    color: #112D4E;
+    margin-bottom: 0.75rem;
+}
+
+.event-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.event-meta svg {
+    color: #3F72AF;
+}
+
+.event-description {
+    font-size: 0.95rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.event-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+    font-size: 1.25rem;
+    color: #112D4E;
+    margin-bottom: 0.75rem;
+}
+
+.event-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.event-meta svg {
+    color: #3F72AF;
+}
+
+.event-description {
+    font-size: 0.95rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
