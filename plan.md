@@ -1,6 +1,5 @@
 # Website Plan for Andhra Polytechnic
 
-This document outlines the key sections and their proposed content for the Andhra Polytechnic website.
 <!-- 
 ## 1. Home
 *   Image Slider / Hero Section
@@ -43,7 +42,6 @@ This document outlines the key sections and their proposed content for the Andhr
 ## 6. Events
 *   Upcoming Events
 *   Past Events Gallery (Sports, Academic, Tech, Cultural)
-*   Event Calendar
 
 ## 7. Alumni
 *   Alumni Registration
