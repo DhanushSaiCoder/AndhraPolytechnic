@@ -1,5 +1,4 @@
 import React from 'react';
-import { Zap } from 'lucide-react';
 import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const ActivitiesSection = ({ activities }) => {
@@ -8,9 +7,11 @@ const ActivitiesSection = ({ activities }) => {
       <div className="department-section-container">
         <div className="section-header">
           <h2 className="section-title">
-            <Zap size={24} />
             Activities
           </h2>
+          <p className="section-subtitle">
+            Engaging in co-curricular and extra-curricular activities.
+          </p>
         </div>
         <ul className="activities-list">
           {activities.map((activity, index) => (

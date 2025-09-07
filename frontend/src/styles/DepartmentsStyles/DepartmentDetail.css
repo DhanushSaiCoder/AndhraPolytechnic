@@ -118,10 +118,10 @@
 
 .section-header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 0.75rem;
-  /* border-bottom: 2px solid #DBE2EF; */
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -134,6 +134,15 @@
     align-items: center;
     gap: 0.75rem;
     justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #4b5563;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 .section-title svg {
@@ -201,3 +210,53 @@
     color: #3F72AF;
 }
 
+.faculty-section{
+        background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+
+}
+
+.labs-section{
+    background-color: #3F72AF !important; /* blue-900 */
+    color: #F9F7F7;
+
+}
+.courses-section{
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+}
+.labs-section .section-title {
+    color: #F9F7F7;
+}
+
+.labs-section .section-subtitle {
+    color: #DBE2EF;
+}
+
+.events-list {
+    /* This container can be used for future event cards */
+}
+
+.no-events {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 3rem 2rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.no-events svg {
+    color: #9ca3af;
+}
+
+.no-events p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin: 0;
+}

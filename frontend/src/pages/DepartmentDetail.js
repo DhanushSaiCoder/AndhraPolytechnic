@@ -6,9 +6,7 @@ import DepartmentHero from '../components/DepartmentsComponents/DepartmentDetail
 import VisionMission from '../components/DepartmentsComponents/DepartmentDetail/VisionMission';
 import FacultySection from '../components/DepartmentsComponents/DepartmentDetail/FacultySection';
 import LabsSection from '../components/DepartmentsComponents/DepartmentDetail/LabsSection';
-import CoursesSection from '../components/DepartmentsComponents/DepartmentDetail/CoursesSection';
-import ActivitiesSection from '../components/DepartmentsComponents/DepartmentDetail/ActivitiesSection';
-import AchievementsSection from '../components/DepartmentsComponents/DepartmentDetail/AchievementsSection';
+import EventsSection from '../components/DepartmentsComponents/DepartmentDetail/EventsSection';
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const DepartmentDetail = () => {
@@ -25,9 +23,7 @@ const DepartmentDetail = () => {
       <VisionMission department={department} />
       <FacultySection department={department} />
       <LabsSection department={department} />
-      <CoursesSection courses={department.courses} />
-      <ActivitiesSection activities={department.activities} />
-      <AchievementsSection achievements={department.achievements} />
+      <EventsSection />
     </div>
   );
 };

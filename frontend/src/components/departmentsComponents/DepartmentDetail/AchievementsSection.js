@@ -1,5 +1,4 @@
 import React from 'react';
-import { Award } from 'lucide-react';
 import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const AchievementsSection = ({ achievements }) => {
@@ -8,9 +7,11 @@ const AchievementsSection = ({ achievements }) => {
       <div className="department-section-container">
         <div className="section-header">
           <h2 className="section-title">
-            <Award size={24} />
             Achievements
           </h2>
+          <p className="section-subtitle">
+            Celebrating the accomplishments of our students and faculty.
+          </p>
         </div>
         <ul className="achievements-list">
           {achievements.map((achievement, index) => (

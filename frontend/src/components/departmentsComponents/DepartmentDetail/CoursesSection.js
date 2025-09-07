@@ -1,16 +1,17 @@
 import React from 'react';
-import { BookOpen } from 'lucide-react';
 import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
 
 const CoursesSection = ({ courses }) => {
   return (
-    <div className="department-section">
+    <div className="department-section courses-section">
       <div className="department-section-container">
         <div className="section-header">
           <h2 className="section-title">
-            <BookOpen size={24} />
             Courses Offered
           </h2>
+          <p className="section-subtitle">
+            Exploring the curriculum and courses available in our department.
+          </p>
         </div>
         <ul className="courses-list">
           {courses.map((course, index) => (
