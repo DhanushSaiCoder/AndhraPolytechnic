@@ -21,10 +21,8 @@
 .user-management-container {
   max-width: 1280px;
   margin: 0 auto;
-  background-color: var(--white-color);
   padding: 2.5rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .user-management-header {
