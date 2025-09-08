@@ -76,13 +76,12 @@
     justify-content: center;
     gap: 40px;
 }
-.activeNavLink {
+a.activeNavLink {
     height: 100%;
-
-    color: #3f72af;
+    color: #3F72AF !important;
     text-decoration: none;
-    border-bottom: 2.5px solid #3f72af;
-    background-color: #3f72af20;
+    border-bottom: 2.5px solid #3F72AF;
+    background-color: rgba(63, 114, 175, 0.08) !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -350,10 +349,10 @@
         border-top: 1px solid rgba(17, 45, 78, 0.04);
     }
 
-    .activeNavLink {
+    a.activeNavLink {
         border-bottom: none;
-        background-color: rgba(63, 114, 175, 0.08);
-        color: var(--primary);
+        background-color: rgba(63, 114, 175, 0.08) !important;
+        color: #3F72AF !important;
     }
 
     /* optional: hide the right logo on small screens to save space */

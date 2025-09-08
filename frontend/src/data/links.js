@@ -20,10 +20,6 @@ export const links = [
     label: 'Placements',
   },
   {
-    to: '/events',
-    label: 'Events'
-  },
-  {
     to: '/academics',
     label: 'Academics',
     subLinks: [
@@ -31,6 +27,11 @@ export const links = [
       { to: '/academics/academic-achievements', label: 'Academic Achievements' },
       { to: '/academics/admissions', label: 'Admissions' },
     ],
+  },
+  
+  {
+    to: '/events',
+    label: 'Events'
   },
   { to: '/about', label: 'About Us' },
   { to: '/alumni', label: 'Alumni' },
