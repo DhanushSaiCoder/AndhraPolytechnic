@@ -58,11 +58,11 @@ const NoticeBoard = () => {
 
       <div className="notice-board-grid">
         <div className="notice-section">
-          <div className="section-header">
-            <div className="section-icon news-icon">
+          <div className="notice-section-header">
+            <div className="notice-section-icon news-icon">
               <Newspaper className="icon" />
             </div>
-            <h2 className="section-title">News</h2>
+            <h2 className="notice-section-title">News</h2>
           </div>
           <div className="section-list">
             {newsItems.map((item) => (
@@ -72,11 +72,11 @@ const NoticeBoard = () => {
         </div>
 
         <div className="notice-section">
-          <div className="section-header">
-            <div className="section-icon notifications-icon">
+          <div className="notice-section-header">
+            <div className="notice-section-icon notifications-icon">
               <Bell className="icon" />
             </div>
-            <h2 className="section-title">Notifications</h2>
+            <h2 className="notice-section-title">Notifications</h2>
           </div>
           <div className="section-list">
             {notifications.map((item) => (

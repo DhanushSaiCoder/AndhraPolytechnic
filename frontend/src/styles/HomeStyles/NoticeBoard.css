@@ -44,14 +44,14 @@
   gap: 1.5rem;
 }
 
-.section-header {
+.notice-section-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
-.section-icon {
+.notice-section-icon {
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
@@ -74,7 +74,7 @@
   color: #ea580c;
 }
 
-.section-title {
+.notice-section-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: #112D4E;
