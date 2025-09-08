@@ -26,18 +26,17 @@ const ControlledImageSlider = ({
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`slide ${index === currentSlide ? 'active' : index < currentSlide ? 'left' : 'right'}`}
-          >
+            className={`slide ${index === currentSlide ? 'active' : index < currentSlide ? 'left' : 'right'}`}>
             <SliderCard image={slide.image} />
           </div>
         ))}
-        <button onClick={onPrev} className="arrow left" aria-label="Previous slide">
-          <ChevronLeft size={24} />
-        </button>
-        <button onClick={onNext} className="arrow right" aria-label="Next slide">
-          <ChevronRight size={24} />
-        </button>
       </div>
+      <button onClick={onPrev} className="arrow left" aria-label="Previous slide">
+        <ChevronLeft size={24} />
+      </button>
+      <button onClick={onNext} className="arrow right" aria-label="Next slide">
+        <ChevronRight size={24} />
+      </button>
       <div className="dots">
         {slides.map((_, index) => (
           <button
