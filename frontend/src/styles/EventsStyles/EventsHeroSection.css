@@ -1,0 +1,76 @@
+/* EventsHeroSection.css */
+
+.events-hero-section {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+    min-height: 300px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.events-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.events-title-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #112d4e;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.title-highlight {
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.events-description-main {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .events-title-main {
+        font-size: 2rem;
+    }
+    .events-description-main {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .events-title-main {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .events-title-main {
+        font-size: 3.5rem;
+    }
+}

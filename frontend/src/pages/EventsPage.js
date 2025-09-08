@@ -1,10 +1,21 @@
 import React from 'react';
+import EventsHeroSection from '../components/EventsComponents/EventsHeroSection';
+import SportsEvents from '../components/EventsComponents/SportsEvents';
+import AcademicEvents from '../components/EventsComponents/AcademicEvents';
+import CoCurricularEvents from '../components/EventsComponents/CoCurricularEvents';
+import OtherEvents from '../components/EventsComponents/OtherEvents';
+import '../styles/EventsStyles/EventsPage.css';
 
 const EventsPage = () => {
   return (
     <div>
-      <h1>Events Page</h1>
-      <p>Content for Events will go here.</p>
+      <EventsHeroSection />
+      <div className="events-page-container">
+        <SportsEvents />
+        <AcademicEvents />
+        <CoCurricularEvents />
+        <OtherEvents />
+      </div>
     </div>
   );
 };
