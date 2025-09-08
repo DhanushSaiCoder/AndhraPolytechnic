@@ -94,12 +94,12 @@
 }
 
 .chart-wrapper {
-    background: rgba(255, 255, 255, 0.6);
+    /* background: rgba(255, 255, 255, 0.6); */
     border-radius: 1rem;
     padding: 1.5rem 1rem;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); */
     transition: transform 0.3s ease;
 }
 

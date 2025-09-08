@@ -21,7 +21,7 @@ const PlacementsHeroSection = () => {
                 <span className="badge-text">Career Opportunities</span>
             </div>
             <h1 className="placements-title-main">
-                Empowering Futures Through <br /> <span className="title-highlight">Placements</span>
+                Your Gateway to a Great Career <br /> <span className="title-highlight">Placements</span>
             </h1>
             <p className="placements-description-main">
                 Connecting talent with industry leaders for a successful career journey.
