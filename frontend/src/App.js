@@ -18,6 +18,9 @@ import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './pages/NotFound'; // optional
+import LoginPage from './pages/LoginPage';
+import AdminPage from './pages/AdminPage';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -38,6 +41,10 @@ function App() {
         
         <Route path="departments" element={<DepartmentsPage />} />
         <Route path="/departments/:id" element={<DepartmentDetail />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<PrivateRoute />}>
+          <Route path="/admin" element={<AdminPage />} />
+        </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
       </Routes>
