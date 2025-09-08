@@ -1,0 +1,98 @@
+/* AdminPage.css */
+
+.admin-page {
+  padding: 4rem 1rem;
+  background-color: #f9f7f7;
+  min-height: calc(100vh - 120px);
+}
+
+.admin-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.admin-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #112d4e;
+  margin-bottom: 1rem;
+}
+
+.admin-subtitle {
+  font-size: 1.125rem;
+  color: #4b5563;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.admin-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(63, 114, 175, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px rgba(63, 114, 175, 0.15);
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-card-icon {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.admin-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #112d4e;
+}
+
+.admin-card-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.admin-card-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.admin-card-button:hover {
+  background: linear-gradient(135deg, #2c5aa0 0%, #1e3f73 100%);
+  box-shadow: 0 4px 12px rgba(63, 114, 175, 0.3);
+  transform: scale(1.05);
+}
