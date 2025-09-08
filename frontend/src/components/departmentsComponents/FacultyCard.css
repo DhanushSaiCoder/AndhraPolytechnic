@@ -46,11 +46,8 @@
   left: 0;
   right: 0;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  transform: translateY(50%);
+  background: rgba(249, 247, 247, 0.95);
+  transform: translateY(calc(50% - 10px));
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
