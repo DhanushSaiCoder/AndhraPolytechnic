@@ -75,7 +75,7 @@
 .event-slider-container {
     position: relative;
     width: 100%;
-    padding-top: 66.66%; /* 3:2 Aspect Ratio */
+    padding-top: 61.66%; /* Adjusted for ~25px decrease */
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
