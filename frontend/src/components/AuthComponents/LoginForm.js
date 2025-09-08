@@ -13,8 +13,9 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await authService.login(email, password);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      navigate('/admin'); // Redirect to an admin dashboard page
+      localStorage.setItem('token', response.token);
+      navigate('/');
+      
     } catch (err) {
       setError('Invalid credentials');
     }

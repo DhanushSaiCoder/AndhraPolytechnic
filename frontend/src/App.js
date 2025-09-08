@@ -45,7 +45,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/admin" element={<PrivateRoute />}>
-          <Route path="/admin" element={<AdminPage />} />
+          <Route index element={<AdminPage />} />
         </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />

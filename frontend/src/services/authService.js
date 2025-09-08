@@ -15,27 +15,34 @@ const login = async (email, password) => {
     email,
     password,
   });
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  if (response.data && response.data.token) {
+    localStorage.setItem('token', response.data.token);
   }
   return response.data;
 };
 
 const logout = () => {
-  localStorage.removeItem('user');
+  localStorage.removeItem('token');
 };
 
 const getCurrentUser = () => {
-  const userStr = localStorage.getItem('user');
-  if (!userStr) return null;
-  return JSON.parse(userStr);
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  try {
+    const decoded = jwtDecode(token);
+    return decoded.user;
+  } catch (e) {
+    console.error("Error decoding JWT token:", e);
+    return null;
+  }
 };
 
 const getUserRole = () => {
   const user = getCurrentUser();
-  if (!user) return null;
-  const decoded = jwtDecode(user.token);
-  return decoded.user.role;
+  if (!user) {
+    return null;
+  }
+  return user.role;
 };
 
 const authService = {
