@@ -21,24 +21,23 @@
 /* Specific Section Styles */
 
 .sports-events {
-    background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+    background-color: #f9f7f7;
+
 }
 
 .academic-events {
-    background-color: #ffffff;
+    background-color: #dbe2ef20;
+
 }
 
 .co-curricular-events {
-    background-color: #f8fafc;
+    background-color: #f9f7f7;
+
 }
 
 .other-events {
-    background-color: #ffffff;
-}
+    background-color: #dbe2ef20;
 
-/* Add a border between sections for better separation */
-.event-category-section:not(:last-child) {
-    border-bottom: 1px solid #e2e8f0;
 }
 
 /* Title color adjustments for different backgrounds */
