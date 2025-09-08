@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import authService from '../../services/authService';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
     try {
-      const response = await authService.login(email, password);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      navigate('/admin'); // Redirect to an admin dashboard page
+      await authService.register(email, password);
+      navigate('/login'); // Redirect to login page after successful registration
     } catch (err) {
-      setError('Invalid credentials');
+      setError('Registration failed');
     }
   };
 
@@ -30,6 +34,7 @@ const LoginForm = () => {
         onChange={(e) => setEmail(e.target.value)}
         variant="outlined"
         fullWidth
+        margin="normal"
       />
       <TextField
         label="Password"
@@ -38,15 +43,22 @@ const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         variant="outlined"
         fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Confirm Password"
+        type="password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        variant="outlined"
+        fullWidth
+        margin="normal"
       />
       <Button type="submit" variant="contained" color="primary">
-        Login
+        Register
       </Button>
-      <p style={{ marginTop: '20px' }}>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
