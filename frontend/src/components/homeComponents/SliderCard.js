@@ -1,7 +1,7 @@
 import React from "react";
-import "../../styles/HomeStyles/SliderCard.css"; // Adjust the path as necessary
+import "../../styles/HomeStyles/SliderCard.css";
 
-const SliderCard = ({ image, title, subtitle }) => {
+const SliderCard = ({ image }) => {
   return (
     <div className="slider-card">
       <div 
