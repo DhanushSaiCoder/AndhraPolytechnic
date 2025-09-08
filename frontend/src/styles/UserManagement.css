@@ -110,36 +110,79 @@
 
 .user-table-container {
   overflow-x: auto;
+  background-color: var(--white-color); /* Solid background for the table */
+  border-radius: 1rem; /* Rounded corners for the container */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  margin-top: 2rem; /* Add some space from toolbar */
 }
 
 .user-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate; /* Use separate to allow border-radius on cells */
+  border-spacing: 0; /* Remove space between cells */
   font-size: 1rem;
 }
 
 .user-table th,
 .user-table td {
-  padding: 1.25rem 1rem;
+  padding: 1.5rem 1.25rem; /* Increased padding */
   text-align: left;
-  border-bottom: 1px solid var(--border-color);
+  /* Remove border-bottom here, will add subtle border to rows */
 }
 
 .user-table th {
-  background-color: var(--bg-color);
+  background-color: var(--muted-color); /* Lighter background for header */
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--navy-color); /* Softer text color */
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-size: large; /* Slightly smaller font for header */
+  letter-spacing: 0.08em; /* Increased letter spacing */
+  position: sticky; /* Make header sticky for scroll */
+  top: 0;
+  z-index: 1;
+}
+
+/* Rounded corners for first and last header cells */
+.user-table th:first-child {
+  border-top-left-radius: 1rem;
+}
+
+.user-table th:last-child {
+  border-top-right-radius: 1rem;
 }
 
 .user-table tbody tr {
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  border-bottom: 1px solid var(--border-color); /* Subtle border for rows */
+}
+
+.user-table tbody tr:last-child {
+  border-bottom: none; /* No border for the last row */
 }
 
 .user-table tbody tr:hover {
-  background-color: #f8fafc;
+  background-color: rgba(var(--primary-color), 0.05); /* Very light transparent background on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow on hover */
+}
+
+/* Style for cells to ensure rounded corners on rows */
+.user-table tbody td {
+  background-color: var(--white-color);
+}
+
+/* Rounded corners for first and last cells in a row */
+.user-table tbody tr:first-child td:first-child {
+  border-top-left-radius: 1rem;
+}
+.user-table tbody tr:first-child td:last-child {
+  border-top-right-radius: 1rem;
+}
+.user-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 1rem;
+}
+.user-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 1rem;
 }
 
 .user-info {
@@ -148,22 +191,14 @@
   gap: 1rem;
 }
 
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+
 
 .user-details {
   display: flex;
   flex-direction: column;
 }
 
-.user-name {
-  font-weight: 600;
-  color: var(--text-primary);
-}
+
 
 .user-id {
   font-size: 0.85rem;
@@ -218,23 +253,25 @@
 }
 
 .edit-btn {
-  background-color: #e0f2fe;
-  color: #0ea5e9;
+  background-color: #0ea5e9;
+  color: var(--white-color);
 }
 
 .edit-btn:hover {
-  background-color: #bde5fa;
+  background-color: #0284c7;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(14, 165, 233, 0.2);
 }
 
 .delete-btn {
-  background-color: #fef2f2;
-  color: var(--danger-color);
+  background-color: var(--danger-color);
+  color: var(--white-color);
 }
 
 .delete-btn:hover {
-  background-color: #fee2e2;
+  background-color: #dc2626;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
 }
 
 @media (max-width: 768px) {

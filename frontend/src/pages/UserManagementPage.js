@@ -99,7 +99,7 @@ const UserManagementPage = () => {
               <tr>
                 <th>User</th>
                 <th>Role</th>
-                <th>Contact</th>
+                <th>Email</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -109,7 +109,6 @@ const UserManagementPage = () => {
                   <td>
                     <div className="user-info">
                       <div className="user-details">
-                        <span className="user-email">{user.email}</span>
                         <span className="user-id">ID: {user._id}</span>
                       </div>
                     </div>
