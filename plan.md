@@ -28,9 +28,9 @@
         <!-- *   Vision & Mission -->
         <!-- *   Faculty Profiles -->
         <!-- *   Labs & Facilities -->
-        *   Courses Offered / Syllabus
-        *   Student Activities / Projects
-        *   Departmental Achievements
+        <!-- *   Courses Offered / Syllabus -->
+        <!-- *   Student Activities / Projects -->
+        <!-- *   Departmental Achievements -->
 
 ## 5. Placements
 *   Placement Statistics
