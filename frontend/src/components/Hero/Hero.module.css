@@ -197,37 +197,40 @@
 .prevButton,
 .nextButton {
   pointer-events: auto;
-  background: rgba(0, 0, 0, 0.45);
-  border: none;
-  color: white;
-  font-size: 1.6rem;
+  background: rgba(255, 255, 255, 0.012); /* Lighter, more subtle background */
+  backdrop-filter: blur(8px); /* Add blur for sleekness */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+  color: #F9F7F7;
+  font-size: 1.6rem; /* Keep font size for now, but icon size will be controlled by `size` prop */
   cursor: pointer;
   padding: 0.6rem;
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  width: 56px; /* Slightly larger */
+  height: 56px; /* Slightly larger */
+  min-width: 56px;
+  min-height: 56px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 12px;
-  transition: background 150ms ease, transform 120ms ease;
-  box-shadow: 0 6px 18px rgba(3, 8, 12, 0.35);
+  margin: 0 18px; /* Increase margin to match new size */
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smoother transitions */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* More refined shadow */
 }
 .prevButton:hover,
 .nextButton:hover {
-  background: rgba(0, 0, 0, 0.6); /* Darken background on hover */
+  background: rgba(255, 255, 255, 0.3); /* Darken background on hover */
+  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
 }
 .prevButton:focus-visible,
 .nextButton:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.14);
+  outline: 3px solid rgba(63, 114, 175, 0.5); /* More visible outline on focus */
   outline-offset: 3px;
 }
 
 /* Place the arrow buttons at left/right visually */
-.prevButton { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); }
-.nextButton { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
+.prevButton { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); }
+.nextButton { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 
 /* Dots centered near bottom of hero */
 .dots {

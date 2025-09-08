@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Hero.module.css";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, ChevronLeft, ChevronRight } from "lucide-react"; // Added ChevronLeft, ChevronRight
 
 const Hero = ({
   slides,
@@ -150,7 +150,7 @@ const Hero = ({
           aria-label="Previous Slide"
           title="Previous"
         >
-          <span aria-hidden="true">&#10094;</span>
+          <ChevronLeft size={24} /> {/* Use Lucide icon */}
         </button>
         <button
           onClick={goToNext}
@@ -158,7 +158,7 @@ const Hero = ({
           aria-label="Next Slide"
           title="Next"
         >
-          <span aria-hidden="true">&#10095;</span>
+          <ChevronRight size={24} /> {/* Use Lucide icon */}
         </button>
       </div>
 
