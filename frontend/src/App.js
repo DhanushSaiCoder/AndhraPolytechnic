@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound'; // optional
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
+import UserManagementPage from './pages/UserManagementPage';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
+          <Route path="users" element={<UserManagementPage />} />
         </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
