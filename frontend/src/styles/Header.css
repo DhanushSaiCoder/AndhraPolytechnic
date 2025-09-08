@@ -82,7 +82,7 @@ a.activeNavLink {
     text-decoration: none;
     border-width: 0 0 3.5px 0;
     border-style: solid;
-    border-image: linear-gradient(to right, transparent, #3F72AF 25%, #3F72AF 75%, transparent) 1;
+    border-image: linear-gradient(to right, transparent, #3F72AF 15%, #3F72AF 85%, transparent) 1;
     background-color: rgba(63, 114, 175, 0.08) !important;
     display: flex;
     align-items: center;
