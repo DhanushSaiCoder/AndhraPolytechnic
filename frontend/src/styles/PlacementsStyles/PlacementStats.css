@@ -1,7 +1,7 @@
 .placement-stats-section {
     padding: 4rem 0;
     background-color: #3F72AF; /* blue-900 */
-    color: #ffffff;
+    color: #F9F7F7;
 }
 
 .placement-stats-container {
@@ -23,7 +23,7 @@
 
 .placement-stats-header p {
     font-size: 1.125rem;
-    color: #bfdbfe; /* blue-200 */
+    color: #F9F7F790; /* blue-200 */
     max-width: 50rem;
     margin: 0 auto;
 }
@@ -59,7 +59,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #F9F7F7;
     border-radius: 9999px;
 }
 

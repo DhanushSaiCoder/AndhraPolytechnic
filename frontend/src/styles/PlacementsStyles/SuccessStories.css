@@ -1,6 +1,11 @@
 .success-stories-section {
     padding: 4rem 0;
-    background-color: #DBE2EF;
+    background: linear-gradient(
+        135deg,
+        #f8fafc 0%,
+        #e2f0ff 50%,
+        #ddeeff 100%
+    ) !important;
 }
 
 .success-stories-container {
@@ -17,7 +22,7 @@
 .success-stories-header h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: #112D4E;
+    color: #112d4e;
     margin-bottom: 1rem;
 }
 
@@ -65,7 +70,7 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 1rem;
-    border: 3px solid #3F72AF;
+    border: 3px solid #3f72af;
 }
 
 .story-info {
@@ -76,13 +81,13 @@
 .story-name {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #112D4E;
+    color: #112d4e;
     margin: 0;
 }
 
 .story-role {
     font-size: 0.9rem;
-    color: #3F72AF;
+    color: #3f72af;
     margin: 0;
 }
 
