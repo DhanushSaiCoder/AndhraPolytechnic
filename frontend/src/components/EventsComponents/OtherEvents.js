@@ -5,7 +5,7 @@ import '../../styles/EventsStyles/EventsPage.css';
 
 const OtherEvents = () => {
   return (
-    <section className="event-category-section">
+    <section className="event-category-section other-events">
       <h2 className="event-category-title">Other</h2>
       <ImageSlider slides={eventsData.other} />
     </section>

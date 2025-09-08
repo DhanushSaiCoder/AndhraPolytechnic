@@ -5,7 +5,7 @@ import '../../styles/EventsStyles/EventsPage.css';
 
 const SportsEvents = () => {
   return (
-    <section className="event-category-section">
+    <section className="event-category-section sports-events">
       <h2 className="event-category-title">Sports</h2>
       <ImageSlider slides={eventsData.sports} />
     </section>
