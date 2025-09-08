@@ -17,6 +17,9 @@ app.use('/api/auth', authRouter);
 const adminRouter = require('./routes/admin');
 app.use('/api/admin', adminRouter);
 
+const usersRouter = require('./routes/users');
+app.use('/api/users', usersRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });

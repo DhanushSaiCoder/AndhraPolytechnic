@@ -1,28 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { FiUsers, FiEdit, FiTrash2, FiSearch } from 'react-icons/fi';
+import { FiUsers, FiEdit, FiTrash2, FiSearch, FiPlus } from 'react-icons/fi';
+import userService from '../services/userService';
+import UserFormModal from '../components/AuthComponents/UserFormModal';
 import '../styles/UserManagement.css';
 
 const UserManagementPage = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const mockUsers = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 'Admin', avatar: 'https://picsum.photos/seed/john/100/100' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 'User', avatar: 'https://picsum.photos/seed/jane/100/100' },
-    { id: 3, name: 'Peter Jones', email: 'peter.jones@example.com', role: 'User', avatar: 'https://picsum.photos/seed/peter/100/100' },
-    { id: 4, name: 'Admin User', email: 'admin.user@example.com', role: 'Admin', avatar: 'https://picsum.photos/seed/admin/100/100' },
-  ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    setUsers(mockUsers);
+    fetchUsers();
   }, []);
 
-  const handleEdit = (userId) => {
-    console.log('Edit user:', userId);
+  const fetchUsers = async () => {
+    try {
+      const response = await userService.getUsers();
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
   };
 
-  const handleDelete = (userId) => {
-    setUsers(users.filter(user => user.id !== userId));
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        await userService.deleteUser(userId);
+        fetchUsers();
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
+  };
+
+  const handleSave = async (userData) => {
+    try {
+      if (userData.id) {
+        await userService.updateUser(userData.id, userData);
+      } else {
+        await userService.createUser(userData);
+      }
+      fetchUsers();
+      setIsModalOpen(false);
+      setSelectedUser(null);
+    } catch (error) {
+      console.error('Error saving user:', error);
+    }
+  };
+
+  const handleAddNew = () => {
+    setSelectedUser(null);
+    setIsModalOpen(true);
   };
 
   const filteredUsers = users.filter(user =>
@@ -54,7 +88,10 @@ const UserManagementPage = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button className="add-user-btn">Add New User</button>
+          <button className="add-user-btn" onClick={handleAddNew}>
+            <FiPlus />
+            <span>Add New User</span>
+          </button>
         </div>
 
         <div className="user-table-container">
@@ -88,7 +125,7 @@ const UserManagementPage = () => {
                     <a href={`mailto:${user.email}`} className="user-email">{user.email}</a>
                   </td>
                   <td className="actions-cell">
-                    <button onClick={() => handleEdit(user.id)} className="action-btn edit-btn">
+                    <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
                       <FiEdit />
                       <span>Edit</span>
                     </button>
@@ -103,6 +140,12 @@ const UserManagementPage = () => {
           </table>
         </div>
       </div>
+      <UserFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSave}
+        user={selectedUser}
+      />
     </div>
   );
 };
