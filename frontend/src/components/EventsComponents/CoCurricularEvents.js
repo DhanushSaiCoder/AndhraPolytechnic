@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventsData from '../../data/eventsData.json';
 import '../../styles/EventsStyles/EventsPage.css';
+import { Users } from 'lucide-react';
 
 const CoCurricularEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,7 +36,13 @@ const CoCurricularEvents = () => {
 
   return (
     <section className="event-category-section co-curricular-events">
-        <h2 className="event-category-title">Co-Curricular</h2>
+        <div className="event-category-header">
+            <Users className="event-category-icon" />
+            <div>
+                <h2 className="event-category-title">Co-Curricular</h2>
+                <p className="event-category-subtitle">Engage in cultural fests, clubs, and more.</p>
+            </div>
+        </div>
         <div className="event-layout-split">
             <div className="event-slider-container">
                 <ControlledImageSlider

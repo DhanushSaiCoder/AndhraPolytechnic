@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventsData from '../../data/eventsData.json';
 import '../../styles/EventsStyles/EventsPage.css';
+import { Trophy } from 'lucide-react';
 
 const SportsEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,7 +36,13 @@ const SportsEvents = () => {
 
   return (
     <section className="event-category-section sports-events">
-        <h2 className="event-category-title">Sports</h2>
+        <div className="event-category-header">
+            <Trophy className="event-category-icon" />
+            <div>
+                <h2 className="event-category-title">Sports</h2>
+                <p className="event-category-subtitle">Witness thrilling matches and competitions.</p>
+            </div>
+        </div>
         <div className="event-layout-split">
             <div className="event-slider-container">
                 <ControlledImageSlider

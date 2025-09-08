@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventsData from '../../data/eventsData.json';
 import '../../styles/EventsStyles/EventsPage.css';
+import { MoreHorizontal } from 'lucide-react';
 
 const OtherEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,7 +36,13 @@ const OtherEvents = () => {
 
   return (
     <section className="event-category-section other-events">
-        <h2 className="event-category-title">Other</h2>
+        <div className="event-category-header">
+            <MoreHorizontal className="event-category-icon" />
+            <div>
+                <h2 className="event-category-title">Other</h2>
+                <p className="event-category-subtitle">Discover graduation ceremonies, drives, and more.</p>
+            </div>
+        </div>
         <div className="event-layout-split">
             <div className="event-slider-container">
                 <ControlledImageSlider

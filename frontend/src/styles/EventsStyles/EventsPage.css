@@ -5,46 +5,40 @@
 }
 
 .event-category-section {
-    padding: 3rem 1rem;
-    /* Remove margin-bottom to have sections touch */
+    padding: 4rem 1rem;
+}
+
+.event-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.event-category-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #2563eb;
+    margin-right: 1.5rem;
 }
 
 .event-category-title {
     font-size: 2.25rem;
     font-weight: 700;
     color: #112d4e;
-    margin-bottom: 2rem;
-    text-align: center;
-    text-transform: capitalize;
+    margin-bottom: 0.25rem;
 }
 
-/* Specific Section Styles */
-
-/* EventsPage.css */
-.events-page-container {
-    padding: 0;
-    background-color: #f4f7fc;
-}
-
-.event-category-section {
-    padding: 3rem 1rem;
-    /* Remove margin-bottom to have sections touch */
-}
-
-.event-category-title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #112d4e;
-    margin-bottom: 2rem;
-    text-align: center;
-    text-transform: capitalize;
+.event-category-subtitle {
+    font-size: 1.125rem;
+    color: #4b5563;
 }
 
 /* Specific Section Styles */
 
 .sports-events {
     background-color: #f8fafc;
-
 }
 
 .academic-events {
@@ -59,7 +53,6 @@
     background-color: #ffffff;
 }
 
-/* Add a border between sections for better separation */
 .event-category-section:not(:last-child) {
     border-bottom: 1px solid #e2e8f0;
 }
@@ -117,32 +110,7 @@
     .event-details {
         text-align: center;
     }
+    .event-category-title {
+        font-size: 2rem;
+    }
 }
-
-.sports-events{
-    background-color: #f9f7f7;
-    color: #112D4E;
-}
-
-
-.academic-events {
-    background-color: #dbe2ef20;
-    color: #112D4E;
-
-}
-
-.co-curricular-events {
-    background-color: #f9f7f7;
-    color: #112D4E;
-
-
-}
-
-.other-events {
-    background-color: #dbe2ef20;
-    color: #112D4E;
-
-
-}
-
-/* Title color adjustments for different backgrounds */

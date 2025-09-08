@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventsData from '../../data/eventsData.json';
 import '../../styles/EventsStyles/EventsPage.css';
+import { BookOpen } from 'lucide-react';
 
 const AcademicEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,7 +36,13 @@ const AcademicEvents = () => {
 
   return (
     <section className="event-category-section academic-events">
-        <h2 className="event-category-title">Academic</h2>
+        <div className="event-category-header">
+          <BookOpen className="event-category-icon" />
+          <div>
+            <h2 className="event-category-title">Academic</h2>
+            <p className="event-category-subtitle">Explore workshops, seminars, and tech fests.</p>
+          </div>
+        </div>
         <div className="event-layout-split">
             <div className="event-slider-container">
                 <ControlledImageSlider
