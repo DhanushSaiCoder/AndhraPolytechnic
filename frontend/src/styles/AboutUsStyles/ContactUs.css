@@ -98,6 +98,8 @@
 
 .contact-item__content {
   flex: 1;
+  text-align: left;
+
 }
 
 .contact-item__label {
@@ -114,6 +116,7 @@
   line-height: 1.5;
   margin: 0;
   text-decoration: none;
+
 }
 
 .contact-item__link:hover {
@@ -134,7 +137,10 @@
   color: #1e293b;
   margin-bottom: 1rem;
 }
+.office-hours__list{
+  text-align: left;
 
+}
 .office-hours__list p {
   color: #64748b;
   font-size: 1rem;
