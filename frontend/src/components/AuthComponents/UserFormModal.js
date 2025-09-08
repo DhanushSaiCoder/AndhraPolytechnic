@@ -6,7 +6,7 @@ const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: 'User'
+        role: 'user'
     });
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                role: 'User'
+                role: 'user'
             });
         }
     }, [user]);
@@ -64,8 +64,8 @@ const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
                     <div className="form-group">
                         <label htmlFor="role">Role</label>
                         <select id="role" name="role" value={formData.role} onChange={handleChange}>
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
                         </select>
                     </div>
                     <div className="form-actions">
