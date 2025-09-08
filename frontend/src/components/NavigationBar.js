@@ -177,7 +177,7 @@ const NavigationBar = () => {
                     <NavLink
                       key={subLink.to}
                       to={subLink.to}
-                      className="dropdownItem"
+                      className={({ isActive }) => isActive ? 'dropdownItem active' : 'dropdownItem'}
                       onClick={() => {
                         // clicking a sub-item should always close the mobile panel
                         setOpen(false);
