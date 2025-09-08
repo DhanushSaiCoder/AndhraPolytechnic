@@ -1,0 +1,32 @@
+.PlacementsHeroSection {
+  height: 550px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+
+  /* add a 50% black overlay */
+  background: 
+    linear-gradient(rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.8)),
+    url('../../images/aptCampus.jpeg') center center/cover; /* Reusing existing image */
+}
+
+.hero-section-cta-div{
+    color: #F9F7F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.hero-section-cta-div h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.hero-section-cta-div p {
+    color: #DBE2EF;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+}

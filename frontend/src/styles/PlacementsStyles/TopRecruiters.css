@@ -1,0 +1,87 @@
+.top-recruiters-section {
+    padding: 4rem 0;
+    background-color: #F9F7F7;
+}
+
+.top-recruiters-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.top-recruiters-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.top-recruiters-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.top-recruiters-header p {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.recruiters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.recruiter-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 200px; /* Limit card width */
+    height: 120px; /* Fixed height for uniformity */
+}
+
+.recruiter-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recruiter-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%); /* Optional: make logos grayscale */
+    opacity: 0.7; /* Optional: reduce opacity */
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.recruiter-card:hover .recruiter-logo {
+    filter: grayscale(0%); /* Color on hover */
+    opacity: 1; /* Full opacity on hover */
+}
+
+@media (max-width: 768px) {
+    .top-recruiters-header h2 {
+        font-size: 1.75rem;
+    }
+    .top-recruiters-header p {
+        font-size: 1rem;
+    }
+    .recruiters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+    .recruiter-card {
+        padding: 1rem;
+        height: 100px;
+    }
+}
