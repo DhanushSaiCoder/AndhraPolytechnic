@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, User, BookOpen } from 'lucide-react';
+import { Award } from 'lucide-react';
 import achievementsData from '../data/academicAcheivements.json';
 import '../styles/AcademicsStyles/AcademicAchievementsPage.css';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
@@ -28,27 +28,16 @@ const AchievementItem = ({ achievement }) => {
 const AcademicAchievementsPage = () => {
   return (
     <div className="achievements-page-container">
-      <header className="achievements-page-hero">
-        <div className="achievements-page-badge">
-          <Award className="badge-icon" />
-          <span className="badge-text">Our Excellence</span>
-        </div>
-        <h1 className="achievements-page-title">
-          Celebrating <span className="title-highlight">Success</span>
-        </h1>
-        <p className="achievements-page-description">
-          We take pride in the remarkable achievements of our students and faculty who inspire excellence.
-        </p>
-      </header>
+      
 
       <main className="achievements-page-content">
         <section className="achievements-page-category">
-          <div className="achievements-page-category-title-wrapper">
-            <h2 className="achievements-page-category-title">
-              <User className="category-icon" />
-              Student Achievements
-            </h2>
-          </div>
+          <h2 className="achievements-page-category-title">
+            Student Achievements
+          </h2>
+          <p className="achievements-page-category-description">
+            Celebrating the outstanding accomplishments of our talented students.
+          </p>
           <div className="achievements-page-list">
             {achievementsData.student.map((achievement, index) => (
               <AchievementItem key={index} achievement={achievement} />
@@ -57,12 +46,12 @@ const AcademicAchievementsPage = () => {
         </section>
 
         <section className="achievements-page-category">
-          <div className="achievements-page-category-title-wrapper">
-            <h2 className="achievements-page-category-title">
-              <BookOpen className="category-icon" />
-              Faculty Achievements
-            </h2>
-          </div>
+          <h2 className="achievements-page-category-title">
+            Faculty Achievements
+          </h2>
+           <p className="achievements-page-category-description">
+            Recognizing the dedication and contributions of our esteemed faculty.
+          </p>
           <div className="achievements-page-list">
             {achievementsData.faculty.map((achievement, index) => (
               <AchievementItem key={index} achievement={achievement} />

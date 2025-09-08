@@ -59,53 +59,41 @@
 .achievements-page-content {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1rem 4rem;
+    padding: 4rem 1rem;
 }
 
-/* Category and Grid Styles */
+/* Category Styles */
 .achievements-page-category {
+    text-align: center;
     margin-bottom: 4rem;
 }
 
-.achievements-page-category-title-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 2.5rem;
-}
-
 .achievements-page-category-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 700;
-    color: #3F72AF;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    color: #112D4E;
+    margin-bottom: 0.75rem;
 }
 
-.achievements-page-category-title-wrapper::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: #3F72AF;
-    border-radius: 2px;
-}
-
-.achievements-page-category-title .category-icon {
-    color: #3F72AF;
+.achievements-page-category-description {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .achievements-page-list {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    text-align: left; /* Reset text alignment for list items */
 }
 
 /* Achievement Item Styles */
 .achievements-page-item {
-    background-color: #ffffff80;
+    background-color: #ffffff;
     padding: 2rem;
     border-radius: 0.75rem;
     border-left: 5px solid #3F72AF;
