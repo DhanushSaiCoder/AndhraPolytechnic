@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/AcademicsStyles/AcademicAchievements.css'; // Assuming this CSS file will be used
 import { Award, Trophy, GraduationCap } from 'lucide-react';
 
@@ -54,6 +55,12 @@ const AcademicAchievements = () => {
                         );
                     })}
                 </div>
+
+                <footer className="academic-achievements-footer">
+                    <Link to="/academics/academic-achievements" className="learn-more-btn">
+                        Learn More →
+                    </Link>
+                </footer>
             </div>
         </section>
     );

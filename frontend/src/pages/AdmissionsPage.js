@@ -42,7 +42,7 @@ const AdmissionsPage = () => {
           <span className="badge-text">Admissions 2024-2025</span>
         </div>
         <h1 className="admissions-page-title">
-          Join Our <span className="title-highlight">Community</span>
+          Join Our <span className="title-highlight">College</span>
         </h1>
         <p className="admissions-page-description">
           Begin your journey towards a successful career in technology and engineering.

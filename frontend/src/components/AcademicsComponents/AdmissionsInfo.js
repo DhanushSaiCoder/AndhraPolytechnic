@@ -1,5 +1,6 @@
 import React from 'react';
-import '../../styles/AcademicsStyles/Admissions.css'; // Assuming this CSS file will be used
+import { Link } from 'react-router-dom';
+import '../../styles/AcademicsStyles/AdmissionsInfo.css'; // Assuming this CSS file will be used
 import { BookOpen, CalendarDays, FileText } from 'lucide-react';
 
 const AdmissionsInfo = () => {
@@ -44,6 +45,12 @@ const AdmissionsInfo = () => {
             </p>
           </div>
         </div>
+
+        <footer className="admissions-info-footer">
+          <Link to="/academics/admissions" className="learn-more-btn">
+            Learn More →
+          </Link>
+        </footer>
       </div>
     </section>
   );
