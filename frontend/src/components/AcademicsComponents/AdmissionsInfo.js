@@ -8,10 +8,6 @@ const AdmissionsInfo = () => {
     <section className="admissions-info-section">
       <div className="admissions-info-container">
         <header className="admissions-info-header">
-          <div className="admissions-badge">
-            <BookOpen className="badge-icon" />
-            <span className="badge-text">Admissions</span>
-          </div>
           <h2 className="admissions-title">
             Admissions at Andhra Polytechnic
           </h2>
