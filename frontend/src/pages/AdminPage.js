@@ -6,17 +6,18 @@ import '../styles/AdminPage.css';
 const AdminPage = () => {
   const adminTasks = [
     {
-      title: 'Manage Users',
-      description: 'Add, edit, or remove user accounts and manage their roles and permissions.',
-      icon: <Users size={24} />,
-      link: '/admin/users',
-    },
-    {
       title: 'Manage Content',
       description: 'Update website content, such as news, events, and departmental information.',
       icon: <FileText size={24} />,
       link: '/admin/content',
     },
+    {
+      title: 'Manage Users',
+      description: 'Add, edit, or remove user accounts and manage their roles and permissions.',
+      icon: <Users size={24} />,
+      link: '/admin/users',
+    },
+
     {
       title: 'System Settings',
       description: 'Configure system-wide settings, such as maintenance mode and API integrations.',
