@@ -1,0 +1,129 @@
+/* AdmissionsInfo.css */
+
+.admissions-info-section {
+    padding: 4rem 1rem;
+    background-color: #F9F7F7;
+}
+
+.admissions-info-container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.admissions-info-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.admissions-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.admissions-badge .badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.admissions-badge .badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.admissions-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.admissions-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.admissions-content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.admissions-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f3f4f6;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.admissions-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #bfdbfe;
+}
+
+.admissions-card-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #3F72AF;
+    margin-bottom: 1.5rem;
+}
+
+.admissions-card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #112D4E;
+    margin-bottom: 0.75rem;
+}
+
+.admissions-card-description {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.admissions-info-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.admissions-info-footer .learn-more-btn {
+    color: #3f72af;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.75rem 2rem;
+    border: 2px solid #3f72af;
+    border-radius: 9999px;
+}
+
+.admissions-info-footer .learn-more-btn:hover {
+    background-color: #3f72af;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .admissions-title {
+        font-size: 1.75rem;
+    }
+    .admissions-description {
+        font-size: 1rem;
+    }
+    .admissions-content-grid {
+        grid-template-columns: 1fr;
+    }
+}

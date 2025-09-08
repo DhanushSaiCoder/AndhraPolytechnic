@@ -1,0 +1,193 @@
+/* AcademicAchievementsPage.css */
+
+.achievements-page-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
+    min-height: 100vh;
+}
+
+/* Hero Section Styles */
+.achievements-page-hero {
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.achievements-page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.achievements-page-badge .badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.achievements-page-badge .badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.achievements-page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #112d4e;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.achievements-page-title .title-highlight {
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.achievements-page-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.achievements-page-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+}
+
+/* Category Styles */
+.achievements-page-category {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.achievements-page-category-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 0.75rem;
+}
+
+.achievements-page-category-description {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.achievements-page-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: left; /* Reset text alignment for list items */
+}
+
+/* Achievement Item Styles */
+.achievements-page-item {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border-left: 5px solid #3F72AF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievements-page-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.achievements-page-item.has-slider {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .achievements-page-item.has-slider {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.achievement-item-content {
+    text-align: left;
+}
+
+.achievements-page-item-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.achievements-page-item-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #3F72AF;
+    flex-shrink: 0;
+}
+
+.achievements-page-item-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #112d4e;
+}
+
+.achievements-page-item-description {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.achievements-page-image-slider {
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.achievements-page-image-slider .slides-container {
+    height: 350px;
+}
+
+.achievements-page-image-slider .slide-title,
+.achievements-page-image-slider .slide-subtitle {
+    display: none; /* Hide titles in this context */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .achievements-page-title {
+        font-size: 2rem;
+    }
+    .achievements-page-description {
+        font-size: 1rem;
+    }
+    .achievements-page-category-title {
+        font-size: 1.75rem;
+    }
+    .achievements-page-item-title {
+        font-size: 1.25rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .achievements-page-title {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .achievements-page-title {
+        font-size: 3.5rem;
+    }
+}

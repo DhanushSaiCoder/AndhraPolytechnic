@@ -13,15 +13,7 @@ export const links = [
       { to: '/departments/automobile-engineering', label: 'Automobile Engineering' },
     ],
   },
-  {
-    to: '/academics',
-    label: 'Academics',
-    subLinks: [
-      { to: '/academics/syllabus', label: 'Syllabus' },
-      { to: '/academics/academic-achievements', label: 'Academic Achievements' },
-      { to: '/academics/admissions', label: 'Admissions' },
-    ],
-  },
+
 
   {
     to: '/placements',
@@ -31,7 +23,15 @@ export const links = [
     to: '/events',
     label: 'Events'
   },
-
+  {
+    to: '/academics',
+    label: 'Academics',
+    subLinks: [
+      { to: '/academics/syllabus', label: 'Syllabus' },
+      { to: '/academics/academic-achievements', label: 'Academic Achievements' },
+      { to: '/academics/admissions', label: 'Admissions' },
+    ],
+  },
   { to: '/about', label: 'About Us' },
   { to: '/alumni', label: 'Alumni' },
 ];
