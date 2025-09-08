@@ -39,7 +39,7 @@ const SportsEvents = () => {
         <div className="event-category-header">
             <div className="event-category-heading">
                 <Trophy className="event-category-icon" />
-                <h2 className="event-category-title">Sports</h2>
+                <h2 className="event-category-title">Sports Events</h2>
             </div>
             <p className="event-category-subtitle">Witness thrilling matches and competitions.</p>
         </div>

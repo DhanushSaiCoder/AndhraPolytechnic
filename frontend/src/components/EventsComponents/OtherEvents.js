@@ -39,7 +39,7 @@ const OtherEvents = () => {
         <div className="event-category-header">
             <div className="event-category-heading">
                 <MoreHorizontal className="event-category-icon" />
-                <h2 className="event-category-title">Other</h2>
+                <h2 className="event-category-title">Other Events</h2>
             </div>
             <p className="event-category-subtitle">Discover graduation ceremonies, drives, and more.</p>
         </div>

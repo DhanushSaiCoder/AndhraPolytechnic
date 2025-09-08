@@ -20,7 +20,7 @@
 
 @media (min-width: 768px) {
   .slider {
-    height: 600px;
+    height: 100%;
   }
 }
 

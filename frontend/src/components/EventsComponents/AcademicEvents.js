@@ -39,7 +39,7 @@ const AcademicEvents = () => {
         <div className="event-category-header">
           <div className="event-category-heading">
             <BookOpen className="event-category-icon" />
-            <h2 className="event-category-title">Academic</h2>
+            <h2 className="event-category-title">Academic Events</h2>
           </div>
           <p className="event-category-subtitle">Explore workshops, seminars, and tech fests.</p>
         </div>

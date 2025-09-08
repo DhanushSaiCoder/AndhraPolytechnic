@@ -39,7 +39,7 @@ const CoCurricularEvents = () => {
         <div className="event-category-header">
             <div className="event-category-heading">
                 <Users className="event-category-icon" />
-                <h2 className="event-category-title">Co-Curricular</h2>
+                <h2 className="event-category-title">Co-Curricular Events</h2>
             </div>
             <p className="event-category-subtitle">Engage in cultural fests, clubs, and more.</p>
         </div>
