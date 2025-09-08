@@ -9,17 +9,21 @@ const UserManagementPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
+    setLoading(true); // Set loading to true before fetching
     try {
       const response = await userService.getUsers();
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching (success or error)
     }
   };
 
@@ -94,47 +98,62 @@ const UserManagementPage = () => {
         </div>
 
         <div className="user-table-container">
-          <table className="user-table">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map(user => (
-                <tr key={user._id}>
-                  <td>
-                    <div className="user-info">
-                      <div className="user-details">
-                        <span className="user-id">ID: {user._id}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span className={`role-badge role-${user.role.toLowerCase()}`}>
-                      {user.role}
-                    </span>
-                  </td>
-                  <td>
-                    <a href={`mailto:${user.email}`} className="user-email">{user.email}</a>
-                  </td>
-                  <td className="actions-cell">
-                    <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
-                      <FiEdit />
-                      <span>Edit</span>
-                    </button>
-                    <button onClick={() => handleDelete(user._id)} className="action-btn delete-btn">
-                      <FiTrash2 />
-                      <span>Delete</span>
-                    </button>
-                  </td>
+          {loading ? (
+            <div className="loading-spinner-container">
+              <div className="loading-spinner"></div>
+              <p>Loading users...</p>
+            </div>
+          ) : (
+            <table className="user-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Email</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredUsers.length > 0 ? (
+                  filteredUsers.map(user => (
+                    <tr key={user._id}>
+                      <td>
+                        <div className="user-info">
+                          <div className="user-details">
+                            <span className="user-id">ID: {user._id}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className={`role-badge role-${user.role.toLowerCase()}`}>
+                          {user.role}
+                        </span>
+                      </td>
+                      <td>
+                        <a href={`mailto:${user.email}`} className="user-email">{user.email}</a>
+                      </td>
+                      <td className="actions-cell">
+                        <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
+                          <FiEdit />
+                          <span>Edit</span>
+                        </button>
+                        <button onClick={() => handleDelete(user._id)} className="action-btn delete-btn">
+                          <FiTrash2 />
+                          <span>Delete</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="no-users-message">
+                      No users found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       <UserFormModal
