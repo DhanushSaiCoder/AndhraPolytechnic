@@ -69,7 +69,7 @@ const PlacementsHeroSection = () => {
                             {
                                 data: packageData.avgPackage,
                                 label: 'Average Package (LPA)',
-                                color: '#112D4E',
+                                color: '#3F72AF',
                             },
                         ]}
                         height={300}
