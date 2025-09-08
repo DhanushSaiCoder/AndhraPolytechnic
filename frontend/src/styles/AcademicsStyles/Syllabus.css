@@ -513,8 +513,7 @@
   }
 
   .syllabus__search-input,
-  .syllabus__select-wrapper select,
-  .syllabus__switch-wrapper {
+  .syllabus__select-wrapper select {
     padding: 0.6rem 0.75rem;
   }
 

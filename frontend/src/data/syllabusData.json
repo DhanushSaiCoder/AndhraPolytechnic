@@ -18,7 +18,7 @@
               "subjects": [
                 {
                   "id": "cse-em1-c20",
-                  "name": "Engineering Mathematics",
+                  "name": "Engineering Mathematics I",
                   "code": "EM1",
                   "description": "Introduction to engineering mathematics.",
                   "syllabus_pdf": "/assets/syllabus/c20/cse/1yr/em1.pdf",
@@ -27,10 +27,19 @@
                 },
                 {
                   "id": "cse-ep1-c20",
-                  "name": "Engineering Physics",
+                  "name": "Engineering Physics I",
                   "code": "EP1",
                   "description": "Fundamentals of engineering physics.",
                   "syllabus_pdf": "/assets/syllabus/c20/cse/1yr/ep1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-ec-c20",
+                  "name": "Environmental Concepts",
+                  "code": "EC",
+                  "description": "Basic concepts of environmental science.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/1yr/ec.pdf",
                   "version": "2024-08-01",
                   "last_updated": "2024-08-01"
                 }
@@ -58,6 +67,40 @@
                   "syllabus_pdf": "/assets/syllabus/c20/cse/3sem/oops.pdf",
                   "version": "2024-08-01",
                   "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-dbms-c20",
+                  "name": "Database Management Systems",
+                  "code": "DBMS",
+                  "description": "Introduction to database systems.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/3sem/dbms.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "cse-4sem",
+              "name": "IV Semester",
+              "code": "4SEM",
+              "subjects": [
+                {
+                  "id": "cse-cn-c20",
+                  "name": "Computer Networks",
+                  "code": "CN",
+                  "description": "Concepts of computer networking.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/4sem/cn.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-os-c20",
+                  "name": "Operating Systems",
+                  "code": "OS",
+                  "description": "Principles of operating systems.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/4sem/os.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
                 }
               ]
             }
@@ -83,10 +126,19 @@
               "subjects": [
                 {
                   "id": "cse-em1-c23",
-                  "name": "Engineering Mathematics",
+                  "name": "Engineering Mathematics I",
                   "code": "EM1",
                   "description": "Introduction to engineering mathematics (C-23).",
                   "syllabus_pdf": "/assets/syllabus/c23/cse/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "cse-cprog-c23",
+                  "name": "C Programming",
+                  "code": "CPROG",
+                  "description": "Fundamentals of C programming.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/1yr/cprog.pdf",
                   "version": "2024-08-01",
                   "last_updated": "2024-08-01"
                 }
@@ -106,10 +158,51 @@
               "subjects": [
                 {
                   "id": "ece-em1-c23",
-                  "name": "Engineering Mathematics",
+                  "name": "Engineering Mathematics I",
                   "code": "EM1",
                   "description": "Introduction to engineering mathematics (C-23).",
                   "syllabus_pdf": "/assets/syllabus/c23/ece/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "ece-edc-c23",
+                  "name": "Electronic Devices and Circuits",
+                  "code": "EDC",
+                  "description": "Basic electronic devices and circuits.",
+                  "syllabus_pdf": "/assets/syllabus/c23/ece/1yr/edc.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "me",
+          "name": "Mechanical Engineering (ME)",
+          "code": "ME",
+          "semesters": [
+            {
+              "id": "me-1yr",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "me-em1-c23",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Introduction to engineering mathematics (C-23).",
+                  "syllabus_pdf": "/assets/syllabus/c23/me/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "me-ed-c23",
+                  "name": "Engineering Drawing",
+                  "code": "ED",
+                  "description": "Principles of engineering drawing.",
+                  "syllabus_pdf": "/assets/syllabus/c23/me/1yr/ed.pdf",
                   "version": "2024-08-01",
                   "last_updated": "2024-08-01"
                 }
