@@ -1,0 +1,134 @@
+.alumni-success-stories-section {
+    padding: 4rem 1rem;
+    background-color: #F9F7F7; /* Light background */
+}
+
+.alumni-success-stories-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.alumni-success-stories-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.alumni-success-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.alumni-success-badge .badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.alumni-success-badge .badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.alumni-success-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.alumni-success-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.alumni-stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.alumni-story-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f3f4f6;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.alumni-story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #bfdbfe;
+}
+
+.alumni-story-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.alumni-story-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3F72AF;
+}
+
+.alumni-story-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.alumni-story-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #112D4E;
+    margin: 0;
+}
+
+.alumni-story-year {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin: 0;
+}
+
+.alumni-story-field {
+    font-size: 0.95rem;
+    color: #3F72AF;
+    font-weight: 500;
+    margin: 0;
+}
+
+.alumni-story-description {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    flex-grow: 1; /* Allows description to take available space */
+}
+
+@media (max-width: 768px) {
+    .alumni-success-title {
+        font-size: 1.75rem;
+    }
+    .alumni-success-description {
+        font-size: 1rem;
+    }
+    .alumni-stories-grid {
+        grid-template-columns: 1fr;
+    }
+}
