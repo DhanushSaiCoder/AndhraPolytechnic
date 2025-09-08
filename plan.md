@@ -36,8 +36,6 @@
 *   Placement Statistics
 *   Placement Coordinators
 *   Recruiting Companies
-*   Internship Opportunities
-*   Success Stories
 
 ## 6. Events
 *   Upcoming Events
