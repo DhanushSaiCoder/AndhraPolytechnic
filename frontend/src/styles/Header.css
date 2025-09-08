@@ -86,6 +86,7 @@ a.activeNavLink {
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    border-radius: 0 0 5px 5px;
 }
 .navLink {
     height: 100%;
@@ -99,6 +100,8 @@ a.activeNavLink {
     align-items: center;
     justify-content: center;
     gap: 8px; /* Added gap for spacing between icon and text */
+    border-radius: 0 0 5px 5px;
+
 }
 
 @media (min-width: 601px) {
