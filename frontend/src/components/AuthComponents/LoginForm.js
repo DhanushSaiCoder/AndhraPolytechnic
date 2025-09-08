@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TextField, Button } from '@mui/material';
 import authService from '../../services/authService';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await authService.login(username, password);
+      const response = await authService.login(email, password);
       localStorage.setItem('user', JSON.stringify(response.data));
       navigate('/admin'); // Redirect to an admin dashboard page
     } catch (err) {
@@ -22,15 +23,25 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       {error && <p>{error}</p>}
-      <div>
-        <label>Username</label>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </div>
-      <button type="submit">Login</button>
+      <TextField
+        label="Email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        variant="outlined"
+        fullWidth
+      />
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        variant="outlined"
+        fullWidth
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Login
+      </Button>
     </form>
   );
 };

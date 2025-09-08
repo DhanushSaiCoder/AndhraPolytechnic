@@ -14,6 +14,9 @@ app.use(express.json());
 const authRouter = require('./routes/auth');
 app.use('/api/auth', authRouter);
 
+const adminRouter = require('./routes/admin');
+app.use('/api/admin', adminRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });

@@ -1,12 +1,17 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 const API_URL = 'http://localhost:5000/api/auth/';
 
-const login = (username, password) => {
-  return axios.post(API_URL + 'login', {
-    username,
+const login = async (email, password) => {
+  const response = await axios.post(API_URL + 'login', {
+    email,
     password,
   });
+  if (response.data.token) {
+    localStorage.setItem('user', JSON.stringify(response.data));
+  }
+  return response.data;
 };
 
 const logout = () => {
@@ -14,13 +19,23 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));
+  const userStr = localStorage.getItem('user');
+  if (!userStr) return null;
+  return JSON.parse(userStr);
+};
+
+const getUserRole = () => {
+  const user = getCurrentUser();
+  if (!user) return null;
+  const decoded = jwtDecode(user.token);
+  return decoded.user.role;
 };
 
 const authService = {
   login,
   logout,
   getCurrentUser,
+  getUserRole,
 };
 
 export default authService;

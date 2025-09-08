@@ -3,18 +3,22 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const register = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ username });
+    let user = await User.findOne({ email });
 
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // The first user to register will be an admin
+    const isAdmin = (await User.countDocuments({})) === 0;
+
     user = new User({
-      username,
+      email,
       password,
+      role: isAdmin ? 'admin' : 'user',
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -25,6 +29,7 @@ const register = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        role: user.role,
       },
     };
 
@@ -44,10 +49,10 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ username });
+    let user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
@@ -62,6 +67,7 @@ const login = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        role: user.role,
       },
     };
 
