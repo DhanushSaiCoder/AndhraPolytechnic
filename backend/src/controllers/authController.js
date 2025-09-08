@@ -1,26 +1,86 @@
-const users = require('../models/users.json');
+const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const login = (req, res) => {
+const register = async (req, res) => {
   const { username, password } = req.body;
-  const user = users.find(u => u.username === username);
 
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
+  try {
+    let user = await User.findOne({ username });
+
+    if (user) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    user = new User({
+      username,
+      password,
+    });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save();
+
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
+};
 
-  // For now, we are comparing plain text passwords.
-  // In a real application, you should hash the passwords.
-  if (user.password !== password) {
-    return res.status(401).json({ message: 'Invalid credentials' });
+const login = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    let user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
-
-  const token = jwt.sign({ id: user.id, username: user.username }, 'your_jwt_secret', { expiresIn: '1h' });
-
-  res.json({ token });
 };
 
 module.exports = {
+  register,
   login,
 };
