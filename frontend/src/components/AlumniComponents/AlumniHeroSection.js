@@ -10,7 +10,7 @@ const AlumniHeroSection = () => {
                 <span className="badge-text">Our Valued Alumni</span>
             </div>
             <h1 className="alumni-title-main">
-                Connecting Our Global Network of <br /> <span className="title-highlight">Alumni</span>
+                Connecting Our   <span className="title-highlight">Alumni<br /> Community</span>
             </h1>
             <p className="alumni-description-main">
                 Celebrating the achievements and fostering connections within our alumni community.
