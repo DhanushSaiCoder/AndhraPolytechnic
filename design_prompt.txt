@@ -1,0 +1,58 @@
+
+**Prompt for Advanced Design LLM: Faculty Profile Card Redesign**
+
+**Project:** College Website Redesign - Andhra Polytechnic
+
+**Goal:** I need expert design suggestions for the faculty profile cards. These cards are a key component of the department pages, and they should appear modern, professional, trustworthy, and engaging to our target audience (prospective students, parents, and current students).
+
+**Component Context:**
+The faculty cards are displayed within a horizontally scrolling carousel (`FacultyCarousel.js`). The carousel includes "next" and "previous" buttons and supports touch gestures for navigation.
+
+**Card Content (for each faculty member):**
+- Profile Image (`imageUrl`)
+- Full Name (`name`)
+- Designation/Title (`designation`, e.g., "Head of Department")
+- Specialization (`specialization`, e.g., "Machine Learning & AI")
+- Social Media Links (`socials`, optional array of links for LinkedIn, Twitter, Email)
+
+**Existing Design System & Style Guide:**
+The website uses a consistent, modern, and clean design language. Please adhere to this style.
+
+*   **Color Palette:**
+    *   **Primary Blue:** `#3F72AF` (Used for highlights, links, and important text)
+    *   **Dark Blue/Navy:** `#112D4E` (Used for main headings and titles)
+    *   **Light Blue/Gray:** `#DBE2EF` (Used for backgrounds and borders)
+    *   **Off-White/Lightest Gray:** `#F9F7F7` (Primary background color)
+    *   **White:** `#FFFFFF`
+    *   **Accent Orange:** `rgb(221, 93, 46)` or `#ea580c` (Used sparingly for calls-to-action or highlights)
+    *   **Gradients:** `linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%)`
+
+*   **Typography:**
+    *   The font is likely a clean sans-serif (like Poppins, Lato, or similar).
+    *   Font weights used are primarily 400 (normal), 500 (medium), 600 (semi-bold), and 700 (bold).
+    *   Font sizes are responsive, using `rem` units.
+
+*   **General Style:**
+    *   **Cards:** Generally have `border-radius` (e.g., `0.75rem` or `1rem`), subtle `box-shadow`, and often a slight border.
+    *   **Interactivity:** Hover effects are common, such as lifting the card (`transform: translateY`), changing `box-shadow`, or subtle color transitions.
+    *   **Layout:** Clean, spacious, and organized, using Flexbox and Grid.
+
+**Previous Design Iterations (What we've tried):**
+
+1.  **Initial Design:** A very basic card with a circular image centered at the top, followed by centered text for the name, designation, and specialization. It was functional but lacked modern appeal.
+
+2.  **Redesign v1:** A more modern, vertical card.
+    *   **Layout:** A rectangular image at the top with rounded corners. Below the image, the text content is centered.
+    *   **Style:** It had a `box-shadow` that became more prominent on hover. The active card in the carousel was scaled up slightly.
+    *   **Feedback:** The user felt it wasn't quite right and has asked for a new design.
+
+**The Ask:**
+Based on all the context provided, please propose 2-3 distinct and creative design concepts for the faculty profile cards. For each concept, please provide:
+
+1.  **A Detailed Description:** Describe the layout, visual hierarchy, and overall feel.
+2.  **Layout & Image Style:** Should the layout be horizontal, vertical, or a hybrid? What style of image should be used (e.g., circle, square, free-form with background removal)?
+3.  **Typography & Color:** Suggest how to apply the existing color palette and typography to create emphasis and a clear visual hierarchy.
+4.  **Interactivity & Hover Effects:** Describe a meaningful and polished hover/active state for the card.
+5.  **Rationale:** Explain why this design would be effective for a college website and how it aligns with the goal of appearing professional and engaging.
+
+I am looking for creative ideas that go beyond standard card designs. Thank you!

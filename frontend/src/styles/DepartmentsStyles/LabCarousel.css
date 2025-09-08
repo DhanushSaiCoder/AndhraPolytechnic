@@ -1,155 +1,167 @@
+/* === Lab Carousel Container & Navigation === */
 
-.lab-carousel {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+.lab-carousel-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 1.2rem auto;
+    padding: 0 4rem; /* Space for arrows */
 }
 
-.lab-image-card {
-  cursor: pointer;
-  overflow: hidden;
-  border: 2px solid #e2e8f0;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
+.lab-carousel-track {
+    display: flex;
+    gap: 1.5rem; /* Spacing between cards */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    padding: 1.5rem 0;
 }
 
-.lab-image-card:hover {
-  border-color: #93c5fd;
+.lab-carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
-.lab-image-card:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
+/* --- Carousel Arrows --- */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-.image-container {
-  position: relative;
+.carousel-arrow:hover {
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
-.lab-image {
-  width: 100%;
-  height: 8rem;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+.carousel-arrow.left {
+    left: 1rem;
 }
 
-.lab-image-card:hover .lab-image {
-  transform: scale(1.1);
+.carousel-arrow.right {
+    right: 1rem;
 }
 
-.image-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
+.no-labs-message {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: #f9f7f7; /* Adjusted for dark background */
+    background-color: #3f72af; /* Adjusted for dark background */
+    border-radius: 0.5rem;
+    margin: 2rem auto;
+    max-width: 80%;
 }
 
-.lab-image-card:hover .image-overlay {
-  background-color: rgba(0, 0, 0, 0.1);
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .lab-carousel-container {
+        padding: 0;
+    }
+
+    .carousel-arrow {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8rem;
+    }
+
+    .carousel-arrow.left {
+        left: 0.5rem;
+    }
+
+    .carousel-arrow.right {
+        right: 0.5rem;
+    }
 }
 
-.image-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  padding: 0.75rem;
+/* Lab Card Base Styles */
+.lab-card {
+    flex: 0 0 auto;
+
+    width: 300px;
+    scroll-snap-align: start;
+    background-color: #f0f8ff; /* AliceBlue - lighter background */
+    background: rgba(255, 255, 255, 0.8);
+
+    border: 1px solid #dbe2ef; /* Lighter border */
+    border-radius: 12px; /* Slightly larger radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* Ensure image corners are rounded */
+    padding: 0; /* Remove padding from card, add to content */
 }
 
-.caption-text {
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.lab-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Lightbox Styles */
-.lightbox-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1001;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+.lab-card__image-wrap {
+    height: 180px; /* Fixed height for images */
+    overflow: hidden;
+    border-radius: 12px 12px 0 0; /* Top corners rounded */
+    position: relative; /* Added for positioning the button */
 }
 
-.lightbox-content {
-  position: relative;
-  max-width: 64rem;
-  max-height: 100%;
+.lab-card__expand-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    z-index: 5; /* Ensure it's above the image */
 }
 
-.lightbox-close {
-  position: absolute;
-  top: -3rem;
-  right: 0;
-  color: white;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  z-index: 10;
-  padding: 0.5rem;
-  transition: color 0.2s ease;
+.lab-card__expand-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-.lightbox-close:hover {
-  color: #d1d5db;
+.lab-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.lightbox-image {
-  max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 0.5rem;
+.lab-card:hover .lab-card__image {
+    transform: scale(1.05);
 }
 
-.lightbox-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  padding: 1rem;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+.lab-card__content {
+    padding: 1.5rem; /* Add padding to content */
 }
 
-.lightbox-title {
-  color: white;
-  font-weight: 600;
-  font-size: 1.125rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.lightbox-description {
-  color: #d1d5db;
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-@media (max-width: 640px) {
-  .lightbox-close {
-    top: -2rem;
+.lab-card h3 {
     font-size: 1.25rem;
-  }
-  
-  .lightbox-info {
-    padding: 0.75rem;
-  }
-  
-  .lightbox-title {
-    font-size: 1rem;
-  }
-  
-  .lightbox-description {
-    font-size: 0.75rem;
-  }
+    margin-bottom: 0.5rem; /* Reduced margin */
+    color: #112d4e; /* Darker color for heading */
+}
+
+.lab-card p {
+    font-size: 0.95rem; /* Slightly smaller font */
+    color: #4b5563; /* Softer color for description */
+    line-height: 1.6;
 }

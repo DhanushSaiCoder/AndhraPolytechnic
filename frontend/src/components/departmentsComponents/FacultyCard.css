@@ -1,0 +1,155 @@
+/* ------------------------------------------------------------------ */
+/* FacultyCard.css                                                         */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --primary: #3F72AF;
+  --navy: #112D4E;
+  --muted: #DBE2EF;
+  --bg: #F9F7F7;
+  --accent: #ea580c;
+  --gradient: linear-gradient(135deg,#3f72af 0%,#2c5aa0 100%);
+  --card-radius: 12px; /* Slightly larger radius */
+  /* New, more subtle shadow */
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.faculty-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* Slightly smaller min-width */
+  background: #fff;
+  border-radius: var(--card-radius);
+  border: 1px solid #e5e7eb; /* A lighter border */
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  padding: 0; /* Remove padding from the card itself */
+}
+
+.faculty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: transparent; /* Hide border on hover for a cleaner look */
+}
+
+.faculty-card__image-wrap {
+  height: 220px; /* Taller image */
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Remove the image mask, it's not needed */
+.faculty-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.faculty-card:hover .faculty-card__image {
+  transform: scale(1.05);
+}
+
+.faculty-card__content {
+  padding: 1.5rem; /* More padding */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left; /* Left align content */
+}
+
+.faculty-card__header {
+  margin-bottom: 0.75rem;
+  text-align: left; /* Left align header */
+}
+
+.faculty-card__name {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.25rem; /* Larger name */
+  font-weight: 700;
+}
+
+.faculty-card__designation {
+  margin: 0.25rem 0 0 0;
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.faculty-card__specialization {
+  margin: 0.5rem 0 0 0;
+  color: #4b5563; /* Softer color */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left; /* Left align specialization */
+  flex-grow: 1; /* Allow it to take up space */
+}
+
+.faculty-card__footer {
+  display: flex;
+  justify-content: space-between; /* Space out socials and button */
+  align-items: center;
+  margin-top: 1.5rem; /* More space above footer */
+  padding-top: 0;
+}
+
+.faculty-card__socials {
+  display: flex;
+  gap: 0.5rem; /* Tighter gap */
+  align-items: center;
+}
+
+.faculty-card__social {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* Circular icons */
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6; /* Light gray background */
+  color: #6b7280; /* Gray icon color */
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.faculty-card__social:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.faculty-card__cta {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.faculty-card__cta:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary); /* Keep border color consistent on hover */
+  transform: none; /* No transform on button hover */
+}
+
+/* Remove active state styling for simplicity and to avoid conflicting with hover */
+.faculty-card.active {
+  transform: none;
+  box-shadow: var(--card-shadow);
+  border-color: #e5e7eb;
+}
+
+.faculty-card.active::before {
+  content: none; /* Remove the side bar */
+}
+
+/* Utility visually-hidden for screen readers */
+.visually-hidden{ position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }

@@ -1,0 +1,89 @@
+/* === Faculty Carousel Container & Navigation === */
+
+.faculty-carousel-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 1.2rem auto;
+  padding: 0 4rem; /* Space for arrows */
+}
+
+.faculty-carousel-track {
+  display: flex;
+  gap: 1.5rem; /* Added spacing between cards */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+  padding: 1.5rem 0;
+}
+
+.faculty-carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* --- Carousel Arrows --- */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3F72AF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.left {
+  left: 1rem;
+}
+
+.carousel-arrow.right {
+  right: 1rem;
+}
+
+.no-faculty-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #4b5563;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  margin: 2rem auto;
+  max-width: 80%;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .faculty-carousel-container {
+    padding: 0;
+  }
+
+  .carousel-arrow {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .carousel-arrow.left {
+    left: 0.5rem;
+  }
+
+  .carousel-arrow.right {
+    right: 0.5rem;
+  }
+}
