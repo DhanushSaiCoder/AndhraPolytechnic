@@ -10,24 +10,31 @@
 
 .event-category-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
-    text-align: left;
+    text-align: center;
+}
+
+.event-category-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .event-category-icon {
     width: 3rem;
     height: 3rem;
-    color: #2563eb;
-    margin-right: 1.5rem;
+    color: #112d4e;
 }
 
 .event-category-title {
     font-size: 2.25rem;
     font-weight: 700;
     color: #112d4e;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0;
 }
 
 .event-category-subtitle {

@@ -37,11 +37,11 @@ const AcademicEvents = () => {
   return (
     <section className="event-category-section academic-events">
         <div className="event-category-header">
-          <BookOpen className="event-category-icon" />
-          <div>
+          <div className="event-category-heading">
+            <BookOpen className="event-category-icon" />
             <h2 className="event-category-title">Academic</h2>
-            <p className="event-category-subtitle">Explore workshops, seminars, and tech fests.</p>
           </div>
+          <p className="event-category-subtitle">Explore workshops, seminars, and tech fests.</p>
         </div>
         <div className="event-layout-split">
             <div className="event-slider-container">
