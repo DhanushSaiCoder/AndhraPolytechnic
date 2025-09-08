@@ -57,20 +57,7 @@ const AlumniSuccessStories = () => {
     return (
         <section className="alumni-success-stories-section">
             <div className="alumni-success-stories-container">
-                <div className="alumni-success-stories-header">
-                    <div className="alumni-success-badge">
-                        <Star className="badge-icon" />
-                        <span className="badge-text">Inspiring Journeys</span>
-                    </div>
-                    <h2 className="alumni-success-title">
-                        Our Alumni: Making a Mark
-                    </h2>
-                    <p className="alumni-success-description">
-                        Read about the remarkable achievements and contributions of our graduates across various fields.
-                    </p>
-                </div>
-
-                <div className="alumni-stories-grid">
+                    <div className="alumni-stories-grid">
                     {successStoriesData.map(story => (
                         <AlumniSuccessStoryCard key={story.id} {...story} />
                     ))}
