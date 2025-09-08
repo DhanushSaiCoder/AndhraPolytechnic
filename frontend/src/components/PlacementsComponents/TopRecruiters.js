@@ -27,12 +27,20 @@ const TopRecruiters = () => {
           <p>Proudly partnering with leading companies to shape student careers</p>
         </header>
 
-        <div className="recruiters-grid">
-          {recruiters.map((recruiter) => (
-            <div key={recruiter.id} className="recruiter-card">
-              <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
-            </div>
-          ))}
+        <div className="recruiters-scroll-container">
+          <div className="recruiters-track">
+            {recruiters.map((recruiter) => (
+              <div key={recruiter.id} className="recruiter-item">
+                <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
+              </div>
+            ))}
+            {/* Duplicate for seamless loop */}
+            {recruiters.map((recruiter) => (
+              <div key={`dup-${recruiter.id}`} className="recruiter-item">
+                <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

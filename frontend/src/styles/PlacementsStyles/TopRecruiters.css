@@ -1,6 +1,7 @@
 .top-recruiters-section {
     padding: 4rem 0;
     background-color: #F9F7F7;
+    overflow: hidden; /* Hide overflowing content */
 }
 
 .top-recruiters-container {
@@ -28,45 +29,51 @@
     margin: 0 auto;
 }
 
-.recruiters-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-    align-items: center;
-}
-
-.recruiter-card {
-    background-color: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.recruiters-scroll-container {
     width: 100%;
-    max-width: 200px; /* Limit card width */
-    height: 120px; /* Fixed height for uniformity */
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0; /* Add some vertical padding */
 }
 
-.recruiter-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+.recruiters-track {
+    display: flex;
+    width: fit-content; /* Allow content to define width */
+    white-space: nowrap;
+    animation: scroll-left 30s linear infinite;
+}
+
+.recruiters-track:hover {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+.recruiter-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px; /* Approximate same size */
+    height: 100px; /* Approximate same size */
+    margin: 0 2rem; /* Spacing between logos */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .recruiter-logo {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: grayscale(100%); /* Optional: make logos grayscale */
-    opacity: 0.7; /* Optional: reduce opacity */
+    filter: grayscale(100%);
+    opacity: 0.7;
     transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-.recruiter-card:hover .recruiter-logo {
-    filter: grayscale(0%); /* Color on hover */
-    opacity: 1; /* Full opacity on hover */
+.recruiter-item:hover .recruiter-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Scroll half the track to loop seamlessly */
 }
 
 @media (max-width: 768px) {
@@ -76,12 +83,12 @@
     .top-recruiters-header p {
         font-size: 1rem;
     }
-    .recruiters-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1rem;
+    .recruiter-item {
+        width: 150px;
+        height: 80px;
+        margin: 0 1rem;
     }
-    .recruiter-card {
-        padding: 1rem;
-        height: 100px;
+    .recruiters-track {
+        animation-duration: 20s; /* Faster scroll on mobile */
     }
 }
