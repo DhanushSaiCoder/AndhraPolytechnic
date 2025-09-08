@@ -1,6 +1,153 @@
 {
   "curricula": [
     {
+      "id": "c17",
+      "code": "C-17",
+      "start_year": 2017,
+      "end_year": 2019,
+      "branches": [
+        {
+          "id": "cse",
+          "name": "Computer Science Engineering (CSE)",
+          "code": "CSE",
+          "semesters": [
+            {
+              "id": "cse-1yr-c17",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "cse-em1-c17",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Basic calculus and linear algebra fundamentals.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/1yr/em1.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                },
+                {
+                  "id": "cse-cprog-c17",
+                  "name": "C Programming",
+                  "code": "CPROG",
+                  "description": "Imperative programming using C.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/1yr/cprog.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                }
+              ]
+            },
+            {
+              "id": "cse-3sem-c17",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "cse-ds-c17",
+                  "name": "Data Structures",
+                  "code": "DS",
+                  "description": "Linear and non-linear data structures and algorithms.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/3sem/ds.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                },
+                {
+                  "id": "cse-dbms-c17",
+                  "name": "Database Management Systems",
+                  "code": "DBMS",
+                  "description": "Relational DBMS design and SQL.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/3sem/dbms.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                }
+              ]
+            },
+            {
+              "id": "cse-5sem-c17",
+              "name": "V Semester",
+              "code": "5SEM",
+              "subjects": [
+                {
+                  "id": "cse-os-c17",
+                  "name": "Operating Systems",
+                  "code": "OS",
+                  "description": "Process management, memory management, concurrency.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/5sem/os.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                },
+                {
+                  "id": "cse-cn-c17",
+                  "name": "Computer Networks",
+                  "code": "CN",
+                  "description": "Network models, TCP/IP stack and protocols.",
+                  "syllabus_pdf": "/assets/syllabus/c17/cse/5sem/cn.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ece",
+          "name": "Electronics and Communication Engineering (ECE)",
+          "code": "ECE",
+          "semesters": [
+            {
+              "id": "ece-1yr-c17",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "ece-em1-c17",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Mathematical foundations for engineering.",
+                  "syllabus_pdf": "/assets/syllabus/c17/ece/1yr/em1.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                },
+                {
+                  "id": "ece-edc-c17",
+                  "name": "Electronic Devices and Circuits",
+                  "code": "EDC",
+                  "description": "Semiconductor devices and basic circuits.",
+                  "syllabus_pdf": "/assets/syllabus/c17/ece/1yr/edc.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                }
+              ]
+            },
+            {
+              "id": "ece-4sem-c17",
+              "name": "IV Semester",
+              "code": "4SEM",
+              "subjects": [
+                {
+                  "id": "ece-comm-c17",
+                  "name": "Analog Communication",
+                  "code": "ANCOM",
+                  "description": "AM, FM, modulation, demodulation techniques.",
+                  "syllabus_pdf": "/assets/syllabus/c17/ece/4sem/analog_comm.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                },
+                {
+                  "id": "ece-dsp-c17",
+                  "name": "Digital Signal Processing",
+                  "code": "DSP",
+                  "description": "Discrete-time signals and systems, FFT.",
+                  "syllabus_pdf": "/assets/syllabus/c17/ece/4sem/dsp.pdf",
+                  "version": "2018-01-15",
+                  "last_updated": "2018-01-15"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "c20",
       "code": "C-20",
       "start_year": 2020,
@@ -103,6 +250,259 @@
                   "last_updated": "2024-08-01"
                 }
               ]
+            },
+            {
+              "id": "cse-5sem",
+              "name": "V Semester",
+              "code": "5SEM",
+              "subjects": [
+                {
+                  "id": "cse-softwareeng-c20",
+                  "name": "Software Engineering",
+                  "code": "SE",
+                  "description": "Software development lifecycle, models and practices.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/5sem/se.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "cse-web-c20",
+                  "name": "Web Technologies",
+                  "code": "WEB",
+                  "description": "HTML, CSS, JavaScript and backend basics.",
+                  "syllabus_pdf": "/assets/syllabus/c20/cse/5sem/web.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ece",
+          "name": "Electronics and Communication Engineering (ECE)",
+          "code": "ECE",
+          "semesters": [
+            {
+              "id": "ece-1yr-c20",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "ece-em1-c20",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Introduction to engineering mathematics.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ece/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "ece-edc-c20",
+                  "name": "Electronic Devices and Circuits",
+                  "code": "EDC",
+                  "description": "Basic electronic devices and circuits.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ece/1yr/edc.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "ece-4sem-c20",
+              "name": "IV Semester",
+              "code": "4SEM",
+              "subjects": [
+                {
+                  "id": "ece-analog-c20",
+                  "name": "Analog Communication",
+                  "code": "ANCOM",
+                  "description": "Modulation and demodulation techniques.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ece/4sem/analog_comm.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "ece-micro-c20",
+                  "name": "Microprocessors and Microcontrollers",
+                  "code": "MCU",
+                  "description": "Architecture and interfacing of microcontrollers.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ece/4sem/mcu.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "me",
+          "name": "Mechanical Engineering (ME)",
+          "code": "ME",
+          "semesters": [
+            {
+              "id": "me-1yr-c20",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "me-em1-c20",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Mathematics for mechanics and design.",
+                  "syllabus_pdf": "/assets/syllabus/c20/me/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "me-ed-c20",
+                  "name": "Engineering Drawing",
+                  "code": "ED",
+                  "description": "Orthographic projections and CAD basics.",
+                  "syllabus_pdf": "/assets/syllabus/c20/me/1yr/ed.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "me-3sem-c20",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "me-thermo-c20",
+                  "name": "Thermodynamics",
+                  "code": "TH",
+                  "description": "Laws of thermodynamics and applications.",
+                  "syllabus_pdf": "/assets/syllabus/c20/me/3sem/thermo.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "me-materials-c20",
+                  "name": "Engineering Materials",
+                  "code": "EMAT",
+                  "description": "Properties and selection of engineering materials.",
+                  "syllabus_pdf": "/assets/syllabus/c20/me/3sem/materials.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ce",
+          "name": "Civil Engineering (CE)",
+          "code": "CE",
+          "semesters": [
+            {
+              "id": "ce-1yr-c20",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "ce-em1-c20",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Mathematical tools for civil engineering.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ce/1yr/em1.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "ce-mechanics-c20",
+                  "name": "Engineering Mechanics",
+                  "code": "EMEC",
+                  "description": "Statics, dynamics and equilibrium.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ce/1yr/engineering_mechanics.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            },
+            {
+              "id": "ce-4sem-c20",
+              "name": "IV Semester",
+              "code": "4SEM",
+              "subjects": [
+                {
+                  "id": "ce-struct-c20",
+                  "name": "Strength of Materials",
+                  "code": "SOM",
+                  "description": "Stress-strain relations and beam theory.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ce/4sem/strength_materials.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "ce-survey-c20",
+                  "name": "Surveying",
+                  "code": "SURV",
+                  "description": "Measurement techniques and instruments.",
+                  "syllabus_pdf": "/assets/syllabus/c20/ce/4sem/surveying.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "eee",
+          "name": "Electrical & Electronics Engineering (EEE)",
+          "code": "EEE",
+          "semesters": [
+            {
+              "id": "eee-1yr-c20",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "eee-basic-elec-c20",
+                  "name": "Basic Electrical Engineering",
+                  "code": "BEE",
+                  "description": "DC circuits, AC fundamentals and machines introduction.",
+                  "syllabus_pdf": "/assets/syllabus/c20/eee/1yr/basicelec.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "eee-em1-c20",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Math foundations for electrical engineering.",
+                  "syllabus_pdf": "/assets/syllabus/c20/eee/1yr/em1.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
+            },
+            {
+              "id": "eee-3sem-c20",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "eee-circuits-c20",
+                  "name": "Circuit Theory",
+                  "code": "CT",
+                  "description": "Network theorems and transient analysis.",
+                  "syllabus_pdf": "/assets/syllabus/c20/eee/3sem/circuit_theory.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                },
+                {
+                  "id": "eee-machines-c20",
+                  "name": "Electrical Machines I",
+                  "code": "EMCH1",
+                  "description": "Transformers and DC machines.",
+                  "syllabus_pdf": "/assets/syllabus/c20/eee/3sem/electrical_machines1.pdf",
+                  "version": "2025-09-01",
+                  "last_updated": "2025-09-01"
+                }
+              ]
             }
           ]
         }
@@ -120,7 +520,7 @@
           "code": "CSE",
           "semesters": [
             {
-              "id": "cse-1yr",
+              "id": "cse-1yr-c23",
               "name": "First Year",
               "code": "1YR",
               "subjects": [
@@ -143,6 +543,65 @@
                   "last_updated": "2024-08-01"
                 }
               ]
+            },
+            {
+              "id": "cse-3sem-c23",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "cse-ds-c23",
+                  "name": "Data Structures",
+                  "code": "DS",
+                  "description": "Data structures, complexity and practical implementation.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/3sem/ds.pdf",
+                  "version": "2025-03-10",
+                  "last_updated": "2025-03-10"
+                },
+                {
+                  "id": "cse-oops-c23",
+                  "name": "Object Oriented Programming",
+                  "code": "OOPS",
+                  "description": "Object oriented concepts with modern languages.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/3sem/oops.pdf",
+                  "version": "2025-03-10",
+                  "last_updated": "2025-03-10"
+                },
+                {
+                  "id": "cse-dbms-c23",
+                  "name": "Database Management Systems",
+                  "code": "DBMS",
+                  "description": "DB design, normalization and transactions.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/3sem/dbms.pdf",
+                  "version": "2025-03-10",
+                  "last_updated": "2025-03-10"
+                }
+              ]
+            },
+            {
+              "id": "cse-6sem-c23",
+              "name": "VI Semester",
+              "code": "6SEM",
+              "subjects": [
+                {
+                  "id": "cse-project-c23",
+                  "name": "Project Work",
+                  "code": "PROJ",
+                  "description": "Capstone project with documentation and presentation.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/6sem/project.pdf",
+                  "version": "2025-06-20",
+                  "last_updated": "2025-06-20"
+                },
+                {
+                  "id": "cse-ml-c23",
+                  "name": "Introduction to Machine Learning",
+                  "code": "ML",
+                  "description": "Foundations of ML, supervised and unsupervised methods.",
+                  "syllabus_pdf": "/assets/syllabus/c23/cse/6sem/ml.pdf",
+                  "version": "2025-06-20",
+                  "last_updated": "2025-06-20"
+                }
+              ]
             }
           ]
         },
@@ -152,7 +611,7 @@
           "code": "ECE",
           "semesters": [
             {
-              "id": "ece-1yr",
+              "id": "ece-1yr-c23",
               "name": "First Year",
               "code": "1YR",
               "subjects": [
@@ -175,6 +634,31 @@
                   "last_updated": "2024-08-01"
                 }
               ]
+            },
+            {
+              "id": "ece-5sem-c23",
+              "name": "V Semester",
+              "code": "5SEM",
+              "subjects": [
+                {
+                  "id": "ece-vlsi-c23",
+                  "name": "VLSI Design",
+                  "code": "VLSI",
+                  "description": "Principles of VLSI, layout and design rules.",
+                  "syllabus_pdf": "/assets/syllabus/c23/ece/5sem/vlsi.pdf",
+                  "version": "2025-05-10",
+                  "last_updated": "2025-05-10"
+                },
+                {
+                  "id": "ece-comm-c23",
+                  "name": "Digital Communication",
+                  "code": "DCOM",
+                  "description": "Digital modulation and coding techniques.",
+                  "syllabus_pdf": "/assets/syllabus/c23/ece/5sem/digital_comm.pdf",
+                  "version": "2025-05-10",
+                  "last_updated": "2025-05-10"
+                }
+              ]
             }
           ]
         },
@@ -184,7 +668,7 @@
           "code": "ME",
           "semesters": [
             {
-              "id": "me-1yr",
+              "id": "me-1yr-c23",
               "name": "First Year",
               "code": "1YR",
               "subjects": [
@@ -205,6 +689,327 @@
                   "syllabus_pdf": "/assets/syllabus/c23/me/1yr/ed.pdf",
                   "version": "2024-08-01",
                   "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "me-4sem-c23",
+              "name": "IV Semester",
+              "code": "4SEM",
+              "subjects": [
+                {
+                  "id": "me-manufacturing-c23",
+                  "name": "Manufacturing Processes",
+                  "code": "MANU",
+                  "description": "Casting, forming, machining and joining processes.",
+                  "syllabus_pdf": "/assets/syllabus/c23/me/4sem/manufacturing.pdf",
+                  "version": "2025-04-01",
+                  "last_updated": "2025-04-01"
+                },
+                {
+                  "id": "me-thermo-c23",
+                  "name": "Thermodynamics",
+                  "code": "TH",
+                  "description": "Energy systems and thermodynamic cycles.",
+                  "syllabus_pdf": "/assets/syllabus/c23/me/4sem/thermo.pdf",
+                  "version": "2025-04-01",
+                  "last_updated": "2025-04-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "it",
+          "name": "Information Technology (IT)",
+          "code": "IT",
+          "semesters": [
+            {
+              "id": "it-1yr-c23",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "it-em1-c23",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Mathematical foundations for computing.",
+                  "syllabus_pdf": "/assets/syllabus/c23/it/1yr/em1.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "it-fundprog-c23",
+                  "name": "Fundamentals of Programming",
+                  "code": "FP",
+                  "description": "Programming basics and problem solving.",
+                  "syllabus_pdf": "/assets/syllabus/c23/it/1yr/fundprog.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            },
+            {
+              "id": "it-3sem-c23",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "it-web-c23",
+                  "name": "Web Development",
+                  "code": "WEB",
+                  "description": "Front-end and back-end web development basics.",
+                  "syllabus_pdf": "/assets/syllabus/c23/it/3sem/web.pdf",
+                  "version": "2025-02-15",
+                  "last_updated": "2025-02-15"
+                },
+                {
+                  "id": "it-net-c23",
+                  "name": "Fundamentals of Networking",
+                  "code": "NET",
+                  "description": "Network models and practical lab exercises.",
+                  "syllabus_pdf": "/assets/syllabus/c23/it/3sem/net.pdf",
+                  "version": "2025-02-15",
+                  "last_updated": "2025-02-15"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ai",
+          "name": "Artificial Intelligence & Machine Learning (AI&ML)",
+          "code": "AI",
+          "semesters": [
+            {
+              "id": "ai-3sem-c23",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "ai-python-c23",
+                  "name": "Python Programming for AI",
+                  "code": "PYAI",
+                  "description": "Python basics, libraries for AI (numpy, pandas).",
+                  "syllabus_pdf": "/assets/syllabus/c23/ai/3sem/python_ai.pdf",
+                  "version": "2025-03-05",
+                  "last_updated": "2025-03-05"
+                },
+                {
+                  "id": "ai-stat-c23",
+                  "name": "Probability & Statistics for AI",
+                  "code": "STATAI",
+                  "description": "Probability, distributions and statistical inference.",
+                  "syllabus_pdf": "/assets/syllabus/c23/ai/3sem/statistics.pdf",
+                  "version": "2025-03-05",
+                  "last_updated": "2025-03-05"
+                }
+              ]
+            },
+            {
+              "id": "ai-6sem-c23",
+              "name": "VI Semester",
+              "code": "6SEM",
+              "subjects": [
+                {
+                  "id": "ai-project-c23",
+                  "name": "AI Project",
+                  "code": "AIPRJ",
+                  "description": "Applied ML project with dataset handling and model evaluation.",
+                  "syllabus_pdf": "/assets/syllabus/c23/ai/6sem/project.pdf",
+                  "version": "2025-07-10",
+                  "last_updated": "2025-07-10"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bt",
+          "name": "Biotechnology (BT)",
+          "code": "BT",
+          "semesters": [
+            {
+              "id": "bt-1yr-c23",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "bt-bio101-c23",
+                  "name": "Introduction to Biology",
+                  "code": "BIO101",
+                  "description": "Cell biology and basic biochemistry.",
+                  "syllabus_pdf": "/assets/syllabus/c23/bt/1yr/intro_bio.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                },
+                {
+                  "id": "bt-che101-c23",
+                  "name": "Organic Chemistry",
+                  "code": "CHE101",
+                  "description": "Fundamentals of organic chemistry relevant to biotech.",
+                  "syllabus_pdf": "/assets/syllabus/c23/bt/1yr/organic_chem.pdf",
+                  "version": "2024-08-01",
+                  "last_updated": "2024-08-01"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c26",
+      "code": "C-26",
+      "start_year": 2026,
+      "end_year": 2028,
+      "branches": [
+        {
+          "id": "cse",
+          "name": "Computer Science Engineering (CSE)",
+          "code": "CSE",
+          "semesters": [
+            {
+              "id": "cse-1yr-c26",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "cse-em1-c26",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Foundations of calculus and discrete math for computing.",
+                  "syllabus_pdf": "/assets/syllabus/c26/cse/1yr/em1.pdf",
+                  "version": "2026-01-01",
+                  "last_updated": "2026-01-01"
+                },
+                {
+                  "id": "cse-intro-ai-c26",
+                  "name": "Intro to AI & Ethics",
+                  "code": "AIETH",
+                  "description": "Overview of AI concepts and ethical considerations.",
+                  "syllabus_pdf": "/assets/syllabus/c26/cse/1yr/intro_ai_ethics.pdf",
+                  "version": "2026-01-01",
+                  "last_updated": "2026-01-01"
+                }
+              ]
+            },
+            {
+              "id": "cse-3sem-c26",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "cse-dsa-c26",
+                  "name": "Data Structures & Algorithms",
+                  "code": "DSA",
+                  "description": "Advanced algorithms, complexity, and practical labs.",
+                  "syllabus_pdf": "/assets/syllabus/c26/cse/3sem/dsa.pdf",
+                  "version": "2026-06-01",
+                  "last_updated": "2026-06-01"
+                },
+                {
+                  "id": "cse-dbms-c26",
+                  "name": "Modern Databases",
+                  "code": "MDB",
+                  "description": "NoSQL, NewSQL, transactions and distributed data stores.",
+                  "syllabus_pdf": "/assets/syllabus/c26/cse/3sem/modern_db.pdf",
+                  "version": "2026-06-01",
+                  "last_updated": "2026-06-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ece",
+          "name": "Electronics and Communication Engineering (ECE)",
+          "code": "ECE",
+          "semesters": [
+            {
+              "id": "ece-1yr-c26",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "ece-em1-c26",
+                  "name": "Engineering Mathematics I",
+                  "code": "EM1",
+                  "description": "Mathematics tailored for electronics and signal processing.",
+                  "syllabus_pdf": "/assets/syllabus/c26/ece/1yr/em1.pdf",
+                  "version": "2026-01-01",
+                  "last_updated": "2026-01-01"
+                },
+                {
+                  "id": "ece-fund-elec-c26",
+                  "name": "Fundamentals of Electronics",
+                  "code": "FEL",
+                  "description": "Device physics and circuit fundamentals.",
+                  "syllabus_pdf": "/assets/syllabus/c26/ece/1yr/fund_elec.pdf",
+                  "version": "2026-01-01",
+                  "last_updated": "2026-01-01"
+                }
+              ]
+            },
+            {
+              "id": "ece-5sem-c26",
+              "name": "V Semester",
+              "code": "5SEM",
+              "subjects": [
+                {
+                  "id": "ece-iot-c26",
+                  "name": "IoT Systems",
+                  "code": "IOT",
+                  "description": "Sensors, connectivity, cloud and edge computing for IoT.",
+                  "syllabus_pdf": "/assets/syllabus/c26/ece/5sem/iot.pdf",
+                  "version": "2026-07-01",
+                  "last_updated": "2026-07-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "text",
+          "name": "Textile Technology (TEXT)",
+          "code": "TEXT",
+          "semesters": [
+            {
+              "id": "text-1yr-c26",
+              "name": "First Year",
+              "code": "1YR",
+              "subjects": [
+                {
+                  "id": "text-fibers-c26",
+                  "name": "Textile Fibers & Yarn",
+                  "code": "TFY",
+                  "description": "Properties of natural and synthetic fibers and yarn formation.",
+                  "syllabus_pdf": "/assets/syllabus/c26/text/1yr/fibers_yarn.pdf",
+                  "version": "2026-01-01",
+                  "last_updated": "2026-01-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "auto",
+          "name": "Automobile Engineering (AUTO)",
+          "code": "AUTO",
+          "semesters": [
+            {
+              "id": "auto-3sem-c26",
+              "name": "III Semester",
+              "code": "3SEM",
+              "subjects": [
+                {
+                  "id": "auto-engines-c26",
+                  "name": "Vehicle Engines",
+                  "code": "VENG",
+                  "description": "Internal combustion engines and performance metrics.",
+                  "syllabus_pdf": "/assets/syllabus/c26/auto/3sem/vehicle_engines.pdf",
+                  "version": "2026-06-15",
+                  "last_updated": "2026-06-15"
                 }
               ]
             }
