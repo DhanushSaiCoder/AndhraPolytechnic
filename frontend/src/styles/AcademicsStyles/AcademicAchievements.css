@@ -119,18 +119,18 @@
     margin-top: 3rem;
 }
 
-.learn-more-btn {
+.academic-achievements-footer .learn-more-btn {
     color: #3f72af;
     font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
     transition: all 0.3s ease;
     padding: 0.75rem 2rem;
-    border: 2px solid #3f72af40;
+    border: 2px solid #3f72af;
     border-radius: 9999px;
 }
 
-.learn-more-btn:hover {
+.academic-achievements-footer .learn-more-btn:hover {
     background-color: #3f72af;
     color: #ffffff;
     text-decoration: none;
