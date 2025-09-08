@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Search, Download, Eye, FileText, AlertCircle, X, ChevronDown } from "lucide-react";
 import syllabusData from "../../data/syllabusData.json";
 import "../../styles/AcademicsStyles/Syllabus.css";
+import Fuse from 'fuse.js';
 
 const noop = () => {};
 
@@ -66,6 +67,36 @@ const SyllabusSection = () => {
     ...(syllabusData?.curricula || []),
   ], [syllabusData]);
 
+  const allSubjectsFlattened = useMemo(() => {
+    const subjects = [];
+    syllabusData.curricula.forEach(curriculum => {
+      curriculum.branches.forEach(branch => {
+        branch.semesters.forEach(semester => {
+          semester.subjects.forEach(subject => {
+            subjects.push({
+              ...subject,
+              curriculumId: curriculum.id,
+              curriculumCode: curriculum.code,
+              branchId: branch.id,
+              branchName: branch.name,
+              semesterId: semester.id,
+              semesterName: semester.name,
+            });
+          });
+        });
+      });
+    });
+    return subjects;
+  }, [syllabusData]);
+
+  const fuse = useMemo(() => {
+    const options = {
+      keys: ["name", "code"],
+      threshold: 0.3, // Adjust as needed for search sensitivity
+    };
+    return new Fuse(allSubjectsFlattened, options);
+  }, [allSubjectsFlattened]);
+
   const isSearchingAllCurricula = selectedCurriculum === "all";
 
   const currentCurriculum = useMemo(
@@ -87,51 +118,65 @@ const SyllabusSection = () => {
   }, [selectedCurriculum, availableBranches, selectedBranch, isSearchingAllCurricula]);
 
   const filteredSubjects = useMemo(() => {
-    const q = (searchQuery || "").toLowerCase().trim();
+    const q = (searchQuery || "").trim();
 
-    const filterSubjects = (subjects) =>
-      subjects.filter(
-        (sub) =>
-          !q ||
-          (sub.name && sub.name.toLowerCase().includes(q)) ||
-          (sub.code && sub.code.toLowerCase().includes(q))
-      );
+    if (q) {
+      const fuseResults = fuse.search(q);
+      const groupedResults = {};
 
+      fuseResults.forEach(({ item: subject }) => {
+        const curriculumKey = subject.curriculumId;
+        const branchKey = subject.branchId;
+        const semesterKey = subject.semesterId;
+
+        if (!groupedResults[curriculumKey]) {
+          groupedResults[curriculumKey] = { code: subject.curriculumCode, branches: {} };
+        }
+        if (!groupedResults[curriculumKey].branches[branchKey]) {
+          groupedResults[curriculumKey].branches[branchKey] = { name: subject.branchName, semesters: {} };
+        }
+        if (!groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey]) {
+          groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey] = {
+            id: semesterKey,
+            name: subject.semesterName,
+            subjects: [],
+          };
+        }
+        groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey].subjects.push(subject);
+      });
+
+      // Convert groupedResults into the desired array format for rendering
+      const finalResults = [];
+      for (const currKey in groupedResults) {
+        for (const branchKey in groupedResults[currKey].branches) {
+          for (const semKey in groupedResults[currKey].branches[branchKey].semesters) {
+            finalResults.push(groupedResults[currKey].branches[branchKey].semesters[semKey]);
+          }
+        }
+      }
+      return finalResults;
+    }
+
+    // Existing logic when no search query
     if (isSearchingAllCurricula) {
       const allSubjects = [];
-      curricula.filter(c => c.id !== "all").forEach((curr) => { // Exclude 'all' option from iteration
+      curricula.filter(c => c.id !== "all").forEach((curr) => {
         curr.branches.forEach((br) => {
           br.semesters.forEach((sem) => {
-            const matchedSubjects = filterSubjects(sem.subjects);
-            if (matchedSubjects.length > 0) {
-              allSubjects.push({
-                id: `${curr.id}-${br.id}-${sem.id}`,
-                name: `${curr.code} - ${br.name} - ${sem.name}`,
-                subjects: matchedSubjects,
-              });
-            }
+            allSubjects.push({
+              id: `${curr.id}-${br.id}-${sem.id}`,
+              name: `${curr.code} - ${br.name} - ${sem.name}`,
+              subjects: sem.subjects,
+            });
           });
         });
       });
       return allSubjects;
     }
 
-    // If no search query and not searching all curricula, show all semesters for the selected branch
-    if (!q && !isSearchingAllCurricula) {
-      const branch = availableBranches.find((b) => b.id === selectedBranch);
-      return branch?.semesters || [];
-    }
-
     const branch = availableBranches.find((b) => b.id === selectedBranch);
-    if (!branch) return [];
-
-    return branch.semesters
-      .map((sem) => ({
-        ...sem,
-        subjects: filterSubjects(sem.subjects),
-      }))
-      .filter((sem) => sem.subjects.length > 0);
-  }, [searchQuery, isSearchingAllCurricula, curricula, availableBranches, selectedBranch]);
+    return branch?.semesters || [];
+  }, [searchQuery, isSearchingAllCurricula, curricula, availableBranches, selectedBranch, fuse]);
 
   const handlePreview = (subject) => {
     setPreviewSubject(subject);
