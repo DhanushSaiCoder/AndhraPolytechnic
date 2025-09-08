@@ -41,8 +41,8 @@ const UserManagementPage = () => {
 
   const handleSave = async (userData) => {
     try {
-      if (userData.id) {
-        await userService.updateUser(userData.id, userData);
+      if (userData._id) {
+        await userService.updateUser(userData._id, userData);
       } else {
         await userService.createUser(userData);
       }
@@ -60,7 +60,6 @@ const UserManagementPage = () => {
   };
 
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.role.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -106,13 +105,12 @@ const UserManagementPage = () => {
             </thead>
             <tbody>
               {filteredUsers.map(user => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td>
                     <div className="user-info">
-                      <img src={user.avatar} alt={user.name} className="user-avatar" />
                       <div className="user-details">
-                        <span className="user-name">{user.name}</span>
-                        <span className="user-id">ID: {user.id}</span>
+                        <span className="user-email">{user.email}</span>
+                        <span className="user-id">ID: {user._id}</span>
                       </div>
                     </div>
                   </td>
@@ -129,7 +127,7 @@ const UserManagementPage = () => {
                       <FiEdit />
                       <span>Edit</span>
                     </button>
-                    <button onClick={() => handleDelete(user.id)} className="action-btn delete-btn">
+                    <button onClick={() => handleDelete(user._id)} className="action-btn delete-btn">
                       <FiTrash2 />
                       <span>Delete</span>
                     </button>

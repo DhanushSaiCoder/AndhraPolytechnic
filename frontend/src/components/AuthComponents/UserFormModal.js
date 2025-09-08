@@ -3,18 +3,20 @@ import '../../styles/UserFormModal.css';
 
 const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
+        password: '',
+        confirmPassword: '',
         role: 'User'
     });
 
     useEffect(() => {
         if (user) {
-            setFormData(user);
+            setFormData({ ...user, password: '', confirmPassword: '' });
         } else {
             setFormData({
-                name: '',
                 email: '',
+                password: '',
+                confirmPassword: '',
                 role: 'User'
             });
         }
@@ -27,6 +29,10 @@ const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!user && formData.password !== formData.confirmPassword) {
+            alert("Passwords don't match");
+            return;
+        }
         onSave(formData);
     };
 
@@ -40,13 +46,21 @@ const UserFormModal = ({ isOpen, onClose, onSave, user }) => {
                 <h2>{user ? 'Edit User' : 'Add User'}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
                     </div>
+                    {!user && (
+                        <>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                            </div>
+                        </>
+                    )}
                     <div className="form-group">
                         <label htmlFor="role">Role</label>
                         <select id="role" name="role" value={formData.role} onChange={handleChange}>

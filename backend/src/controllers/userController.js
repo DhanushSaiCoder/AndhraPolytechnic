@@ -1,56 +1,75 @@
-let users = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 'Admin', avatar: 'https://picsum.photos/seed/john/100/100' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 'User', avatar: 'https://picsum.photos/seed/jane/100/100' },
-    { id: 3, name: 'Peter Jones', email: 'peter.jones@example.com', role: 'User', avatar: 'https://picsum.photos/seed/peter/100/100' },
-    { id: 4, name: 'Admin User', email: 'admin.user@example.com', role: 'Admin', avatar: 'https://picsum.photos/seed/admin/100/100' },
-];
+const User = require('../models/userModel');
+const bcrypt = require('bcryptjs');
 
-exports.getUsers = (req, res) => {
-    res.status(200).json(users);
+exports.getUsers = async (req, res) => {
+    try {
+        const users = await User.find().select('-password');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users', error });
+    }
 };
 
-exports.createUser = (req, res) => {
-    const { name, email, role } = req.body;
-    if (!name || !email || !role) {
-        return res.status(400).json({ message: 'Please provide name, email, and role' });
+exports.createUser = async (req, res) => {
+    const { email, password, role } = req.body;
+    if (!email || !password || !role) {
+        return res.status(400).json({ message: 'Please provide email, password, and role' });
     }
 
-    const newUser = {
-        id: users.length > 0 ? Math.max(...users.map(user => user.id)) + 1 : 1,
-        name,
-        email,
-        role,
-        avatar: `https://picsum.photos/seed/${name.split(' ').join('')}/100/100`
-    };
+    try {
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
 
-    users.push(newUser);
-    res.status(201).json(newUser);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        user = new User({
+            email,
+            password: hashedPassword,
+            role,
+        });
+
+        await user.save();
+        res.status(201).json({ id: user.id, email: user.email, role: user.role });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating user', error });
+    }
 };
 
-exports.updateUser = (req, res) => {
+exports.updateUser = async (req, res) => {
     const { id } = req.params;
-    const { name, email, role } = req.body;
+    const { email, role } = req.body;
 
-    const userIndex = users.findIndex(user => user.id === parseInt(id));
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-    if (userIndex === -1) {
-        return res.status(404).json({ message: 'User not found' });
+        user.email = email || user.email;
+        user.role = role || user.role;
+
+        await user.save();
+        res.status(200).json({ id: user.id, email: user.email, role: user.role });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating user', error });
     }
-
-    const updatedUser = { ...users[userIndex], name, email, role };
-    users[userIndex] = updatedUser;
-
-    res.status(200).json(updatedUser);
 };
 
-exports.deleteUser = (req, res) => {
+exports.deleteUser = async (req, res) => {
     const { id } = req.params;
-    const initialLength = users.length;
-    users = users.filter(user => user.id !== parseInt(id));
 
-    if (users.length === initialLength) {
-        return res.status(404).json({ message: 'User not found' });
+    try {
+        const user = await User.findByIdAndDelete(id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting user', error });
     }
-
-    res.status(200).json({ message: 'User deleted successfully' });
 };
