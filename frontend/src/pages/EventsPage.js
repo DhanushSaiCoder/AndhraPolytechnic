@@ -1,10 +1,14 @@
 import React from 'react';
+import EventsHeroSection from '../components/EventsComponents/EventsHeroSection';
 
 const EventsPage = () => {
   return (
     <div>
-      <h1>Events Page</h1>
-      <p>Content for Events will go here.</p>
+      <EventsHeroSection />
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h1>Upcoming Events</h1>
+        <p>Content for Events will go here.</p>
+      </div>
     </div>
   );
 };
