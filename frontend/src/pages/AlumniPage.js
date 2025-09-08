@@ -9,9 +9,6 @@ const AlumniPage = () => {
     <>
       <AlumniHeroSection />
       <AlumniSuccessStories />
-      {/* Add more Alumni sections here */}
-      <Footer />
-      <ScrollToTop />
     </>
   );
 };
