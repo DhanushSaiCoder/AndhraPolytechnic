@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
-import { eventsData } from '../../data/eventsData';
+import eventsData from '../../data/eventsData.json';
 import '../../styles/EventsStyles/EventsPage.css';
 
 const SportsEvents = () => {
