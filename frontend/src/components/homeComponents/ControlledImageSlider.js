@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SliderCard from './SliderCard';
-import '../../styles/HomeStyles/ImageSlider.css';
+import '../../styles/HomeStyles/ControlledImageSlider.css';
 
 const ControlledImageSlider = ({
   slides,
