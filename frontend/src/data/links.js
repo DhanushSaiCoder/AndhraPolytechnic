@@ -32,7 +32,6 @@ export const links = [
     label: 'Events'
   },
 
-  { to: '/results', label: 'Results' },
   { to: '/about', label: 'About Us' },
   { to: '/alumni', label: 'Alumni' },
 ];

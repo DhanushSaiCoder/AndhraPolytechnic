@@ -12,7 +12,7 @@ import AlumniPage from './pages/AlumniPage';
 import AdmissionsPage from './pages/AdmissionsPage';
 
 import DepartmentsPage from './pages/DepartmentsPage';
-import ResultsPage from './pages/ResultsPage';
+
 import DepartmentDetail from './pages/DepartmentDetail';
 import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
@@ -37,7 +37,6 @@ function App() {
         <Route path="alumni" element={<AlumniPage />} />
         
         <Route path="departments" element={<DepartmentsPage />} />
-        <Route path="results" element={<ResultsPage />} />
         <Route path="/departments/:id" element={<DepartmentDetail />} />
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
