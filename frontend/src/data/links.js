@@ -29,13 +29,7 @@ export const links = [
   },
   {
     to: '/events',
-    label: 'Events',
-    subLinks: [
-      { to: '/events/sports', label: 'Sports Events' },
-      { to: '/events/academic', label: 'Academic Events' },
-      { to: '/events/tech', label: 'Tech Events' },
-      { to: '/events/cultural', label: 'Cultural Events' },
-    ],
+    label: 'Events'
   },
 
   { to: '/results', label: 'Results' },
