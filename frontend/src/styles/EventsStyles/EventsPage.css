@@ -45,24 +45,23 @@
 /* Specific Section Styles */
 
 .sports-events {
-    background-color: #f8fafc;
+    background: linear-gradient(135deg, #e2f0ff 0%, #ddeeff 50%, #f8fafc 100%);
+
 }
 
 .academic-events {
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
 }
 
 .co-curricular-events {
-    background-color: #f8fafc;
+    background: linear-gradient(135deg, #e2f0ff 0%, #ddeeff 50%, #f8fafc 100%);
 }
 
 .other-events {
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
 }
 
-.event-category-section:not(:last-child) {
-    border-bottom: 1px solid #e2e8f0;
-}
+
 
 .event-layout-split {
     display: grid;
