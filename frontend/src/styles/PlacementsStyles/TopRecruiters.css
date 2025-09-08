@@ -1,0 +1,94 @@
+.top-recruiters-section {
+    padding: 4rem 0;
+    background-color: #F9F7F7;
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.top-recruiters-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.top-recruiters-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.top-recruiters-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.top-recruiters-header p {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.recruiters-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0; /* Add some vertical padding */
+}
+
+.recruiters-track {
+    display: flex;
+    width: fit-content; /* Allow content to define width */
+    white-space: nowrap;
+    animation: scroll-left 30s linear infinite;
+}
+
+.recruiters-track:hover {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+.recruiter-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px; /* Approximate same size */
+    height: 100px; /* Approximate same size */
+    margin: 0 2rem; /* Spacing between logos */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.recruiter-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.recruiter-item:hover .recruiter-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Scroll half the track to loop seamlessly */
+}
+
+@media (max-width: 768px) {
+    .top-recruiters-header h2 {
+        font-size: 1.75rem;
+    }
+    .top-recruiters-header p {
+        font-size: 1rem;
+    }
+    .recruiter-item {
+        width: 150px;
+        height: 80px;
+        margin: 0 1rem;
+    }
+    .recruiters-track {
+        animation-duration: 20s; /* Faster scroll on mobile */
+    }
+}

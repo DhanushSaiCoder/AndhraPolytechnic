@@ -1,0 +1,124 @@
+.success-stories-section {
+    padding: 4rem 0;
+    background: linear-gradient(
+        135deg,
+        #f8fafc 0%,
+        #e2f0ff 50%,
+        #ddeeff 100%
+    ) !important;
+}
+
+.success-stories-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.success-stories-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.success-stories-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #112d4e;
+    margin-bottom: 1rem;
+}
+
+.success-stories-header p {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.stories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .stories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+.story-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.story-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.story-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 3px solid #3f72af;
+}
+
+.story-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.story-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #112d4e;
+    margin: 0;
+}
+
+.story-role {
+    font-size: 0.9rem;
+    color: #3f72af;
+    margin: 0;
+}
+
+.story-quote {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .success-stories-header h2 {
+        font-size: 1.75rem;
+    }
+    .success-stories-header p {
+        font-size: 1rem;
+    }
+    .story-card {
+        padding: 1.5rem;
+    }
+    .story-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    .story-name {
+        font-size: 1.1rem;
+    }
+    .story-role {
+        font-size: 0.8rem;
+    }
+    .story-quote {
+        font-size: 0.9rem;
+    }
+}

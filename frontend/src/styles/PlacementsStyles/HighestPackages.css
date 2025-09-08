@@ -1,0 +1,129 @@
+.highest-packages-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #e2f0ff 0%, #ddeeff 50%, #f8fafc 100%);
+}
+
+.highest-packages-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.highest-packages-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.highest-packages-header h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112d4e;
+    margin-bottom: 1rem;
+}
+
+.highest-packages-header p {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.package-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.package-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.package-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+}
+
+.student-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem auto;
+    border: 4px solid transparent;
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(135deg, #3f72af, #112d4e);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.student-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #112d4e;
+    margin-bottom: 0.25rem;
+}
+
+.student-department {
+    font-size: 1rem;
+    color: #3f72af;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.package-details {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.package-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112d4e;
+    display: block;
+    line-height: 1;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.package-year {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .highest-packages-header h2 {
+        font-size: 1.75rem;
+    }
+    .highest-packages-header p {
+        font-size: 1rem;
+    }
+    .package-card {
+        padding: 1.5rem;
+    }
+    .student-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    .student-name {
+        font-size: 1.3rem;
+    }
+    .package-value {
+        font-size: 2rem;
+    }
+}

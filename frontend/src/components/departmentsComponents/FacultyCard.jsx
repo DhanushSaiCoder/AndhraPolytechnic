@@ -53,42 +53,44 @@ export default function FacultyCard({
         <img src={imageUrl} alt={`Photo of ${name}`} className="faculty-card__image" />
       </div>
 
-      <div className="faculty-card__content">
-        <div className="faculty-card__header">
-          <h3 className="faculty-card__name">{name}</h3>
-          <p className="faculty-card__designation">{designation}</p>
-        </div>
-
-        <p className="faculty-card__specialization">{specialization}</p>
-
-        <div className="faculty-card__footer">
-          <div className="faculty-card__socials">
-            {socials.map((s, idx) => (
-              <a
-                key={idx}
-                className="faculty-card__social"
-                href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${name} on ${s.type}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span className="visually-hidden">{s.type}</span>
-                {socialIcon(s.type)}
-              </a>
-            ))}
+      <div className="faculty-card__content-wrapper">
+        <div className="faculty-card__content">
+          <div className="faculty-card__header">
+            <h3 className="faculty-card__name">{name}</h3>
+            <p className="faculty-card__designation">{designation}</p>
           </div>
 
-          <button
-            type="button"
-            className="faculty-card__cta"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (onClick) onClick(e);
-            }}
-          >
-            View Profile
-          </button>
+          <p className="faculty-card__specialization">{specialization}</p>
+
+          <div className="faculty-card__footer">
+            <div className="faculty-card__socials">
+              {socials.map((s, idx) => (
+                <a
+                  key={idx}
+                  className="faculty-card__social"
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${name} on ${s.type}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className="visually-hidden">{s.type}</span>
+                  {socialIcon(s.type)}
+                </a>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="faculty-card__cta"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onClick) onClick(e);
+              }}
+            >
+              View Profile
+            </button>
+          </div>
         </div>
       </div>
     </article>

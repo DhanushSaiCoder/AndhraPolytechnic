@@ -1,0 +1,39 @@
+/* Placements.css */
+
+.placements-page {
+    background-color: #F9F7F7;
+}
+
+.placements-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.placements-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.placements-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.placements-subtitle {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .placements-title {
+        font-size: 1.75rem;
+    }
+    .placements-subtitle {
+        font-size: 1rem;
+    }
+}

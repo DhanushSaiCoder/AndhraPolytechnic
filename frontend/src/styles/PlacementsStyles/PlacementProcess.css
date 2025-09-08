@@ -1,0 +1,124 @@
+.placement-process-section {
+    padding: 4rem 0;
+    background-color: #3f72af; /* blue-900 */
+    color: #f9f7f7;
+}
+
+.placement-process-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.placement-process-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.placement-process-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.placement-process-header p {
+    font-size: 1.125rem;
+    color: #f9f7f790;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .process-steps {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+.process-step-card {
+    background-color: #dbe2ef20; /* blue-800 */
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.process-step-card:hover {
+    background-color: #dbe2ef30; /* blue-700 */
+}
+
+.step-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3f72af;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    background-color: #dbe2ef;
+    z-index: 1;
+    width: 80px;
+    height: 80px;
+}
+
+.step-number::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border: 2px solid #3f72af;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.process-step-card:hover .step-number::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.step-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.step-description {
+    font-size: 1rem;
+        color: #F9F7F790; /* blue-200 */
+
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .placement-process-header h2 {
+        font-size: 1.75rem;
+    }
+    .placement-process-header p {
+        font-size: 1rem;
+    }
+    .process-step-card {
+        padding: 1.5rem;
+    }
+    .step-number {
+        font-size: 2rem;
+    }
+    .step-title {
+        font-size: 1.25rem;
+    }
+    .step-description {
+        font-size: 0.9rem;
+    }
+}
