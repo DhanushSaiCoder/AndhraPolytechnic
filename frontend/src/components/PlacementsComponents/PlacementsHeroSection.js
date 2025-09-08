@@ -1,23 +1,17 @@
 import React from 'react';
 import '../../styles/PlacementsStyles/PlacementsHeroSection.css';
 import { Briefcase } from 'lucide-react';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, BarChart } from '@mui/x-charts';
 
-const studentsData = [
-  { year: '2020', students: 800 },
-  { year: '2021', students: 950 },
-  { year: '2022', students: 1100 },
-  { year: '2023', students: 1250 },
-  { year: '2024', students: 1400 },
-];
+const studentsData = {
+    years: ['2020', '2021', '2022', '2023', '2024'],
+    students: [800, 950, 1100, 1250, 1400],
+};
 
-const packageData = [
-  { year: '2020', avgPackage: 4.5 },
-  { year: '2021', avgPackage: 5.2 },
-  { year: '2022', avgPackage: 6.0 },
-  { year: '2023', avgPackage: 6.8 },
-  { year: '2024', avgPackage: 7.5 },
-];
+const packageData = {
+    years: ['2020', '2021', '2022', '2023', '2024'],
+    avgPackage: [4.5, 5.2, 6.0, 6.8, 7.5],
+};
 
 const PlacementsHeroSection = () => {
     return (
@@ -33,37 +27,67 @@ const PlacementsHeroSection = () => {
                 Connecting talent with industry leaders for a successful career journey.
             </p>
 
-            <div className="charts-grid">
-                <div className="chart-card">
-                    <h3>Students Placed Over Years</h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <LineChart data={studentsData} margin={{
-                            top: 5, right: 30, left: 20, bottom: 5,
-                        }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="year" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="students" stroke="#3F72AF" activeDot={{ r: 8 }} />
-                        </LineChart>
-                    </ResponsiveContainer>
+            <div className="charts-container">
+                <div className="chart-wrapper">
+                    <LineChart
+                        xAxis={[{ scaleType: 'band', data: studentsData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        yAxis={[{ tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        series={[
+                            {
+                                data: studentsData.students,
+                                label: 'Students Placed',
+                                area: true,
+                                color: '#3F72AF',
+                            },
+                        ]}
+                        height={300}
+                        margin={{ top: 70, bottom: 30, left: 40, right: 20 }}
+                        grid={{ horizontal: true }}
+                        slotProps={{
+                            legend: { hidden: true },
+                        }}
+                    >
+                        <defs>
+                            <linearGradient id="students-gradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#3F72AF" stopOpacity={0.4} />
+                                <stop offset="95%" stopColor="#3F72AF" stopOpacity={0} />
+                            </linearGradient>
+                        </defs>
+                        <g>
+                            <text x="50%" y="40" textAnchor="middle" dominantBaseline="middle" className="chart-title">
+                                Students Placed Over Years
+                            </text>
+                        </g>
+                    </LineChart>
                 </div>
 
-                <div className="chart-card">
-                    <h3>Average Package Over Years</h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={packageData} margin={{
-                            top: 5, right: 30, left: 20, bottom: 5,
-                        }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="year" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="avgPackage" fill="#112D4E" />
-                        </BarChart>
-                    </ResponsiveContainer>
+                <div className="chart-wrapper">
+                    <BarChart
+                        xAxis={[{ scaleType: 'band', data: packageData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        yAxis={[{ tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        series={[
+                            {
+                                data: packageData.avgPackage,
+                                label: 'Average Package (LPA)',
+                                color: '#112D4E',
+                            },
+                        ]}
+                        height={300}
+                        margin={{ top: 70, bottom: 30, left: 40, right: 20 }}
+                        grid={{ horizontal: true }}
+                        slotProps={{
+                            legend: { hidden: true },
+                            bar: {
+                                rx: 4, // Border radius for bars
+                            },
+                        }}
+                    >
+                        <g>
+                            <text x="50%" y="40" textAnchor="middle" dominantBaseline="middle" className="chart-title">
+                                Average Package Over Years
+                            </text>
+                        </g>
+                    </BarChart>
                 </div>
             </div>
         </header>

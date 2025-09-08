@@ -3,7 +3,7 @@
 .placements-hero-section {
     padding: 4rem 1rem;
     background: linear-gradient(135deg, #f8fafc 0%, #e2f0ff 50%, #ddeeff 100%);
-    min-height: 300px; /* Keep as is, or change to calc(100vh - 120px) if desired */
+    min-height: 300px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -76,80 +76,58 @@
 }
 
 /* Chart styles */
-.charts-grid {
+.charts-container {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-top: 3rem; /* Add some space from the text above */
+    margin-top: 4rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 768px) {
-    .charts-grid {
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    .charts-container {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
     }
 }
 
-.chart-card {
-    background-color: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.chart-wrapper {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.chart-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+.chart-wrapper:hover {
+    transform: translateY(-8px);
 }
 
-.chart-card h3 {
+.chart-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #112D4E;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-/* Recharts specific styling */
-.recharts-wrapper {
+    fill: #112D4E;
     font-family: "Poppins", sans-serif;
 }
 
-.recharts-tooltip-wrapper {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid #DBE2EF !important;
-    border-radius: 0.5rem !important;
-    padding: 0.5rem !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* MUI chart overrides */
+.MuiLineElement-root {
+    stroke-width: 3;
 }
 
-.recharts-tooltip-label {
-    font-weight: 600;
-    color: #112D4E;
+.MuiAreaElement-root {
+    fill: url(#students-gradient);
 }
 
-.recharts-tooltip-item {
-    color: #3F72AF !important;
+.MuiChartsAxis-line {
+    stroke: #dbe2ef;
 }
 
-.recharts-legend-item {
-    color: #4b5563 !important;
-}
-
-.recharts-cartesian-axis-tick-value {
-    font-size: 0.85rem;
-    fill: #4b5563;
-}
-
-.recharts-label {
-    fill: #112D4E;
-}
-
-@media (max-width: 768px) {
-    .chart-card {
-        padding: 1rem;
-    }
-    .chart-card h3 {
-        font-size: 1.1rem;
-    }
+.MuiChartsGrid-line {
+    stroke: #dbe2ef;
+    stroke-dasharray: 4 4;
 }
