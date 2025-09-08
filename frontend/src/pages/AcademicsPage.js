@@ -8,7 +8,6 @@ import AdmissionsInfo from '../components/AcademicsComponents/AdmissionsInfo';
 const AcademicsPage = () => {
   return (
     <div className='AcademicsPage'>
-      <h1>Academics</h1>
       <AcademicAchievements />
       <AdmissionsInfo />
     </div>

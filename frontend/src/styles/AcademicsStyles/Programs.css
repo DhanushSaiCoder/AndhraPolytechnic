@@ -1,0 +1,125 @@
+.programs-offered-section {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #e2f0ff 0%, #f8fafc 100%); /* Light gradient background */
+}
+
+.programs-offered-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.programs-offered-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.programs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f72af20;
+    margin-bottom: 1.5rem;
+}
+
+.programs-badge .badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #3f72af;
+}
+
+.programs-badge .badge-text {
+    color: #3f72af;
+    font-weight: 500;
+}
+
+.programs-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #112D4E;
+    margin-bottom: 1rem;
+}
+
+.programs-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.program-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f3f4f6;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #bfdbfe;
+}
+
+.program-icon-wrapper {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.program-card:hover .program-icon-wrapper {
+    transform: scale(1.1);
+}
+
+.program-icon {
+    width: 2rem;
+    height: 2rem;
+    color: white;
+}
+
+.program-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #112D4E;
+    margin-bottom: 0.5rem;
+}
+
+.program-card-description {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .programs-title {
+        font-size: 1.75rem;
+    }
+    .programs-description {
+        font-size: 1rem;
+    }
+    .programs-grid {
+        grid-template-columns: 1fr;
+    }
+}
