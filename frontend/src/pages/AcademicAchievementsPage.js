@@ -4,20 +4,26 @@ import achievementsData from '../data/academicAcheivements.json';
 import '../styles/AcademicsStyles/AcademicAchievementsPage.css';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 
-const AchievementItem = ({ achievement }) => (
-  <div className="achievements-page-item">
-    <div className="achievements-page-item-header">
-        <Award className="achievements-page-item-icon" />
-        <h3 className="achievements-page-item-title">{achievement.title}</h3>
-    </div>
-    <p className="achievements-page-item-description">{achievement.description}</p>
-    {achievement.images && achievement.images.length > 0 && (
-      <div className="achievements-page-image-slider">
-        <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: img, title: '', subtitle: '' }))} />
+const AchievementItem = ({ achievement }) => {
+  const hasImages = achievement.images && achievement.images.length > 0;
+
+  return (
+    <div className={`achievements-page-item ${hasImages ? 'has-slider' : ''}`}>
+      <div className="achievement-item-content">
+        <div className="achievements-page-item-header">
+            <Award className="achievements-page-item-icon" />
+            <h3 className="achievements-page-item-title">{achievement.title}</h3>
+        </div>
+        <p className="achievements-page-item-description">{achievement.description}</p>
       </div>
-    )}
-  </div>
-);
+      {hasImages && (
+        <div className="achievements-page-image-slider">
+          <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: img, title: '', subtitle: '' }))} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const AcademicAchievementsPage = () => {
   return (
