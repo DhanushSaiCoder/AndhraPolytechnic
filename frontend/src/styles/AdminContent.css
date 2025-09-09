@@ -272,3 +272,111 @@
 .admin-list-actions .delete-btn:hover {
   background-color: #dc2626;
 }
+
+/* Styles for dynamic forms in DepartmentsPageContentEditor */
+
+.form-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.form-section h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--navy-color);
+  margin-bottom: 1rem;
+}
+
+.form-section h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.form-section h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.dynamic-list-item,
+.dynamic-object-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  background-color: var(--bg-color);
+}
+
+.dynamic-object-item.bordered-section {
+    border: 2px solid var(--primary-color-light);
+    padding: 1.5rem;
+}
+
+/* Unified input styles for dynamic forms */
+.dynamic-list-item input,
+.dynamic-object-item input,
+.dynamic-object-item textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex: 1 1 200px; /* Grow and shrink */
+}
+
+.dynamic-list-item input:focus,
+.dynamic-object-item input:focus,
+.dynamic-object-item textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(63, 114, 175, 0.2);
+}
+
+.dynamic-object-item textarea {
+    min-height: 80px;
+}
+
+.add-btn,
+.remove-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-size: 0.9rem;
+  height: fit-content;
+  align-self: center;
+}
+
+.add-btn {
+  background-color: var(--primary-color-light);
+  color: var(--navy-color);
+  border: 1px solid var(--primary-color);
+  margin-top: 0.5rem;
+}
+
+.add-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.remove-btn {
+  background-color: var(--danger-color-light);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+}
+
+.remove-btn:hover {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}

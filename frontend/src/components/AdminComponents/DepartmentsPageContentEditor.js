@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import departmentService from '../../services/departmentService';
+// It's recommended to add styles for the new classes in a relevant CSS file like AdminContent.css
+// .dynamic-list-item, .dynamic-object-item, .add-btn, .remove-btn { ... }
+
+const initialDepartmentState = {
+  _id: '',
+  name: '',
+  shortName: '',
+  description: '',
+  image: '',
+  vision: '',
+  mission: '',
+  achievements: [],
+  activities: [],
+  courses: [],
+  faculty: [],
+  labs: [],
+  events: [],
+  totalSeats: '',
+  highestPackageInfo: { packageCTC: '', companyName: '' },
+  averagePackage: '',
+};
 
 const DepartmentsPageContentEditor = () => {
   const [departments, setDepartments] = useState([]);
-  const [currentDepartment, setCurrentDepartment] = useState({
-    _id: '',
-    name: '',
-    shortName: '',
-    description: '',
-    image: '',
-    vision: '',
-    mission: '',
-    achievements: '',
-    activities: '',
-    courses: '',
-    faculty: '',
-    labs: '',
-    events: '',
-    totalSeats: '',
-    highestPackageInfo: { packageCTC: '', companyName: '' },
-    averagePackage: '',
-  });
+  const [currentDepartment, setCurrentDepartment] = useState({ ...initialDepartmentState });
   const [editingId, setEditingId] = useState(null);
 
   const fetchDepartments = async () => {
@@ -56,43 +60,79 @@ const DepartmentsPageContentEditor = () => {
     }));
   };
 
-  const handleArrayChange = (e, field) => {
-    const { value } = e.target;
-    setCurrentDepartment(prevState => ({
-      ...prevState,
-      [field]: value.split(',').map(item => item.trim())
-    }));
+  const handleListChange = (field, index, value) => {
+    const updatedList = [...currentDepartment[field]];
+    updatedList[index] = value;
+    setCurrentDepartment(prevState => ({ ...prevState, [field]: updatedList }));
   };
 
-  const handleAddDepartment = async () => {
+  const handleObjectListChange = (field, index, subField, value) => {
+    const updatedList = [...currentDepartment[field]];
+    updatedList[index] = { ...updatedList[index], [subField]: value };
+    setCurrentDepartment(prevState => ({ ...prevState, [field]: updatedList }));
+  };
+  
+  const handleSocialsChange = (facultyIndex, socialIndex, subField, value) => {
+    const updatedFaculty = [...currentDepartment.faculty];
+    const updatedSocials = [...updatedFaculty[facultyIndex].socials];
+    updatedSocials[socialIndex] = { ...updatedSocials[socialIndex], [subField]: value };
+    updatedFaculty[facultyIndex] = { ...updatedFaculty[facultyIndex], socials: updatedSocials };
+    setCurrentDepartment(prevState => ({ ...prevState, faculty: updatedFaculty }));
+  };
+
+  const handleAddItem = (field) => {
+    let newItem;
+    switch (field) {
+      case 'achievements':
+      case 'activities':
+        newItem = '';
+        break;
+      case 'courses':
+        newItem = { code: '', title: '' };
+        break;
+      case 'faculty':
+        newItem = { name: '', designation: '', specialization: '', imageUrl: '', socials: [] };
+        break;
+      case 'labs':
+        newItem = { name: '', description: '', imageUrl: '' };
+        break;
+      case 'events':
+        newItem = { title: '', date: '', location: '', description: '' };
+        break;
+      default:
+        return;
+    }
+    setCurrentDepartment(prevState => ({ ...prevState, [field]: [...prevState[field], newItem] }));
+  };
+
+  const handleAddSocial = (facultyIndex) => {
+    const updatedFaculty = [...currentDepartment.faculty];
+    if (!updatedFaculty[facultyIndex].socials) {
+        updatedFaculty[facultyIndex].socials = [];
+    }
+    updatedFaculty[facultyIndex].socials.push({ type: '', url: '' });
+    setCurrentDepartment(prevState => ({ ...prevState, faculty: updatedFaculty }));
+  };
+
+  const handleRemoveItem = (field, index) => {
+    const updatedList = currentDepartment[field].filter((_, i) => i !== index);
+    setCurrentDepartment(prevState => ({ ...prevState, [field]: updatedList }));
+  };
+
+  const handleRemoveSocial = (facultyIndex, socialIndex) => {
+    const updatedFaculty = [...currentDepartment.faculty];
+    updatedFaculty[facultyIndex].socials = updatedFaculty[facultyIndex].socials.filter((_, i) => i !== socialIndex);
+    setCurrentDepartment(prevState => ({ ...prevState, faculty: updatedFaculty }));
+  };
+
+  const handleSaveDepartment = async () => {
     if (currentDepartment.name.trim() === '' || currentDepartment.shortName.trim() === '') return;
     try {
       const departmentData = {
         ...currentDepartment,
-        achievements: currentDepartment.achievements.split(',').map(item => item.trim()),
-        activities: currentDepartment.activities.split(',').map(item => item.trim()),
-        courses: currentDepartment.courses.split(';').map(course => {
-          const [code, title] = course.split(':').map(s => s.trim());
-          return { code, title };
-        }),
-        faculty: currentDepartment.faculty.split(';').map(f => {
-          const [name, designation, specialization, imageUrl, socialsStr] = f.split('|').map(s => s.trim());
-          const socials = socialsStr ? socialsStr.split(',').map(s => {
-            const [type, url] = s.split('^').map(x => x.trim());
-            return { type, url };
-          }) : [];
-          return { name, designation, specialization, imageUrl, socials };
-        }),
-        labs: currentDepartment.labs.split(';').map(l => {
-          const [name, description, imageUrl] = l.split('|').map(s => s.trim());
-          return { name, description, imageUrl };
-        }),
-        events: currentDepartment.events.split(';').map(e => {
-          const [title, date, location, description] = e.split('|').map(s => s.trim());
-          return { title, date: new Date(date), location, description };
-        }),
         totalSeats: Number(currentDepartment.totalSeats),
-        averagePackage: currentDepartment.averagePackage,
+        achievements: currentDepartment.achievements.filter(item => item.trim() !== ''),
+        activities: currentDepartment.activities.filter(item => item.trim() !== ''),
       };
 
       if (editingId) {
@@ -102,25 +142,8 @@ const DepartmentsPageContentEditor = () => {
         await departmentService.createDepartment(departmentData);
         alert('Department added successfully!');
       }
-      fetchDepartments(); // Re-fetch departments
-      setCurrentDepartment({
-        _id: '',
-        name: '',
-        shortName: '',
-        description: '',
-        image: '',
-        vision: '',
-        mission: '',
-        achievements: '',
-        activities: '',
-        courses: '',
-        faculty: '',
-        labs: '',
-        events: '',
-        totalSeats: '',
-        highestPackageInfo: { packageCTC: '', companyName: '' },
-        averagePackage: '',
-      });
+      fetchDepartments();
+      setCurrentDepartment({ ...initialDepartmentState });
       setEditingId(null);
     } catch (error) {
       console.error('Error saving department:', error);
@@ -129,18 +152,20 @@ const DepartmentsPageContentEditor = () => {
   };
 
   const handleEdit = (dept) => {
-    setCurrentDepartment({
+    const departmentToEdit = {
+      ...initialDepartmentState,
       ...dept,
-      achievements: dept.achievements.join(', '),
-      activities: dept.activities.join(', '),
-      courses: dept.courses.map(c => `${c.code}: ${c.title}`).join('; '),
-      faculty: dept.faculty.map(f => `${f.name}|${f.designation}|${f.specialization}|${f.imageUrl}|${f.socials.map(s => `${s.type}^${s.url}`).join(',')}`).join('; '),
-      labs: dept.labs.map(l => `${l.name}|${l.description}|${l.imageUrl}`).join('; '),
-      events: dept.events.map(e => `${e.title}|${new Date(e.date).toISOString().split('T')[0]}|${e.location}|${e.description}`).join('; '),
-      totalSeats: String(dept.totalSeats),
-      averagePackage: dept.averagePackage,
-    });
+      events: dept.events ? dept.events.map(e => ({ ...e, date: e.date ? new Date(e.date).toISOString().split('T')[0] : '' })) : [],
+      highestPackageInfo: dept.highestPackageInfo || { packageCTC: '', companyName: '' },
+      achievements: dept.achievements || [],
+      activities: dept.activities || [],
+      courses: dept.courses || [],
+      faculty: dept.faculty ? dept.faculty.map(f => ({ ...f, socials: f.socials || [] })) : [],
+      labs: dept.labs || [],
+    };
+    setCurrentDepartment(departmentToEdit);
     setEditingId(dept._id);
+    window.scrollTo(0, 0); // Scroll to top to see the form
   };
 
   const handleDelete = async (id) => {
@@ -156,88 +181,144 @@ const DepartmentsPageContentEditor = () => {
     }
   };
 
+  const renderListEditor = (field, placeholder) => (
+    <div className="form-section">
+      <h4>{field.charAt(0).toUpperCase() + field.slice(1)}</h4>
+      {currentDepartment[field].map((item, index) => (
+        <div key={index} className="dynamic-list-item">
+          <input
+            type="text"
+            value={item}
+            onChange={(e) => handleListChange(field, index, e.target.value)}
+            placeholder={placeholder}
+          />
+          <button type="button" onClick={() => handleRemoveItem(field, index)} className="remove-btn">Remove</button>
+        </div>
+      ))}
+      <button type="button" onClick={() => handleAddItem(field)} className="add-btn">Add {placeholder}</button>
+    </div>
+  );
+
   return (
     <div className="departments-content-editor">
       <h2>Departments Content Management</h2>
 
       <section className="admin-section">
-        <h3>Add/Edit Department</h3>
+        <h3>{editingId ? 'Edit Department' : 'Add Department'}</h3>
         <div className="form-group">
-          <label htmlFor="name">Department Name</label>
-          <input type="text" id="name" name="name" value={currentDepartment.name} onChange={handleChange} />
+          <label>Department Name</label>
+          <input type="text" name="name" value={currentDepartment.name} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="shortName">Short Name (e.g., CSE, ECE)</label>
-          <input type="text" id="shortName" name="shortName" value={currentDepartment.shortName} onChange={handleChange} />
+          <label>Short Name (e.g., CSE, ECE)</label>
+          <input type="text" name="shortName" value={currentDepartment.shortName} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" value={currentDepartment.description} onChange={handleChange}></textarea>
+          <label>Description</label>
+          <textarea name="description" value={currentDepartment.description} onChange={handleChange}></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="image">Image URL</label>
-          <input type="text" id="image" name="image" value={currentDepartment.image} onChange={handleChange} />
+          <label>Image URL</label>
+          <input type="text" name="image" value={currentDepartment.image} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="vision">Vision</label>
-          <textarea id="vision" name="vision" value={currentDepartment.vision} onChange={handleChange}></textarea>
+          <label>Vision</label>
+          <textarea name="vision" value={currentDepartment.vision} onChange={handleChange}></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="mission">Mission</label>
-          <textarea id="mission" name="mission" value={currentDepartment.mission} onChange={handleChange}></textarea>
-        </div>
-
-        <h4>Achievements (comma-separated)</h4>
-        <div className="form-group">
-          <textarea id="achievements" name="achievements" value={currentDepartment.achievements} onChange={(e) => handleArrayChange(e, 'achievements')}></textarea>
+          <label>Mission</label>
+          <textarea name="mission" value={currentDepartment.mission} onChange={handleChange}></textarea>
         </div>
 
-        <h4>Activities (comma-separated)</h4>
-        <div className="form-group">
-          <textarea id="activities" name="activities" value={currentDepartment.activities} onChange={(e) => handleArrayChange(e, 'activities')}></textarea>
+        {renderListEditor('achievements', 'Achievement')}
+        {renderListEditor('activities', 'Activity')}
+
+        <div className="form-section">
+          <h4>Courses</h4>
+          {currentDepartment.courses.map((course, index) => (
+            <div key={index} className="dynamic-object-item">
+              <input type="text" value={course.code} onChange={(e) => handleObjectListChange('courses', index, 'code', e.target.value)} placeholder="Course Code" />
+              <input type="text" value={course.title} onChange={(e) => handleObjectListChange('courses', index, 'title', e.target.value)} placeholder="Course Title" />
+              <button type="button" onClick={() => handleRemoveItem('courses', index)} className="remove-btn">Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => handleAddItem('courses')} className="add-btn">Add Course</button>
         </div>
 
-        <h4>Courses (semicolon-separated: code: title)</h4>
-        <div className="form-group">
-          <textarea id="courses" name="courses" value={currentDepartment.courses} onChange={(e) => handleArrayChange(e, 'courses')}></textarea>
+        <div className="form-section">
+          <h4>Faculty</h4>
+          {currentDepartment.faculty.map((member, index) => (
+            <div key={index} className="dynamic-object-item bordered-section">
+              <h5>Faculty Member #{index + 1}</h5>
+              <input type="text" value={member.name} onChange={(e) => handleObjectListChange('faculty', index, 'name', e.target.value)} placeholder="Name" />
+              <input type="text" value={member.designation} onChange={(e) => handleObjectListChange('faculty', index, 'designation', e.target.value)} placeholder="Designation" />
+              <input type="text" value={member.specialization} onChange={(e) => handleObjectListChange('faculty', index, 'specialization', e.target.value)} placeholder="Specialization" />
+              <input type="text" value={member.imageUrl} onChange={(e) => handleObjectListChange('faculty', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+              
+              <h6>Socials</h6>
+              {member.socials && member.socials.map((social, socialIndex) => (
+                <div key={socialIndex} className="dynamic-list-item">
+                  <input type="text" value={social.type} onChange={(e) => handleSocialsChange(index, socialIndex, 'type', e.target.value)} placeholder="Type (e.g., LinkedIn)" />
+                  <input type="text" value={social.url} onChange={(e) => handleSocialsChange(index, socialIndex, 'url', e.target.value)} placeholder="URL" />
+                  <button type="button" onClick={() => handleRemoveSocial(index, socialIndex)} className="remove-btn">Remove</button>
+                </div>
+              ))}
+              <button type="button" onClick={() => handleAddSocial(index)} className="add-btn">Add Social</button>
+              
+              <button type="button" onClick={() => handleRemoveItem('faculty', index)} className="remove-btn" style={{marginTop: '10px'}}>Remove Faculty Member</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => handleAddItem('faculty')} className="add-btn">Add Faculty Member</button>
         </div>
 
-        <h4>Faculty (semicolon-separated: name|designation|specialization|imageUrl|socials(type^url,type^url))</h4>
-        <div className="form-group">
-          <textarea id="faculty" name="faculty" value={currentDepartment.faculty} onChange={(e) => handleArrayChange(e, 'faculty')}></textarea>
+        <div className="form-section">
+          <h4>Labs</h4>
+          {currentDepartment.labs.map((lab, index) => (
+            <div key={index} className="dynamic-object-item">
+              <input type="text" value={lab.name} onChange={(e) => handleObjectListChange('labs', index, 'name', e.target.value)} placeholder="Lab Name" />
+              <textarea value={lab.description} onChange={(e) => handleObjectListChange('labs', index, 'description', e.target.value)} placeholder="Lab Description"></textarea>
+              <input type="text" value={lab.imageUrl} onChange={(e) => handleObjectListChange('labs', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+              <button type="button" onClick={() => handleRemoveItem('labs', index)} className="remove-btn">Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => handleAddItem('labs')} className="add-btn">Add Lab</button>
         </div>
 
-        <h4>Labs (semicolon-separated: name|description|imageUrl)</h4>
-        <div className="form-group">
-          <textarea id="labs" name="labs" value={currentDepartment.labs} onChange={(e) => handleArrayChange(e, 'labs')}></textarea>
-        </div>
-
-        <h4>Events (semicolon-separated: title|date(YYYY-MM-DD)|location|description)</h4>
-        <div className="form-group">
-          <textarea id="events" name="events" value={currentDepartment.events} onChange={(e) => handleArrayChange(e, 'events')}></textarea>
+        <div className="form-section">
+          <h4>Events</h4>
+          {currentDepartment.events.map((event, index) => (
+            <div key={index} className="dynamic-object-item">
+              <input type="text" value={event.title} onChange={(e) => handleObjectListChange('events', index, 'title', e.target.value)} placeholder="Event Title" />
+              <input type="date" value={event.date} onChange={(e) => handleObjectListChange('events', index, 'date', e.target.value)} />
+              <input type="text" value={event.location} onChange={(e) => handleObjectListChange('events', index, 'location', e.target.value)} placeholder="Location" />
+              <textarea value={event.description} onChange={(e) => handleObjectListChange('events', index, 'description', e.target.value)} placeholder="Event Description"></textarea>
+              <button type="button" onClick={() => handleRemoveItem('events', index)} className="remove-btn">Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => handleAddItem('events')} className="add-btn">Add Event</button>
         </div>
 
         <h4>Statistics</h4>
         <div className="form-group">
-          <label htmlFor="totalSeats">Total Seats</label>
-          <input type="number" id="totalSeats" name="totalSeats" value={currentDepartment.totalSeats} onChange={handleChange} />
+          <label>Total Seats</label>
+          <input type="number" name="totalSeats" value={currentDepartment.totalSeats} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="highestPackageCTC">Highest Package CTC</label>
-          <input type="text" id="highestPackageCTC" name="packageCTC" value={currentDepartment.highestPackageInfo.packageCTC} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'packageCTC')} />
+          <label>Highest Package CTC</label>
+          <input type="text" name="packageCTC" value={currentDepartment.highestPackageInfo.packageCTC} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'packageCTC')} />
         </div>
         <div className="form-group">
-          <label htmlFor="highestPackageCompany">Highest Package Company</label>
-          <input type="text" id="highestPackageCompany" name="companyName" value={currentDepartment.highestPackageInfo.companyName} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'companyName')} />
+          <label>Highest Package Company</label>
+          <input type="text" name="companyName" value={currentDepartment.highestPackageInfo.companyName} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'companyName')} />
         </div>
         <div className="form-group">
-          <label htmlFor="averagePackage">Average Package</label>
-          <input type="text" id="averagePackage" name="averagePackage" value={currentDepartment.averagePackage} onChange={handleChange} />
+          <label>Average Package</label>
+          <input type="text" name="averagePackage" value={currentDepartment.averagePackage} onChange={handleChange} />
         </div>
 
         <div className="form-actions">
-          <button onClick={handleAddDepartment} className="save-btn">{editingId ? 'Save Changes' : 'Add Department'}</button>
-          {editingId && <button onClick={() => {setEditingId(null); setCurrentDepartment({ _id: '', name: '', shortName: '', description: '', image: '', vision: '', mission: '', achievements: '', activities: '', courses: '', faculty: '', labs: '', events: '', totalSeats: '', highestPackageInfo: { packageCTC: '', companyName: '' }, averagePackage: '', });}} className="cancel-btn">Cancel Edit</button>}
+          <button onClick={handleSaveDepartment} className="save-btn">{editingId ? 'Save Changes' : 'Add Department'}</button>
+          {editingId && <button onClick={() => {setEditingId(null); setCurrentDepartment({ ...initialDepartmentState });}} className="cancel-btn">Cancel Edit</button>}
         </div>
       </section>
 
