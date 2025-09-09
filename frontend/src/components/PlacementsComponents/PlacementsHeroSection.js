@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/PlacementsHeroSection.css';
 import { Briefcase } from 'lucide-react';
 import { LineChart, BarChart } from '@mui/x-charts';
-
-const studentsData = {
-    years: ['2020', '2021', '2022', '2023', '2024'],
-    students: [800, 950, 1100, 1250, 1400],
-};
-
-const packageData = {
-    years: ['2020', '2021', '2022', '2023', '2024'],
-    avgPackage: [4.5, 5.2, 6.0, 6.8, 7.5],
-};
+import placementHeroService from '../../services/placementHeroService';
 
 const PlacementsHeroSection = () => {
+    const [chartData, setChartData] = useState({
+        years: [],
+        students: [],
+        avgPackage: [],
+    });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchHeroData = async () => {
+            try {
+                setLoading(true);
+                const response = await placementHeroService.getPlacementHeroData();
+                if (response.data && response.data.years) {
+                    setChartData(response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching placement hero data:', error);
+                // You could set an error state here to display a message in the UI
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchHeroData();
+    }, []);
+
     return (
         <header className="placements-hero-section">
             <div className="placements-badge">
@@ -30,11 +46,11 @@ const PlacementsHeroSection = () => {
             <div className="charts-container">
                 <div className="chart-wrapper">
                     <LineChart
-                        xAxis={[{ scaleType: 'band', data: studentsData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        xAxis={[{ scaleType: 'band', data: chartData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
                         yAxis={[{ tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
                         series={[
                             {
-                                data: studentsData.students,
+                                data: chartData.students,
                                 label: 'Students Placed',
                                 area: true,
                                 color: '#3F72AF',
@@ -43,6 +59,7 @@ const PlacementsHeroSection = () => {
                         height={300}
                         margin={{ top: 70, bottom: 30, left: 40, right: 20 }}
                         grid={{ horizontal: true }}
+                        loading={loading}
                         slotProps={{
                             legend: { hidden: true },
                         }}
@@ -63,11 +80,11 @@ const PlacementsHeroSection = () => {
 
                 <div className="chart-wrapper">
                     <BarChart
-                        xAxis={[{ scaleType: 'band', data: packageData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
+                        xAxis={[{ scaleType: 'band', data: chartData.years, tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
                         yAxis={[{ tickLabelStyle: { fill: '#4b5563', fontSize: '0.8rem' } }]}
                         series={[
                             {
-                                data: packageData.avgPackage,
+                                data: chartData.avgPackage,
                                 label: 'Average Package (LPA)',
                                 color: '#3F72AF',
                             },
@@ -75,6 +92,7 @@ const PlacementsHeroSection = () => {
                         height={300}
                         margin={{ top: 70, bottom: 30, left: 40, right: 20 }}
                         grid={{ horizontal: true }}
+                        loading={loading}
                         slotProps={{
                             legend: { hidden: true },
                             bar: {
