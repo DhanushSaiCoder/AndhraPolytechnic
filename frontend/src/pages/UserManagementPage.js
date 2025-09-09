@@ -11,6 +11,9 @@ const UserManagementPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true); // Add loading state
 
+  const loggedInUserEmail = localStorage.getItem('email');
+  const loggedInUserRole = localStorage.getItem('role');
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -133,14 +136,29 @@ const UserManagementPage = () => {
                         <a href={`mailto:${user.email}`} className="user-email">{user.email}</a>
                       </td>
                       <td className="actions-cell">
-                        <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
-                          <FiEdit />
-                          <span>Edit</span>
-                        </button>
-                        <button onClick={() => handleDelete(user._id)} className="action-btn delete-btn">
-                          <FiTrash2 />
-                          <span>Delete</span>
-                        </button>
+                        {user.email === loggedInUserEmail ? (
+                          <>
+                            <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
+                              <FiEdit />
+                              <span>Edit</span>
+                            </button>
+                            <button className="action-btn delete-btn disabled-btn" disabled title="Cannot delete your own account">
+                              <FiTrash2 />
+                              <span>Delete</span>
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button onClick={() => handleEdit(user)} className="action-btn edit-btn">
+                              <FiEdit />
+                              <span>Edit</span>
+                            </button>
+                            <button onClick={() => handleDelete(user._id)} className="action-btn delete-btn">
+                              <FiTrash2 />
+                              <span>Delete</span>
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))

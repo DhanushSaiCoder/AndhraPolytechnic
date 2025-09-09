@@ -306,6 +306,11 @@
   font-style: italic;
 }
 
+.disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .user-management-page {
     padding: 1rem 0.5rem;
