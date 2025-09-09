@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import galleryService from '../../../services/galleryService'; // Import the service
 
 const CollegeGalleryEditor = () => {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState({
-    id: '',
+    _id: '', // Changed to _id
     image: '',
     title: '',
     subtitle: '',
   });
   const [editingId, setEditingId] = useState(null);
 
-  // Simulate fetching data
+  const fetchSlides = async () => {
+    try {
+      const response = await galleryService.getGallerySlides();
+      setSlides(response.data);
+    } catch (error) {
+      console.error('Error fetching gallery slides:', error);
+      alert('Failed to fetch gallery slides.');
+    }
+  };
+
   useEffect(() => {
-    const dummySlides = [
-      { id: 'g1', image: 'https://picsum.photos/1200/600?random=1', title: 'Main Academic Block', subtitle: 'Historic architecture' },
-      { id: 'g2', image: 'https://picsum.photos/1200/600?random=2', title: 'Innovation Laboratory', subtitle: 'State-of-the-art equipment' },
-    ];
-    setSlides(dummySlides);
+    fetchSlides();
   }, []);
 
   const handleChange = (e) => {
@@ -24,27 +30,40 @@ const CollegeGalleryEditor = () => {
     setCurrentSlide(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleAddSlide = () => {
+  const handleAddSlide = async () => {
     if (currentSlide.image.trim() === '' || currentSlide.title.trim() === '') return;
-    const id = editingId || `g${slides.length + 1}`;
-    const updatedList = editingId
-      ? slides.map(slide => (slide.id === editingId ? { ...currentSlide, id } : slide))
-      : [...slides, { ...currentSlide, id }];
-    setSlides(updatedList);
-    setCurrentSlide({ id: '', image: '', title: '', subtitle: '' });
-    setEditingId(null);
-    alert('Slide saved!');
+    try {
+      if (editingId) {
+        await galleryService.updateGallerySlide(editingId, currentSlide);
+        alert('Slide updated successfully!');
+      } else {
+        await galleryService.createGallerySlide(currentSlide);
+        alert('Slide added successfully!');
+      }
+      fetchSlides(); // Re-fetch slides
+      setCurrentSlide({ _id: '', image: '', title: '', subtitle: '' });
+      setEditingId(null);
+    } catch (error) {
+      console.error('Error saving slide:', error);
+      alert('Failed to save slide.');
+    }
   };
 
   const handleEdit = (slide) => {
     setCurrentSlide(slide);
-    setEditingId(slide.id);
+    setEditingId(slide._id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this slide?')) {
-      setSlides(slides.filter(slide => slide.id !== id));
-      alert('Slide deleted!');
+      try {
+        await galleryService.deleteGallerySlide(id);
+        alert('Slide deleted successfully!');
+        fetchSlides();
+      } catch (error) {
+        console.error('Error deleting slide:', error);
+        alert('Failed to delete slide.');
+      }
     }
   };
 
@@ -72,11 +91,11 @@ const CollegeGalleryEditor = () => {
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Gallery Slides</h4>
       <ul className="admin-list">
         {slides.map(slide => (
-          <li key={slide.id} className="admin-list-item">
+          <li key={slide._id} className="admin-list-item">
             <span>{slide.title}</span>
             <div className="admin-list-actions">
               <button onClick={() => handleEdit(slide)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(slide.id)} className="action-btn delete-btn">Delete</button>
+              <button onClick={() => handleDelete(slide._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}

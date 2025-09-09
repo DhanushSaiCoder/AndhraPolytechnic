@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 import './UpdatesMarquee.css';
+import updateService from '../../services/updateService'; // Import the service
 
 const UpdatesMarquee = ({ speed = 120 }) => {
   const [updates, setUpdates] = useState([]);
@@ -17,74 +18,37 @@ const UpdatesMarquee = ({ speed = 120 }) => {
 
   const announceNewUpdate = useCallback((newUpdate) => {
     const announceElement = document.getElementById('updatesAnnounce');
-    if (announceElement && newUpdate && newUpdate.id !== lastAnnouncedUpdateId) {
+    if (announceElement && newUpdate && newUpdate._id !== lastAnnouncedUpdateId) { // Changed newUpdate.id to newUpdate._id
       const title = newUpdate.titleEn;
       announceElement.textContent = `New notice posted: ${title}`;
-      setLastAnnouncedUpdateId(newUpdate.id);
+      setLastAnnouncedUpdateId(newUpdate._id); // Changed newUpdate.id to newUpdate._id
       // Clear content after a short delay to allow screen reader to announce
       setTimeout(() => { announceElement.textContent = ''; }, 1200);
     }
   }, [lastAnnouncedUpdateId]);
 
   const fetchUpdates = useCallback(async () => {
-    const CACHE_KEY = 'updatesMarqueeCache';
-    const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
-
-    const getCachedUpdates = () => {
-      try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < CACHE_TTL) {
-            return data;
-          }
-        }
-      } catch (e) {
-        console.error("Error reading from localStorage:", e);
-      }
-      return null;
-    };
-
-    const setCachedUpdates = (data) => {
-      try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
-      } catch (e) {
-        console.error("Error writing to localStorage:", e);
-      }
-    };
-
     try {
-      // Try endpoint first; falls back to /data/updates.json if needed.
-      const response = await fetch('/data/updates.json');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
+      const response = await updateService.getUpdates();
+      const data = response.data;
 
       // Announce new updates (first new item)
       if (updates.length > 0 && data.length > updates.length) {
-        const newItems = data.filter(newItem => !updates.some(oldItem => oldItem.id === newItem.id));
+        const newItems = data.filter(newItem => !updates.some(oldItem => oldItem._id === newItem._id)); // Changed id to _id
         if (newItems.length > 0) {
           announceNewUpdate(newItems[0]);
         }
       } else if (updates.length === 0 && data.length > 0) {
         // Initial load: mark first as known so we don't announce initial load unnecessarily
-        setLastAnnouncedUpdateId(data[0].id);
+        setLastAnnouncedUpdateId(data[0]._id); // Changed id to _id
       }
 
       setUpdates(data);
-      setCachedUpdates(data);
     } catch (error) {
       console.error("Failed to fetch updates:", error);
-      const cachedData = getCachedUpdates();
-      if (cachedData) {
-        setUpdates(cachedData);
-        console.log("Using cached updates due to fetch error.");
-      } else {
-        setUpdates([]); // Show no updates if fetch fails and no cache
-      }
+      setUpdates([]); // Show no updates if fetch fails
     }
-  }, [updates, announceNewUpdate]);
+  }, [announceNewUpdate]); // Removed 'updates' from dependency array
 
   useEffect(() => {
     // Initial fetch
@@ -288,7 +252,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
       {/* Visually-hidden accessible list for screen readers */}
       <ul className="sr-only" aria-hidden={false}>
         {updates.slice(0, 5).map((update) => (
-          <li key={update.id}>
+          <li key={update._id}>
             {update.titleEn}
           </li>
         ))}
@@ -311,7 +275,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                   className={`marquee-item ${update.severity}`}
                   role="listitem"
                   data-ga="marquee-item-click"
-                  data-id={update.id}
+                  data-id={update._id}
                 >
                   {update.severity !== 'info' && (
                     <span className={`severity-badge ${update.severity}`} aria-hidden="false">
@@ -333,7 +297,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                   Only duplicate visually, not in the DOM for screen readers (aria-hidden). */}
               <div className="marquee-duplicate" aria-hidden="true">
                 {updates.map((update) => (
-                  <span key={`dup-${update.id}`} className={`marquee-item duplicate ${update.severity}`}>
+                  <span key={`dup-${update._id}`} className={`marquee-item duplicate ${update.severity}`}>
                     {update.severity !== 'info' && (
                       <span className={`severity-badge ${update.severity}`} aria-hidden="true">
                         {update.severity === 'urgent' ? 'Urgent' : 'Important'}
@@ -386,13 +350,13 @@ const UpdatesMarquee = ({ speed = 120 }) => {
           <div className="static-updates-list" aria-hidden={false}>
             {updates.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE).map((update) => (
               <a
-                key={update.id}
+                key={update._id}
                 href={update.link}
                 target={update.link.startsWith('/') ? '_self' : '_blank'}
                 rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
                 className={`marquee-item ${update.severity}`}
                 data-ga="marquee-item-click"
-                data-id={update.id}
+                data-id={update._id}
               >
                 {update.severity !== 'info' && (
                   <span className={`severity-badge ${update.severity}`} aria-hidden="true">

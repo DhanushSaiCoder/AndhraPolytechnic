@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import updateService from '../../../services/updateService'; // Import the service
 
 const UpdatesMarqueeEditor = () => {
   const [updates, setUpdates] = useState([]);
@@ -11,15 +12,23 @@ const UpdatesMarqueeEditor = () => {
   });
   const [editingId, setEditingId] = useState(null);
 
-  // In a real app, fetch updates from backend here
+  const fetchUpdates = async () => {
+    try {
+      const response = await updateService.getUpdates();
+      // Format date for input type="date"
+      const formattedUpdates = response.data.map(update => ({
+        ...update,
+        date: update.date ? new Date(update.date).toISOString().split('T')[0] : '',
+      }));
+      setUpdates(formattedUpdates);
+    } catch (error) {
+      console.error('Error fetching updates:', error);
+      alert('Failed to fetch updates.');
+    }
+  };
+
   useEffect(() => {
-    // Simulate fetching data
-    const dummyUpdates = [
-      { id: '1', titleEn: 'New Semester Begins', link: '/news/1', severity: 'info', date: '2023-08-20' },
-      { id: '2', titleEn: 'Library Renovation', link: '/news/2', severity: 'urgent', date: '2023-08-22' },
-      { id: '3', titleEn: 'Guest Lecture on Data Science', link: '/events/3', severity: 'important', date: '2023-08-25' },
-    ];
-    setUpdates(dummyUpdates);
+    fetchUpdates();
   }, []);
 
   const handleChange = (e) => {
@@ -27,35 +36,50 @@ const UpdatesMarqueeEditor = () => {
     setNewUpdate(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleAddUpdate = () => {
+  const handleAddUpdate = async () => {
     if (newUpdate.titleEn.trim() === '') return;
-    const id = editingId || String(updates.length + 1); // Simple ID generation
-    const updatedList = editingId
-      ? updates.map(update => (update.id === editingId ? { ...newUpdate, id } : update))
-      : [...updates, { ...newUpdate, id }];
-    setUpdates(updatedList);
-    setNewUpdate({
-      id: '',
-      titleEn: '',
-      link: '',
-      severity: 'info',
-      date: '',
-    });
-    setEditingId(null);
-    // In a real app, send data to backend
-    alert('Update saved!');
+    try {
+      if (editingId) {
+        await updateService.updateUpdate(editingId, newUpdate);
+        alert('Update updated successfully!');
+      } else {
+        await updateService.createUpdate(newUpdate);
+        alert('Update added successfully!');
+      }
+      fetchUpdates(); // Re-fetch updates to get the latest data from backend
+      setNewUpdate({
+        id: '',
+        titleEn: '',
+        link: '',
+        severity: 'info',
+        date: '',
+      });
+      setEditingId(null);
+    } catch (error) {
+      console.error('Error saving update:', error);
+      alert('Failed to save update.');
+    }
   };
 
   const handleEdit = (update) => {
-    setNewUpdate(update);
-    setEditingId(update.id);
+    // Ensure date is formatted for input type="date"
+    setNewUpdate({
+      ...update,
+      date: update.date ? new Date(update.date).toISOString().split('T')[0] : '',
+    });
+    setEditingId(update._id); // Use _id from MongoDB
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this update?')) {
-      setUpdates(updates.filter(update => update.id !== id));
-      // In a real app, send delete request to backend
-      alert('Update deleted!');
+      try {
+        await updateService.deleteUpdate(id);
+        alert('Update deleted successfully!');
+        fetchUpdates(); // Re-fetch updates
+      } catch (error) {
+        console.error('Error deleting update:', error);
+        alert('Failed to delete update.');
+      }
     }
   };
 
@@ -85,17 +109,17 @@ const UpdatesMarqueeEditor = () => {
       </div>
       <div className="form-actions">
         <button onClick={handleAddUpdate} className="save-btn">{editingId ? 'Save Changes' : 'Add Update'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', link: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}}
+        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', link: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Updates</h4>
       <ul className="admin-list">
         {updates.map(update => (
-          <li key={update.id} className="admin-list-item">
+          <li key={update._id} className="admin-list-item">
             <span>{update.titleEn} ({update.severity}) - {update.date}</span>
             <div className="admin-list-actions">
               <button onClick={() => handleEdit(update)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(update.id)} className="action-btn delete-btn">Delete</button>
+              <button onClick={() => handleDelete(update._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}

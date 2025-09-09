@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import statService from '../../../services/statService'; // Import the service
+import placementStatService from '../../../services/placementStatService';
 
-const CurrentInfoEditor = () => {
+const PlacementStatsEditor = () => {
   const [stats, setStats] = useState([]);
   const [currentStat, setCurrentStat] = useState({
-    _id: '', // Changed to _id
-    icon: '', // e.g., 'Users', 'GraduationCap', 'TrendingUp'
+    _id: '',
+    icon: '', // e.g., 'Users', 'Briefcase', 'DollarSign'
     value: '',
     label: '',
     description: '',
@@ -14,11 +14,11 @@ const CurrentInfoEditor = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await statService.getStats();
+      const response = await placementStatService.getPlacementStats();
       setStats(response.data);
     } catch (error) {
-      console.error('Error fetching stats:', error);
-      alert('Failed to fetch stats.');
+      console.error('Error fetching placement stats:', error);
+      alert('Failed to fetch placement stats.');
     }
   };
 
@@ -35,18 +35,18 @@ const CurrentInfoEditor = () => {
     if (currentStat.value.trim() === '' || currentStat.label.trim() === '') return;
     try {
       if (editingId) {
-        await statService.updateStat(editingId, currentStat);
-        alert('Stat updated successfully!');
+        await placementStatService.updatePlacementStat(editingId, currentStat);
+        alert('Placement Stat updated successfully!');
       } else {
-        await statService.createStat(currentStat);
-        alert('Stat added successfully!');
+        await placementStatService.createPlacementStat(currentStat);
+        alert('Placement Stat added successfully!');
       }
       fetchStats(); // Re-fetch stats
       setCurrentStat({ _id: '', icon: '', value: '', label: '', description: '' });
       setEditingId(null);
     } catch (error) {
-      console.error('Error saving stat:', error);
-      alert('Failed to save stat.');
+      console.error('Error saving placement stat:', error);
+      alert('Failed to save placement stat.');
     }
   };
 
@@ -58,22 +58,22 @@ const CurrentInfoEditor = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this stat?')) {
       try {
-        await statService.deleteStat(id);
-        alert('Stat deleted successfully!');
+        await placementStatService.deletePlacementStat(id);
+        alert('Placement Stat deleted successfully!');
         fetchStats();
       } catch (error) {
-        console.error('Error deleting stat:', error);
-        alert('Failed to delete stat.');
+        console.error('Error deleting placement stat:', error);
+        alert('Failed to delete placement stat.');
       }
     }
   };
 
   return (
     <section className="admin-section">
-      <h3>Current Info (Stats) Content</h3>
+      <h3>Placement Stats Content</h3>
 
       <div className="form-group">
-        <label htmlFor="statIcon">Icon Name (e.g., Users, GraduationCap)</label>
+        <label htmlFor="statIcon">Icon Name (e.g., Users, Briefcase, DollarSign)</label>
         <input type="text" id="statIcon" name="icon" value={currentStat.icon} onChange={handleChange} />
       </div>
       <div className="form-group">
@@ -90,10 +90,10 @@ const CurrentInfoEditor = () => {
       </div>
       <div className="form-actions">
         <button onClick={handleAddStat} className="save-btn">{editingId ? 'Save Changes' : 'Add Stat'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentStat({ id: '', icon: '', value: '', label: '', description: '' });}} className="cancel-btn">Cancel Edit</button>}
+        {editingId && <button onClick={() => {setEditingId(null); setCurrentStat({ _id: '', icon: '', value: '', label: '', description: '' });}} className="cancel-btn">Cancel Edit</button>}
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Stats</h4>
+      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Placement Stats</h4>
       <ul className="admin-list">
         {stats.map(stat => (
           <li key={stat._id} className="admin-list-item">
@@ -109,4 +109,4 @@ const CurrentInfoEditor = () => {
   );
 };
 
-export default CurrentInfoEditor;
+export default PlacementStatsEditor;

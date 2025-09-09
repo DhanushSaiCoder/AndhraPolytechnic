@@ -1,30 +1,33 @@
 
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, GraduationCap, TrendingUp } from 'lucide-react';
 import '../../styles/HomeStyles/CurrentInfo.css';
+import statService from '../../services/statService'; // Import statService
+
+const iconMap = {
+  Users: Users,
+  GraduationCap: GraduationCap,
+  TrendingUp: TrendingUp,
+  // Add other icons as needed
+};
 
 const StatsSection = () => {
-  const stats = [
-    {
-      icon: Users,
-      value: '1200',
-      label: 'Total Students',
-      description: 'Active learners pursuing technical education'
-    },
-    {
-      icon: GraduationCap,
-      value: '50',
-      label: 'Total Faculty',
-      description: 'Experienced educators and industry experts'
-    },
-    {
-      icon: TrendingUp,
-      value: '95%',
-      label: 'Placement Rate',
-      description: 'Successful career placement for graduates'
-    }
-  ];
+  const [stats, setStats] = useState([]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await statService.getStats();
+        setStats(response.data);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        setStats([]); // Set empty array on error
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   return (
     <section className="stats-section">
@@ -35,12 +38,12 @@ const StatsSection = () => {
         </header>
 
         <div className="stats-grid">
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
+          {stats.map((stat) => {
+            const Icon = iconMap[stat.icon]; // Use iconMap to get the component
             return (
-              <div key={idx} className="stat-card">
+              <div key={stat._id} className="stat-card"> {/* Use stat._id for key */}
                 <div className="stat-icon">
-                  <Icon size={32} />
+                  {Icon && <Icon size={32} />} {/* Render Icon if it exists */}
                 </div>
 
                 <div className="stat-value">{stat.value}</div>
