@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { LogIn, Home, BookOpen, Award, Briefcase, Calendar, Building, ClipboardList, Info, Users, ChevronDown } from 'lucide-react';
 import "../styles/Header.css";
 import { links } from '../data/links';
+import departmentService from '../services/departmentService';
 
 const NavigationBar = () => {
   const [open, setOpen] = useState(false); // mobile panel open (hamburger)
@@ -12,6 +13,7 @@ const NavigationBar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null); // desktop hover/focus dropdown
   const [mobileActiveDropdown, setMobileActiveDropdown] = useState(null); // mobile accordion dropdown
   const [isMobile, setIsMobile] = useState(false);
+  const [dynamicDepartmentLinks, setDynamicDepartmentLinks] = useState([]);
 
   // Track breakpoint so behavior can differ between desktop & mobile
   useEffect(() => {
@@ -23,6 +25,25 @@ const NavigationBar = () => {
       return () => mm.removeEventListener('change', apply);
     }
     return undefined;
+  }, []);
+
+  // Fetch departments dynamically
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await departmentService.getDepartments();
+        const formattedLinks = response.data.map(dept => ({
+          to: `/departments/${dept._id}`,
+          label: dept.name,
+        }));
+        setDynamicDepartmentLinks(formattedLinks);
+      } catch (error) {
+        console.error('Error fetching department links for navigation:', error);
+        setDynamicDepartmentLinks([]);
+      }
+    };
+
+    fetchDepartments();
   }, []);
 
   // Close menu / dropdowns on route change
@@ -58,8 +79,16 @@ const NavigationBar = () => {
     'Alumni': Users,
   };
 
+  // Create a mutable copy of links to inject dynamic sub-links
+  const finalLinks = links.map(link => {
+    if (link.label === 'Departments') {
+      return { ...link, subLinks: dynamicDepartmentLinks };
+    }
+    return link;
+  });
+
   // Derive current page name
-  const currentPage = links.find(link => {
+  const currentPage = finalLinks.find(link => {
     if (link.exact) {
       return location.pathname === link.to;
     }
@@ -115,7 +144,7 @@ const NavigationBar = () => {
           className={`navLinks ${open ? 'open' : ''}`}
           aria-hidden={!open && isMobile}
         >
-          {links.map((link, index) => (
+          {finalLinks.map((link, index) => (
             <div
               key={link.to}
               className={`navLinkWrapper ${isDropdownOpen(link.label) ? 'active' : ''}`}
