@@ -209,4 +209,64 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Styles for admin lists */
+.admin-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.admin-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--white-color);
+}
+
+.admin-list-item:last-child {
+  border-bottom: none;
+}
+
+.admin-list-item span {
+  flex-grow: 1;
+  color: var(--text-primary);
+}
+
+.admin-list-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-list-actions .action-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.admin-list-actions .edit-btn {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.admin-list-actions .edit-btn:hover {
+  background-color: var(--navy-color);
+}
+
+.admin-list-actions .delete-btn {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+
+.admin-list-actions .delete-btn:hover {
+  background-color: #dc2626;
 }
