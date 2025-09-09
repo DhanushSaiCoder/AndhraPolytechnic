@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 import './UpdatesMarquee.css';
 
-const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
+const UpdatesMarquee = ({ speed = 120 }) => {
   const [updates, setUpdates] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
@@ -18,13 +18,13 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
   const announceNewUpdate = useCallback((newUpdate) => {
     const announceElement = document.getElementById('updatesAnnounce');
     if (announceElement && newUpdate && newUpdate.id !== lastAnnouncedUpdateId) {
-      const title = lang === 'en' ? newUpdate.titleEn : newUpdate.titleHi;
+      const title = newUpdate.titleEn;
       announceElement.textContent = `New notice posted: ${title}`;
       setLastAnnouncedUpdateId(newUpdate.id);
       // Clear content after a short delay to allow screen reader to announce
       setTimeout(() => { announceElement.textContent = ''; }, 1200);
     }
-  }, [lang, lastAnnouncedUpdateId]);
+  }, [lastAnnouncedUpdateId]);
 
   const fetchUpdates = useCallback(async () => {
     const CACHE_KEY = 'updatesMarqueeCache';
@@ -288,8 +288,8 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
       {/* Visually-hidden accessible list for screen readers */}
       <ul className="sr-only" aria-hidden={false}>
         {updates.slice(0, 5).map((update) => (
-          <li key={update.id} lang={lang}>
-            {lang === 'en' ? update.titleEn : update.titleHi}
+          <li key={update.id}>
+            {update.titleEn}
           </li>
         ))}
       </ul>
@@ -319,7 +319,7 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
                     </span>
                   )}
                   <span className="item-title">
-                    {lang === 'en' ? update.titleEn : update.titleHi}
+                    {update.titleEn}
                   </span>
                   {update.date && (
                     <span className="item-date" aria-hidden="true">
@@ -340,7 +340,7 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
                       </span>
                     )}
                     <span className="item-title">
-                      {lang === 'en' ? update.titleEn : update.titleHi}
+                      {update.titleEn}
                     </span>
                     {update.date && (
                       <span className="item-date" aria-hidden="true">
@@ -400,7 +400,7 @@ const UpdatesMarquee = ({ speed = 120, lang = 'en' }) => {
                   </span>
                 )}
                 <span className="item-title">
-                  {lang === 'en' ? update.titleEn : update.titleHi}
+                  {update.titleEn}
                 </span>
                 {update.date && (
                   <span className="item-date" aria-hidden="true">

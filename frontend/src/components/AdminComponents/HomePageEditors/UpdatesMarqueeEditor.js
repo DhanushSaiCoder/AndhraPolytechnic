@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 const UpdatesMarqueeEditor = () => {
   const [updates, setUpdates] = useState([]);
   const [newUpdate, setNewUpdate] = useState({
-    id: '', // Will be generated or managed by backend
+    id: '',
     titleEn: '',
-    titleHi: '',
     link: '',
     severity: 'info',
     date: '',
@@ -16,9 +15,9 @@ const UpdatesMarqueeEditor = () => {
   useEffect(() => {
     // Simulate fetching data
     const dummyUpdates = [
-      { id: '1', titleEn: 'New Semester Begins', titleHi: 'नया सेमेस्टर शुरू', link: '/news/1', severity: 'info', date: '2023-08-20' },
-      { id: '2', titleEn: 'Library Renovation', titleHi: 'पुस्तकालय नवीनीकरण', link: '/news/2', severity: 'urgent', date: '2023-08-22' },
-      { id: '3', titleEn: 'Guest Lecture on Data Science', titleHi: 'डेटा साइंस पर अतिथि व्याख्यान', link: '/events/3', severity: 'important', date: '2023-08-25' },
+      { id: '1', titleEn: 'New Semester Begins', link: '/news/1', severity: 'info', date: '2023-08-20' },
+      { id: '2', titleEn: 'Library Renovation', link: '/news/2', severity: 'urgent', date: '2023-08-22' },
+      { id: '3', titleEn: 'Guest Lecture on Data Science', link: '/events/3', severity: 'important', date: '2023-08-25' },
     ];
     setUpdates(dummyUpdates);
   }, []);
@@ -38,7 +37,6 @@ const UpdatesMarqueeEditor = () => {
     setNewUpdate({
       id: '',
       titleEn: '',
-      titleHi: '',
       link: '',
       severity: 'info',
       date: '',
@@ -70,10 +68,6 @@ const UpdatesMarqueeEditor = () => {
         <input type="text" id="titleEn" name="titleEn" value={newUpdate.titleEn} onChange={handleChange} />
       </div>
       <div className="form-group">
-        <label htmlFor="titleHi">Title (Hindi)</label>
-        <input type="text" id="titleHi" name="titleHi" value={newUpdate.titleHi} onChange={handleChange} />
-      </div>
-      <div className="form-group">
         <label htmlFor="link">Link</label>
         <input type="text" id="link" name="link" value={newUpdate.link} onChange={handleChange} />
       </div>
@@ -91,7 +85,7 @@ const UpdatesMarqueeEditor = () => {
       </div>
       <div className="form-actions">
         <button onClick={handleAddUpdate} className="save-btn">{editingId ? 'Save Changes' : 'Add Update'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', titleHi: '', link: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}
+        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', link: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}}
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Updates</h4>
