@@ -41,22 +41,50 @@
     width: 35%;
     padding: 20px;
     border-radius: 10px;
-    font-style: italic;
+    /* font-style: italic; Removed as it might not apply to all new elements */
+    color: #112D4E; /* Set a default text color */
 }
+
+.comm-message h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #3F72AF; /* A distinct color for headings */
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.comm-message h2:first-of-type {
+    margin-top: 0; /* No top margin for the first heading */
+}
+
 .comm-message p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column-reverse;
-    gap: 20px;
-    font-size: 1.2rem;
-    color: #3F72AF;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
 }
-.comm-message p svg {
+
+.comm-message ul {
+    list-style: disc; /* Use disc for list items */
+    padding-left: 20px; /* Indent list items */
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.comm-message li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.comm-message svg {
     width: 60px;
     color: #3F72AF;
-    margin-right: 10px;
+    margin-top: 20px; /* Add some space above the SVG */
+    display: block; /* Ensure SVG is on its own line */
+    margin-left: auto; /* Center the SVG */
+    margin-right: auto; /* Center the SVG */
 }
+
 @media (max-width: 768px) {
     .CommissionerMessage {
         flex-direction: column;
@@ -76,7 +104,12 @@
     .commRole {
         font-size: 1rem;
     }
-    .comm-message p {
+    /* Adjust font sizes for smaller screens */
+    .comm-message h2 {
+        font-size: 1.2rem;
+    }
+    .comm-message p,
+    .comm-message li {
         font-size: 1rem;
     }
 }
