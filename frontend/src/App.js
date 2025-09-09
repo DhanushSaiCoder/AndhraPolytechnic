@@ -23,6 +23,7 @@ import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
 import UserManagementPage from './pages/UserManagementPage';
 import PrivateRoute from './components/PrivateRoute';
+import AdminContentPage from './pages/AdminContentPage'; // New import
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           <Route path="users" element={<UserManagementPage />} />
+          <Route path="content" element={<AdminContentPage />} /> {/* New route */}
         </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
