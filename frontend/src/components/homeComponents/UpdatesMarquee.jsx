@@ -277,7 +277,16 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                 {/* We render multiple copies to ensure the total width is enough for a seamless loop, especially when there are few items. */}
                 {[...Array(4)].map((_, i) =>
                   updates.map((update) => (
-                    <a key={`dup-${i}-${update._id}`} className={`marquee-item duplicate ${update.severity}`} tabIndex={-1}>
+                    <a
+                      key={`dup-${i}-${update._id}`}
+                      href={update.link}
+                      target={update.link.startsWith('/') ? '_self' : '_blank'}
+                      rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
+                      className={`marquee-item duplicate ${update.severity}`}
+                      role="listitem"
+                      data-ga="marquee-item-click"
+                      data-id={update._id}
+                    >
                       {update.severity !== 'info' && (
                         <span className={`severity-badge ${update.severity}`} aria-hidden="true">
                           {update.severity === 'urgent' ? 'Urgent' : 'Important'}
