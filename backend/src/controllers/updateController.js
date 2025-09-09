@@ -13,12 +13,11 @@ exports.getUpdates = async (req, res) => {
 
 // Create a new update
 exports.createUpdate = async (req, res) => {
-  const { titleEn, link, severity, date } = req.body;
+  const { titleEn, severity, date } = req.body;
 
   try {
     const newUpdate = new Update({
       titleEn,
-      link,
       severity,
       date: date || Date.now(),
     });
@@ -33,7 +32,7 @@ exports.createUpdate = async (req, res) => {
 
 // Update an existing update
 exports.updateUpdate = async (req, res) => {
-  const { titleEn, link, severity, date } = req.body;
+  const { titleEn, severity, date } = req.body;
 
   try {
     let update = await Update.findById(req.params.id);
@@ -44,7 +43,6 @@ exports.updateUpdate = async (req, res) => {
 
     // Update fields
     update.titleEn = titleEn || update.titleEn;
-    update.link = link || update.link;
     update.severity = severity || update.severity;
     update.date = date || update.date;
 

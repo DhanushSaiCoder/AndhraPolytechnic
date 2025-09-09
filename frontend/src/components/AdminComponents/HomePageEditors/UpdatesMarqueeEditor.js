@@ -6,7 +6,6 @@ const UpdatesMarqueeEditor = () => {
   const [newUpdate, setNewUpdate] = useState({
     id: '',
     titleEn: '',
-    link: '',
     severity: 'info',
     date: '',
   });
@@ -50,7 +49,6 @@ const UpdatesMarqueeEditor = () => {
       setNewUpdate({
         id: '',
         titleEn: '',
-        link: '',
         severity: 'info',
         date: '',
       });
@@ -91,10 +89,8 @@ const UpdatesMarqueeEditor = () => {
         <label htmlFor="titleEn">Title (English)</label>
         <input type="text" id="titleEn" name="titleEn" value={newUpdate.titleEn} onChange={handleChange} />
       </div>
-      <div className="form-group">
-        <label htmlFor="link">Link</label>
-        <input type="text" id="link" name="link" value={newUpdate.link} onChange={handleChange} />
-      </div>
+      
+      
       <div className="form-group">
         <label htmlFor="severity">Severity</label>
         <select id="severity" name="severity" value={newUpdate.severity} onChange={handleChange}>
@@ -109,7 +105,7 @@ const UpdatesMarqueeEditor = () => {
       </div>
       <div className="form-actions">
         <button onClick={handleAddUpdate} className="save-btn">{editingId ? 'Save Changes' : 'Add Update'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', link: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}
+        {editingId && <button onClick={() => {setEditingId(null); setNewUpdate({ id: '', titleEn: '', severity: 'info', date: '' });}} className="cancel-btn">Cancel Edit</button>}
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Updates</h4>

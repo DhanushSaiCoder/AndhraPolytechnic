@@ -208,11 +208,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
 
   // If no updates, show fallback message
   if (updates.length === 0) {
-    return (
-      <div className="updates-marquee" role="region" aria-label="Latest updates">
-        <p className="updates-empty">No updates at this time.</p>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -245,11 +241,8 @@ const UpdatesMarquee = ({ speed = 120 }) => {
           <div className="marquee-viewport" aria-hidden={false}>
             <div className="marquee-content" ref={contentRef} role="list">
               {updates.map((update) => (
-                <a
+                <div
                   key={update._id}
-                  href={update.link}
-                  target={update.link.startsWith('/') ? '_self' : '_blank'}
-                  rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
                   className={`marquee-item ${update.severity}`}
                   role="listitem"
                   data-ga="marquee-item-click"
@@ -268,7 +261,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                       {' '}- {new Date(update.date).toLocaleDateString()}
                     </span>
                   )}
-                </a>
+                </div>
               ))}
               {/* Duplicate the content once for smoother continuous scroll when JS-based animation reaches the end.
                   This duplication ensures there is content to scroll into while resetting position.
@@ -277,11 +270,8 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                 {/* We render multiple copies to ensure the total width is enough for a seamless loop, especially when there are few items. */}
                 {[...Array(4)].map((_, i) =>
                   updates.map((update) => (
-                    <a
+                    <div
                       key={`dup-${i}-${update._id}`}
-                      href={update.link}
-                      target={update.link.startsWith('/') ? '_self' : '_blank'}
-                      rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
                       className={`marquee-item duplicate ${update.severity}`}
                       role="listitem"
                       data-ga="marquee-item-click"
@@ -300,7 +290,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                           {' '}- {new Date(update.date).toLocaleDateString()}
                         </span>
                       )}
-                    </a>
+                    </div>
                   ))
                 )}
               </div>
@@ -316,11 +306,8 @@ const UpdatesMarquee = ({ speed = 120 }) => {
         <>
           <div className="static-updates-list" aria-hidden={false}>
             {updates.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE).map((update) => (
-              <a
+              <div
                 key={update._id}
-                href={update.link}
-                target={update.link.startsWith('/') ? '_self' : '_blank'}
-                rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
                 className={`marquee-item ${update.severity}`}
                 data-ga="marquee-item-click"
                 data-id={update._id}
@@ -338,7 +325,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                     {' '}- {new Date(update.date).toLocaleDateString()}
                   </span>
                 )}
-              </a>
+              </div>
             ))}
           </div>
           {totalPages > 1 && ( // Only show controls if more than one page
