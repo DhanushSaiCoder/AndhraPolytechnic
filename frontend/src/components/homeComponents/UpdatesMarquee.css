@@ -1,17 +1,18 @@
 /* Base container */
 .updates-marquee {
-  background-color: rgba(0, 123, 255, 0.06); /* subtle blue band */
+  background-color: #f8f9fa; /* Lighter, neutral background */
   padding: 10px 16px;
   overflow: hidden;
   position: relative;
   font-family: inherit;
-  color: #222;
+  color: #343a40;
   min-height: 56px; /* comfortable hit area */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   box-sizing: border-box;
+  border-bottom: 1px solid #e9ecef; /* Subtle separator */
 }
 
 /* Focus ring for the whole region */
@@ -24,7 +25,7 @@
 .updates-empty {
   margin: 0;
   padding: 8px 12px;
-  color: #444;
+  color: #6c757d;
   font-size: clamp(0.9rem, 1vw, 1rem);
 }
 
@@ -38,7 +39,7 @@
 /* The moving content - we will transform this via inline styles from JS */
 .marquee-content {
   display: inline-flex;
-  gap: 40px;
+  gap: 32px; /* Adjusted gap */
   align-items: center;
   white-space: nowrap;
   will-change: transform;
@@ -48,108 +49,79 @@
 /* Duplicate content container (for smooth looping) */
 .marquee-duplicate {
   display: inline-flex;
-  gap: 40px;
+  gap: 32px; /* Match content gap */
   align-items: center;
-  margin-left: 60px; /* small visual gap before duplicate set */
+  margin-left: 32px; /* Match content gap */
 }
 
-/* Individual item */
+/* Individual item - Modern, sleek look */
 .marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-right: 36px;
+  gap: 12px;
+  margin-right: 0; /* Gap is handled by parent */
   text-decoration: none;
   color: inherit;
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
-  line-height: 1.2;
-  padding: 12px 16px; /* Increased padding */
-  min-height: 44px;
-  min-width: 88px;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.4;
+  padding: 10px 16px;
+  min-height: 48px;
   box-sizing: border-box;
-  background-color: #ffffff; /* White background */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
-  transition: all 0.2s ease-in-out; /* Smooth transitions */
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Hover / Focus styling */
 .marquee-item:hover,
 .marquee-item:focus {
-  text-decoration: none; /* Remove underline on hover */
-  color: #004a9f;
+  text-decoration: none;
   outline: none;
-  background-color: #f0f8ff; /* Light blue background on hover */
-  transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border-color: #dee2e6;
 }
 
-/* Badges for severity */
+/* Badges for severity - Modern look */
 .severity-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   flex-shrink: 0;
 }
 .severity-badge.urgent {
-  background-color: #dc3545; /* Red */
+  background-color: #fdf2f2;
+  color: #ef4444;
 }
 .severity-badge.important {
-  background-color: #ffb703; /* Amber-ish */
-  color: #111;
+  background-color: #fffbeb;
+  color: #f59e0b;
 }
 .severity-badge.info {
-  background-color: #0d6efd; /* Blue */
+  background-color: #eff6ff;
+  color: #3b82f6;
 }
 
 /* Title and date styling */
 .item-title {
-  font-weight: 600;
-  color: #0b2b4a;
+  font-weight: 500;
+  color: #1f2937; /* Dark gray, less harsh than black */
 }
 .item-date {
-  font-size: 0.9rem;
-  color: #666;
-  margin-left: 6px;
-}
-
-/* Controls container */
-.marquee-controls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left: 12px;
-}
-
-/* Buttons: ensure minimum 44x44 tap targets */
-.control-button {
-  background-color: transparent; /* Make background transparent */
-  color: #444; /* Darker text color */
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
-  border-radius: 8px;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  min-width: 44px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: none; /* Remove box-shadow */
-  transition: all 0.2s ease-in-out; /* Keep transition for hover */
-}
-.control-button:hover,
-.control-button:focus {
-  background-color: rgba(0, 0, 0, 0.05); /* Light background on hover */
-  color: #007bff; /* Blue text on hover */
-  outline: 3px solid rgba(0, 123, 255, 0.14); /* Adjust outline color */
+  font-size: 0.85rem;
+  color: #6b7280; /* Softer gray for date */
+  margin-left: 8px;
+  white-space: nowrap; /* Prevent date from wrapping */
 }
 
 /* Static list (mobile / reduced motion) */
@@ -165,8 +137,7 @@
   display: flex;
   gap: 12px;
   margin-right: 0;
-  padding: 12px 16px; /* Match general padding for consistency */
-  /* Removed background and border-radius to let general .marquee-item styles apply */
+  padding: 12px 16px;
 }
 
 /* Accessibility: screen-reader only */
@@ -193,9 +164,10 @@
   .updates-marquee {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    padding: 10px 12px;
-    min-height: auto;
+    gap: 0; /* Remove gap for a list view */
+    padding: 10px 0; /* Adjust padding */
+    background-color: #fff; /* White background for mobile list */
+    border-bottom: none; /* Remove bottom border */
   }
 
   .marquee-viewport {
@@ -211,64 +183,61 @@
 
   .marquee-item {
     display: flex;
-    flex-wrap: wrap; /* Added this for better mobile responsiveness */
+    flex-wrap: wrap;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px 12px;
     margin-right: 0;
-    padding: 10px 8px;
+    padding: 12px 16px;
     font-size: clamp(0.95rem, 2.8vw, 1rem);
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    /* Reset desktop styles for a clean list view */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f3f4f6; /* Subtle separator for list items */
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .marquee-item:hover,
+  .marquee-item:focus {
+    background-color: #f8f9fa; /* Subtle hover for list items */
+    transform: none;
+    box-shadow: none;
   }
 
   .marquee-item .item-title {
     display: block;
-    font-size: 0.96rem; /* Keep existing mobile font size */
+    font-size: 0.96rem;
   }
 
   .marquee-item .item-date {
     display: block;
-    margin-left: 0; /* Remove desktop margin */
-    margin-top: 2px; /* Add small top margin */
-    font-size: 0.85rem; /* Keep existing mobile font size */
+    margin-left: 0;
+    margin-top: 2px;
+    font-size: 0.85rem;
   }
 
   .marquee-duplicate {
     display: none;
   }
 
-  .marquee-controls {
-    align-self: flex-end;
-    margin-right: 4px;
-  }
-
-  .control-button {
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    border-radius: 6px;
-  }
-
   .static-updates-list {
-    gap: 8px;
+    gap: 0; /* No gap, handled by item borders */
     padding: 0;
-    transition: all 0.3s ease-in-out; /* Attempt to smooth height changes */
+    transition: all 0.3s ease-in-out;
   }
 }
 
 /* Smaller screens: extra spacing tweaks */
 @media (max-width: 480px) {
   .updates-marquee {
-    padding: 8px 10px;
+    padding: 8px 0;
   }
   .item-title {
-    font-size: 0.96rem;
+    font-size: 0.92rem; /* Slightly smaller on small screens */
   }
   .item-date {
-    font-size: 0.85rem;
-  }
-  .control-button {
-    min-width: 40px;
-    min-height: 40px;
-    padding: 8px 8px;
+    font-size: 0.82rem;
   }
 }
 
@@ -278,32 +247,36 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 16px; /* Add horizontal padding */
   margin-top: 10px;
-  border-top: 1px solid rgba(0,0,0,0.04);
+  border-top: 1px solid #f3f4f6;
 }
 
 .pagination-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: #f8f9fa;
+  color: #343a40;
+  border: 1px solid #dee2e6;
   border-radius: 6px;
   padding: 8px 12px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .pagination-button:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: #f1f3f5;
+  border-color: #ced4da;
 }
 
 .pagination-button:disabled {
-  background-color: #cccccc;
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  border-color: #e9ecef;
   cursor: not-allowed;
 }
 
 .pagination-info {
   font-size: 0.9rem;
-  color: #555;
+  color: #6c757d;
 }
