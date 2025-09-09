@@ -17,18 +17,6 @@ const HomePageContentEditor = () => {
 
       <CollegeGalleryEditor /> {/* Render the component */}
 
-
-      <section className="admin-section">
-        <h3>Current Info (Stats) Section</h3>
-        <p>Manage the statistics displayed on the homepage (Total Students, Faculty, Placement Rate).</p>
-        {/* Component for CurrentInfo content */}
-      </section>
-
-      <section className="admin-section">
-        <h3>College Gallery Section</h3>
-        <p>Manage images and their descriptions in the college gallery.</p>
-        {/* Component for CollegeGallery content */}
-      </section>
     </div>
     
   );
