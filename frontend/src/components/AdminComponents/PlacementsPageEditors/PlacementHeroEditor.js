@@ -75,44 +75,46 @@ const PlacementHeroEditor = () => {
     <section className="admin-section">
       <h3>Placement Hero Section (Charts)</h3>
 
-      {chartData.map((data, index) => (
-        <div key={data.id} className="dynamic-object-item bordered-section">
-          <h5 style={{marginBottom: '1rem'}}>Year Entry #{index + 1}</h5>
-          <div className="form-group">
-            <label>Year</label>
-            <input
-              type="text"
-              name="year"
-              value={data.year}
-              onChange={(e) => handleChartDataChange(index, e)}
-              placeholder="e.g., 2023-24"
-            />
+      <div className="year-entries-container">
+        {chartData.map((data, index) => (
+          <div key={data.id} className="year-entry-row">
+              <div className="form-group">
+                  <label>Year</label>
+                  <input
+                    type="text"
+                    name="year"
+                    value={data.year}
+                    onChange={(e) => handleChartDataChange(index, e)}
+                    placeholder="e.g., 2023-24"
+                  />
+              </div>
+              <div className="form-group">
+                  <label>Students Placed</label>
+                  <input
+                    type="number"
+                    name="students"
+                    value={data.students}
+                    onChange={(e) => handleChartDataChange(index, e)}
+                    placeholder="e.g., 450"
+                  />
+              </div>
+              <div className="form-group">
+                  <label>Average Package (LPA)</label>
+                  <input
+                    type="number"
+                    name="avgPackage"
+                    value={data.avgPackage}
+                    onChange={(e) => handleChartDataChange(index, e)}
+                    placeholder="e.g., 4.5"
+                  />
+              </div>
+              <button type="button" onClick={() => handleRemoveRow(index)} className="remove-btn">
+                  Remove
+              </button>
           </div>
-          <div className="form-group">
-            <label>Students Placed</label>
-            <input
-              type="number"
-              name="students"
-              value={data.students}
-              onChange={(e) => handleChartDataChange(index, e)}
-              placeholder="e.g., 450"
-            />
-          </div>
-          <div className="form-group">
-            <label>Average Package (LPA)</label>
-            <input
-              type="number"
-              name="avgPackage"
-              value={data.avgPackage}
-              onChange={(e) => handleChartDataChange(index, e)}
-              placeholder="e.g., 4.5"
-            />
-          </div>
-          <button type="button" onClick={() => handleRemoveRow(index)} className="remove-btn">
-            Remove Year
-          </button>
-        </div>
-      ))}
+        ))}
+      </div>
+
 
       <button type="button" onClick={handleAddRow} className="add-btn" style={{ marginTop: '1rem' }}>
         Add Year

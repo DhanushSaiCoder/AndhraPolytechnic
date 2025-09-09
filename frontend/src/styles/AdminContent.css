@@ -380,3 +380,30 @@
   background-color: var(--danger-color);
   color: var(--white-color);
 }
+
+/* Styling for PlacementHeroEditor Year Entry Rows */
+.year-entries-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.year-entry-row {
+    display: flex;
+    align-items: flex-end; /* Aligns items to the bottom */
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.year-entry-row .form-group {
+    flex: 1; /* Each form group takes equal space */
+    margin-bottom: 0; /* Override default margin */
+}
+
+.year-entry-row .remove-btn {
+    height: fit-content; /* Make button height match input height */
+    margin-bottom: 2px; /* Fine-tune alignment with inputs */
+}
