@@ -1,34 +1,30 @@
 import React from 'react';
-import PlacementHeroEditor from './PlacementsPageEditors/PlacementHeroEditor'; // New import
-import PlacementStatsEditor from './PlacementsPageEditors/PlacementStatsEditor'; // New import
-import HighestPackagesEditor from './PlacementsPageEditors/HighestPackagesEditor'; // New import
-import PlacementProcessEditor from './PlacementsPageEditors/PlacementProcessEditor'; // New import
-import SuccessStoriesEditor from './PlacementsPageEditors/SuccessStoriesEditor'; // New import
-import TopRecruitersEditor from './PlacementsPageEditors/TopRecruitersEditor'; // New import
-import PlacementContactEditor from './PlacementsPageEditors/PlacementContactEditor'; // New import
+import PlacementHeroEditor from './PlacementsPageEditors/PlacementHeroEditor';
+import PlacementStatsEditor from './PlacementsPageEditors/PlacementStatsEditor';
+import HighestPackagesEditor from './PlacementsPageEditors/HighestPackagesEditor';
+import PlacementProcessEditor from './PlacementsPageEditors/PlacementProcessEditor';
+import SuccessStoriesEditor from './PlacementsPageEditors/SuccessStoriesEditor';
+import TopRecruitersEditor from './PlacementsPageEditors/TopRecruitersEditor';
+import PlacementContactEditor from './PlacementsPageEditors/PlacementContactEditor';
 
 const PlacementsPageContentEditor = () => {
   return (
     <div className="placements-page-content-editor">
       <h2>Placements Page Content Management</h2>
 
-      <PlacementHeroEditor /> {/* Render the component */}
+      <PlacementHeroEditor />
 
-      <PlacementHeroEditor /> {/* Render the component */}
+      <PlacementStatsEditor />
 
-      <PlacementStatsEditor /> {/* Render the component */}
+      <HighestPackagesEditor />
 
-      <HighestPackagesEditor /> {/* Render the component */}
+      <PlacementProcessEditor />
 
-      <PlacementProcessEditor /> {/* Render the component */}
+      <SuccessStoriesEditor />
 
-      <SuccessStoriesEditor /> {/* Render the component */}
+      <TopRecruitersEditor />
 
-      <TopRecruitersEditor /> {/* Render the component */}
-
-      <PlacementContactEditor /> {/* Render the component */}
-
-
+      <PlacementContactEditor />
     </div>
   );
 };
