@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+
 import './UpdatesMarquee.css';
 import updateService from '../../services/updateService'; // Import the service
 
@@ -174,32 +174,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
     return () => stopMarquee();
   }, [updates, isAnimating, startMarquee, stopMarquee, isMobile, reducedMotion]);
 
-  const handlePlayPause = () => {
-    setIsAnimating((prev) => !prev);
-    setIsPaused((prev) => !prev);
-    // If pausing, stop; if resuming, start
-    if (isAnimating) {
-      stopMarquee();
-    } else {
-      // restart (use effect will call startMarquee)
-      // small timeout to allow layout reflow
-      setTimeout(() => {
-        if (!reducedMotion && !isMobile) startMarquee();
-      }, 60);
-    }
-  };
-
-  const handleStep = (direction) => {
-    if (!contentRef.current || !marqueeRef.current) return;
-    const stepSize = Math.max(160, Math.floor(marqueeRef.current.offsetWidth * 0.25)); // responsive step
-    const contentWidth = contentRef.current.scrollWidth;
-    if (direction === 'left') {
-      position.current = Math.min(position.current + stepSize, 0);
-    } else {
-      position.current = Math.max(position.current - stepSize, -contentWidth + marqueeRef.current.offsetWidth);
-    }
-    contentRef.current.style.transform = `translateX(${position.current}px)`;
-  };
+  
 
   const handleMouseEnter = () => {
     setIsPaused(true);
@@ -323,30 +298,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
             </div>
           </div>
 
-          <div className="marquee-controls" aria-hidden={false}>
-            <button
-              onClick={() => handleStep('left')}
-              aria-label="Step left"
-              className="control-button"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={handlePlayPause}
-              aria-label={isAnimating ? 'Pause updates' : 'Play updates'}
-              aria-pressed={!isAnimating}
-              className="control-button"
-            >
-              {isAnimating ? <Pause size={20} /> : <Play size={20} />}
-            </button>
-            <button
-              onClick={() => handleStep('right')}
-              aria-label="Step right"
-              className="control-button"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </div>
+          
         </>
       )}
 
