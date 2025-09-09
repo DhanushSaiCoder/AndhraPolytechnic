@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiUsers, FiEdit, FiTrash2, FiSearch, FiPlus } from 'react-icons/fi';
+import { FiUsers, FiEdit, FiTrash2, FiSearch, FiPlus, FiKey } from 'react-icons/fi';
 import userService from '../services/userService';
 import UserFormModal from '../components/AuthComponents/UserFormModal';
 import '../styles/UserManagement.css';
@@ -9,6 +9,13 @@ const UserManagementPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isPasswordChange, setIsPasswordChange] = useState(false); // New state
+
+  const handleChangePassword = (user) => {
+    setSelectedUser(user);
+    setIsPasswordChange(true); // Set to true for password change
+    setIsModalOpen(true);
+  };
   const [loading, setLoading] = useState(true); // Add loading state
 
   const loggedInUserEmail = localStorage.getItem('email');
@@ -58,6 +65,19 @@ const UserManagementPage = () => {
       setSelectedUser(null);
     } catch (error) {
       console.error('Error saving user:', error);
+    }
+  };
+
+  const handlePasswordSave = async (userId, newPassword) => {
+    try {
+      await userService.updatePassword(userId, newPassword);
+      setIsModalOpen(false);
+      setIsPasswordChange(false);
+      setSelectedUser(null);
+      alert('Password updated successfully!'); // Provide feedback
+    } catch (error) {
+      console.error('Error updating password:', error);
+      alert('Failed to update password. Please try again.'); // Provide feedback
     }
   };
 
@@ -142,6 +162,10 @@ const UserManagementPage = () => {
                               <FiEdit />
                               <span>Edit</span>
                             </button>
+                            <button onClick={() => handleChangePassword(user)} className="action-btn edit-btn"> {/* Reusing edit-btn style for now */}
+                              <FiKey /> {/* Using a key icon for password */}
+                              <span>Change Password</span>
+                            </button>
                             <button className="action-btn delete-btn disabled-btn" disabled title="Cannot delete your own account">
                               <FiTrash2 />
                               <span>Delete</span>
@@ -176,9 +200,14 @@ const UserManagementPage = () => {
       </div>
       <UserFormModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setIsPasswordChange(false); // Reset when closing
+        }}
         onSave={handleSave}
+        onPasswordSave={handlePasswordSave} // New prop
         user={selectedUser}
+        isPasswordChange={isPasswordChange} // New prop
       />
     </div>
   );

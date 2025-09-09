@@ -73,3 +73,33 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json({ message: 'Error deleting user', error });
     }
 };
+
+exports.updatePassword = async (req, res) => {
+    const { id } = req.params;
+    const { password } = req.body;
+
+    // Ensure the user is trying to change their own password
+    // Assuming authMiddleware populates req.user with the logged-in user's ID
+    if (req.user.id !== id) {
+        return res.status(403).json({ message: 'Unauthorized: You can only change your own password.' });
+    }
+
+    if (!password) {
+        return res.status(400).json({ message: 'New password is required.' });
+    }
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating password.', error });
+    }
+};
