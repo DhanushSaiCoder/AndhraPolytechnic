@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/AdminContent.css';
 import HomePageContentEditor from '../components/AdminComponents/HomePageContentEditor';
-import PlacementsPageContentEditor from '../components/AdminComponents/PlacementsPageContentEditor'; // New import
+import PlacementsPageContentEditor from '../components/AdminComponents/PlacementsPageContentEditor';
+import DepartmentsPageContentEditor from '../components/AdminComponents/DepartmentsPageContentEditor'; // New import
 
 const AdminContentPage = () => {
   const [selectedSection, setSelectedSection] = useState('home'); // Default to home page content
@@ -30,7 +31,7 @@ const AdminContentPage = () => {
         {/* Render content based on selectedSection */}
         {selectedSection === 'home' && <HomePageContentEditor />}
         {selectedSection === 'placements' && <PlacementsPageContentEditor />}
-        {selectedSection === 'departments' && <div>Departments Page Content Editor</div>}
+        {selectedSection === 'departments' && <DepartmentsPageContentEditor />}
       </main>
     </div>
   );

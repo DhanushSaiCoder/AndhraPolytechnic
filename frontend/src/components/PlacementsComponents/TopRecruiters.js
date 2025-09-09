@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/TopRecruiters.css';
-
-// Placeholder images for company logos
-import company1 from '../../images/apGovt.png'; 
-import company2 from '../../images/NBA.png';
-import company3 from '../../images/Aicte.png';
-import company4 from '../../images/sbtetLogo.jpeg';
-
-const recruiters = [
-  { id: 1, name: 'Company A', logo: company1 },
-  { id: 2, name: 'Company B', logo: company2 },
-  { id: 3, name: 'Company C', logo: company3 },
-  { id: 4, name: 'Company D', logo: company4 },
-  { id: 5, name: 'Company E', logo: company1 },
-  { id: 6, name: 'Company F', logo: company2 },
-  { id: 7, name: 'Company G', logo: company3 },
-  { id: 8, name: 'Company H', logo: company4 },
-];
+import recruiterService from '../../services/recruiterService'; // Import service
 
 const TopRecruiters = () => {
+  const [recruiters, setRecruiters] = useState([]);
+
+  useEffect(() => {
+    const fetchRecruiters = async () => {
+      try {
+        const response = await recruiterService.getRecruiters();
+        setRecruiters(response.data);
+      } catch (error) {
+        console.error('Error fetching recruiters:', error);
+        setRecruiters([]); // Set empty array on error
+      }
+    };
+
+    fetchRecruiters();
+  }, []);
+
   return (
     <section className="top-recruiters-section">
       <div className="top-recruiters-container">
@@ -30,13 +30,13 @@ const TopRecruiters = () => {
         <div className="recruiters-scroll-container">
           <div className="recruiters-track">
             {recruiters.map((recruiter) => (
-              <div key={recruiter.id} className="recruiter-item">
+              <div key={recruiter._id} className="recruiter-item"> {/* Use _id for key */}
                 <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
               </div>
             ))}
             {/* Duplicate for seamless loop */}
             {recruiters.map((recruiter) => (
-              <div key={`dup-${recruiter.id}`} className="recruiter-item">
+              <div key={`dup-${recruiter._id}`} className="recruiter-item"> {/* Use _id for key */}
                 <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
               </div>
             ))}

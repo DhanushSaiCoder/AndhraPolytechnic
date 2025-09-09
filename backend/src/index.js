@@ -56,6 +56,9 @@ app.use('/api/recruiters', recruitersRouter);
 const placementContactRouter = require('./routes/placementContact');
 app.use('/api/placement-contact', placementContactRouter);
 
+const departmentsRouter = require('./routes/departments'); // New import
+app.use('/api/departments', departmentsRouter); // New route
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });

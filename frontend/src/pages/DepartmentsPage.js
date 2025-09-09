@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import departmentsData from '../data/departmentsData.json';
 import '../styles/DepartmentsStyles/DepartmentsPage.css';
 import { ChevronRight, Building } from 'lucide-react';
 import { departmentIcons, DefaultIcon } from '../data/departmentIcons';
+import departmentService from '../services/departmentService'; // Import departmentService
 
 const DepartmentsPage = () => {
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await departmentService.getDepartments();
+        setDepartments(response.data);
+      } catch (error) {
+        console.error('Error fetching departments:', error);
+        setDepartments([]); // Set empty array on error
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
   return (
     <div className="departments-page-container">
       <header className="departments-header-section">
@@ -23,10 +39,10 @@ const DepartmentsPage = () => {
 
       <section className="departments-grid-section">
         <div className="departments-grid-container">
-          {departmentsData.map((dept) => {
-            const Icon = departmentIcons[dept.id] || DefaultIcon;
+          {departments.map((dept) => { // Changed from departmentsData.map
+            const Icon = departmentIcons[dept.shortName] || DefaultIcon; // Use shortName for icon mapping
             return (
-              <Link to={`/departments/${dept.id}`} key={dept.id} className="department-card-link">
+              <Link to={`/departments/${dept._id}`} key={dept._id} className="department-card-link"> {/* Use _id for link and key */}
                 <div className="department-card-item">
                   <div className="card-gradient-bg"></div>
                   <div className="department-icon-wrapper">

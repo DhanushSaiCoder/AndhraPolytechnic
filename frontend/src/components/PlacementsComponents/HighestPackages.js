@@ -1,37 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/HighestPackages.css';
-
-const studentPackages = [
-  {
-    id: 1,
-    name: 'Alice Johnson',
-    department: 'Computer Engineering',
-    package: '12 LPA',
-    company: 'Tech Innovators',
-    year: 2024,
-    image: 'https://picsum.photos/seed/alice/100/100',
-  },
-  {
-    id: 2,
-    name: 'Bob Williams',
-    department: 'Electronics Engineering',
-    package: '10 LPA',
-    company: 'ElectroCorp',
-    year: 2024,
-    image: 'https://picsum.photos/seed/bob/100/100',
-  },
-  {
-    id: 3,
-    name: 'Charlie Brown',
-    department: 'Mechanical Engineering',
-    package: '9.5 LPA',
-    company: 'Mech Solutions',
-    year: 2024,
-    image: 'https://picsum.photos/seed/charlie/100/100',
-  },
-];
+import highestPackageService from '../../services/highestPackageService'; // Import service
 
 const HighestPackages = () => {
+  const [studentPackages, setStudentPackages] = useState([]);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const response = await highestPackageService.getHighestPackages();
+        setStudentPackages(response.data);
+      } catch (error) {
+        console.error('Error fetching highest packages:', error);
+        setStudentPackages([]); // Set empty array on error
+      }
+    };
+
+    fetchPackages();
+  }, []);
+
   return (
     <section className="highest-packages-section">
       <div className="highest-packages-container">
@@ -42,7 +29,7 @@ const HighestPackages = () => {
 
         <div className="package-cards-grid">
           {studentPackages.map((student) => (
-            <div key={student.id} className="package-card">
+            <div key={student._id} className="package-card"> {/* Use _id for key */}
               <img src={student.image} alt={student.name} className="student-avatar" />
               <h3 className="student-name">{student.name}</h3>
               <p className="student-department">{student.department}</p>
