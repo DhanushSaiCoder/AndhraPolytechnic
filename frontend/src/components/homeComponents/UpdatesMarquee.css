@@ -86,6 +86,30 @@
   border-color: #dee2e6;
 }
 
+/* Severity-specific styles */
+.marquee-item.urgent {
+  border-left-color: #ef4444;
+  background-color: #fef2f2; /* Faint red background */
+}
+
+.marquee-item.important {
+  border-left-color: #f59e0b;
+  background-color: #fffbeb; /* Faint amber background */
+}
+
+.marquee-item.info {
+  border-left-color: #3b82f6;
+  background-color: #eff6ff; /* Faint blue background */
+}
+
+/* Common adjustments for severity items */
+.marquee-item.urgent,
+.marquee-item.important,
+.marquee-item.info {
+  border-left-width: 5px;
+  padding-left: 12px; /* Original: 16px. 16 - (5-1) = 12 */
+}
+
 /* Badges for severity - Modern look */
 .severity-badge {
   display: inline-flex;
