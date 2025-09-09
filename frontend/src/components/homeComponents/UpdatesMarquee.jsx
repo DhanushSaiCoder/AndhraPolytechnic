@@ -8,7 +8,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
   const contentRef = useRef(null);
-  const duplicateContainerRef = useRef(null);
+  
   const animationFrameId = useRef(null);
   const position = useRef(0);
 
@@ -98,20 +98,18 @@ const UpdatesMarquee = ({ speed = 120 }) => {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  const stopMarquee = useCallback(() => {
+    cancelAnimationFrame(animationFrameId.current);
+  }, []);
+
   // Start/stop marquee animation using requestAnimationFrame
   const startMarquee = useCallback(() => {
     if (!marqueeRef.current || !contentRef.current || !isAnimating || updates.length === 0) return;
 
     const marqueeWidth = marqueeRef.current.offsetWidth;
     const contentWidth = contentRef.current.scrollWidth;
-    const loopWidth = duplicateContainerRef.current?.offsetLeft ?? 0;
 
-    // If content is narrower than container, center it and do nothing
-    if (contentWidth <= marqueeWidth) {
-      position.current = 0;
-      contentRef.current.style.transform = 'translateX(0px)';
-      return;
-    }
+    
 
     // If position is at default 0 or has been reset, start from marquee width (enter from right)
     if (position.current === 0 || position.current > marqueeWidth) {
@@ -132,10 +130,15 @@ const UpdatesMarquee = ({ speed = 120 }) => {
       const pxPerMs = speed / 1000;
       position.current -= pxPerMs * delta;
 
-      // When the first set of items has scrolled completely out of view,
-      // adjust the position to create a seamless loop.
-      if (loopWidth > 0 && position.current <= -loopWidth) {
-        position.current += loopWidth;
+      // When the content has scrolled completely out of view,
+      // pause for a moment, then reset its position to start again.
+      if (position.current <= -contentWidth) {
+        stopMarquee();
+        setTimeout(() => {
+          position.current = marqueeWidth;
+          startMarquee();
+        }, 2000); // 2-second pause
+        return;
       }
 
       // Apply transform
@@ -149,11 +152,8 @@ const UpdatesMarquee = ({ speed = 120 }) => {
     // Kick off
     cancelAnimationFrame(animationFrameId.current);
     animationFrameId.current = requestAnimationFrame(animate);
-  }, [isAnimating, updates.length, speed]);
-
-  const stopMarquee = useCallback(() => {
-    cancelAnimationFrame(animationFrameId.current);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAnimating, updates.length, speed, stopMarquee]);
 
   // Start/stop based on conditions (updates, mobile, reducedMotion, isAnimating)
   useEffect(() => {
@@ -263,37 +263,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
                   )}
                 </div>
               ))}
-              {/* Duplicate the content once for smoother continuous scroll when JS-based animation reaches the end.
-                  This duplication ensures there is content to scroll into while resetting position.
-                  Only duplicate visually, not in the DOM for screen readers (aria-hidden). */}
-              <div className="marquee-duplicate" aria-hidden="true" ref={duplicateContainerRef}>
-                {/* We render multiple copies to ensure the total width is enough for a seamless loop, especially when there are few items. */}
-                {[...Array(4)].map((_, i) =>
-                  updates.map((update) => (
-                    <div
-                      key={`dup-${i}-${update._id}`}
-                      className={`marquee-item duplicate ${update.severity}`}
-                      role="listitem"
-                      data-ga="marquee-item-click"
-                      data-id={update._id}
-                    >
-                      {update.severity !== 'info' && (
-                        <span className={`severity-badge ${update.severity}`} aria-hidden="true">
-                          {update.severity === 'urgent' ? 'Urgent' : 'Important'}
-                        </span>
-                      )}
-                      <span className="item-title">
-                        {update.titleEn}
-                      </span>
-                      {update.date && (
-                        <span className="item-date" aria-hidden="true">
-                          {' '}- {new Date(update.date).toLocaleDateString()}
-                        </span>
-                      )}
-                    </div>
-                  ))
-                )}
-              </div>
+              
             </div>
           </div>
 
