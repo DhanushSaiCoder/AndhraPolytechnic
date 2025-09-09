@@ -1,4 +1,3 @@
-
 /* NewsCard.css */
 
 .news-card {
@@ -27,6 +26,7 @@
   font-weight: 600;
   color: #111827;
   transition: color 0.2s ease;
+  text-transform: capitalize; /* Added this line */
 }
 
 .news-card:hover .news-card-title {
@@ -76,6 +76,7 @@
   font-weight: 600;
   color: #111827;
   transition: color 0.2s ease;
+  text-transform: capitalize; /* Added this line */
 }
 
 .news-card:hover .news-card-title {
@@ -114,4 +115,3 @@
     font-size: 0.9rem;
   }
 }
-

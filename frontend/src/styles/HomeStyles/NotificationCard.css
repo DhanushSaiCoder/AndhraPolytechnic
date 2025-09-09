@@ -26,6 +26,7 @@
     font-weight: 600;
     color: #111827;
     transition: color 0.2s ease;
+    text-transform: capitalize;
 }
 
 .notification-card:hover .notification-card-title {

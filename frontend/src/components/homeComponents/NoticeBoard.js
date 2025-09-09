@@ -32,12 +32,12 @@ const NoticeBoard = () => {
 
   return (
     <div className="notice-board">
-      <div className="notice-board-header">
+      {/* <div className="notice-board-header">
         <h1 className="notice-board-title">News & Notifications</h1>
         <p className="notice-board-subtitle">
           Stay updated with the latest news and important notifications from our college community
         </p>
-      </div>
+      </div> */}
 
       <div className="notice-board-grid">
         <div className="notice-section">
