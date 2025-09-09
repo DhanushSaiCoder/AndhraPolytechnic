@@ -8,6 +8,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
   const contentRef = useRef(null);
+  const duplicateContainerRef = useRef(null);
   const animationFrameId = useRef(null);
   const position = useRef(0);
 
@@ -103,11 +104,12 @@ const UpdatesMarquee = ({ speed = 120 }) => {
 
     const marqueeWidth = marqueeRef.current.offsetWidth;
     const contentWidth = contentRef.current.scrollWidth;
+    const loopWidth = duplicateContainerRef.current?.offsetLeft ?? 0;
 
     // If content is narrower than container, center it and do nothing
     if (contentWidth <= marqueeWidth) {
       position.current = 0;
-      contentRef.current.style.transform = `translateX(0px)`;
+      contentRef.current.style.transform = 'translateX(0px)';
       return;
     }
 
@@ -130,9 +132,10 @@ const UpdatesMarquee = ({ speed = 120 }) => {
       const pxPerMs = speed / 1000;
       position.current -= pxPerMs * delta;
 
-      // When completely scrolled out, reset to start
-      if (position.current <= -contentWidth) {
-        position.current = marqueeWidth;
+      // When the first set of items has scrolled completely out of view,
+      // adjust the position to create a seamless loop.
+      if (loopWidth > 0 && position.current <= -loopWidth) {
+        position.current += loopWidth;
       }
 
       // Apply transform
@@ -268,7 +271,7 @@ const UpdatesMarquee = ({ speed = 120 }) => {
             <div className="marquee-content" ref={contentRef} role="list">
               {updates.map((update) => (
                 <a
-                  key={update.id}
+                  key={update._id}
                   href={update.link}
                   target={update.link.startsWith('/') ? '_self' : '_blank'}
                   rel={update.link.startsWith('/') ? '' : 'noopener noreferrer'}
@@ -295,24 +298,27 @@ const UpdatesMarquee = ({ speed = 120 }) => {
               {/* Duplicate the content once for smoother continuous scroll when JS-based animation reaches the end.
                   This duplication ensures there is content to scroll into while resetting position.
                   Only duplicate visually, not in the DOM for screen readers (aria-hidden). */}
-              <div className="marquee-duplicate" aria-hidden="true">
-                {updates.map((update) => (
-                  <span key={`dup-${update._id}`} className={`marquee-item duplicate ${update.severity}`}>
-                    {update.severity !== 'info' && (
-                      <span className={`severity-badge ${update.severity}`} aria-hidden="true">
-                        {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+              <div className="marquee-duplicate" aria-hidden="true" ref={duplicateContainerRef}>
+                {/* We render multiple copies to ensure the total width is enough for a seamless loop, especially when there are few items. */}
+                {[...Array(4)].map((_, i) =>
+                  updates.map((update) => (
+                    <a key={`dup-${i}-${update._id}`} className={`marquee-item duplicate ${update.severity}`} tabIndex={-1}>
+                      {update.severity !== 'info' && (
+                        <span className={`severity-badge ${update.severity}`} aria-hidden="true">
+                          {update.severity === 'urgent' ? 'Urgent' : 'Important'}
+                        </span>
+                      )}
+                      <span className="item-title">
+                        {update.titleEn}
                       </span>
-                    )}
-                    <span className="item-title">
-                      {update.titleEn}
-                    </span>
-                    {update.date && (
-                      <span className="item-date" aria-hidden="true">
-                        {' '}- {new Date(update.date).toLocaleDateString()}
-                      </span>
-                    )}
-                  </span>
-                ))}
+                      {update.date && (
+                        <span className="item-date" aria-hidden="true">
+                          {' '}- {new Date(update.date).toLocaleDateString()}
+                        </span>
+                      )}
+                    </a>
+                  ))
+                )}
               </div>
             </div>
           </div>
