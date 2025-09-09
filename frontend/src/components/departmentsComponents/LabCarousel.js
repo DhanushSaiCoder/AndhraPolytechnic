@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
 import { Maximize } from 'lucide-react'; // Import Maximize icon
 import ImageModal from '../ImageModal'; // Import ImageModal
+import ImageLoader from '../ImageLoader/ImageLoader'; // Import ImageLoader
 import '../../styles/DepartmentsStyles/LabCarousel.css';
 
 const LabCarousel = ({ labs }) => {
@@ -80,7 +81,7 @@ const LabCarousel = ({ labs }) => {
         {labs.map((lab, index) => (
           <div key={index} className={`lab-card ${index === currentIndex ? 'active' : ''}`}>
             <div className="lab-card__image-wrap">
-              <img src={`https://picsum.photos/seed/${lab.name}/300/200`} alt={lab.name} className="lab-card__image" />
+              <ImageLoader src={`https://picsum.photos/seed/${lab.name}/300/200`} alt={lab.name} className="lab-card__image" />
               <button
                 className="lab-card__expand-button"
                 aria-label="Expand Image"
