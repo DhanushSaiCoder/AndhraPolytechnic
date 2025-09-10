@@ -45,11 +45,12 @@
 .se-field{display:flex; flex-direction:column}
 .se-label{font-size:.85rem; color:var(--muted); margin-bottom:.35rem}
 
-.se-grid-two{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
-
 .se-branch-list, .se-semester-list{display:flex; flex-direction:column; gap:.5rem}
+
 .se-branch-item, .se-semester-item{display:flex; align-items:center; justify-content:space-between; padding:.5rem; border-radius:8px; border:1px solid #f0f3f6}
+
 .se-branch-item.selected, .se-semester-item.selected{outline:2px solid rgba(11,92,255,0.12)}
+
 .se-branch-main, .se-semester-main{display:flex; gap:.5rem; align-items:center; flex:1}
 .short{width:85px}
 .pill{display:inline-block; background:#f1f5f9; padding:.2rem .45rem; border-radius:999px; font-size:.75rem; margin-right:.25rem}
@@ -67,7 +68,6 @@
 /* Responsive */
  @media (max-width:900px){
   .se-layout{grid-template-columns:1fr;}
-  .se-grid-two{grid-template-columns:1fr}
   .se-form-grid{grid-template-columns:1fr}
 }
 
@@ -201,4 +201,39 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:foc
 .se-branch-actions {
     display: flex;
     gap: 0.25rem;
+}
+
+/* Accordion styles */
+.se-grid-two {
+    display: block; /* Override the grid */
+}
+
+.se-branch-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.se-branch-container.expanded {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: var(--accent);
+}
+
+.se-branch-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.se-branch-item > span {
+    font-weight: 600;
+}
+
+.se-subjects-container {
+    padding: 0 1rem 1rem 1rem;
+    border-top: 1px solid #e5e7eb;
 }

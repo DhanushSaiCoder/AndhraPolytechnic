@@ -229,38 +229,38 @@ export default function SyllabusPageContentEditor() {
                 </div>
               </section>
 
-              <section className="se-grid-two">
-                <div className="se-card">
-                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => {setCurrentCurriculum(prev => ({...prev, branches: [...prev.branches, {department: '', subjects: []}]})); setEditingBranchIndex(currentCurriculum.branches.length); setIsDeptModalOpen(true);}}>+ Add Branch</button></div>
-                  <div className="se-branch-list">
-                    {currentCurriculum.branches?.map((branch, bIdx) => (
-                      <div key={bIdx} className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`} onClick={() => setSelectedBranchIndex(bIdx)}>
+              <section className="se-card">
+                <div className="se-card-header"><h3>Branches & Subjects</h3><button className="se-btn" onClick={() => {setCurrentCurriculum(prev => ({...prev, branches: [...prev.branches, {department: '', subjects: []}]})); setEditingBranchIndex(currentCurriculum.branches.length); setIsDeptModalOpen(true);}}>+ Add Branch</button></div>
+                <div className="se-branch-list">
+                  {currentCurriculum.branches?.map((branch, bIdx) => (
+                    <div key={bIdx} className={`se-branch-container ${selectedBranchIndex === bIdx ? 'expanded' : ''}`}>
+                      <div className="se-branch-item" onClick={() => setSelectedBranchIndex(selectedBranchIndex === bIdx ? null : bIdx)}>
                         <span>{departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'Select Department'}</span>
                         <div className="se-branch-actions">
                             <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); setEditingBranchIndex(bIdx); setIsDeptModalOpen(true); }} title="Edit department"><Edit2 size={16} /></button>
                             <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); setCurrentCurriculum(prev => ({...prev, branches: prev.branches.filter((_, i) => i !== bIdx)})); setSelectedBranchIndex(null);}}><Trash2 size={16} /></button>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="se-card">
-                  <div className="se-card-header"><h3>Subjects</h3></div>
-                  {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex] && currentCurriculum.branches[selectedBranchIndex].department ? (
-                    <div className="se-subjects">
-                      <button className="se-btn" onClick={() => {setEditingSubject({}); setIsSubjectModalOpen(true);}}>+ Add Subject</button>
-                      {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
-                        <div className={`se-subject-item`} key={subIdx}>
-                            <span>{sub.name} ({sub.code}) - {sub.semesterCode}</span>
-                            <div className="se-branch-actions">
-                                <button className="se-icon-btn" onClick={() => {setEditingSubject(sub); setIsSubjectModalOpen(true);}}><Edit2 size={16} /></button>
-                                <button className="se-icon-btn" onClick={() => setCurrentCurriculum(prev => { const next = deepClone(prev); next.branches[selectedBranchIndex].subjects = next.branches[selectedBranchIndex].subjects.filter((_, i) => i !== subIdx); return next;})}><Trash2 size={16} /></button>
+                      {selectedBranchIndex === bIdx && (
+                        <div className="se-subjects-container">
+                          {currentCurriculum.branches[selectedBranchIndex] && currentCurriculum.branches[selectedBranchIndex].department ? (
+                            <div className="se-subjects">
+                              <button className="se-btn" onClick={() => {setEditingSubject({}); setIsSubjectModalOpen(true);}}>+ Add Subject</button>
+                              {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
+                                <div className={`se-subject-item`} key={subIdx}>
+                                    <span>{sub.name} ({sub.code}) - {sub.semesterCode}</span>
+                                    <div className="se-branch-actions">
+                                        <button className="se-icon-btn" onClick={() => {setEditingSubject(sub); setIsSubjectModalOpen(true);}}><Edit2 size={16} /></button>
+                                        <button className="se-icon-btn" onClick={() => setCurrentCurriculum(prev => { const next = deepClone(prev); next.branches[selectedBranchIndex].subjects = next.branches[selectedBranchIndex].subjects.filter((_, i) => i !== subIdx); return next;})}><Trash2 size={16} /></button>
+                                    </div>
+                                </div>
+                              ))}
                             </div>
+                          ) : <div className="muted">Please select a department for this branch to add subjects.</div>}
                         </div>
-                      ))}
+                      )}
                     </div>
-                  ) : <div className="muted">{selectedBranchIndex !== null ? "Please select a department for this branch to add subjects." : "Select a branch to manage subjects."}</div>}
+                  ))}
                 </div>
               </section>
             </div>
