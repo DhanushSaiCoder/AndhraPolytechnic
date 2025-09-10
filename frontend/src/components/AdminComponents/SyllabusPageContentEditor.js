@@ -3,6 +3,8 @@ import { Trash2, Edit2 } from 'lucide-react';
 import syllabusService from '../../services/syllabusService';
 import departmentService from '../../services/departmentService';
 import DepartmentSelectionModal from './DepartmentSelectionModal';
+import SemesterEditorModal from './SemesterEditorModal';
+import SubjectEditorModal from './SubjectEditorModal';
 import './SyllabusEditor.css';
 
 function deepClone(obj) {
@@ -16,9 +18,16 @@ export default function SyllabusPageContentEditor() {
   const [selectedBranchIndex, setSelectedBranchIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [newlyAddedSubjectIndex, setNewlyAddedSubjectIndex] = useState(null);
+
+  // Modal states
   const [isDeptModalOpen, setIsDeptModalOpen] = useState(false);
+  const [isSemesterModalOpen, setIsSemesterModalOpen] = useState(false);
+  const [isSubjectModalOpen, setIsSubjectModalOpen] = useState(false);
+
+  // State for editing items
   const [editingBranchIndex, setEditingBranchIndex] = useState(null);
+  const [editingSemester, setEditingSemester] = useState(null);
+  const [editingSubject, setEditingSubject] = useState(null);
 
   const fetchSyllabusData = useCallback(async () => {
     try {
@@ -108,55 +117,41 @@ export default function SyllabusPageContentEditor() {
     }
   };
 
-  const updateNestedState = (path, value) => {
-    setCurrentCurriculum(prev => {
-        const next = deepClone(prev);
-        let current = next;
-        for (let i = 0; i < path.length - 1; i++) {
-            current = current[path[i]];
-        }
-        current[path[path.length - 1]] = value;
-        return next;
-    });
-  };
-  
-  const addListItem = (path) => {
-    setCurrentCurriculum(prev => {
-        const next = deepClone(prev);
-        let current = next;
-        for (let i = 0; i < path.length - 1; i++) {
-            current = current[path[i]];
-        }
-        const key = path[path.length - 1];
-        const newItem = key === 'branches' ? { department: '', subjects: [] } : 
-                        key === 'semesters' ? { name: '', code: '' } : 
-                        { name: '', code: '', description: '', semesterCode: '' };
-        
-        if (key === 'subjects') {
-            current[key].unshift(newItem);
-            setNewlyAddedSubjectIndex(0);
-            setTimeout(() => setNewlyAddedSubjectIndex(null), 2000);
-        } else {
-            current[key].push(newItem);
-        }
-        return next;
-    });
-  };
-  
-  const removeListItem = (path) => {
-    setCurrentCurriculum(prev => {
-        const next = deepClone(prev);
-        let parent = next;
-        for (let i = 0; i < path.length - 2; i++) {
-            parent = parent[path[i]];
-        }
-        const listKey = path[path.length - 2];
-        const index = path[path.length - 1];
-        parent[listKey] = parent[listKey].filter((_, i) => i !== index);
-        if(listKey === 'branches') setSelectedBranchIndex(null);
-        return next;
-    });
-  };
+  const handleDepartmentSelect = (deptId) => {
+    const isDuplicate = currentCurriculum.branches.some((branch, index) => branch.department === deptId && index !== editingBranchIndex);
+    if (isDuplicate) {
+        alert('This department has already been added to the curriculum.');
+        return;
+    }
+    const next = deepClone(currentCurriculum);
+    next.branches[editingBranchIndex].department = deptId;
+    setCurrentCurriculum(next);
+    setIsDeptModalOpen(false);
+    setEditingBranchIndex(null);
+  }
+
+  const handleSemesterSave = (semesterData) => {
+    const next = deepClone(currentCurriculum);
+    if (editingSemester._id) {
+        const index = next.semesters.findIndex(s => s._id === semesterData._id);
+        next.semesters[index] = semesterData;
+    } else {
+        next.semesters.push(semesterData);
+    }
+    setCurrentCurriculum(next);
+  }
+
+  const handleSubjectSave = (subjectData) => {
+    const next = deepClone(currentCurriculum);
+    const branch = next.branches[selectedBranchIndex];
+    if (editingSubject._id) {
+        const index = branch.subjects.findIndex(s => s._id === subjectData._id);
+        branch.subjects[index] = subjectData;
+    } else {
+        branch.subjects.unshift(subjectData);
+    }
+    setCurrentCurriculum(next);
+  }
 
   const filteredCurricula = curricula.filter((c) => c.code?.toLowerCase().includes(search.toLowerCase()));
 
@@ -169,12 +164,22 @@ export default function SyllabusPageContentEditor() {
             onClose={() => setIsDeptModalOpen(false)}
             departments={departments}
             currentDepartmentId={editingBranchIndex !== null ? currentCurriculum.branches[editingBranchIndex]?.department : null}
-            onSelect={(deptId) => {
-                updateNestedState(['branches', editingBranchIndex, 'department'], deptId);
-                setIsDeptModalOpen(false);
-                setEditingBranchIndex(null);
-            }}
+            onSelect={handleDepartmentSelect}
         />
+        <SemesterEditorModal 
+            isOpen={isSemesterModalOpen}
+            onClose={() => setIsSemesterModalOpen(false)}
+            semester={editingSemester}
+            onSave={handleSemesterSave}
+        />
+        <SubjectEditorModal
+            isOpen={isSubjectModalOpen}
+            onClose={() => setIsSubjectModalOpen(false)}
+            subject={editingSubject}
+            semesters={currentCurriculum?.semesters || []}
+            onSave={handleSubjectSave}
+        />
+
       <header className="se-header"><h1>Syllabus Content Management</h1></header>
       <div className="se-layout">
         <aside className="se-sidebar" aria-label="Curricula list">
@@ -210,13 +215,15 @@ export default function SyllabusPageContentEditor() {
               </section>
 
               <section className="se-card">
-                <div className="se-card-header"><h3>Semesters</h3><button className="se-btn" onClick={() => addListItem(['semesters'])}>+ Add Semester</button></div>
+                <div className="se-card-header"><h3>Semesters</h3><button className="se-btn" onClick={() => {setEditingSemester({}); setIsSemesterModalOpen(true);}}>+ Add Semester</button></div>
                 <div className="se-semester-list">
                   {currentCurriculum.semesters?.map((sem, sIdx) => (
                     <div key={sIdx} className="se-semester-item">
-                      <input className="se-input-semester-name" placeholder="Semester Name" value={sem.name} onChange={(e) => updateNestedState(['semesters', sIdx, 'name'], e.target.value)} />
-                      <input className="se-input-semester-code short" placeholder="Code" value={sem.code} onChange={(e) => updateNestedState(['semesters', sIdx, 'code'], e.target.value)} />
-                      <button className="se-icon-btn" onClick={() => removeListItem(['semesters', sIdx])}><Trash2 size={16} /></button>
+                        <span>{sem.name} ({sem.code})</span>
+                        <div className="se-branch-actions">
+                            <button className="se-icon-btn" onClick={() => {setEditingSemester(sem); setIsSemesterModalOpen(true);}}><Edit2 size={16} /></button>
+                            <button className="se-icon-btn" onClick={() => setCurrentCurriculum(prev => ({...prev, semesters: prev.semesters.filter((_, i) => i !== sIdx)}))}><Trash2 size={16} /></button>
+                        </div>
                     </div>
                   ))}
                 </div>
@@ -224,14 +231,14 @@ export default function SyllabusPageContentEditor() {
 
               <section className="se-grid-two">
                 <div className="se-card">
-                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => { addListItem(['branches']); setEditingBranchIndex(currentCurriculum.branches.length); setIsDeptModalOpen(true); }}>+ Add Branch</button></div>
+                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => {setCurrentCurriculum(prev => ({...prev, branches: [...prev.branches, {department: '', subjects: []}]})); setEditingBranchIndex(currentCurriculum.branches.length); setIsDeptModalOpen(true);}}>+ Add Branch</button></div>
                   <div className="se-branch-list">
                     {currentCurriculum.branches?.map((branch, bIdx) => (
                       <div key={bIdx} className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`} onClick={() => setSelectedBranchIndex(bIdx)}>
                         <span>{departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'Select Department'}</span>
                         <div className="se-branch-actions">
                             <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); setEditingBranchIndex(bIdx); setIsDeptModalOpen(true); }} title="Edit department"><Edit2 size={16} /></button>
-                            <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem(['branches', bIdx]); }}><Trash2 size={16} /></button>
+                            <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); setCurrentCurriculum(prev => ({...prev, branches: prev.branches.filter((_, i) => i !== bIdx)})); setSelectedBranchIndex(null);}}><Trash2 size={16} /></button>
                         </div>
                       </div>
                     ))}
@@ -242,19 +249,14 @@ export default function SyllabusPageContentEditor() {
                   <div className="se-card-header"><h3>Subjects</h3></div>
                   {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex] && currentCurriculum.branches[selectedBranchIndex].department ? (
                     <div className="se-subjects">
-                      <button className="se-btn" onClick={() => addListItem(['branches', selectedBranchIndex, 'subjects'])}>+ Add Subject</button>
+                      <button className="se-btn" onClick={() => {setEditingSubject({}); setIsSubjectModalOpen(true);}}>+ Add Subject</button>
                       {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
-                        <div className={`se-subject-item ${subIdx === newlyAddedSubjectIndex ? 'newly-added' : ''}`} key={subIdx}>
-                          <div className="se-subject-fields">
-                            <input placeholder="Subject Name" value={sub.name} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'name'], e.target.value)} />
-                            <input placeholder="Code" value={sub.code} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'code'], e.target.value)} className="short" />
-                            <select value={sub.semesterCode} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'semesterCode'], e.target.value)}>
-                              <option value="">-- Select Semester --</option>
-                              {currentCurriculum.semesters.map(s => <option key={s.code} value={s.code}>{s.name}</option>)}
-                            </select>
-                            <textarea placeholder="Description" value={sub.description} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'description'], e.target.value)} />
-                          </div>
-                          <button className="se-icon-btn" onClick={() => removeListItem(['branches', selectedBranchIndex, 'subjects', subIdx])}><Trash2 size={16} /></button>
+                        <div className={`se-subject-item`} key={subIdx}>
+                            <span>{sub.name} ({sub.code}) - {sub.semesterCode}</span>
+                            <div className="se-branch-actions">
+                                <button className="se-icon-btn" onClick={() => {setEditingSubject(sub); setIsSubjectModalOpen(true);}}><Edit2 size={16} /></button>
+                                <button className="se-icon-btn" onClick={() => setCurrentCurriculum(prev => { const next = deepClone(prev); next.branches[selectedBranchIndex].subjects = next.branches[selectedBranchIndex].subjects.filter((_, i) => i !== subIdx); return next;})}><Trash2 size={16} /></button>
+                            </div>
                         </div>
                       ))}
                     </div>
