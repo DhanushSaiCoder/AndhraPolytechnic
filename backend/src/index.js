@@ -65,6 +65,9 @@ app.use('/api/academic-achievements', academicAchievementsRouter);
 const admissionsRouter = require('./routes/admissions');
 app.use('/api/admissions-content', admissionsRouter);
 
+const eventsRouter = require('./routes/events');
+app.use('/api/events', eventsRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
