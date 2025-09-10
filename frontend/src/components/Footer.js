@@ -48,9 +48,12 @@ const Footer = () => {
           <div className="footer-col links-col">
             <h4>Quick Links</h4>
             <ul>
-              {['About Us', 'Admissions', 'Departments', 'Faculty', 'Results', 'Placements'].map((link, i) => (
-                <li key={i}><a href="#">{link}</a></li>
-              ))}
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/academics/admissions">Admissions</a></li>
+              <li><a href="/departments">Departments</a></li>
+              <li><a href="/departments">Faculty</a></li>
+              <li><a href="/results">Results</a></li>
+              <li><a href="/placements">Placements</a></li>
             </ul>
           </div>
 
@@ -58,9 +61,12 @@ const Footer = () => {
           <div className="footer-col links-col">
             <h4>Resources</h4>
             <ul>
-              {['Library', 'Campus Life', 'Student Portal', 'Downloads', 'Contact Us', 'Alumni'].map((res, i) => (
-                <li key={i}><a href="#">{res}</a></li>
-              ))}
+              <li><a href="#">Library</a></li>
+              <li><a href="#">Campus Life</a></li>
+              <li><a href="#">Student Portal</a></li>
+              <li><a href="#">Downloads</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="/alumni">Alumni</a></li>
             </ul>
           </div>
         </div>
