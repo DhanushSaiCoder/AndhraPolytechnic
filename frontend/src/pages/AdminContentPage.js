@@ -7,6 +7,7 @@ import AcademicsPageContentEditor from '../components/AdminComponents/AcademicsP
 import EventsPageContentEditor from '../components/AdminComponents/EventsPageContentEditor';
 import AboutUsPageContentEditor from '../components/AdminComponents/AboutUsPageContentEditor';
 import AlumniPageContentEditor from '../components/AdminComponents/AlumniPageContentEditor';
+import SyllabusPageContentEditor from '../components/AdminComponents/SyllabusPageContentEditor';
 
 const AdminContentPage = () => {
   const [selectedSection, setSelectedSection] = useState('home'); // Default to home page content
@@ -25,6 +26,9 @@ const AdminContentPage = () => {
             </li>
             <li className={selectedSection === 'academics' ? 'active' : ''}>
               <button onClick={() => setSelectedSection('academics')}>Academics Page</button>
+            </li>
+            <li className={selectedSection === 'syllabus' ? 'active' : ''}>
+              <button onClick={() => setSelectedSection('syllabus')}>Syllabus</button>
             </li>
             <li className={selectedSection === 'events' ? 'active' : ''}>
               <button onClick={() => setSelectedSection('events')}>Events Page</button>
@@ -48,6 +52,7 @@ const AdminContentPage = () => {
         {selectedSection === 'home' && <HomePageContentEditor />}
         {selectedSection === 'about' && <AboutUsPageContentEditor />}
         {selectedSection === 'academics' && <AcademicsPageContentEditor />}
+        {selectedSection === 'syllabus' && <SyllabusPageContentEditor />}
         {selectedSection === 'events' && <EventsPageContentEditor />}
         {selectedSection === 'placements' && <PlacementsPageContentEditor />}
         {selectedSection === 'departments' && <DepartmentsPageContentEditor />}

@@ -1,12 +1,13 @@
 import React from 'react';
-import prpImg from '../../images/commissionerImg.jpeg'
+import profileImg from '../../images/profile.jpg'
+
 import '../../styles/HomeStyles/PrincipalMessage.css';
 const PrincipalMessage = () => {
     return (
         <div className='PrincipalMessage'>
             <div className='princialImgAndName'>
-                <img className='prpImg' src={prpImg} alt="Commissioner's Image" />
-                <h3 className='prpName'>Sri K.S. Vara Prasad, <span>PHD</span></h3>
+                <img className='prpImg' src={profileImg} alt="Commissioner's Image" />
+                <h3 className='prpName'>{"<principal Name>"}, <span>PHD</span></h3>
                 <p className='prpRole'>Principal</p>
             </div>
 

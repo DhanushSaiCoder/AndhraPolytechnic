@@ -77,6 +77,9 @@ app.use('/api/about-us-achievements', aboutUsAchievementsRouter);
 const aboutUsContactRouter = require('./routes/aboutUsContact');
 app.use('/api/about-us-contact', aboutUsContactRouter);
 
+const syllabusRouter = require('./routes/syllabus');
+app.use('/api/syllabus', syllabusRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
