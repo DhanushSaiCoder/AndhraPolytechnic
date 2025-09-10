@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import statService from '../../../services/statService';
 import CurrentInfoModal from './CurrentInfoModal';
+import Loader from '../../Loader';
 
 const CurrentInfoEditor = () => {
   const [stats, setStats] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStat, setEditingStat] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await statService.getStats();
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching stats:', error);
       alert('Failed to fetch stats.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [fetchStats]);
 
   const handleAddClick = () => {
     setEditingStat({ _id: '', icon: '', value: '', label: '', description: '' });
@@ -62,6 +67,10 @@ const CurrentInfoEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Stats..." />;
+  }
 
   return (
     <section className="admin-section">

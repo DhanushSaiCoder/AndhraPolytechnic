@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import admissionsContentService from '../../../services/admissionsContentService';
 import AdmissionsPageModal from './AdmissionsPageModal';
+import Loader from '../../Loader';
 
 const initialContentState = {
   processSteps: [],
@@ -12,8 +13,10 @@ const initialContentState = {
 const AdmissionsPageEditor = () => {
   const [content, setContent] = useState(initialContentState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await admissionsContentService.getAdmissionsContent();
       if (response.data) {
@@ -24,12 +27,14 @@ const AdmissionsPageEditor = () => {
     } catch (error) {
       console.error('Error fetching admissions content:', error);
       alert('Failed to fetch admissions content.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchContent();
-  }, []);
+  }, [fetchContent]);
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -46,6 +51,10 @@ const AdmissionsPageEditor = () => {
       alert('Failed to save admissions content.');
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Admissions Content..." />;
+  }
 
   return (
     <section className="admin-section">

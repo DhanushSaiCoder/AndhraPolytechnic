@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import placementProcessService from '../../../services/placementProcessService';
 import PlacementProcessModal from './PlacementProcessModal';
+import Loader from '../../Loader';
 
 const initialStepState = {
   _id: '',
@@ -13,20 +14,24 @@ const PlacementProcessEditor = () => {
   const [steps, setSteps] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStep, setEditingStep] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchSteps = async () => {
+  const fetchSteps = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await placementProcessService.getPlacementProcessSteps();
       setSteps(response.data);
     } catch (error) {
       console.error('Error fetching placement process steps:', error);
       alert('Failed to fetch placement process steps.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchSteps();
-  }, []);
+  }, [fetchSteps]);
 
   const handleAddClick = () => {
     setEditingStep({ ...initialStepState });
@@ -68,6 +73,10 @@ const PlacementProcessEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Placement Process..." />;
+  }
 
   return (
     <section className="admin-section">

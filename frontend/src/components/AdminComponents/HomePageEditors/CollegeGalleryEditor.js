@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import galleryService from '../../../services/galleryService';
 import CollegeGalleryModal from './CollegeGalleryModal';
+import Loader from '../../Loader';
 
 const CollegeGalleryEditor = () => {
   const [slides, setSlides] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSlide, setEditingSlide] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchSlides = async () => {
+  const fetchSlides = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await galleryService.getGallerySlides();
       setSlides(response.data);
     } catch (error) {
       console.error('Error fetching gallery slides:', error);
       alert('Failed to fetch gallery slides.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchSlides();
-  }, []);
+  }, [fetchSlides]);
 
   const handleAddClick = () => {
     setEditingSlide({ _id: '', image: '', title: '', subtitle: '' });
@@ -62,6 +67,10 @@ const CollegeGalleryEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Gallery..." />;
+  }
 
   return (
     <section className="admin-section">

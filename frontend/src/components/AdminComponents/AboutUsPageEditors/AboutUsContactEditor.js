@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import aboutUsContactService from '../../../services/aboutUsContactService';
 import AboutUsContactModal from './AboutUsContactModal';
+import Loader from '../../Loader';
 
 const initialContactState = {
   address: '',
@@ -12,8 +13,10 @@ const initialContactState = {
 const AboutUsContactEditor = () => {
   const [contact, setContact] = useState(initialContactState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchContact = async () => {
+  const fetchContact = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await aboutUsContactService.getContact();
       if (response.data) {
@@ -24,12 +27,14 @@ const AboutUsContactEditor = () => {
     } catch (error) {
       console.error('Error fetching contact info:', error);
       alert('Failed to fetch contact info.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchContact();
-  }, []);
+  }, [fetchContact]);
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -46,6 +51,10 @@ const AboutUsContactEditor = () => {
       alert('Failed to save contact info.');
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Contact Info..." />;
+  }
 
   return (
     <section className="admin-section">

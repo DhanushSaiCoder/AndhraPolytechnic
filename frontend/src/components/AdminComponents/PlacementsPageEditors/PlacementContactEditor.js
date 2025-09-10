@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import placementContactService from '../../../services/placementContactService';
 import PlacementContactModal from './PlacementContactModal';
+import Loader from '../../Loader';
 
 const PlacementContactEditor = () => {
   const [contactData, setContactData] = useState({
@@ -9,8 +10,10 @@ const PlacementContactEditor = () => {
     address: '',
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchContactData = async () => {
+  const fetchContactData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await placementContactService.getPlacementContact();
       if (response.data) {
@@ -19,12 +22,14 @@ const PlacementContactEditor = () => {
     } catch (error) {
       console.error('Error fetching placement contact data:', error);
       alert('Failed to fetch placement contact data.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchContactData();
-  }, []);
+  }, [fetchContactData]);
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -41,6 +46,10 @@ const PlacementContactEditor = () => {
       alert('Failed to save placement contact data.');
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Contact Info..." />;
+  }
 
   return (
     <section className="admin-section">

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import successStoryService from '../../../services/successStoryService';
 import SuccessStoryModal from './SuccessStoryModal';
+import Loader from '../../Loader';
 
 const initialStoryState = {
   _id: '',
@@ -16,20 +17,24 @@ const SuccessStoriesEditor = () => {
   const [stories, setStories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStory, setEditingStory] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchStories = async () => {
+  const fetchStories = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await successStoryService.getSuccessStories();
       setStories(response.data);
     } catch (error) {
       console.error('Error fetching success stories:', error);
       alert('Failed to fetch success stories.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchStories();
-  }, []);
+  }, [fetchStories]);
 
   const handleAddClick = () => {
     setEditingStory({ ...initialStoryState });
@@ -71,6 +76,10 @@ const SuccessStoriesEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Success Stories..." />;
+  }
 
   return (
     <section className="admin-section">

@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import recruiterService from '../../../services/recruiterService';
 import RecruiterModal from './RecruiterModal';
+import Loader from '../../Loader';
 
 const TopRecruitersEditor = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRecruiter, setEditingRecruiter] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchRecruiters = async () => {
+  const fetchRecruiters = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await recruiterService.getRecruiters();
       setRecruiters(response.data);
     } catch (error) {
       console.error('Error fetching recruiters:', error);
       alert('Failed to fetch recruiters.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchRecruiters();
-  }, []);
+  }, [fetchRecruiters]);
 
   const handleAddClick = () => {
     setEditingRecruiter({ _id: '', name: '', logo: '' });
@@ -62,6 +67,10 @@ const TopRecruitersEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Recruiters..." />;
+  }
 
   return (
     <section className="admin-section">

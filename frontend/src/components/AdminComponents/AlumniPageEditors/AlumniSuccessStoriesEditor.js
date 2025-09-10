@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import alumniSuccessStoryService from '../../../services/alumniSuccessStoryService';
 import AlumniSuccessStoryModal from './AlumniSuccessStoryModal';
+import Loader from '../../Loader';
 
 const initialStoryState = {
   _id: '',
@@ -18,20 +19,24 @@ const AlumniSuccessStoriesEditor = () => {
   const [stories, setStories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStory, setEditingStory] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchStories = async () => {
+  const fetchStories = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await alumniSuccessStoryService.getAlumniSuccessStories();
       setStories(response.data);
     } catch (error) {
       console.error('Error fetching alumni success stories:', error);
       alert('Failed to fetch alumni success stories.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchStories();
-  }, []);
+  }, [fetchStories]);
 
   const handleAddClick = () => {
     setEditingStory({ ...initialStoryState });
@@ -74,6 +79,10 @@ const AlumniSuccessStoriesEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Success Stories..." />;
+  }
 
   return (
     <section className="admin-section">

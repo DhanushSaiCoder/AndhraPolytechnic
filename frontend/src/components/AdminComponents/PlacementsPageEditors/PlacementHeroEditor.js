@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import placementHeroService from '../../../services/placementHeroService';
 import PlacementHeroModal from './PlacementHeroModal';
+import Loader from '../../Loader';
 
 const PlacementHeroEditor = () => {
   const [chartData, setChartData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchHeroData = async () => {
+  const fetchHeroData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await placementHeroService.getPlacementHeroData();
       if (response.data && response.data.years && response.data.years.length > 0) {
@@ -23,12 +26,14 @@ const PlacementHeroEditor = () => {
     } catch (error) {
       console.error('Error fetching placement hero data:', error);
       alert('Failed to fetch placement hero data.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchHeroData();
-  }, []);
+  }, [fetchHeroData]);
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -45,6 +50,10 @@ const PlacementHeroEditor = () => {
       alert('Failed to save placement hero data.');
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Chart Data..." />;
+  }
 
   return (
     <section className="admin-section">

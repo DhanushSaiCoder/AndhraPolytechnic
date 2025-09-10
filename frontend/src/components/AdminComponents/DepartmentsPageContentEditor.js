@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import departmentService from '../../services/departmentService';
 import DepartmentModal from './DepartmentsPageEditors/DepartmentModal';
 import './AdminEditors.css';
+import Loader from '../Loader';
 
 const initialDepartmentState = {
   _id: '',
@@ -27,20 +28,24 @@ const DepartmentsPageContentEditor = () => {
   const [departments, setDepartments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingDepartment, setEditingDepartment] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await departmentService.getDepartments();
       setDepartments(response.data);
     } catch (error) {
       console.error('Error fetching departments:', error);
       alert('Failed to fetch departments.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchDepartments();
-  }, []);
+  }, [fetchDepartments]);
 
   const handleAddClick = () => {
     setEditingDepartment({ ...initialDepartmentState });
@@ -93,6 +98,10 @@ const DepartmentsPageContentEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Departments..." />;
+  }
 
   return (
     <div className="editor-container">

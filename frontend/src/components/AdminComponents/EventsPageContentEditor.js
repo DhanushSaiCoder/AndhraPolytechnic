@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import eventService from '../../services/eventService';
 import EventModal from './EventsPageEditors/EventModal';
 import './AdminEditors.css';
+import Loader from '../Loader';
 
 const initialEventState = {
   _id: '',
@@ -16,20 +17,24 @@ const EventsPageContentEditor = () => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await eventService.getEvents();
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
       alert('Failed to fetch events.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   const handleAddClick = () => {
     setEditingEvent({ ...initialEventState });
@@ -89,6 +94,10 @@ const EventsPageContentEditor = () => {
       </ul>
     </div>
   );
+
+  if (isLoading) {
+    return <Loader text="Loading Events..." />;
+  }
 
   return (
     <section className="admin-section">

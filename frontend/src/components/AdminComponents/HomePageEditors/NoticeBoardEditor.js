@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import newsService from '../../../services/newsService';
 import notificationService from '../../../services/notificationService';
 import NewsItemModal from './NewsItemModal';
 import NotificationItemModal from './NotificationItemModal';
+import Loader from '../../Loader';
 
 const NoticeBoardEditor = () => {
   const [newsItems, setNewsItems] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [isNewsModalOpen, setIsNewsModalOpen] = useState(false);
   const [editingNewsItem, setEditingNewsItem] = useState(null);
@@ -15,7 +17,7 @@ const NoticeBoardEditor = () => {
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const [editingNotificationItem, setEditingNotificationItem] = useState(null);
 
-  const fetchNewsItems = async () => {
+  const fetchNewsItems = useCallback(async () => {
     try {
       const response = await newsService.getNewsItems();
       const formattedNews = response.data.map(item => ({
@@ -27,9 +29,9 @@ const NoticeBoardEditor = () => {
       console.error('Error fetching news items:', error);
       alert('Failed to fetch news items.');
     }
-  };
+  }, []);
 
-  const fetchNotificationItems = async () => {
+  const fetchNotificationItems = useCallback(async () => {
     try {
       const response = await notificationService.getNotificationItems();
       const formattedNotifications = response.data.map(item => ({
@@ -41,12 +43,16 @@ const NoticeBoardEditor = () => {
       console.error('Error fetching notification items:', error);
       alert('Failed to fetch notification items.');
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchNewsItems();
-    fetchNotificationItems();
-  }, []);
+    const loadAllData = async () => {
+      setIsLoading(true);
+      await Promise.all([fetchNewsItems(), fetchNotificationItems()]);
+      setIsLoading(false);
+    };
+    loadAllData();
+  }, [fetchNewsItems, fetchNotificationItems]);
 
   // News Handlers
   const handleAddNewsClick = () => {
@@ -139,6 +145,10 @@ const NoticeBoardEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading News & Notifications..." />;
+  }
 
   return (
     <section className="admin-section">

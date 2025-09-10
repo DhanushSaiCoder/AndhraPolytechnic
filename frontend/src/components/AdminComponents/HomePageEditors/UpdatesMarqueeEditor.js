@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import updateService from '../../../services/updateService';
 import UpdateModal from './UpdateModal';
+import Loader from '../../Loader';
 
 const UpdatesMarqueeEditor = () => {
   const [updates, setUpdates] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUpdate, setEditingUpdate] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchUpdates = async () => {
+  const fetchUpdates = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await updateService.getUpdates();
       const formattedUpdates = response.data.map(update => ({
@@ -19,12 +22,14 @@ const UpdatesMarqueeEditor = () => {
     } catch (error) {
       console.error('Error fetching updates:', error);
       alert('Failed to fetch updates.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchUpdates();
-  }, []);
+  }, [fetchUpdates]);
 
   const handleAddClick = () => {
     setEditingUpdate({
@@ -74,6 +79,10 @@ const UpdatesMarqueeEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Updates..." />;
+  }
 
   return (
     <section className="admin-section">

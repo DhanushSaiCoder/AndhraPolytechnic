@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import highestPackageService from '../../../services/highestPackageService';
 import HighestPackageModal from './HighestPackageModal';
+import Loader from '../../Loader';
 
 const HighestPackagesEditor = () => {
   const [packages, setPackages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPackage, setEditingPackage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchPackages = async () => {
+  const fetchPackages = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await highestPackageService.getHighestPackages();
       setPackages(response.data);
     } catch (error) {
       console.error('Error fetching highest packages:', error);
       alert('Failed to fetch highest packages.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchPackages();
-  }, []);
+  }, [fetchPackages]);
 
   const handleAddClick = () => {
     setEditingPackage({
@@ -70,6 +75,10 @@ const HighestPackagesEditor = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader text="Loading Highest Packages..." />;
+  }
 
   return (
     <section className="admin-section">

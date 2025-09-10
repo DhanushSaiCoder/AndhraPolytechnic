@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import academicAchievementService from '../../../services/academicAchievementService';
 import AcademicAchievementModal from './AcademicAchievementModal';
+import Loader from '../../Loader';
 
 const initialAchievementState = {
   _id: '',
@@ -15,20 +16,24 @@ const AcademicAchievementsEditor = () => {
   const [achievements, setAchievements] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAchievement, setEditingAchievement] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchAchievements = async () => {
+  const fetchAchievements = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await academicAchievementService.getAcademicAchievements();
       setAchievements(response.data);
     } catch (error) {
       console.error('Error fetching achievements:', error);
       alert('Failed to fetch achievements.');
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchAchievements();
-  }, []);
+  }, [fetchAchievements]);
 
   const handleAddClick = () => {
     setEditingAchievement({ ...initialAchievementState });
@@ -92,6 +97,10 @@ const AcademicAchievementsEditor = () => {
       </ul>
     </div>
   );
+
+  if (isLoading) {
+    return <Loader text="Loading Achievements..." />;
+  }
 
   return (
     <section className="admin-section">
