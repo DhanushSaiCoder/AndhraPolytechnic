@@ -1,0 +1,121 @@
+/* Auth.css */
+
+.auth-page {
+  display: flex;
+  min-height: calc(100vh - 200px);
+  background-color: #f9f7f7;
+}
+
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #3f72af 0%, #112d4e 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+}
+
+.auth-left h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.auth-left p {
+  font-size: 1.125rem;
+  max-width: 400px;
+}
+
+.auth-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-form-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #112d4e;
+  margin-bottom: 0.5rem;
+}
+
+.auth-form-header p {
+  color: #4b5563;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #112d4e;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dbe2ef;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3f72af;
+  box-shadow: 0 0 0 3px rgba(63, 114, 175, 0.2);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #3f72af 0%, #112d4e 100%);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  box-shadow: 0 4px 12px rgba(63, 114, 175, 0.3);
+  transform: translateY(-2px);
+}
+
+.auth-switch-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.auth-switch-link p {
+  color: #4b5563;
+}
+
+.auth-switch-link a {
+  color: #3f72af;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-switch-link a:hover {
+  text-decoration: underline;
+}

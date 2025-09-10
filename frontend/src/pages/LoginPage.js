@@ -1,13 +1,22 @@
 import React from 'react';
 import LoginForm from '../components/AuthComponents/LoginForm';
-import '../styles/AuthStyles/LoginPage.css';
+import '../styles/Auth.css';
 
 const LoginPage = () => {
   return (
-    <div className="login-page-container">
-      <div className="login-form-card">
-        <h1>Login</h1>
-        <LoginForm />
+    <div className="auth-page">
+      <div className="auth-left">
+        <h1>Welcome Back!</h1>
+        <p>Login to access your personalized dashboard and college resources.</p>
+      </div>
+      <div className="auth-right">
+        <div className="auth-form-container">
+          <div className="auth-form-header">
+            <h2>Login to Your Account</h2>
+            <p>Enter your credentials to continue</p>
+          </div>
+          <LoginForm />
+        </div>
       </div>
     </div>
   );

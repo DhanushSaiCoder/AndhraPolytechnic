@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { TextField, Button } from '@mui/material';
+import { useNavigate, Link } from 'react-router-dom';
 import authService from '../../services/authService';
 
 const RegisterForm = () => {
@@ -26,37 +25,46 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <p>{error}</p>}
-      <TextField
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Confirm Password"
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
-      <Button type="submit" variant="contained" color="primary">
+      {error && <p className="error-message">{error}</p>}
+      <div className="form-group">
+        <label htmlFor="email" className="form-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-input"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password" className="form-label">Password</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-input"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="form-input"
+          required
+        />
+      </div>
+      <button type="submit" className="auth-button">
         Register
-      </Button>
+      </button>
+      <div className="auth-switch-link">
+        <p>Already have an account? <Link to="/login">Login</Link></p>
+      </div>
     </form>
   );
 };
