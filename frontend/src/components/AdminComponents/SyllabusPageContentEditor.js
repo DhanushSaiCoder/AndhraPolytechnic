@@ -206,7 +206,15 @@ export default function SyllabusPageContentEditor() {
                   <div className="se-branch-list">
                     {currentCurriculum.branches?.map((branch, bIdx) => (
                       <div key={bIdx} className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`} onClick={() => setSelectedBranchIndex(bIdx)}>
-                        <span>{departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'Select Department'}</span>
+                        <select 
+                          value={branch.department?._id || branch.department || ''} 
+                          onChange={(e) => {
+                              updateNestedState(['branches', bIdx, 'department'], e.target.value);
+                          }}
+                        >
+                          <option value="">-- Select Department --</option>
+                          {departments.map(d => <option key={d._id} value={d._id}>{d.name}</option>)}
+                        </select>
                         <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem(['branches', bIdx]); }}><Trash2 size={16} /></button>
                       </div>
                     ))}
@@ -215,15 +223,8 @@ export default function SyllabusPageContentEditor() {
 
                 <div className="se-card">
                   <div className="se-card-header"><h3>Subjects</h3></div>
-                  {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex] ? (
+                  {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex] && currentCurriculum.branches[selectedBranchIndex].department ? (
                     <div className="se-subjects">
-                       <div className="form-group">
-                          <label>Branch</label>
-                          <select value={currentCurriculum.branches[selectedBranchIndex].department?._id || currentCurriculum.branches[selectedBranchIndex].department} onChange={e => updateNestedState(['branches', selectedBranchIndex, 'department'], e.target.value)}>
-                              <option value="">-- Select Department --</option>
-                              {departments.map(d => <option key={d._id} value={d._id}>{d.name}</option>)}
-                          </select>
-                        </div>
                       <button className="se-btn" onClick={() => addListItem(['branches', selectedBranchIndex, 'subjects'])}>+ Add Subject</button>
                       {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
                         <div className="se-subject-item" key={subIdx}>
@@ -240,7 +241,7 @@ export default function SyllabusPageContentEditor() {
                         </div>
                       ))}
                     </div>
-                  ) : <div className="muted">Select a branch to manage subjects.</div>}
+                  ) : <div className="muted">{selectedBranchIndex !== null ? "Please select a department for this branch to add subjects." : "Select a branch to manage subjects."}</div>}
                 </div>
               </section>
             </div>

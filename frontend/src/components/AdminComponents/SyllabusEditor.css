@@ -143,3 +143,16 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:foc
   width: 16px;
   height: 16px;
 }
+
+.se-branch-item select {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+.se-branch-item select:focus {
+    outline: none;
+    box-shadow: none;
+}
