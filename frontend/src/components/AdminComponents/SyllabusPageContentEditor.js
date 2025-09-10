@@ -127,7 +127,12 @@ export default function SyllabusPageContentEditor() {
         const newItem = key === 'branches' ? { department: '', subjects: [] } : 
                         key === 'semesters' ? { name: '', code: '' } : 
                         { name: '', code: '', description: '', semesterCode: '' };
-        current[key].push(newItem);
+        
+        if (key === 'subjects') {
+            current[key].unshift(newItem);
+        } else {
+            current[key].push(newItem);
+        }
         return next;
     });
   };
