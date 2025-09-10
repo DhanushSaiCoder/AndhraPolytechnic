@@ -1,8 +1,8 @@
-/* AdminPage.css */
+@import './AdminVariables.css';
 
 .admin-page {
   padding: 4rem 1rem;
-  background-color: #f9f7f7;
+  background-color: var(--admin-bg-light);
   min-height: calc(100vh - 120px);
 }
 
@@ -19,13 +19,13 @@
 .admin-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #112d4e;
+  color: var(--admin-navy);
   margin-bottom: 1rem;
 }
 
 .admin-subtitle {
   font-size: 1.125rem;
-  color: #4b5563;
+  color: var(--admin-text-secondary);
   max-width: 42rem;
   margin: 0 auto;
 }
@@ -37,17 +37,17 @@
 }
 
 .admin-card {
-  background: #fff;
+  background: var(--admin-bg-panel);
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(63, 114, 175, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px var(--admin-primary-alpha-10);
+  border: 1px solid var(--admin-white-alpha-30);
   transition: all 0.3s ease;
 }
 
 .admin-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px rgba(63, 114, 175, 0.15);
+  box-shadow: 0 20px 25px var(--admin-primary-alpha-15);
 }
 
 .admin-card-header {
@@ -60,22 +60,22 @@
 .admin-card-icon {
   width: 3rem;
   height: 3rem;
-  background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-darker-accent-blue) 100%);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--admin-bg-panel);
 }
 
 .admin-card-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #112d4e;
+  color: var(--admin-navy);
 }
 
 .admin-card-description {
-  color: #4b5563;
+  color: var(--admin-text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -83,8 +83,8 @@
 .admin-card-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #3f72af 0%, #2c5aa0 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-darker-accent-blue) 100%);
+  color: var(--admin-bg-panel);
   font-weight: 600;
   border-radius: 0.75rem;
   text-decoration: none;
@@ -92,7 +92,7 @@
 }
 
 .admin-card-button:hover {
-  background: linear-gradient(135deg, #2c5aa0 0%, #1e3f73 100%);
-  box-shadow: 0 4px 12px rgba(63, 114, 175, 0.3);
+  background: linear-gradient(135deg, var(--admin-darker-accent-blue) 0%, #1e3f73 100%); /* Keep #1e3f73 for now */
+  box-shadow: 0 4px 12px var(--admin-primary-alpha-30);
   transform: scale(1.05);
 }

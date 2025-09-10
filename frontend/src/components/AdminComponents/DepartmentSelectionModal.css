@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--admin-overlay-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@
 }
 
 .dsm-modal-content {
-  background: #fff;
+  background: var(--admin-bg-panel);
   padding: 1.5rem;
   border-radius: 8px;
   width: 90%;
@@ -26,7 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--admin-modal-header-border);
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 }
@@ -49,7 +49,7 @@
 .dsm-search-input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--admin-input-border-light);
   border-radius: 6px;
   margin-bottom: 1rem;
 }
@@ -67,10 +67,10 @@
 }
 
 .dsm-dept-item:hover {
-  background-color: #f0f0f0;
+  background-color: var(--admin-light-hover-bg-admin);
 }
 
 .dsm-dept-item.selected {
-  background-color: var(--accent);
-  color: #fff;
+  background-color: var(--admin-accent);
+  color: var(--admin-bg-panel);
 }

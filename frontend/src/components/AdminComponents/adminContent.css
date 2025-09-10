@@ -1,13 +1,13 @@
 :root {
-  --admin-bg: #f7f9fc;
-  --sidebar-bg: #ffffff;
+  --admin-bg: var(--admin-bg-light);
+  --sidebar-bg: var(--admin-bg-panel);
   --sidebar-width: 280px;
-  --border-color: #e5e7eb;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --accent-color: #0b5cff;
-  --accent-hover: #0a50e0;
-  --accent-light: #eef2ff;
+  --border-color: var(--admin-border-color);
+  --text-primary: var(--admin-text-primary);
+  --text-secondary: var(--admin-text-secondary);
+  --accent-color: var(--admin-accent);
+  --accent-hover: var(--admin-accent-hover);
+  --accent-light: var(--admin-muted-light);
 }
 
 .admin-content-layout {
@@ -84,7 +84,7 @@
 }
 
 .sidebar-submenu-item a:hover {
-  background-color: #f3f4f6;
+  background-color: var(--admin-input-bg-code);
   color: var(--text-primary);
 }
 
@@ -111,7 +111,7 @@
   justify-content: center;
   height: 100%;
   text-align: center;
-  background-color: #fff;
+  background-color: var(--admin-bg-panel);
   border-radius: 12px;
   border: 2px dashed var(--border-color);
 }
