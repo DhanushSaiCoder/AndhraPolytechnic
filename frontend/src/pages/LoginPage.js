@@ -5,10 +5,6 @@ import '../styles/Auth.css';
 const LoginPage = () => {
   return (
     <div className="auth-page">
-      <div className="auth-left">
-        <h1>Welcome Back!</h1>
-        <p>Login to access your personalized dashboard and college resources.</p>
-      </div>
       <div className="auth-right">
         <div className="auth-form-container">
           <div className="auth-form-header">

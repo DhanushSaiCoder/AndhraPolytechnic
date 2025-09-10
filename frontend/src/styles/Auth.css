@@ -2,37 +2,14 @@
 
 .auth-page {
   display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: calc(100vh - 200px);
   background-color: #f9f7f7;
 }
 
-.auth-left {
-  flex: 1;
-  background: url("../images/aptCampus3.jpg");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  color: white;
-  text-align: center;
-}
-
-.auth-left h1 {
-  font-family: 'Cinzel', serif;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.auth-left p {
-  font-size: 1.125rem;
-  max-width: 400px;
-}
-
 .auth-right {
-  flex: 1;
+  flex: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,13 +66,15 @@
 .auth-button {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #3f72af 0%, #112d4e 100%);
+      background-color: #3f72af;
+
   color: white;
   font-weight: 600;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .auth-button:hover {
@@ -133,4 +112,8 @@
   transform: translateY(-50%);
   cursor: pointer;
   color: #4b5563;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
