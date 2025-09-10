@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 import authService from '../../services/authService';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -18,6 +20,10 @@ const LoginForm = () => {
     } catch (err) {
       setError('Invalid credentials');
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -36,14 +42,22 @@ const LoginForm = () => {
       </div>
       <div className="form-group">
         <label htmlFor="password" className="form-label">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="form-input"
-          required
-        />
+        <div className="password-input-container">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="form-input"
+            required
+          />
+          <span
+            className="password-toggle-icon"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
+        </div>
       </div>
       <button type="submit" className="auth-button">
         Login

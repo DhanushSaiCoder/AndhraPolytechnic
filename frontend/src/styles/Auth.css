@@ -8,7 +8,9 @@
 
 .auth-left {
   flex: 1;
-  background: linear-gradient(135deg, #3f72af 0%, #112d4e 100%);
+  background: url("../images/aptCampus3.jpg");
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,4 +120,17 @@
 
 .auth-switch-link a:hover {
   text-decoration: underline;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4b5563;
 }
