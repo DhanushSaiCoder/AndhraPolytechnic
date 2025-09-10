@@ -1,10 +1,29 @@
-// ContactSection.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import Map from './Map';
+import aboutUsContactService from '../../services/aboutUsContactService';
 import '../../styles/AboutUsStyles/ContactUs.css'; // Importing the CSS file for styling
 
 const ContactUs = () => {
+  const [contact, setContact] = useState(null);
+
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const response = await aboutUsContactService.getContact();
+        setContact(response.data);
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    fetchContact();
+  }, []);
+
+  if (!contact) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="contact-section">
       <div className="contact-section__container">
@@ -31,8 +50,9 @@ const ContactUs = () => {
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Address</h4>
                   <p className="contact-item__text">
-                    Andhra Polytechnic, Kakinada,<br />
-                    Andhra Pradesh - 533002
+                    {contact.address.split('\n').map((line, index) => (
+                      <React.Fragment key={index}>{line}<br /></React.Fragment>
+                    ))}
                   </p>
                 </div>
               </div>
@@ -44,9 +64,8 @@ const ContactUs = () => {
                 </div>
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Phone</h4>
-                  <a href="tel:+918643224244" className="contact-item__link">
-                    099123 42010
-
+                  <a href={`tel:${contact.phone}`} className="contact-item__link">
+                    {contact.phone}
                   </a>
                 </div>
               </div>
@@ -58,8 +77,8 @@ const ContactUs = () => {
                 </div>
                 <div className="contact-item__content">
                   <h4 className="contact-item__label">Email</h4>
-                  <a href="mailto:principal_apt@yahoo.co.in" className="contact-item__link">
-                    principal_apt@yahoo.co.in
+                  <a href={`mailto:${contact.email}`} className="contact-item__link">
+                    {contact.email}
                   </a>
                 </div>
               </div>
@@ -69,9 +88,9 @@ const ContactUs = () => {
             <div className="office-hours">
               <h4 className="office-hours__title">Office Hours</h4>
               <div className="office-hours__list">
-                <p><span className="office-hours__day">Monday - Friday:</span> 9:00 AM - 5:00 PM</p>
-                <p><span className="office-hours__day">Saturday:</span> 9:00 AM - 1:00 PM</p>
-                <p><span className="office-hours__day">Sunday:</span> Closed</p>
+                {contact.officeHours.map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
               </div>
             </div>
           </div>
@@ -91,5 +110,6 @@ const ContactUs = () => {
     </section>
   );
 };
+
 
 export default ContactUs;
