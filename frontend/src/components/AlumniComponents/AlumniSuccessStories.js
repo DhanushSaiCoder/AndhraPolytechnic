@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/AlumniStyles/AlumniSuccessStories.css';
-import { Star } from 'lucide-react'; // Using Star icon for success stories
+import { Star, Briefcase } from 'lucide-react'; // Using Star icon for success stories
 import alumniSuccessStoryService from '../../services/alumniSuccessStoryService';
 
 const AlumniSuccessStoryCard = ({ name, year, branch, story, image, company, position }) => {
@@ -10,9 +10,17 @@ const AlumniSuccessStoryCard = ({ name, year, branch, story, image, company, pos
                 <img src={image} alt={name} className="alumni-story-image" />
                 <div className="alumni-story-info">
                     <h3 className="alumni-story-name">{name}</h3>
-                    <p className="alumni-story-year">{year}</p>
-                    <p className="alumni-story-branch">{branch}</p>
-                    {position && company && <p className="alumni-story-position">{position} at {company}</p>}
+                    <div className="alumni-story-meta">
+                        <span>{year}</span>
+                        <span>&bull;</span>
+                        <span>{branch}</span>
+                    </div>
+                    {position && company && (
+                        <div className="alumni-story-work">
+                            <Briefcase size={14} />
+                            <span>{position} at <strong>{company}</strong></span>
+                        </div>
+                    )}
                 </div>
             </div>
             <p className="alumni-story-description">{story}</p>
