@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import eventService from '../../services/eventService';
-import EventModal from './EventsPageEditors/EventModal'; // Import the new modal
+import EventModal from './EventsPageEditors/EventModal';
+import './AdminEditors.css';
 
 const initialEventState = {
   _id: '',
@@ -74,13 +76,13 @@ const EventsPageContentEditor = () => {
   const renderList = (category) => (
     <div className="category-section">
       <h4 style={{ textTransform: 'capitalize' }}>{category.replace('-', ' ')} Events</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {events.filter(event => event.category === category).map(item => (
-          <li key={item._id} className="admin-list-item">
+          <li key={item._id} className="admin-simple-list-item">
             <span>{item.title}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(item)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(item._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}
@@ -90,17 +92,17 @@ const EventsPageContentEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Events Page Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Event</button>
+      <div className="admin-section-header">
+        <h3>Events Page Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Event</button>
       </div>
 
-      <hr style={{ margin: '3rem 0' }} />
-
       {renderList('sports')}
+      <div className="editor-separator"></div>
       {renderList('academic')}
+      <div className="editor-separator"></div>
       {renderList('co-curricular')}
+      <div className="editor-separator"></div>
       {renderList('other')}
 
       {editingEvent && (

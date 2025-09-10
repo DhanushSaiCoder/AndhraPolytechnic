@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import admissionsContentService from '../../../services/admissionsContentService';
-import AdmissionsPageModal from './AdmissionsPageModal'; // Import the new modal
+import AdmissionsPageModal from './AdmissionsPageModal';
 
 const initialContentState = {
   processSteps: [],
@@ -19,7 +19,7 @@ const AdmissionsPageEditor = () => {
       if (response.data) {
         setContent(response.data);
       } else {
-        setContent(initialContentState); // Reset if no data
+        setContent(initialContentState);
       }
     } catch (error) {
       console.error('Error fetching admissions content:', error);
@@ -39,7 +39,7 @@ const AdmissionsPageEditor = () => {
     try {
       await admissionsContentService.updateAdmissionsContent(contentData);
       alert('Admissions content updated successfully!');
-      fetchContent(); // Re-fetch to ensure UI is updated
+      fetchContent();
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving admissions content:', error);
@@ -49,15 +49,16 @@ const AdmissionsPageEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Admissions Page Content</h3>
+      <div className="admin-section-header">
+        <h3>Admissions Page Content</h3>
+        <button onClick={handleEditClick} className="btn btn-primary">Edit Admissions Content</button>
+      </div>
 
-      <p><strong>Process Steps:</strong> {content.processSteps.length} steps</p>
-      <p><strong>Eligibility Criteria:</strong> {content.eligibilityCriteria.length} items</p>
-      <p><strong>Important Dates:</strong> {content.importantDates.length} dates</p>
-      <p><strong>Contact Email:</strong> {content.contact?.email || 'N/A'}</p>
-
-      <div className="form-actions">
-        <button onClick={handleEditClick} className="save-btn">Edit Admissions Content</button>
+      <div className="details-view">
+        <p><strong>Process Steps:</strong> {content.processSteps.length} steps</p>
+        <p><strong>Eligibility Criteria:</strong> {content.eligibilityCriteria.length} items</p>
+        <p><strong>Important Dates:</strong> {content.importantDates.length} dates</p>
+        <p><strong>Contact Email:</strong> {content.contact?.email || 'N/A'}</p>
       </div>
 
       <AdmissionsPageModal

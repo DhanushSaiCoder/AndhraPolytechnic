@@ -73,8 +73,8 @@ const AboutUsContactModal = ({ isOpen, onClose, onSave, contactData }) => {
           </div>
         </div>
         <div className="editor-modal-footer">
-          <button className="se-btn" onClick={onClose}>Cancel</button>
-          <button className="se-btn se-btn-primary" onClick={handleSave}>Save Changes</button>
+          <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+          <button className="btn btn-primary" onClick={handleSave}>Save Changes</button>
         </div>
       </div>
     </div>

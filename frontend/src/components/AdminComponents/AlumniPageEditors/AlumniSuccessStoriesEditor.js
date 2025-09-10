@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import alumniSuccessStoryService from '../../../services/alumniSuccessStoryService';
-import AlumniSuccessStoryModal from './AlumniSuccessStoryModal'; // Import the new modal
+import AlumniSuccessStoryModal from './AlumniSuccessStoryModal';
 
 const initialStoryState = {
   _id: '',
@@ -76,21 +77,22 @@ const AlumniSuccessStoriesEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Alumni Success Stories</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Story</button>
+      <div className="admin-section-header">
+        <h3>Alumni Success Stories</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Story</button>
       </div>
 
-      <hr style={{ margin: '3rem 0' }} />
-
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {stories.map(item => (
-          <li key={item._id} className="admin-list-item">
+          <li key={item._id} className="admin-simple-list-item">
             <span>{item.name}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(item)} className="btn-icon" title="Edit">
+                <Edit2 size={18} />
+              </button>
+              <button onClick={() => handleDelete(item._id)} className="btn-icon btn-danger" title="Delete">
+                <Trash2 size={18} />
+              </button>
             </div>
           </li>
         ))}

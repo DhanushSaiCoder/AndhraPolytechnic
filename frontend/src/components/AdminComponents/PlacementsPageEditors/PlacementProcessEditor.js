@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import placementProcessService from '../../../services/placementProcessService';
-import PlacementProcessModal from './PlacementProcessModal'; // Import the new modal
+import PlacementProcessModal from './PlacementProcessModal';
 
 const initialStepState = {
   _id: '',
@@ -70,20 +71,18 @@ const PlacementProcessEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Placement Process Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Step</button>
+      <div className="admin-section-header">
+        <h3>Placement Process Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Step</button>
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Placement Process Steps</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {steps.map(step => (
-          <li key={step._id} className="admin-list-item">
+          <li key={step._id} className="admin-simple-list-item">
             <span>{step.title}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(step)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(step._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(step)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(step._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

@@ -8,16 +8,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1001; /* Higher than other elements */
+  z-index: 1001;
 }
 
 .editor-modal-content {
   background: var(--admin-bg-panel);
-  padding: 1.5rem 2rem;
+  padding: 0;
   border-radius: 12px;
   width: 90%;
-  max-width: 600px;
+  max-width: 650px;
   box-shadow: 0 10px 25px var(--admin-shadow-medium);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
 }
 
 .editor-modal-header {
@@ -25,13 +28,14 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--admin-border-color);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
+  padding: 1.25rem 2rem;
+  flex-shrink: 0;
 }
 
 .editor-modal-header h3 {
   margin: 0;
   font-size: 1.25rem;
+  color: var(--admin-text-primary);
 }
 
 .editor-close-btn {
@@ -40,26 +44,139 @@
   font-size: 1.75rem;
   cursor: pointer;
   color: var(--admin-modal-close-btn);
+  line-height: 1;
 }
 .editor-close-btn:hover {
     color: var(--admin-dark-text-admin);
 }
 
+.editor-modal-body {
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+}
+
 .editor-modal-body .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .editor-modal-body .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--admin-text-secondary);
+}
+
+.editor-modal-body input[type="text"],
+.editor-modal-body input[type="email"],
+.editor-modal-body input[type="number"],
+.editor-modal-body input[type="date"],
+.editor-modal-body textarea,
+.editor-modal-body select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--admin-input-border-light);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: var(--admin-input-bg);
+  color: var(--admin-text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.editor-modal-body input:focus,
+.editor-modal-body textarea:focus,
+.editor-modal-body select:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px var(--admin-accent-alpha-12);
+}
+
+.editor-modal-body textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 .editor-modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
+  padding: 1.25rem 2rem;
   border-top: 1px solid var(--admin-border-color);
+  background-color: var(--admin-bg-light);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Dynamic list/object styling inside modals */
+.form-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--admin-border-color);
+}
+.form-section h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.dynamic-list-item, .dynamic-object-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.dynamic-list-item input, .dynamic-object-item input, .dynamic-object-item textarea {
+  flex: 1;
+}
+
+.bordered-section {
+  border: 1px solid var(--admin-border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.bordered-section h5, .bordered-section h6 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.remove-btn, .add-btn {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.remove-btn {
+  background: var(--admin-danger-alpha-10);
+  color: var(--admin-danger);
+}
+.remove-btn:hover {
+  background: var(--admin-danger);
+  color: white;
+}
+.add-btn {
+  background: var(--admin-accent-alpha-10);
+  color: var(--admin-accent);
+}
+.add-btn:hover {
+  background: var(--admin-accent);
+  color: white;
+}
+
+.year-entry-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: flex-end;
+  padding: 1rem;
+  border: 1px solid var(--admin-border-color);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.year-entry-row .form-group {
+  margin-bottom: 0;
 }

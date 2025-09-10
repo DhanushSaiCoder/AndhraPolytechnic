@@ -39,8 +39,7 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
     const updatedList = [...currentDepartment[field]];
     updatedList[index] = { ...updatedList[index], [subField]: value };
     setCurrentDepartment(prevState => ({ ...prevState, [field]: updatedList }));
-  };
-  
+  }; 
   const handleSocialsChange = (facultyIndex, socialIndex, subField, value) => {
     const updatedFaculty = [...currentDepartment.faculty];
     const updatedSocials = [...updatedFaculty[facultyIndex].socials];
@@ -228,27 +227,29 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
             <button type="button" onClick={() => handleAddItem('events')} className="add-btn">Add Event</button>
           </div>
 
-          <h4>Statistics</h4>
-          <div className="form-group">
-            <label>Total Seats</label>
-            <input type="number" name="totalSeats" value={currentDepartment.totalSeats} onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label>Highest Package CTC</label>
-            <input type="text" name="packageCTC" value={currentDepartment.highestPackageInfo.packageCTC} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'packageCTC')} />
-          </div>
-          <div className="form-group">
-            <label>Highest Package Company</label>
-            <input type="text" name="companyName" value={currentDepartment.highestPackageInfo.companyName} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'companyName')} />
-          </div>
-          <div className="form-group">
-            <label>Average Package</label>
-            <input type="text" name="averagePackage" value={currentDepartment.averagePackage} onChange={handleChange} />
+          <div className="form-section">
+            <h4>Statistics</h4>
+            <div className="form-group">
+              <label>Total Seats</label>
+              <input type="number" name="totalSeats" value={currentDepartment.totalSeats} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label>Highest Package CTC</label>
+              <input type="text" name="packageCTC" value={currentDepartment.highestPackageInfo.packageCTC} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'packageCTC')} />
+            </div>
+            <div className="form-group">
+              <label>Highest Package Company</label>
+              <input type="text" name="companyName" value={currentDepartment.highestPackageInfo.companyName} onChange={(e) => handleNestedChange(e, 'highestPackageInfo', 'companyName')} />
+            </div>
+            <div className="form-group">
+              <label>Average Package</label>
+              <input type="text" name="averagePackage" value={currentDepartment.averagePackage} onChange={handleChange} />
+            </div>
           </div>
         </div>
         <div className="editor-modal-footer">
-          <button className="se-btn" onClick={onClose}>Cancel</button>
-          <button className="se-btn se-btn-primary" onClick={handleSave}>Save Changes</button>
+          <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+          <button className="btn btn-primary" onClick={handleSave}>Save Changes</button>
         </div>
       </div>
     </div>

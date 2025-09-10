@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import updateService from '../../../services/updateService'; // Import the service
-import UpdateModal from './UpdateModal'; // Import the new modal
+import { Edit2, Trash2 } from 'lucide-react';
+import updateService from '../../../services/updateService';
+import UpdateModal from './UpdateModal';
 
 const UpdatesMarqueeEditor = () => {
   const [updates, setUpdates] = useState([]);
@@ -10,7 +11,6 @@ const UpdatesMarqueeEditor = () => {
   const fetchUpdates = async () => {
     try {
       const response = await updateService.getUpdates();
-      // Format date for input type="date"
       const formattedUpdates = response.data.map(update => ({
         ...update,
         date: update.date ? new Date(update.date).toISOString().split('T')[0] : '',
@@ -37,7 +37,6 @@ const UpdatesMarqueeEditor = () => {
   };
 
   const handleEditClick = (update) => {
-    // Ensure date is formatted for input type="date"
     setEditingUpdate({
       ...update,
       date: update.date ? new Date(update.date).toISOString().split('T')[0] : '',
@@ -54,7 +53,7 @@ const UpdatesMarqueeEditor = () => {
         await updateService.createUpdate(updateData);
         alert('Update added successfully!');
       }
-      fetchUpdates(); // Re-fetch updates to get the latest data from backend
+      fetchUpdates();
       setIsModalOpen(false);
       setEditingUpdate(null);
     } catch (error) {
@@ -68,7 +67,7 @@ const UpdatesMarqueeEditor = () => {
       try {
         await updateService.deleteUpdate(id);
         alert('Update deleted successfully!');
-        fetchUpdates(); // Re-fetch updates
+        fetchUpdates();
       } catch (error) {
         console.error('Error deleting update:', error);
         alert('Failed to delete update.');
@@ -78,20 +77,18 @@ const UpdatesMarqueeEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Updates Marquee Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Update</button>
+      <div className="admin-section-header">
+        <h3>Updates Marquee Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Update</button>
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Updates</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {updates.map(update => (
-          <li key={update._id} className="admin-list-item">
+          <li key={update._id} className="admin-simple-list-item">
             <span>{update.titleEn} ({update.severity}) - {update.date}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(update)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(update._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(update)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(update._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

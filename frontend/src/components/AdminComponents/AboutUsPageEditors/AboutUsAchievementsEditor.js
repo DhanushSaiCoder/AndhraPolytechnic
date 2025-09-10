@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import aboutUsAchievementService from '../../../services/aboutUsAchievementService';
-import AboutUsAchievementModal from './AboutUsAchievementModal'; // Import the new modal
+import AboutUsAchievementModal from './AboutUsAchievementModal';
 
 const initialAchievementState = {
   _id: '',
@@ -72,21 +73,25 @@ const AboutUsAchievementsEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>About Us Achievements</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Achievement</button>
+      <div className="admin-section-header">
+        <h3>About Us Achievements</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Achievement</button>
       </div>
-
-      <hr style={{ margin: '3rem 0' }} />
 
       <ul className="admin-list">
         {achievements.map(item => (
           <li key={item._id} className="admin-list-item">
-            <span>{item.title}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-content">
+              <h5 className="item-title">{item.title}</h5>
+              <p className="item-subtitle">{item.subtitle}</p>
+            </div>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(item)} className="btn-icon" title="Edit">
+                <Edit2 size={18} />
+              </button>
+              <button onClick={() => handleDelete(item._id)} className="btn-icon btn-danger" title="Delete">
+                <Trash2 size={18} />
+              </button>
             </div>
           </li>
         ))}

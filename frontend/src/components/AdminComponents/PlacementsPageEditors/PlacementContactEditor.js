@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import placementContactService from '../../../services/placementContactService';
-import PlacementContactModal from './PlacementContactModal'; // Import the new modal
+import PlacementContactModal from './PlacementContactModal';
 
 const PlacementContactEditor = () => {
   const [contactData, setContactData] = useState({
@@ -34,7 +34,7 @@ const PlacementContactEditor = () => {
     try {
       await placementContactService.updatePlacementContact(data);
       alert('Placement Contact data saved successfully!');
-      fetchContactData(); // Re-fetch to ensure UI is updated
+      fetchContactData();
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving placement contact data:', error);
@@ -44,14 +44,15 @@ const PlacementContactEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Placement Contact Content</h3>
+      <div className="admin-section-header">
+        <h3>Placement Contact Content</h3>
+        <button onClick={handleEditClick} className="btn btn-primary">Edit Contact Info</button>
+      </div>
 
-      <p><strong>Email:</strong> {contactData.email || 'N/A'}</p>
-      <p><strong>Phone:</strong> {contactData.phone || 'N/A'}</p>
-      <p><strong>Address:</strong> {contactData.address || 'N/A'}</p>
-
-      <div className="form-actions">
-        <button onClick={handleEditClick} className="save-btn">Edit Contact Info</button>
+      <div className="details-view">
+        <p><strong>Email:</strong> {contactData.email || 'N/A'}</p>
+        <p><strong>Phone:</strong> {contactData.phone || 'N/A'}</p>
+        <p><strong>Address:</strong> {contactData.address || 'N/A'}</p>
       </div>
 
       <PlacementContactModal

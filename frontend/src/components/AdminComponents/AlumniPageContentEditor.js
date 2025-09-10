@@ -1,10 +1,11 @@
 import React from 'react';
 import AlumniSuccessStoriesEditor from './AlumniPageEditors/AlumniSuccessStoriesEditor';
+import './AdminEditors.css';
 
 const AlumniPageContentEditor = () => {
   return (
-    <div className="alumni-page-content-editor">
-      <h2>Alumni Page Content Management</h2>
+    <div className="editor-container">
+      <h2 className="editor-container-title">Alumni Page Content Management</h2>
       <AlumniSuccessStoriesEditor />
     </div>
   );

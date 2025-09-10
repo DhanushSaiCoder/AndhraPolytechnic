@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import academicAchievementService from '../../../services/academicAchievementService';
-import AcademicAchievementModal from './AcademicAchievementModal'; // Import the new modal
+import AcademicAchievementModal from './AcademicAchievementModal';
 
 const initialAchievementState = {
   _id: '',
@@ -73,14 +74,18 @@ const AcademicAchievementsEditor = () => {
 
   const renderList = (category) => (
     <div className="category-section">
-      <h4 style={{ textTransform: 'capitalize' }}>{category} Achievements</h4>
-      <ul className="admin-list">
+      <h4>{category} Achievements</h4>
+      <ul className="admin-simple-list">
         {achievements.filter(ach => ach.category === category).map(item => (
-          <li key={item._id} className="admin-list-item">
+          <li key={item._id} className="admin-simple-list-item">
             <span>{item.title}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+               <button onClick={() => handleEditClick(item)} className="btn-icon" title="Edit">
+                <Edit2 size={18} />
+              </button>
+              <button onClick={() => handleDelete(item._id)} className="btn-icon btn-danger" title="Delete">
+                <Trash2 size={18} />
+              </button>
             </div>
           </li>
         ))}
@@ -90,13 +95,10 @@ const AcademicAchievementsEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Academic Achievements Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Achievement</button>
+       <div className="admin-section-header">
+        <h3>Academic Achievements Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Achievement</button>
       </div>
-
-      <hr style={{ margin: '3rem 0' }} />
 
       {renderList('student')}
       {renderList('faculty')}

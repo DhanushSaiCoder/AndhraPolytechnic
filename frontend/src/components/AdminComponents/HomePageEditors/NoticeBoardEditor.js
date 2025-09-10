@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import newsService from '../../../services/newsService';
 import notificationService from '../../../services/notificationService';
-import NewsItemModal from './NewsItemModal'; // Import the new News modal
-import NotificationItemModal from './NotificationItemModal'; // Import the new Notification modal
+import NewsItemModal from './NewsItemModal';
+import NotificationItemModal from './NotificationItemModal';
 
 const NoticeBoardEditor = () => {
   const [newsItems, setNewsItems] = useState([]);
@@ -144,40 +145,36 @@ const NoticeBoardEditor = () => {
       <h3>News & Notifications Content</h3>
 
       {/* News Section */}
-      <h4>Manage News</h4>
-      <div className="form-actions">
-        <button onClick={handleAddNewsClick} className="save-btn">Add New News</button>
+      <div className="admin-section-header">
+        <h4>Manage News</h4>
+        <button onClick={handleAddNewsClick} className="btn btn-primary">Add New News</button>
       </div>
-
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current News Items</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {newsItems.map(item => (
-          <li key={item._id} className="admin-list-item">
+          <li key={item._id} className="admin-simple-list-item">
             <span>{item.title} - {item.date}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditNewsClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDeleteNews(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditNewsClick(item)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDeleteNews(item._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}
       </ul>
 
-      <hr style={{margin: '3rem 0', borderColor: 'var(--muted-color)'}} />
+      <div className="editor-separator"></div>
 
       {/* Notifications Section */}
-      <h4>Manage Notifications</h4>
-      <div className="form-actions">
-        <button onClick={handleAddNotificationClick} className="save-btn">Add New Notification</button>
+      <div className="admin-section-header">
+        <h4>Manage Notifications</h4>
+        <button onClick={handleAddNotificationClick} className="btn btn-primary">Add New Notification</button>
       </div>
-
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Notifications</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {notifications.map(item => (
-          <li key={item._id} className="admin-list-item">
+          <li key={item._id} className="admin-simple-list-item">
             <span>{item.title} - {item.date}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditNotificationClick(item)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDeleteNotification(item._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditNotificationClick(item)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDeleteNotification(item._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

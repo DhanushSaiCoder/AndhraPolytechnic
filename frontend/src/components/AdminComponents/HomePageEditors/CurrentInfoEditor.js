@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import statService from '../../../services/statService'; // Import the service
-import CurrentInfoModal from './CurrentInfoModal'; // Import the new modal
+import { Edit2, Trash2 } from 'lucide-react';
+import statService from '../../../services/statService';
+import CurrentInfoModal from './CurrentInfoModal';
 
 const CurrentInfoEditor = () => {
   const [stats, setStats] = useState([]);
@@ -40,7 +41,7 @@ const CurrentInfoEditor = () => {
         await statService.createStat(statData);
         alert('Stat added successfully!');
       }
-      fetchStats(); // Re-fetch stats
+      fetchStats();
       setIsModalOpen(false);
       setEditingStat(null);
     } catch (error) {
@@ -64,20 +65,18 @@ const CurrentInfoEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Current Info (Stats) Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Stat</button>
+      <div className="admin-section-header">
+        <h3>Current Info (Stats) Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Stat</button>
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Stats</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {stats.map(stat => (
-          <li key={stat._id} className="admin-list-item">
+          <li key={stat._id} className="admin-simple-list-item">
             <span>{stat.label}: {stat.value}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(stat)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(stat._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(stat)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(stat._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

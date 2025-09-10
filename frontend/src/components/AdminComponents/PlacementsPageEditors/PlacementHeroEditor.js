@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import placementHeroService from '../../../services/placementHeroService';
-import PlacementHeroModal from './PlacementHeroModal'; // Import the new modal
+import PlacementHeroModal from './PlacementHeroModal';
 
 const PlacementHeroEditor = () => {
   const [chartData, setChartData] = useState([]);
@@ -38,7 +38,7 @@ const PlacementHeroEditor = () => {
     try {
       await placementHeroService.updatePlacementHeroData(dataToSend);
       alert('Placement Hero data saved successfully!');
-      fetchHeroData(); // Re-fetch original data
+      fetchHeroData();
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving placement hero data:', error);
@@ -48,21 +48,22 @@ const PlacementHeroEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Placement Hero Section (Charts)</h3>
+      <div className="admin-section-header">
+        <h3>Placement Hero Section (Charts)</h3>
+        <button onClick={handleEditClick} className="btn btn-primary">Edit Chart Data</button>
+      </div>
 
-      <p>Current Chart Data:</p>
-      <ul>
-        {chartData.length > 0 ? (
-          chartData.map(item => (
-            <li key={item.id}>{item.year}: {item.students} students, {item.avgPackage} LPA</li>
-          ))
-        ) : (
-          <li>No chart data available.</li>
-        )}
-      </ul>
-
-      <div className="form-actions">
-        <button onClick={handleEditClick} className="save-btn">Edit Chart Data</button>
+      <div className="details-view">
+        <p><strong>Current Chart Data:</strong></p>
+        <ul>
+          {chartData.length > 0 ? (
+            chartData.map(item => (
+              <li key={item.id}>{item.year}: {item.students} students, {item.avgPackage} LPA</li>
+            ))
+          ) : (
+            <li>No chart data available.</li>
+          )}
+        </ul>
       </div>
 
       <PlacementHeroModal

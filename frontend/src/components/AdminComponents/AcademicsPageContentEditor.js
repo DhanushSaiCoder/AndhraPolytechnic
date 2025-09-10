@@ -1,15 +1,16 @@
 import React from 'react';
 import AcademicAchievementsEditor from './AcademicsPageEditors/AcademicAchievementsEditor';
 import AdmissionsPageEditor from './AcademicsPageEditors/AdmissionsPageEditor';
+import './AdminEditors.css';
 
 const AcademicsPageContentEditor = () => {
   return (
-    <div className="academics-page-content-editor">
-      <h2>Academics Page Content Management</h2>
+    <div className="editor-container">
+      <h2 className="editor-container-title">Academics Page Content Management</h2>
 
       <AcademicAchievementsEditor />
 
-      <hr style={{margin: '3rem 0', borderColor: 'var(--muted-color)'}} />
+      <div className="editor-separator"></div>
 
       <AdmissionsPageEditor />
 

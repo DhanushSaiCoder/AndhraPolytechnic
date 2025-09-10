@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import recruiterService from '../../../services/recruiterService';
-import RecruiterModal from './RecruiterModal'; // Import the new modal
+import RecruiterModal from './RecruiterModal';
 
 const TopRecruitersEditor = () => {
   const [recruiters, setRecruiters] = useState([]);
@@ -64,20 +65,18 @@ const TopRecruitersEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>Top Recruiters Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Recruiter</button>
+      <div className="admin-section-header">
+        <h3>Top Recruiters Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Recruiter</button>
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Top Recruiters</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {recruiters.map(recruiter => (
-          <li key={recruiter._id} className="admin-list-item">
+          <li key={recruiter._id} className="admin-simple-list-item">
             <span>{recruiter.name}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(recruiter)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(recruiter._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(recruiter)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(recruiter._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

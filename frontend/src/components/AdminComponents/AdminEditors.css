@@ -1,0 +1,216 @@
+/* 
+==============================================
+      Admin Editor Styles
+==============================================
+*/
+
+/* Editor Container */
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.editor-container-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  margin-bottom: 1rem;
+}
+
+.editor-separator {
+  height: 1px;
+  background-color: var(--admin-border-color);
+  margin: 1rem 0;
+}
+
+/* General Editor Section Layout */
+.admin-section {
+  background-color: var(--admin-bg-panel);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--admin-shadow-light);
+}
+
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--admin-border-color);
+}
+
+.admin-section-header h3 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--admin-text-primary);
+}
+
+.admin-section h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--admin-text-primary);
+}
+
+.admin-section h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--admin-text-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.form-actions {
+  margin-bottom: 1.5rem;
+}
+
+/* Editor List - Card Based */
+.admin-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-list-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--admin-bg-light);
+  border: 1px solid var(--admin-border-color);
+  border-radius: 8px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  padding: 1.25rem;
+}
+
+.admin-list-item:hover {
+  border-color: var(--admin-accent-alpha-20);
+  box-shadow: 0 4px 12px var(--admin-shadow-light);
+}
+
+.admin-list-item-content {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.admin-list-item-content .item-title {
+  font-weight: 600;
+  color: var(--admin-text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.admin-list-item-content .item-subtitle {
+  font-size: 0.9rem;
+  color: var(--admin-text-secondary);
+  margin: 0;
+}
+
+.admin-list-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* For simple lists that don't need cards */
+.admin-simple-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-simple-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--admin-bg-light);
+  border: 1px solid var(--admin-border-color);
+  border-radius: 8px;
+}
+
+.admin-simple-list-item span {
+  font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--admin-accent);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--admin-accent-hover);
+}
+
+.btn-secondary {
+  background-color: var(--admin-muted-light);
+  color: var(--admin-accent);
+  border-color: var(--admin-light-blue-admin);
+}
+.btn-secondary:hover {
+  background-color: var(--admin-accent);
+  color: white;
+  border-color: var(--admin-accent);
+}
+
+.btn-danger {
+  background-color: var(--admin-danger-alpha-10);
+  color: var(--admin-danger);
+}
+.btn-danger:hover {
+  background-color: var(--admin-danger);
+  color: white;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--admin-text-secondary);
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-icon:hover {
+  background-color: var(--admin-input-bg-code);
+  color: var(--admin-text-primary);
+}
+.btn-icon.btn-danger:hover {
+  background-color: var(--admin-danger-alpha-10);
+  color: var(--admin-danger);
+}
+
+
+/* For editors that show details directly */
+.admin-section .details-view p {
+    color: var(--admin-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 0.75rem 0;
+}
+.admin-section .details-view p strong {
+    color: var(--admin-text-primary);
+    font-weight: 600;
+}
+.admin-section .details-view ul {
+    margin-left: 1.5rem;
+    color: var(--admin-text-secondary);
+    padding-left: 1rem;
+}

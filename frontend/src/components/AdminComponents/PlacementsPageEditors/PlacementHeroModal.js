@@ -94,8 +94,8 @@ const PlacementHeroModal = ({ isOpen, onClose, onSave, chartData }) => {
           </button>
         </div>
         <div className="editor-modal-footer">
-          <button className="se-btn" onClick={onClose}>Cancel</button>
-          <button className="se-btn se-btn-primary" onClick={handleSave}>Save</button>
+          <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
+          <button className="btn btn-primary" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>

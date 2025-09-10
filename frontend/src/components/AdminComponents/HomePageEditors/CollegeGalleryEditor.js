@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import galleryService from '../../../services/galleryService'; // Import the service
-import CollegeGalleryModal from './CollegeGalleryModal'; // Import the new modal
+import { Edit2, Trash2 } from 'lucide-react';
+import galleryService from '../../../services/galleryService';
+import CollegeGalleryModal from './CollegeGalleryModal';
 
 const CollegeGalleryEditor = () => {
   const [slides, setSlides] = useState([]);
@@ -40,7 +41,7 @@ const CollegeGalleryEditor = () => {
         await galleryService.createGallerySlide(slideData);
         alert('Slide added successfully!');
       }
-      fetchSlides(); // Re-fetch slides
+      fetchSlides();
       setIsModalOpen(false);
       setEditingSlide(null);
     } catch (error) {
@@ -64,20 +65,18 @@ const CollegeGalleryEditor = () => {
 
   return (
     <section className="admin-section">
-      <h3>College Gallery Content</h3>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Slide</button>
+      <div className="admin-section-header">
+        <h3>College Gallery Content</h3>
+        <button onClick={handleAddClick} className="btn btn-primary">Add New Slide</button>
       </div>
 
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Gallery Slides</h4>
-      <ul className="admin-list">
+      <ul className="admin-simple-list">
         {slides.map(slide => (
-          <li key={slide._id} className="admin-list-item">
+          <li key={slide._id} className="admin-simple-list-item">
             <span>{slide.title}</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(slide)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(slide._id)} className="action-btn delete-btn">Delete</button>
+            <div className="admin-list-item-actions">
+              <button onClick={() => handleEditClick(slide)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+              <button onClick={() => handleDelete(slide._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
             </div>
           </li>
         ))}

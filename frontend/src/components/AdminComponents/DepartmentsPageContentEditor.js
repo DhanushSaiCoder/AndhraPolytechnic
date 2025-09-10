@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
 import departmentService from '../../services/departmentService';
-import DepartmentModal from './DepartmentsPageEditors/DepartmentModal'; // Import the new modal
+import DepartmentModal from './DepartmentsPageEditors/DepartmentModal';
+import './AdminEditors.css';
 
 const initialDepartmentState = {
   _id: '',
@@ -93,25 +95,24 @@ const DepartmentsPageContentEditor = () => {
   };
 
   return (
-    <div className="departments-content-editor">
-      <h2>Departments Content Management</h2>
-
-      <div className="form-actions">
-        <button onClick={handleAddClick} className="save-btn">Add New Department</button>
+    <div className="editor-container">
+      <div className="admin-section">
+        <div className="admin-section-header">
+            <h2 className="editor-container-title">Departments Content Management</h2>
+            <button onClick={handleAddClick} className="btn btn-primary">Add New Department</button>
+        </div>
+        <ul className="admin-simple-list">
+            {departments.map(dept => (
+            <li key={dept._id} className="admin-simple-list-item">
+                <span>{dept.name} ({dept.shortName})</span>
+                <div className="admin-list-item-actions">
+                    <button onClick={() => handleEditClick(dept)} className="btn-icon" title="Edit"><Edit2 size={18} /></button>
+                    <button onClick={() => handleDelete(dept._id)} className="btn-icon btn-danger" title="Delete"><Trash2 size={18} /></button>
+                </div>
+            </li>
+            ))}
+        </ul>
       </div>
-
-      <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Departments</h4>
-      <ul className="admin-list">
-        {departments.map(dept => (
-          <li key={dept._id} className="admin-list-item">
-            <span>{dept.name} ({dept.shortName})</span>
-            <div className="admin-list-actions">
-              <button onClick={() => handleEditClick(dept)} className="action-btn edit-btn">Edit</button>
-              <button onClick={() => handleDelete(dept._id)} className="action-btn delete-btn">Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
 
       {editingDepartment && (
         <DepartmentModal
