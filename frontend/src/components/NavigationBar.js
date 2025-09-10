@@ -19,7 +19,7 @@ const NavigationBar = () => {
     const [dynamicDepartmentLinks, setDynamicDepartmentLinks] = useState([]);
     const [currentUser, setCurrentUser] = useState(undefined);
 
-  // Track breakpoint so behavior can differ between desktop & mobile
+    // Track breakpoint so behavior can differ between desktop & mobile
     useEffect(() => {
         const mm = typeof window !== 'undefined' ? window.matchMedia('(max-width: 600px)') : null;
         const apply = () => setIsMobile(!!(mm && mm.matches));
@@ -38,7 +38,7 @@ const NavigationBar = () => {
         }
     }, [location]);
 
-  // Fetch departments dynamically
+    // Fetch departments dynamically
     useEffect(() => {
         const fetchDepartments = async () => {
             try {
@@ -57,14 +57,14 @@ const NavigationBar = () => {
         fetchDepartments();
     }, []);
 
-  // Close menu / dropdowns on route change
+    // Close menu / dropdowns on route change
     useEffect(() => {
         setOpen(false);
         setActiveDropdown(null);
         setMobileActiveDropdown(null);
     }, [location]);
 
-  // Close when clicking outside - works for both desktop (hover/focus dropdowns) and mobile panel
+    // Close when clicking outside - works for both desktop (hover/focus dropdowns) and mobile panel
     useEffect(() => {
         const handleClick = (e) => {
             if (!navRef.current) return;
@@ -79,7 +79,7 @@ const NavigationBar = () => {
         return () => document.removeEventListener('click', handleClick);
     }, [open, activeDropdown, mobileActiveDropdown]);
 
-  const iconMap = {
+    const iconMap = {
         'Home': Home,
         'Academics': BookOpen,
         'Placements': Briefcase,
@@ -90,7 +90,7 @@ const NavigationBar = () => {
         'Alumni': Users,
     };
 
-  // Create a mutable copy of links to inject dynamic sub-links
+    // Create a mutable copy of links to inject dynamic sub-links
     const finalLinks = links.map(link => {
         if (link.label === 'Departments') {
             return { ...link, subLinks: dynamicDepartmentLinks };
@@ -98,7 +98,7 @@ const NavigationBar = () => {
         return link;
     });
 
-  // Derive current page name
+    // Derive current page name
     const currentPage = finalLinks.find(link => {
         if (link.exact) {
             return location.pathname === link.to;
@@ -106,7 +106,7 @@ const NavigationBar = () => {
         return location.pathname.startsWith(link.to);
     })?.label || 'Page';
 
-  // Helpers for accessibility / toggles
+    // Helpers for accessibility / toggles
     const isDropdownOpen = (label) => activeDropdown === label || mobileActiveDropdown === label;
 
     const toggleMobileDropdown = (label) => {
@@ -119,7 +119,7 @@ const NavigationBar = () => {
         navigate('/login');
     };
 
-  return (
+    return (
         <nav
             className={`headerNav ${open ? 'open' : ''}`}
             role="navigation"
@@ -248,32 +248,20 @@ const NavigationBar = () => {
                         </NavLink>
                     )}
 
-                    {/* Login/Logout Button for Desktop */}
+                    {/* Login/Logout Button */}
                     {currentUser ? (
-                        <button onClick={handleLogout} className="nav-action__button nav-action__button--logout nav-action__button--desktop">
+                        <button onClick={handleLogout} className="nav-action__button nav-action__button--logout">
                             <LogOut size={20} />
                             <span>Logout</span>
                         </button>
                     ) : (
-                        <NavLink to="/login" className="nav-action__button nav-action__button--login nav-action__button--desktop">
+                        <NavLink to="/login" className="nav-action__button nav-action__button--login">
                             <LogIn size={20} />
                             <span>Login</span>
                         </NavLink>
                     )}
                 </div>
             </div>
-            {/* Login/Logout Button for Mobile */}
-            {currentUser ? (
-                <button onClick={handleLogout} className="nav-action__button nav-action__button--logout nav-action__button--mobile">
-                    <LogOut size={20} />
-                    <span>Logout</span>
-                </button>
-            ) : (
-                <NavLink to="/login" className="nav-action__button nav-action__button--login nav-action__button--mobile">
-                    <LogIn size={20} />
-                    <span>Login</span>
-                </NavLink>
-            )}
         </nav>
     );
 }

@@ -600,20 +600,29 @@ a.activeNavLink svg {
 
 /* Mobile and Desktop specific styles */
 @media (max-width: 600px) {
-    .nav-action__button--mobile {
-        margin-left: auto; /* Push to the right on mobile */
-    }
-    .nav-action__button--desktop {
-        display: none; /* Hide desktop buttons in mobile view */
+    .navLinks .nav-action__button {
+        width: 100%;
+        justify-content: flex-start; /* Align content to the start */
+        padding-left: 32px; /* Match existing mobile navLink padding */
+        height: 56px; /* Match existing mobile navLink height */
     }
 }
 
 @media (min-width: 601px) {
-    .nav-action__button--desktop {
-        display: flex; /* Show desktop buttons */
+    .navLinks .nav-action__button {
         margin-left: 10px;
     }
-    .nav-action__button--mobile {
-        display: none; /* Hide mobile login button */
+}
+
+@media (max-width: 600px) {
+    .navLinks .nav-action__button--logout {
+        background-color: transparent;
+        color: #112d4e;
+        font-weight: normal;
+    }
+
+    .navLinks .nav-action__button--logout:hover {
+        background-color: #3f72af10;
+        color: #3f72af;
     }
 }
