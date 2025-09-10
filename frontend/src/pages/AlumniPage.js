@@ -7,9 +7,6 @@ const AlumniPage = () => {
   return (
     <>
       <AlumniHeroSection />
-      {/* Add more Alumni sections here */}
-      <Footer />
-      <ScrollToTop />
     </>
   );
 };

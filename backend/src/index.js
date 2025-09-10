@@ -50,6 +50,9 @@ app.use('/api/placement-process', placementProcessRouter);
 const successStoriesRouter = require('./routes/successStories');
 app.use('/api/success-stories', successStoriesRouter);
 
+const alumniSuccessStoriesRouter = require('./routes/alumniSuccessStories');
+app.use('/api/alumni-success-stories', alumniSuccessStoriesRouter);
+
 const recruitersRouter = require('./routes/recruiters');
 app.use('/api/recruiters', recruitersRouter);
 
