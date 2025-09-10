@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import galleryService from '../../../services/galleryService'; // Import the service
+import CollegeGalleryModal from './CollegeGalleryModal'; // Import the new modal
 
 const CollegeGalleryEditor = () => {
   const [slides, setSlides] = useState([]);
-  const [currentSlide, setCurrentSlide] = useState({
-    _id: '', // Changed to _id
-    image: '',
-    title: '',
-    subtitle: '',
-  });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingSlide, setEditingSlide] = useState(null);
 
   const fetchSlides = async () => {
     try {
@@ -25,33 +21,32 @@ const CollegeGalleryEditor = () => {
     fetchSlides();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentSlide(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingSlide({ _id: '', image: '', title: '', subtitle: '' });
+    setIsModalOpen(true);
   };
 
-  const handleAddSlide = async () => {
-    if (currentSlide.image.trim() === '' || currentSlide.title.trim() === '') return;
+  const handleEditClick = (slide) => {
+    setEditingSlide(slide);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveSlide = async (slideData) => {
     try {
-      if (editingId) {
-        await galleryService.updateGallerySlide(editingId, currentSlide);
+      if (slideData._id) {
+        await galleryService.updateGallerySlide(slideData._id, slideData);
         alert('Slide updated successfully!');
       } else {
-        await galleryService.createGallerySlide(currentSlide);
+        await galleryService.createGallerySlide(slideData);
         alert('Slide added successfully!');
       }
       fetchSlides(); // Re-fetch slides
-      setCurrentSlide({ _id: '', image: '', title: '', subtitle: '' });
-      setEditingId(null);
+      setIsModalOpen(false);
+      setEditingSlide(null);
     } catch (error) {
       console.error('Error saving slide:', error);
       alert('Failed to save slide.');
     }
-  };
-
-  const handleEdit = (slide) => {
-    setCurrentSlide(slide);
-    setEditingId(slide._id);
   };
 
   const handleDelete = async (id) => {
@@ -71,21 +66,8 @@ const CollegeGalleryEditor = () => {
     <section className="admin-section">
       <h3>College Gallery Content</h3>
 
-      <div className="form-group">
-        <label htmlFor="slideImage">Image URL</label>
-        <input type="text" id="slideImage" name="image" value={currentSlide.image} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="slideTitle">Title</label>
-        <input type="text" id="slideTitle" name="title" value={currentSlide.title} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="slideSubtitle">Subtitle</label>
-        <textarea id="slideSubtitle" name="subtitle" value={currentSlide.subtitle} onChange={handleChange}></textarea>
-      </div>
       <div className="form-actions">
-        <button onClick={handleAddSlide} className="save-btn">{editingId ? 'Save Changes' : 'Add Slide'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentSlide({ id: '', image: '', title: '', subtitle: '' });}} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Slide</button>
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Gallery Slides</h4>
@@ -94,12 +76,21 @@ const CollegeGalleryEditor = () => {
           <li key={slide._id} className="admin-list-item">
             <span>{slide.title}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(slide)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(slide)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(slide._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingSlide && (
+        <CollegeGalleryModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveSlide}
+          slide={editingSlide}
+        />
+      )}
     </section>
   );
 };

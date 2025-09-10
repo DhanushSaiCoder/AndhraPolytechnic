@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import placementHeroService from '../../../services/placementHeroService';
+import PlacementHeroModal from './PlacementHeroModal'; // Import the new modal
 
 const PlacementHeroEditor = () => {
   const [chartData, setChartData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchHeroData = async () => {
     try {
       const response = await placementHeroService.getPlacementHeroData();
       if (response.data && response.data.years && response.data.years.length > 0) {
         const transformedData = response.data.years.map((year, index) => ({
-          // Use a unique key for React's rendering list
           id: `item-${index}-${Date.now()}`,
           year: year || '',
           students: response.data.students[index] || '',
@@ -17,7 +18,7 @@ const PlacementHeroEditor = () => {
         }));
         setChartData(transformedData);
       } else {
-        setChartData([]); // Handle case with no data
+        setChartData([]);
       }
     } catch (error) {
       console.error('Error fetching placement hero data:', error);
@@ -29,101 +30,47 @@ const PlacementHeroEditor = () => {
     fetchHeroData();
   }, []);
 
-  const handleChartDataChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedData = [...chartData];
-    updatedData[index] = { ...updatedData[index], [name]: value };
-    setChartData(updatedData);
+  const handleEditClick = () => {
+    setIsModalOpen(true);
   };
 
-  const handleAddRow = () => {
-    setChartData([...chartData, { id: `new-${Date.now()}`, year: '', students: '', avgPackage: '' }]);
-  };
-
-  const handleRemoveRow = (index) => {
-    const updatedData = chartData.filter((_, i) => i !== index);
-    setChartData(updatedData);
-  };
-
-  const handleSave = async () => {
+  const handleSaveChartData = async (dataToSend) => {
     try {
-      const dataToSend = {
-        years: chartData.map(item => (item.year || '').trim()),
-        students: chartData.map(item => Number(item.students) || 0),
-        avgPackage: chartData.map(item => Number(item.avgPackage) || 0),
-      };
-
-      // Basic validation
-      if (dataToSend.years.some(y => y === '')) {
-        alert('Please ensure all "Year" fields are filled out.');
-        return;
-      }
-
       await placementHeroService.updatePlacementHeroData(dataToSend);
       alert('Placement Hero data saved successfully!');
+      fetchHeroData(); // Re-fetch original data
+      setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving placement hero data:', error);
       alert('Failed to save placement hero data.');
     }
   };
 
-  const handleCancel = () => {
-    fetchHeroData(); // Re-fetch original data
-  };
-
   return (
     <section className="admin-section">
       <h3>Placement Hero Section (Charts)</h3>
 
-      <div className="year-entries-container">
-        {chartData.map((data, index) => (
-          <div key={data.id} className="year-entry-row">
-              <div className="form-group">
-                  <label>Year</label>
-                  <input
-                    type="text"
-                    name="year"
-                    value={data.year}
-                    onChange={(e) => handleChartDataChange(index, e)}
-                    placeholder="e.g., 2023-24"
-                  />
-              </div>
-              <div className="form-group">
-                  <label>Students Placed</label>
-                  <input
-                    type="number"
-                    name="students"
-                    value={data.students}
-                    onChange={(e) => handleChartDataChange(index, e)}
-                    placeholder="e.g., 450"
-                  />
-              </div>
-              <div className="form-group">
-                  <label>Average Package (LPA)</label>
-                  <input
-                    type="number"
-                    name="avgPackage"
-                    value={data.avgPackage}
-                    onChange={(e) => handleChartDataChange(index, e)}
-                    placeholder="e.g., 4.5"
-                  />
-              </div>
-              <button type="button" onClick={() => handleRemoveRow(index)} className="remove-btn">
-                  Remove
-              </button>
-          </div>
-        ))}
+      <p>Current Chart Data:</p>
+      <ul>
+        {chartData.length > 0 ? (
+          chartData.map(item => (
+            <li key={item.id}>{item.year}: {item.students} students, {item.avgPackage} LPA</li>
+          ))
+        ) : (
+          <li>No chart data available.</li>
+        )}
+      </ul>
+
+      <div className="form-actions">
+        <button onClick={handleEditClick} className="save-btn">Edit Chart Data</button>
       </div>
 
-
-      <button type="button" onClick={handleAddRow} className="add-btn" style={{ marginTop: '1rem' }}>
-        Add Year
-      </button>
-
-      <div className="form-actions" style={{ marginTop: '2rem' }}>
-        <button onClick={handleSave} className="save-btn">Save</button>
-        <button onClick={handleCancel} className="cancel-btn">Cancel</button>
-      </div>
+      <PlacementHeroModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveChartData}
+        chartData={chartData}
+      />
     </section>
   );
 };

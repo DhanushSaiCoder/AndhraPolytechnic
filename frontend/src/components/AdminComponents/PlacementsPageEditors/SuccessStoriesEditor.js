@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import successStoryService from '../../../services/successStoryService';
+import SuccessStoryModal from './SuccessStoryModal'; // Import the new modal
+
+const initialStoryState = {
+  _id: '',
+  name: '',
+  company: '',
+  role: '',
+  quote: '',
+  image: '',
+};
 
 const SuccessStoriesEditor = () => {
   const [stories, setStories] = useState([]);
-  const [currentStory, setCurrentStory] = useState({
-    _id: '',
-    name: '',
-    company: '',
-    role: '',
-    quote: '',
-    image: '',
-  });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStory, setEditingStory] = useState(null);
 
   const fetchStories = async () => {
     try {
@@ -27,37 +30,36 @@ const SuccessStoriesEditor = () => {
     fetchStories();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentStory(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingStory({ ...initialStoryState });
+    setIsModalOpen(true);
   };
 
-  const handleAddStory = async () => {
-    if (currentStory.name.trim() === '' || currentStory.quote.trim() === '') return;
+  const handleEditClick = (story) => {
+    setEditingStory(story);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveStory = async (storyData) => {
     try {
-      if (editingId) {
-        await successStoryService.updateSuccessStory(editingId, currentStory);
+      if (storyData._id) {
+        await successStoryService.updateSuccessStory(storyData._id, storyData);
         alert('Success Story updated successfully!');
       } else {
-        await successStoryService.createSuccessStory(currentStory);
+        await successStoryService.createSuccessStory(storyData);
         alert('Success Story added successfully!');
       }
-      fetchStories(); // Re-fetch stories
-      setCurrentStory({ _id: '', name: '', company: '', role: '', quote: '', image: '' });
-      setEditingId(null);
+      fetchStories();
+      setIsModalOpen(false);
+      setEditingStory(null);
     } catch (error) {
       console.error('Error saving success story:', error);
       alert('Failed to save success story.');
     }
   };
 
-  const handleEdit = (story) => {
-    setCurrentStory(story);
-    setEditingId(story._id);
-  };
-
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this success story?')) {
+    if (window.confirm('Are you sure you want to delete this story?')) {
       try {
         await successStoryService.deleteSuccessStory(id);
         alert('Success Story deleted successfully!');
@@ -73,30 +75,8 @@ const SuccessStoriesEditor = () => {
     <section className="admin-section">
       <h3>Success Stories Content</h3>
 
-      <div className="form-group">
-        <label htmlFor="name">Student Name</label>
-        <input type="text" id="name" name="name" value={currentStory.name} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="company">Company</label>
-        <input type="text" id="company" name="company" value={currentStory.company} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="role">Role</label>
-        <input type="text" id="role" name="role" value={currentStory.role} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="quote">Quote</label>
-        <textarea id="quote" name="quote" value={currentStory.quote} onChange={handleChange}></textarea>
-      </div>
-      <div className="form-group">
-        <label htmlFor="image">Image URL</label>
-        <input type="text" id="image" name="image" value={currentStory.image} onChange={handleChange} />
-      </div>
-
       <div className="form-actions">
-        <button onClick={handleAddStory} className="save-btn">{editingId ? 'Save Changes' : 'Add Story'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentStory({ _id: '', name: '', company: '', role: '', quote: '', image: '' });}} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Story</button>
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Success Stories</h4>
@@ -105,12 +85,21 @@ const SuccessStoriesEditor = () => {
           <li key={story._id} className="admin-list-item">
             <span>{story.name} - {story.company}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(story)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(story)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(story._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingStory && (
+        <SuccessStoryModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveStory}
+          story={editingStory}
+        />
+      )}
     </section>
   );
 };

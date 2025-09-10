@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import academicAchievementService from '../../../services/academicAchievementService';
+import AcademicAchievementModal from './AcademicAchievementModal'; // Import the new modal
 
 const initialAchievementState = {
   _id: '',
@@ -11,8 +12,8 @@ const initialAchievementState = {
 
 const AcademicAchievementsEditor = () => {
   const [achievements, setAchievements] = useState([]);
-  const [currentAchievement, setCurrentAchievement] = useState({ ...initialAchievementState });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAchievement, setEditingAchievement] = useState(null);
 
   const fetchAchievements = async () => {
     try {
@@ -28,36 +29,20 @@ const AcademicAchievementsEditor = () => {
     fetchAchievements();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentAchievement(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingAchievement({ ...initialAchievementState });
+    setIsModalOpen(true);
   };
 
-  const handleImageChange = (index, value) => {
-    const updatedImages = [...currentAchievement.images];
-    updatedImages[index] = value;
-    setCurrentAchievement(prevState => ({ ...prevState, images: updatedImages }));
+  const handleEditClick = (achievement) => {
+    setEditingAchievement({ ...initialAchievementState, ...achievement });
+    setIsModalOpen(true);
   };
 
-  const handleAddImage = () => {
-    setCurrentAchievement(prevState => ({ ...prevState, images: [...prevState.images, ''] }));
-  };
-
-  const handleRemoveImage = (index) => {
-    const updatedImages = currentAchievement.images.filter((_, i) => i !== index);
-    setCurrentAchievement(prevState => ({ ...prevState, images: updatedImages }));
-  };
-
-  const handleSave = async () => {
-    if (currentAchievement.title.trim() === '') return;
+  const handleSaveAchievement = async (achievementData) => {
     try {
-      const achievementData = {
-        ...currentAchievement,
-        images: currentAchievement.images.filter(img => img.trim() !== ''),
-      };
-
-      if (editingId) {
-        await academicAchievementService.updateAcademicAchievement(editingId, achievementData);
+      if (achievementData._id) {
+        await academicAchievementService.updateAcademicAchievement(achievementData._id, achievementData);
         alert('Achievement updated successfully!');
       } else {
         const { _id, ...rest } = achievementData;
@@ -65,18 +50,12 @@ const AcademicAchievementsEditor = () => {
         alert('Achievement added successfully!');
       }
       fetchAchievements();
-      setCurrentAchievement({ ...initialAchievementState });
-      setEditingId(null);
+      setIsModalOpen(false);
+      setEditingAchievement(null);
     } catch (error) {
       console.error('Error saving achievement:', error);
       alert('Failed to save achievement.');
     }
-  };
-
-  const handleEdit = (achievement) => {
-    setCurrentAchievement({ ...initialAchievementState, ...achievement });
-    setEditingId(achievement._id);
-    window.scrollTo(0, 0);
   };
 
   const handleDelete = async (id) => {
@@ -100,7 +79,7 @@ const AcademicAchievementsEditor = () => {
           <li key={item._id} className="admin-list-item">
             <span>{item.title}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(item)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
@@ -113,47 +92,23 @@ const AcademicAchievementsEditor = () => {
     <section className="admin-section">
       <h3>Academic Achievements Content</h3>
 
-      <div className="form-group">
-        <label>Title</label>
-        <input type="text" name="title" value={currentAchievement.title} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Description</label>
-        <textarea name="description" value={currentAchievement.description} onChange={handleChange}></textarea>
-      </div>
-      <div className="form-group">
-        <label>Category</label>
-        <select name="category" value={currentAchievement.category} onChange={handleChange}>
-          <option value="student">Student</option>
-          <option value="faculty">Faculty</option>
-        </select>
-      </div>
-
-      <div className="form-section">
-        <h4>Images</h4>
-        {currentAchievement.images.map((image, index) => (
-          <div key={index} className="dynamic-list-item">
-            <input
-              type="text"
-              value={image}
-              onChange={(e) => handleImageChange(index, e.target.value)}
-              placeholder="Image URL"
-            />
-            <button type="button" onClick={() => handleRemoveImage(index)} className="remove-btn">Remove</button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddImage} className="add-btn">Add Image</button>
-      </div>
-
       <div className="form-actions">
-        <button onClick={handleSave} className="save-btn">{editingId ? 'Save Changes' : 'Add Achievement'}</button>
-        {editingId && <button onClick={() => { setEditingId(null); setCurrentAchievement({ ...initialAchievementState }); }} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Achievement</button>
       </div>
 
       <hr style={{ margin: '3rem 0' }} />
 
       {renderList('student')}
       {renderList('faculty')}
+
+      {editingAchievement && (
+        <AcademicAchievementModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveAchievement}
+          achievement={editingAchievement}
+        />
+      )}
     </section>
   );
 };

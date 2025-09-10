@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import recruiterService from '../../../services/recruiterService';
+import RecruiterModal from './RecruiterModal'; // Import the new modal
 
 const TopRecruitersEditor = () => {
   const [recruiters, setRecruiters] = useState([]);
-  const [currentRecruiter, setCurrentRecruiter] = useState({
-    _id: '',
-    name: '',
-    logo: '',
-  });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRecruiter, setEditingRecruiter] = useState(null);
 
   const fetchRecruiters = async () => {
     try {
@@ -24,33 +21,32 @@ const TopRecruitersEditor = () => {
     fetchRecruiters();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentRecruiter(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingRecruiter({ _id: '', name: '', logo: '' });
+    setIsModalOpen(true);
   };
 
-  const handleAddRecruiter = async () => {
-    if (currentRecruiter.name.trim() === '' || currentRecruiter.logo.trim() === '') return;
+  const handleEditClick = (recruiter) => {
+    setEditingRecruiter(recruiter);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveRecruiter = async (recruiterData) => {
     try {
-      if (editingId) {
-        await recruiterService.updateRecruiter(editingId, currentRecruiter);
+      if (recruiterData._id) {
+        await recruiterService.updateRecruiter(recruiterData._id, recruiterData);
         alert('Recruiter updated successfully!');
       } else {
-        await recruiterService.createRecruiter(currentRecruiter);
+        await recruiterService.createRecruiter(recruiterData);
         alert('Recruiter added successfully!');
       }
-      fetchRecruiters(); // Re-fetch recruiters
-      setCurrentRecruiter({ _id: '', name: '', logo: '' });
-      setEditingId(null);
+      fetchRecruiters();
+      setIsModalOpen(false);
+      setEditingRecruiter(null);
     } catch (error) {
       console.error('Error saving recruiter:', error);
       alert('Failed to save recruiter.');
     }
-  };
-
-  const handleEdit = (recruiter) => {
-    setCurrentRecruiter(recruiter);
-    setEditingId(recruiter._id);
   };
 
   const handleDelete = async (id) => {
@@ -70,18 +66,8 @@ const TopRecruitersEditor = () => {
     <section className="admin-section">
       <h3>Top Recruiters Content</h3>
 
-      <div className="form-group">
-        <label htmlFor="name">Company Name</label>
-        <input type="text" id="name" name="name" value={currentRecruiter.name} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="logo">Logo URL</label>
-        <input type="text" id="logo" name="logo" value={currentRecruiter.logo} onChange={handleChange} />
-      </div>
-
       <div className="form-actions">
-        <button onClick={handleAddRecruiter} className="save-btn">{editingId ? 'Save Changes' : 'Add Recruiter'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentRecruiter({ _id: '', name: '', logo: '' });}} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Recruiter</button>
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Top Recruiters</h4>
@@ -90,12 +76,21 @@ const TopRecruitersEditor = () => {
           <li key={recruiter._id} className="admin-list-item">
             <span>{recruiter.name}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(recruiter)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(recruiter)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(recruiter._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingRecruiter && (
+        <RecruiterModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveRecruiter}
+          recruiter={editingRecruiter}
+        />
+      )}
     </section>
   );
 };

@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import statService from '../../../services/statService'; // Import the service
+import CurrentInfoModal from './CurrentInfoModal'; // Import the new modal
 
 const CurrentInfoEditor = () => {
   const [stats, setStats] = useState([]);
-  const [currentStat, setCurrentStat] = useState({
-    _id: '', // Changed to _id
-    icon: '', // e.g., 'Users', 'GraduationCap', 'TrendingUp'
-    value: '',
-    label: '',
-    description: '',
-  });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStat, setEditingStat] = useState(null);
 
   const fetchStats = async () => {
     try {
@@ -26,33 +21,32 @@ const CurrentInfoEditor = () => {
     fetchStats();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentStat(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingStat({ _id: '', icon: '', value: '', label: '', description: '' });
+    setIsModalOpen(true);
   };
 
-  const handleAddStat = async () => {
-    if (currentStat.value.trim() === '' || currentStat.label.trim() === '') return;
+  const handleEditClick = (stat) => {
+    setEditingStat(stat);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveStat = async (statData) => {
     try {
-      if (editingId) {
-        await statService.updateStat(editingId, currentStat);
+      if (statData._id) {
+        await statService.updateStat(statData._id, statData);
         alert('Stat updated successfully!');
       } else {
-        await statService.createStat(currentStat);
+        await statService.createStat(statData);
         alert('Stat added successfully!');
       }
       fetchStats(); // Re-fetch stats
-      setCurrentStat({ _id: '', icon: '', value: '', label: '', description: '' });
-      setEditingId(null);
+      setIsModalOpen(false);
+      setEditingStat(null);
     } catch (error) {
       console.error('Error saving stat:', error);
       alert('Failed to save stat.');
     }
-  };
-
-  const handleEdit = (stat) => {
-    setCurrentStat(stat);
-    setEditingId(stat._id);
   };
 
   const handleDelete = async (id) => {
@@ -72,25 +66,8 @@ const CurrentInfoEditor = () => {
     <section className="admin-section">
       <h3>Current Info (Stats) Content</h3>
 
-      <div className="form-group">
-        <label htmlFor="statIcon">Icon Name (e.g., Users, GraduationCap)</label>
-        <input type="text" id="statIcon" name="icon" value={currentStat.icon} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statValue">Value</label>
-        <input type="text" id="statValue" name="value" value={currentStat.value} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statLabel">Label</label>
-        <input type="text" id="statLabel" name="label" value={currentStat.label} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statDescription">Description</label>
-        <textarea id="statDescription" name="description" value={currentStat.description} onChange={handleChange}></textarea>
-      </div>
       <div className="form-actions">
-        <button onClick={handleAddStat} className="save-btn">{editingId ? 'Save Changes' : 'Add Stat'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentStat({ id: '', icon: '', value: '', label: '', description: '' });}} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Stat</button>
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Stats</h4>
@@ -99,12 +76,21 @@ const CurrentInfoEditor = () => {
           <li key={stat._id} className="admin-list-item">
             <span>{stat.label}: {stat.value}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(stat)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(stat)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(stat._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingStat && (
+        <CurrentInfoModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveStat}
+          stat={editingStat}
+        />
+      )}
     </section>
   );
 };

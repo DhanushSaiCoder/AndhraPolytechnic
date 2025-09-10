@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import placementStatService from '../../../services/placementStatService';
+import PlacementStatModal from './PlacementStatModal'; // Import the new modal
 
 const PlacementStatsEditor = () => {
   const [stats, setStats] = useState([]);
-  const [currentStat, setCurrentStat] = useState({
-    _id: '',
-    icon: '', // e.g., 'Users', 'Briefcase', 'DollarSign'
-    value: '',
-    label: '',
-    description: '',
-  });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStat, setEditingStat] = useState(null);
 
   const fetchStats = async () => {
     try {
@@ -26,33 +21,32 @@ const PlacementStatsEditor = () => {
     fetchStats();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentStat(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingStat({ _id: '', icon: '', value: '', label: '', description: '' });
+    setIsModalOpen(true);
   };
 
-  const handleAddStat = async () => {
-    if (currentStat.value.trim() === '' || currentStat.label.trim() === '') return;
+  const handleEditClick = (stat) => {
+    setEditingStat(stat);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveStat = async (statData) => {
     try {
-      if (editingId) {
-        await placementStatService.updatePlacementStat(editingId, currentStat);
+      if (statData._id) {
+        await placementStatService.updatePlacementStat(statData._id, statData);
         alert('Placement Stat updated successfully!');
       } else {
-        await placementStatService.createPlacementStat(currentStat);
+        await placementStatService.createPlacementStat(statData);
         alert('Placement Stat added successfully!');
       }
-      fetchStats(); // Re-fetch stats
-      setCurrentStat({ _id: '', icon: '', value: '', label: '', description: '' });
-      setEditingId(null);
+      fetchStats();
+      setIsModalOpen(false);
+      setEditingStat(null);
     } catch (error) {
       console.error('Error saving placement stat:', error);
       alert('Failed to save placement stat.');
     }
-  };
-
-  const handleEdit = (stat) => {
-    setCurrentStat(stat);
-    setEditingId(stat._id);
   };
 
   const handleDelete = async (id) => {
@@ -72,25 +66,8 @@ const PlacementStatsEditor = () => {
     <section className="admin-section">
       <h3>Placement Stats Content</h3>
 
-      <div className="form-group">
-        <label htmlFor="statIcon">Icon Name (e.g., Users, Briefcase, DollarSign)</label>
-        <input type="text" id="statIcon" name="icon" value={currentStat.icon} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statValue">Value</label>
-        <input type="text" id="statValue" name="value" value={currentStat.value} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statLabel">Label</label>
-        <input type="text" id="statLabel" name="label" value={currentStat.label} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="statDescription">Description</label>
-        <textarea id="statDescription" name="description" value={currentStat.description} onChange={handleChange}></textarea>
-      </div>
       <div className="form-actions">
-        <button onClick={handleAddStat} className="save-btn">{editingId ? 'Save Changes' : 'Add Stat'}</button>
-        {editingId && <button onClick={() => {setEditingId(null); setCurrentStat({ _id: '', icon: '', value: '', label: '', description: '' });}} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Stat</button>
       </div>
 
       <h4 style={{marginTop: '2rem', marginBottom: '1rem', color: 'var(--navy-color)'}}>Current Placement Stats</h4>
@@ -99,12 +76,21 @@ const PlacementStatsEditor = () => {
           <li key={stat._id} className="admin-list-item">
             <span>{stat.label}: {stat.value}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(stat)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(stat)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(stat._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingStat && (
+        <PlacementStatModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveStat}
+          stat={editingStat}
+        />
+      )}
     </section>
   );
 };

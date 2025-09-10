@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import aboutUsAchievementService from '../../../services/aboutUsAchievementService';
+import AboutUsAchievementModal from './AboutUsAchievementModal'; // Import the new modal
 
 const initialAchievementState = {
   _id: '',
@@ -10,8 +11,8 @@ const initialAchievementState = {
 
 const AboutUsAchievementsEditor = () => {
   const [achievements, setAchievements] = useState([]);
-  const [currentAchievement, setCurrentAchievement] = useState({ ...initialAchievementState });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAchievement, setEditingAchievement] = useState(null);
 
   const fetchAchievements = async () => {
     try {
@@ -27,35 +28,33 @@ const AboutUsAchievementsEditor = () => {
     fetchAchievements();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentAchievement(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingAchievement({ ...initialAchievementState });
+    setIsModalOpen(true);
   };
 
-  const handleSave = async () => {
-    if (currentAchievement.title.trim() === '') return;
+  const handleEditClick = (achievement) => {
+    setEditingAchievement({ ...initialAchievementState, ...achievement });
+    setIsModalOpen(true);
+  };
+
+  const handleSaveAchievement = async (achievementData) => {
     try {
-      if (editingId) {
-        await aboutUsAchievementService.updateAchievement(editingId, currentAchievement);
+      if (achievementData._id) {
+        await aboutUsAchievementService.updateAchievement(achievementData._id, achievementData);
         alert('Achievement updated successfully!');
       } else {
-        const { _id, ...rest } = currentAchievement;
+        const { _id, ...rest } = achievementData;
         await aboutUsAchievementService.createAchievement(rest);
         alert('Achievement added successfully!');
       }
       fetchAchievements();
-      setCurrentAchievement({ ...initialAchievementState });
-      setEditingId(null);
+      setIsModalOpen(false);
+      setEditingAchievement(null);
     } catch (error) {
       console.error('Error saving achievement:', error);
       alert('Failed to save achievement.');
     }
-  };
-
-  const handleEdit = (achievement) => {
-    setCurrentAchievement({ ...initialAchievementState, ...achievement });
-    setEditingId(achievement._id);
-    window.scrollTo(0, 0);
   };
 
   const handleDelete = async (id) => {
@@ -75,22 +74,8 @@ const AboutUsAchievementsEditor = () => {
     <section className="admin-section">
       <h3>About Us Achievements</h3>
 
-      <div className="form-group">
-        <label>Title</label>
-        <input type="text" name="title" value={currentAchievement.title} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Subtitle</label>
-        <input type="text" name="subtitle" value={currentAchievement.subtitle} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Image URL</label>
-        <input type="text" name="image" value={currentAchievement.image} onChange={handleChange} />
-      </div>
-
       <div className="form-actions">
-        <button onClick={handleSave} className="save-btn">{editingId ? 'Save Changes' : 'Add Achievement'}</button>
-        {editingId && <button onClick={() => { setEditingId(null); setCurrentAchievement({ ...initialAchievementState }); }} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Achievement</button>
       </div>
 
       <hr style={{ margin: '3rem 0' }} />
@@ -100,12 +85,21 @@ const AboutUsAchievementsEditor = () => {
           <li key={item._id} className="admin-list-item">
             <span>{item.title}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(item)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
         ))}
       </ul>
+
+      {editingAchievement && (
+        <AboutUsAchievementModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveAchievement}
+          achievement={editingAchievement}
+        />
+      )}
     </section>
   );
 };

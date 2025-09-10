@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import aboutUsContactService from '../../../services/aboutUsContactService';
+import AboutUsContactModal from './AboutUsContactModal'; // Import the new modal
 
 const initialContactState = {
   address: '',
@@ -10,12 +11,15 @@ const initialContactState = {
 
 const AboutUsContactEditor = () => {
   const [contact, setContact] = useState(initialContactState);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchContact = async () => {
     try {
       const response = await aboutUsContactService.getContact();
       if (response.data) {
         setContact(response.data);
+      } else {
+        setContact(initialContactState); // Reset if no data
       }
     } catch (error) {
       console.error('Error fetching contact info:', error);
@@ -27,30 +31,16 @@ const AboutUsContactEditor = () => {
     fetchContact();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setContact(prevState => ({ ...prevState, [name]: value }));
+  const handleEditClick = () => {
+    setIsModalOpen(true);
   };
 
-  const handleOfficeHoursChange = (index, value) => {
-    const updatedHours = [...contact.officeHours];
-    updatedHours[index] = value;
-    setContact(prevState => ({ ...prevState, officeHours: updatedHours }));
-  };
-
-  const handleAddOfficeHour = () => {
-    setContact(prevState => ({ ...prevState, officeHours: [...prevState.officeHours, ''] }));
-  };
-
-  const handleRemoveOfficeHour = (index) => {
-    const updatedHours = contact.officeHours.filter((_, i) => i !== index);
-    setContact(prevState => ({ ...prevState, officeHours: updatedHours }));
-  };
-
-  const handleSave = async () => {
+  const handleSaveContact = async (contactData) => {
     try {
-      await aboutUsContactService.updateContact(contact);
+      await aboutUsContactService.updateContact(contactData);
       alert('Contact info updated successfully!');
+      fetchContact(); // Re-fetch to ensure UI is updated
+      setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving contact info:', error);
       alert('Failed to save contact info.');
@@ -61,38 +51,28 @@ const AboutUsContactEditor = () => {
     <section className="admin-section">
       <h3>About Us Contact Information</h3>
 
-      <div className="form-group">
-        <label>Address</label>
-        <textarea name="address" value={contact.address} onChange={handleChange}></textarea>
-      </div>
-      <div className="form-group">
-        <label>Phone</label>
-        <input type="text" name="phone" value={contact.phone} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Email</label>
-        <input type="email" name="email" value={contact.email} onChange={handleChange} />
-      </div>
-
-      <div className="form-section">
-        <h4>Office Hours</h4>
-        {contact.officeHours.map((hour, index) => (
-          <div key={index} className="dynamic-list-item">
-            <input
-              type="text"
-              value={hour}
-              onChange={(e) => handleOfficeHoursChange(index, e.target.value)}
-              placeholder="e.g., Monday - Friday: 9:00 AM - 5:00 PM"
-            />
-            <button type="button" onClick={() => handleRemoveOfficeHour(index)} className="remove-btn">Remove</button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddOfficeHour} className="add-btn">Add Office Hour</button>
-      </div>
+      <p><strong>Address:</strong> {contact.address || 'N/A'}</p>
+      <p><strong>Phone:</strong> {contact.phone || 'N/A'}</p>
+      <p><strong>Email:</strong> {contact.email || 'N/A'}</p>
+      <p><strong>Office Hours:</strong></p>
+      <ul>
+        {contact.officeHours.length > 0 ? (
+          contact.officeHours.map((hour, index) => <li key={index}>{hour}</li>)
+        ) : (
+          <li>N/A</li>
+        )}
+      </ul>
 
       <div className="form-actions">
-        <button onClick={handleSave} className="save-btn">Save Changes</button>
+        <button onClick={handleEditClick} className="save-btn">Edit Contact Info</button>
       </div>
+
+      <AboutUsContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveContact}
+        contactData={contact}
+      />
     </section>
   );
 };

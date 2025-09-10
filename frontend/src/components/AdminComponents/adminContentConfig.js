@@ -31,47 +31,10 @@ export const contentSections = [
     ],
   },
   {
-    title: 'About Us Page',
-    path: 'about-us',
-    subsections: [
-      { title: 'Achievements', path: 'achievements', component: AboutUsAchievementsEditor },
-      { title: 'Contact Info', path: 'contact', component: AboutUsContactEditor },
-    ],
-  },
-  {
-    title: 'Academics Page',
-    path: 'academics',
-    subsections: [
-      { title: 'Academic Achievements', path: 'academic-achievements', component: AcademicAchievementsEditor },
-      { title: 'Admissions', path: 'admissions', component: AdmissionsPageEditor },
-    ],
-  },
-  {
-    title: 'Alumni Page',
-    path: 'alumni',
-    subsections: [
-      { title: 'Success Stories', path: 'success-stories', component: AlumniSuccessStoriesEditor },
-    ],
-  },
-  {
     title: 'Departments Page',
     path: 'departments',
     subsections: [
       { title: 'Manage Departments', path: 'manage', component: DepartmentsPageContentEditor },
-    ],
-  },
-    {
-    title: 'Syllabus Page',
-    path: 'syllabus',
-    subsections: [
-      { title: 'Manage Syllabus', path: 'manage', component: SyllabusPageContentEditor },
-    ],
-  },
-  {
-    title: 'Events Page',
-    path: 'events',
-    subsections: [
-      { title: 'Manage Events', path: 'manage', component: EventsPageContentEditor },
     ],
   },
   {
@@ -87,4 +50,44 @@ export const contentSections = [
       { title: 'Contact', path: 'contact', component: PlacementContactEditor },
     ],
   },
+
+  {
+    title: 'Academics Page',
+    path: 'academics',
+    subsections: [
+      { title: 'Academic Achievements', path: 'academic-achievements', component: AcademicAchievementsEditor },
+      { title: 'Admissions', path: 'admissions', component: AdmissionsPageEditor },
+    ],
+  },
+  {
+    title: 'Events Page',
+    path: 'events',
+    subsections: [
+      { title: 'Manage Events', path: 'manage', component: EventsPageContentEditor },
+    ],
+  },
+  {
+    title: 'About Us Page',
+    path: 'about-us',
+    subsections: [
+      { title: 'Achievements', path: 'achievements', component: AboutUsAchievementsEditor },
+      { title: 'Contact Info', path: 'contact', component: AboutUsContactEditor },
+    ],
+  },
+  {
+    title: 'Alumni Page',
+    path: 'alumni',
+    subsections: [
+      { title: 'Success Stories', path: 'success-stories', component: AlumniSuccessStoriesEditor },
+    ],
+  },
+
+  {
+    title: 'Syllabus Page',
+    path: 'syllabus',
+    subsections: [
+      { title: 'Manage Syllabus', path: 'manage', component: SyllabusPageContentEditor },
+    ],
+  }
+
 ];

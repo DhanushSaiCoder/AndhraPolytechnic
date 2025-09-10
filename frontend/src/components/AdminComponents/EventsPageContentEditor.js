@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import eventService from '../../services/eventService';
+import EventModal from './EventsPageEditors/EventModal'; // Import the new modal
 
 const initialEventState = {
   _id: '',
@@ -11,8 +12,8 @@ const initialEventState = {
 
 const EventsPageContentEditor = () => {
   const [events, setEvents] = useState([]);
-  const [currentEvent, setCurrentEvent] = useState({ ...initialEventState });
-  const [editingId, setEditingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
 
   const fetchEvents = async () => {
     try {
@@ -28,35 +29,33 @@ const EventsPageContentEditor = () => {
     fetchEvents();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentEvent(prevState => ({ ...prevState, [name]: value }));
+  const handleAddClick = () => {
+    setEditingEvent({ ...initialEventState });
+    setIsModalOpen(true);
   };
 
-  const handleSave = async () => {
-    if (currentEvent.title.trim() === '') return;
+  const handleEditClick = (event) => {
+    setEditingEvent({ ...initialEventState, ...event });
+    setIsModalOpen(true);
+  };
+
+  const handleSaveEvent = async (eventData) => {
     try {
-      if (editingId) {
-        await eventService.updateEvent(editingId, currentEvent);
+      if (eventData._id) {
+        await eventService.updateEvent(eventData._id, eventData);
         alert('Event updated successfully!');
       } else {
-        const { _id, ...rest } = currentEvent;
+        const { _id, ...rest } = eventData;
         await eventService.createEvent(rest);
         alert('Event added successfully!');
       }
       fetchEvents();
-      setCurrentEvent({ ...initialEventState });
-      setEditingId(null);
+      setIsModalOpen(false);
+      setEditingEvent(null);
     } catch (error) {
       console.error('Error saving event:', error);
       alert('Failed to save event.');
     }
-  };
-
-  const handleEdit = (event) => {
-    setCurrentEvent({ ...initialEventState, ...event });
-    setEditingId(event._id);
-    window.scrollTo(0, 0);
   };
 
   const handleDelete = async (id) => {
@@ -80,7 +79,7 @@ const EventsPageContentEditor = () => {
           <li key={item._id} className="admin-list-item">
             <span>{item.title}</span>
             <div className="admin-list-actions">
-              <button onClick={() => handleEdit(item)} className="action-btn edit-btn">Edit</button>
+              <button onClick={() => handleEditClick(item)} className="action-btn edit-btn">Edit</button>
               <button onClick={() => handleDelete(item._id)} className="action-btn delete-btn">Delete</button>
             </div>
           </li>
@@ -93,31 +92,8 @@ const EventsPageContentEditor = () => {
     <section className="admin-section">
       <h3>Events Page Content</h3>
 
-      <div className="form-group">
-        <label>Title</label>
-        <input type="text" name="title" value={currentEvent.title} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Subtitle</label>
-        <input type="text" name="subtitle" value={currentEvent.subtitle} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Image URL</label>
-        <input type="text" name="image" value={currentEvent.image} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Category</label>
-        <select name="category" value={currentEvent.category} onChange={handleChange}>
-          <option value="sports">Sports</option>
-          <option value="academic">Academic</option>
-          <option value="co-curricular">Co-curricular</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-
       <div className="form-actions">
-        <button onClick={handleSave} className="save-btn">{editingId ? 'Save Changes' : 'Add Event'}</button>
-        {editingId && <button onClick={() => { setEditingId(null); setCurrentEvent({ ...initialEventState }); }} className="cancel-btn">Cancel Edit</button>}
+        <button onClick={handleAddClick} className="save-btn">Add New Event</button>
       </div>
 
       <hr style={{ margin: '3rem 0' }} />
@@ -126,6 +102,15 @@ const EventsPageContentEditor = () => {
       {renderList('academic')}
       {renderList('co-curricular')}
       {renderList('other')}
+
+      {editingEvent && (
+        <EventModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveEvent}
+          event={editingEvent}
+        />
+      )}
     </section>
   );
 };
