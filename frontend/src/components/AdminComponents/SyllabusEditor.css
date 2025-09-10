@@ -197,3 +197,8 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:foc
 .se-subject-item.newly-added {
   animation: highlight-fade 2s ease-out;
 }
+
+.se-branch-actions {
+    display: flex;
+    gap: 0.25rem;
+}

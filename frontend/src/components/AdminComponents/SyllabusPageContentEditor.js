@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Edit2 } from 'lucide-react';
 import syllabusService from '../../services/syllabusService';
 import departmentService from '../../services/departmentService';
+import DepartmentSelectionModal from './DepartmentSelectionModal';
 import './SyllabusEditor.css';
 
 function deepClone(obj) {
@@ -16,6 +17,8 @@ export default function SyllabusPageContentEditor() {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [newlyAddedSubjectIndex, setNewlyAddedSubjectIndex] = useState(null);
+  const [isDeptModalOpen, setIsDeptModalOpen] = useState(false);
+  const [editingBranchIndex, setEditingBranchIndex] = useState(null);
 
   const fetchSyllabusData = useCallback(async () => {
     try {
@@ -161,6 +164,17 @@ export default function SyllabusPageContentEditor() {
 
   return (
     <div className="se-root">
+        <DepartmentSelectionModal 
+            isOpen={isDeptModalOpen}
+            onClose={() => setIsDeptModalOpen(false)}
+            departments={departments}
+            currentDepartmentId={editingBranchIndex !== null ? currentCurriculum.branches[editingBranchIndex]?.department : null}
+            onSelect={(deptId) => {
+                updateNestedState(['branches', editingBranchIndex, 'department'], deptId);
+                setIsDeptModalOpen(false);
+                setEditingBranchIndex(null);
+            }}
+        />
       <header className="se-header"><h1>Syllabus Content Management</h1></header>
       <div className="se-layout">
         <aside className="se-sidebar" aria-label="Curricula list">
@@ -210,20 +224,15 @@ export default function SyllabusPageContentEditor() {
 
               <section className="se-grid-two">
                 <div className="se-card">
-                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => addListItem(['branches'])}>+ Add Branch</button></div>
+                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => { addListItem(['branches']); setEditingBranchIndex(currentCurriculum.branches.length); setIsDeptModalOpen(true); }}>+ Add Branch</button></div>
                   <div className="se-branch-list">
                     {currentCurriculum.branches?.map((branch, bIdx) => (
                       <div key={bIdx} className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`} onClick={() => setSelectedBranchIndex(bIdx)}>
-                        <select 
-                          value={branch.department?._id || branch.department || ''} 
-                          onChange={(e) => {
-                              updateNestedState(['branches', bIdx, 'department'], e.target.value);
-                          }}
-                        >
-                          <option value="">-- Select Department --</option>
-                          {departments.map(d => <option key={d._id} value={d._id}>{d.name}</option>)}
-                        </select>
-                        <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem(['branches', bIdx]); }}><Trash2 size={16} /></button>
+                        <span>{departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'Select Department'}</span>
+                        <div className="se-branch-actions">
+                            <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); setEditingBranchIndex(bIdx); setIsDeptModalOpen(true); }} title="Edit department"><Edit2 size={16} /></button>
+                            <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem(['branches', bIdx]); }}><Trash2 size={16} /></button>
+                        </div>
                       </div>
                     ))}
                   </div>
