@@ -28,9 +28,9 @@ const PlacementProcess = () => {
         </header>
 
         <div className="process-steps">
-          {steps.map((step) => (
+          {steps.map((step, index) => (
             <div key={step._id} className="process-step-card"> {/* Use _id for key */}
-              <div className="step-number">{step.id}</div> {/* Assuming 'id' is still used for display order */}
+              <div className="step-number">{index +1}</div> {/* Assuming 'id' is still used for display order */}
               <h3 className="step-title">{step.title}</h3>
               <p className="step-description">{step.description}</p>
             </div>
