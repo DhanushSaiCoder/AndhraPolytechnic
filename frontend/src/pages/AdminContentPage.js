@@ -1,64 +1,42 @@
-import React, { useState } from 'react';
-import '../styles/AdminContent.css';
-import HomePageContentEditor from '../components/AdminComponents/HomePageContentEditor';
-import PlacementsPageContentEditor from '../components/AdminComponents/PlacementsPageContentEditor';
-import DepartmentsPageContentEditor from '../components/AdminComponents/DepartmentsPageContentEditor';
-import AcademicsPageContentEditor from '../components/AdminComponents/AcademicsPageContentEditor';
-import EventsPageContentEditor from '../components/AdminComponents/EventsPageContentEditor';
-import AboutUsPageContentEditor from '../components/AdminComponents/AboutUsPageContentEditor';
-import AlumniPageContentEditor from '../components/AdminComponents/AlumniPageContentEditor';
-import SyllabusPageContentEditor from '../components/AdminComponents/SyllabusPageContentEditor';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { FileText } from 'lucide-react';
+import AdminContentSidebar from '../components/AdminComponents/AdminContentSidebar';
+import { contentSections } from '../components/AdminComponents/adminContentConfig';
+import '../components/AdminComponents/adminContent.css';
+import '../styles/AdminContent.css'; // Import the core admin content styles
+
+const AdminContentPlaceholder = () => (
+  <div className="admin-content-placeholder">
+    <FileText size={48} />
+    <h2>Select Content to Manage</h2>
+    <p>Choose a page and a specific section from the sidebar to start editing its content.</p>
+  </div>
+);
 
 const AdminContentPage = () => {
-  const [selectedSection, setSelectedSection] = useState('home'); // Default to home page content
+  const location = useLocation();
+  const isRootAdminContent = location.pathname === '/admin/content' || location.pathname === '/admin/content/';
 
   return (
-    <div className="admin-content-page">
-      <aside className="admin-sidebar">
-        <h2 className="sidebar-title">Content Management</h2>
-        <nav className="sidebar-nav">
-          <ul>
-            <li className={selectedSection === 'home' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('home')}>Home Page</button>
-            </li>
-            <li className={selectedSection === 'about' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('about')}>About Us Page</button>
-            </li>
-            <li className={selectedSection === 'academics' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('academics')}>Academics Page</button>
-            </li>
-            <li className={selectedSection === 'syllabus' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('syllabus')}>Syllabus</button>
-            </li>
-            <li className={selectedSection === 'events' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('events')}>Events Page</button>
-            </li>
-            <li className={selectedSection === 'placements' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('placements')}>Placements Page</button>
-            </li>
-            <li className={selectedSection === 'departments' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('departments')}>Departments Page</button>
-            </li>
-            <li className={selectedSection === 'alumni' ? 'active' : ''}>
-              <button onClick={() => setSelectedSection('alumni')}>Alumni Page</button>
-            </li>
-            {/* Add more pages as needed */}
-          </ul>
-        </nav>
-      </aside>
-      <main className="admin-main-content">
-        <h1 className="main-content-title">Manage {selectedSection.charAt(0).toUpperCase() + selectedSection.slice(1)} Content</h1>
-        {/* Render content based on selectedSection */}
-        {selectedSection === 'home' && <HomePageContentEditor />}
-        {selectedSection === 'about' && <AboutUsPageContentEditor />}
-        {selectedSection === 'academics' && <AcademicsPageContentEditor />}
-        {selectedSection === 'syllabus' && <SyllabusPageContentEditor />}
-        {selectedSection === 'events' && <EventsPageContentEditor />}
-        {selectedSection === 'placements' && <PlacementsPageContentEditor />}
-        {selectedSection === 'departments' && <DepartmentsPageContentEditor />}
-        {selectedSection === 'alumni' && <AlumniPageContentEditor />}
+    <div className="admin-content-layout">
+      <AdminContentSidebar />
+      <main className="admin-content-main">
+        {isRootAdminContent && <AdminContentPlaceholder />}
+        <Routes>
+          {contentSections.map(section => (
+            section.subsections.map(subsection => (
+              <Route
+                key={`${section.path}-${subsection.path}`}
+                path={`${section.path}/${subsection.path}`}
+                element={<subsection.component />}
+              />
+            ))
+          ))}
+        </Routes>
       </main>
     </div>
-  )
-}
+  );
+};
+
 export default AdminContentPage;

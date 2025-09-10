@@ -49,7 +49,7 @@ function App() {
         <Route path="/admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           <Route path="users" element={<UserManagementPage />} />
-          <Route path="content" element={<AdminContentPage />} /> {/* New route */}
+          <Route path="content/*" element={<AdminContentPage />} /> {/* New route with nested routes */}
         </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
