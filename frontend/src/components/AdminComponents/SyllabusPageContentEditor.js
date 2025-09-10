@@ -15,6 +15,7 @@ export default function SyllabusPageContentEditor() {
   const [selectedBranchIndex, setSelectedBranchIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [newlyAddedSubjectIndex, setNewlyAddedSubjectIndex] = useState(null);
 
   const fetchSyllabusData = useCallback(async () => {
     try {
@@ -130,6 +131,8 @@ export default function SyllabusPageContentEditor() {
         
         if (key === 'subjects') {
             current[key].unshift(newItem);
+            setNewlyAddedSubjectIndex(0);
+            setTimeout(() => setNewlyAddedSubjectIndex(null), 2000);
         } else {
             current[key].push(newItem);
         }
@@ -232,7 +235,7 @@ export default function SyllabusPageContentEditor() {
                     <div className="se-subjects">
                       <button className="se-btn" onClick={() => addListItem(['branches', selectedBranchIndex, 'subjects'])}>+ Add Subject</button>
                       {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
-                        <div className="se-subject-item" key={subIdx}>
+                        <div className={`se-subject-item ${subIdx === newlyAddedSubjectIndex ? 'newly-added' : ''}`} key={subIdx}>
                           <div className="se-subject-fields">
                             <input placeholder="Subject Name" value={sub.name} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'name'], e.target.value)} />
                             <input placeholder="Code" value={sub.code} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'code'], e.target.value)} className="short" />

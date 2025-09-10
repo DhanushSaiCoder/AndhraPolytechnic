@@ -187,3 +187,13 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:foc
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
     text-align: center;
 }
+
+/* ===== Newly Added Item Highlight ===== */
+@keyframes highlight-fade {
+  from { background-color: rgba(11, 92, 255, 0.15); }
+  to { background-color: transparent; }
+}
+
+.se-subject-item.newly-added {
+  animation: highlight-fade 2s ease-out;
+}
