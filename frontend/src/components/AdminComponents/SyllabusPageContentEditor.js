@@ -192,8 +192,8 @@ export default function SyllabusPageContentEditor() {
                 <div className="se-semester-list">
                   {currentCurriculum.semesters?.map((sem, sIdx) => (
                     <div key={sIdx} className="se-semester-item">
-                      <input placeholder="Semester Name" value={sem.name} onChange={(e) => updateNestedState(['semesters', sIdx, 'name'], e.target.value)} />
-                      <input placeholder="Code" value={sem.code} onChange={(e) => updateNestedState(['semesters', sIdx, 'code'], e.target.value)} className="short" />
+                      <input className="se-input-semester-name" placeholder="Semester Name" value={sem.name} onChange={(e) => updateNestedState(['semesters', sIdx, 'name'], e.target.value)} />
+                      <input className="se-input-semester-code short" placeholder="Code" value={sem.code} onChange={(e) => updateNestedState(['semesters', sIdx, 'code'], e.target.value)} />
                       <button className="se-icon-btn" onClick={() => removeListItem(['semesters', sIdx])}><Trash2 size={16} /></button>
                     </div>
                   ))}

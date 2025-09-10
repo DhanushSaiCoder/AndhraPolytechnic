@@ -156,3 +156,34 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:foc
     outline: none;
     box-shadow: none;
 }
+
+/* ===== Semester Input Styles ===== */
+.se-semester-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.se-semester-item input {
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.se-semester-item input:focus {
+    background-color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(11, 92, 255, 0.1);
+}
+
+.se-semester-item .se-input-semester-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.se-semester-item .se-input-semester-code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    text-align: center;
+}
