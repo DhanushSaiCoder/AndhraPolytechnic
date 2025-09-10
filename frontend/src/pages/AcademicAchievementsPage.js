@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Award } from 'lucide-react';
-import achievementsData from '../data/academicAcheivements.json';
+import academicAchievementService from '../services/academicAchievementService';
 import '../styles/AcademicsStyles/AcademicAchievementsPage.css';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 
@@ -26,10 +26,26 @@ const AchievementItem = ({ achievement }) => {
 };
 
 const AcademicAchievementsPage = () => {
+  const [achievements, setAchievements] = useState([]);
+
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const response = await academicAchievementService.getAcademicAchievements();
+        setAchievements(response.data);
+      } catch (error) {
+        console.error('Error fetching achievements:', error);
+      }
+    };
+
+    fetchAchievements();
+  }, []);
+
+  const studentAchievements = achievements.filter(a => a.category === 'student');
+  const facultyAchievements = achievements.filter(a => a.category === 'faculty');
+
   return (
     <div className="achievements-page-container">
-      
-
       <main className="achievements-page-content">
         <section className="achievements-page-category">
           <h2 className="achievements-page-category-title">
@@ -39,7 +55,7 @@ const AcademicAchievementsPage = () => {
             Celebrating the outstanding accomplishments of our talented students.
           </p>
           <div className="achievements-page-list">
-            {achievementsData.student.map((achievement, index) => (
+            {studentAchievements.map((achievement, index) => (
               <AchievementItem key={index} achievement={achievement} />
             ))}
           </div>
@@ -53,7 +69,7 @@ const AcademicAchievementsPage = () => {
             Recognizing the dedication and contributions of our esteemed faculty.
           </p>
           <div className="achievements-page-list">
-            {achievementsData.faculty.map((achievement, index) => (
+            {facultyAchievements.map((achievement, index) => (
               <AchievementItem key={index} achievement={achievement} />
             ))}
           </div>

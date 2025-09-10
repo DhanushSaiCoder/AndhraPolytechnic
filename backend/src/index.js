@@ -59,6 +59,12 @@ app.use('/api/placement-contact', placementContactRouter);
 const departmentsRouter = require('./routes/departments'); // New import
 app.use('/api/departments', departmentsRouter); // New route
 
+const academicAchievementsRouter = require('./routes/academicAchievements');
+app.use('/api/academic-achievements', academicAchievementsRouter);
+
+const admissionsRouter = require('./routes/admissions');
+app.use('/api/admissions-content', admissionsRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
