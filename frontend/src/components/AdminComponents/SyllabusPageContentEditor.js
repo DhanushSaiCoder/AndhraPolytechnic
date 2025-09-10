@@ -4,14 +4,6 @@ import syllabusService from '../../services/syllabusService';
 import departmentService from '../../services/departmentService';
 import './SyllabusEditor.css';
 
-// Plain-JSX syllabus editor + separated CSS file (SyllabusEditor.css below)
-// Improvements made:
-// - Immutable updates (deep-clone before mutating)
-// - Clearer layout: sidebar + main editor + contextual controls
-// - Accessible buttons/labels
-// - Compact/expand controls for branches/semesters
-// - Prevent accidental deletions with confirm
-
 function deepClone(obj) {
   return obj ? JSON.parse(JSON.stringify(obj)) : obj;
 }
@@ -21,7 +13,6 @@ export default function SyllabusPageContentEditor() {
   const [departments, setDepartments] = useState([]);
   const [currentCurriculum, setCurrentCurriculum] = useState(null);
   const [selectedBranchIndex, setSelectedBranchIndex] = useState(null);
-  const [selectedSemesterIndex, setSelectedSemesterIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
 
@@ -63,13 +54,11 @@ export default function SyllabusPageContentEditor() {
     const curriculum = curricula.find((c) => c._id === id);
     setCurrentCurriculum(curriculum ? deepClone(curriculum) : null);
     setSelectedBranchIndex(null);
-    setSelectedSemesterIndex(null);
   };
 
   const handleAddNewCurriculum = () => {
-    setCurrentCurriculum({ code: '', start_year: '', end_year: '', branches: [] });
+    setCurrentCurriculum({ code: '', start_year: '', end_year: '', semesters: [], branches: [] });
     setSelectedBranchIndex(null);
-    setSelectedSemesterIndex(null);
   };
 
   const handleCurriculumChange = (field, value) => {
@@ -115,52 +104,46 @@ export default function SyllabusPageContentEditor() {
     }
   };
 
-  // Nested state helpers (immutable)
-  const updateNestedState = (branchIndex, semesterIndex, subjectIndex, field, value) => {
-    setCurrentCurriculum((prev) => {
-      const next = deepClone(prev);
-      if (!next) return prev;
-      if (subjectIndex !== null && subjectIndex !== undefined) {
-        next.branches[branchIndex].semesters[semesterIndex].subjects[subjectIndex][field] = value;
-      } else if (semesterIndex !== null && semesterIndex !== undefined) {
-        next.branches[branchIndex].semesters[semesterIndex][field] = value;
-      } else {
-        next.branches[branchIndex][field] = value;
-      }
-      return next;
+  const updateNestedState = (path, value) => {
+    setCurrentCurriculum(prev => {
+        const next = deepClone(prev);
+        let current = next;
+        for (let i = 0; i < path.length - 1; i++) {
+            current = current[path[i]];
+        }
+        current[path[path.length - 1]] = value;
+        return next;
     });
   };
-
-  const addListItem = (type, branchIndex, semesterIndex) => {
-    setCurrentCurriculum((prev) => {
-      const next = deepClone(prev);
-      if (!next) return prev;
-      if (type === 'branch') {
-        next.branches.push({ department: '', semesters: [] });
-      } else if (type === 'semester') {
-        next.branches[branchIndex].semesters.push({ name: '', code: '', subjects: [] });
-      } else if (type === 'subject') {
-        next.branches[branchIndex].semesters[semesterIndex].subjects.push({ name: '', code: '', description: '' });
-      }
-      return next;
+  
+  const addListItem = (path) => {
+    setCurrentCurriculum(prev => {
+        const next = deepClone(prev);
+        let current = next;
+        for (let i = 0; i < path.length - 1; i++) {
+            current = current[path[i]];
+        }
+        const key = path[path.length - 1];
+        const newItem = key === 'branches' ? { department: '', subjects: [] } : 
+                        key === 'semesters' ? { name: '', code: '' } : 
+                        { name: '', code: '', description: '', semesterCode: '' };
+        current[key].push(newItem);
+        return next;
     });
   };
-
-  const removeListItem = (type, branchIndex, semesterIndex, subjectIndex) => {
-    setCurrentCurriculum((prev) => {
-      const next = deepClone(prev);
-      if (!next) return prev;
-      if (type === 'branch') {
-        next.branches = next.branches.filter((_, i) => i !== branchIndex);
-        setSelectedBranchIndex(null);
-        setSelectedSemesterIndex(null);
-      } else if (type === 'semester') {
-        next.branches[branchIndex].semesters = next.branches[branchIndex].semesters.filter((_, i) => i !== semesterIndex);
-        setSelectedSemesterIndex(null);
-      } else if (type === 'subject') {
-        next.branches[branchIndex].semesters[semesterIndex].subjects = next.branches[branchIndex].semesters[semesterIndex].subjects.filter((_, i) => i !== subjectIndex);
-      }
-      return next;
+  
+  const removeListItem = (path) => {
+    setCurrentCurriculum(prev => {
+        const next = deepClone(prev);
+        let parent = next;
+        for (let i = 0; i < path.length - 2; i++) {
+            parent = parent[path[i]];
+        }
+        const listKey = path[path.length - 2];
+        const index = path[path.length - 1];
+        parent[listKey] = parent[listKey].filter((_, i) => i !== index);
+        if(listKey === 'branches') setSelectedBranchIndex(null);
+        return next;
     });
   };
 
@@ -170,48 +153,18 @@ export default function SyllabusPageContentEditor() {
 
   return (
     <div className="se-root">
-      <header className="se-header">
-        <h1>Syllabus Content Management</h1>
-      </header>
-
+      <header className="se-header"><h1>Syllabus Content Management</h1></header>
       <div className="se-layout">
         <aside className="se-sidebar" aria-label="Curricula list">
           <div className="se-sidebar-top">
-            <input
-              className="se-search"
-              placeholder="Search curricula e.g. C-23"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Search curricula"
-            />
+            <input className="se-search" placeholder="Search curricula..." value={search} onChange={(e) => setSearch(e.target.value)} />
             <button className="se-btn se-btn-primary" onClick={handleAddNewCurriculum}>New</button>
           </div>
-
           <ul className="se-list">
-            {filteredCurricula.length === 0 && <li className="se-list-empty">No curricula found.</li>}
             {filteredCurricula.map((c) => (
-              <li
-                key={c._id}
-                className={`se-list-item ${currentCurriculum?._id === c._id ? 'active' : ''}`}
-                onClick={() => handleSelectCurriculum(c._id)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter') handleSelectCurriculum(c._id); }}
-              >
-                <div className="se-list-item-left">
-                  <strong>{c.code}</strong>
-                  <small className="muted">{c.start_year} – {c.end_year}</small>
-                </div>
-                <div className="se-list-item-actions">
-                  <button
-                    className="se-icon-btn"
-                    title="Delete curriculum"
-                    onClick={(e) => { e.stopPropagation(); handleDeleteCurriculum(c._id); }}
-                    aria-label={`Delete ${c.code}`}
-                  >
-                    ✕
-                  </button>
-                </div>
+              <li key={c._id} className={`se-list-item ${currentCurriculum?._id === c._id ? 'active' : ''}`} onClick={() => handleSelectCurriculum(c._id)}>
+                <div className="se-list-item-left"><strong>{c.code}</strong><small className="muted">{c.start_year}–{c.end_year}</small></div>
+                <button className="se-icon-btn" title="Delete" onClick={(e) => { e.stopPropagation(); handleDeleteCurriculum(c._id); }}><Trash2 size={16} /></button>
               </li>
             ))}
           </ul>
@@ -219,182 +172,81 @@ export default function SyllabusPageContentEditor() {
 
         <main className="se-main">
           {!currentCurriculum ? (
-            <div className="se-empty">
-              <p>Select a curriculum from the left to edit, or create a new one.</p>
-              <button className="se-btn" onClick={handleAddNewCurriculum}>Create a curriculum</button>
-            </div>
+            <div className="se-empty"><p>Select a curriculum to edit, or create a new one.</p></div>
           ) : (
             <div className="se-editor">
-              <section className="se-card se-card-inline">
+              <section className="se-card">
                 <div className="se-card-header">
                   <h2>{currentCurriculum._id ? `Editing: ${currentCurriculum.code}` : 'New Curriculum'}</h2>
-                  <div className="se-card-actions">
-                    <button className="se-btn" onClick={() => { setCurrentCurriculum(null); setSelectedBranchIndex(null); setSelectedSemesterIndex(null); }}>Close</button>
-                    <button className="se-btn se-btn-primary" onClick={handleSave}><span className="icon">💾</span> Save</button>
-                  </div>
+                  <button className="se-btn se-btn-primary" onClick={handleSave}>Save Changes</button>
                 </div>
-
                 <div className="se-form-grid">
-                  <label className="se-field">
-                    <span className="se-label">Code</span>
-                    <input
-                      className="se-input-code"
-                      value={currentCurriculum.code || ''}
-                      onChange={(e) => handleCurriculumChange('code', e.target.value)}
-                      placeholder="C-23"
-                      required
-                    />
-                  </label>
-
-                  <label className="se-field">
-                    <span className="se-label">Start Year</span>
-                    <input
-                      type="number"
-                      min="1900"
-                      max="2100"
-                      value={currentCurriculum.start_year || ''}
-                      onChange={(e) => handleCurriculumChange('start_year', e.target.value)}
-                    />
-                  </label>
-
-                  <label className="se-field">
-                    <span className="se-label">End Year</span>
-                    <input
-                      type="number"
-                      min="1900"
-                      max="2100"
-                      value={currentCurriculum.end_year || ''}
-                      onChange={(e) => handleCurriculumChange('end_year', e.target.value)}
-                    />
-                  </label>
+                  <label className="se-field"><span className="se-label">Code</span><input value={currentCurriculum.code || ''} onChange={(e) => handleCurriculumChange('code', e.target.value)} placeholder="C-23" required /></label>
+                  <label className="se-field"><span className="se-label">Start Year</span><input type="number" value={currentCurriculum.start_year || ''} onChange={(e) => handleCurriculumChange('start_year', e.target.value)} /></label>
+                  <label className="se-field"><span className="se-label">End Year</span><input type="number" value={currentCurriculum.end_year || ''} onChange={(e) => handleCurriculumChange('end_year', e.target.value)} /></label>
                 </div>
+              </section>
 
+              <section className="se-card">
+                <div className="se-card-header"><h3>Semesters</h3><button className="se-btn" onClick={() => addListItem(['semesters'])}>+ Add Semester</button></div>
+                <div className="se-semester-list">
+                  {currentCurriculum.semesters?.map((sem, sIdx) => (
+                    <div key={sIdx} className="se-semester-item">
+                      <input placeholder="Semester Name" value={sem.name} onChange={(e) => updateNestedState(['semesters', sIdx, 'name'], e.target.value)} />
+                      <input placeholder="Code" value={sem.code} onChange={(e) => updateNestedState(['semesters', sIdx, 'code'], e.target.value)} className="short" />
+                      <button className="se-icon-btn" onClick={() => removeListItem(['semesters', sIdx])}><Trash2 size={16} /></button>
+                    </div>
+                  ))}
+                </div>
               </section>
 
               <section className="se-grid-two">
                 <div className="se-card">
-                  <div className="se-card-header">
-                    <h3>Branches</h3>
-                    <button className="se-btn" onClick={() => addListItem('branch')}>+ Add Branch</button>
-                  </div>
-
+                  <div className="se-card-header"><h3>Branches</h3><button className="se-btn" onClick={() => addListItem(['branches'])}>+ Add Branch</button></div>
                   <div className="se-branch-list">
-                    {currentCurriculum.branches?.length === 0 && <div className="muted">No branches yet.</div>}
-
                     {currentCurriculum.branches?.map((branch, bIdx) => (
-                      <div
-                        key={bIdx}
-                        className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`}
-                        onClick={() => { setSelectedBranchIndex(bIdx); setSelectedSemesterIndex(null); }}
-                      >
-                        <div className="se-branch-main">
-                          <select
-                            value={branch.department?._id || branch.department || ''}
-                            onChange={(e) => updateNestedState(bIdx, null, null, 'department', e.target.value)}
-                          >
-                            <option value="">-- Select Department --</option>
-                            {departments.map((d) => (
-                              <option key={d._id} value={d._id}>{d.name}</option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className="se-branch-actions">
-                          <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem('branch', bIdx); }} title="Remove branch" aria-label={`Remove ${departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'branch'}`}>
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-
-                        <div className="se-semesters-preview">
-                          {branch.semesters?.slice(0, 3).map((s) => <span key={s.name || Math.random()} className="pill">{s.name || 'Sem'}</span>)}
-                        </div>
+                      <div key={bIdx} className={`se-branch-item ${selectedBranchIndex === bIdx ? 'selected' : ''}`} onClick={() => setSelectedBranchIndex(bIdx)}>
+                        <span>{departments.find(d => d._id === (branch.department?._id || branch.department))?.name || 'Select Department'}</span>
+                        <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem(['branches', bIdx]); }}><Trash2 size={16} /></button>
                       </div>
                     ))}
-
                   </div>
                 </div>
 
                 <div className="se-card">
-                  <div className="se-card-header">
-                    <h3>Semesters</h3>
-                    <div>
-                      <button
-                        className="se-btn"
-                        onClick={() => selectedBranchIndex !== null ? addListItem('semester', selectedBranchIndex) : alert('Select a branch first')}
-                      >+ Add Semester</button>
+                  <div className="se-card-header"><h3>Subjects</h3></div>
+                  {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex] ? (
+                    <div className="se-subjects">
+                       <div className="form-group">
+                          <label>Branch</label>
+                          <select value={currentCurriculum.branches[selectedBranchIndex].department?._id || currentCurriculum.branches[selectedBranchIndex].department} onChange={e => updateNestedState(['branches', selectedBranchIndex, 'department'], e.target.value)}>
+                              <option value="">-- Select Department --</option>
+                              {departments.map(d => <option key={d._id} value={d._id}>{d.name}</option>)}
+                          </select>
+                        </div>
+                      <button className="se-btn" onClick={() => addListItem(['branches', selectedBranchIndex, 'subjects'])}>+ Add Subject</button>
+                      {currentCurriculum.branches[selectedBranchIndex].subjects.map((sub, subIdx) => (
+                        <div className="se-subject-item" key={subIdx}>
+                          <div className="se-subject-fields">
+                            <input placeholder="Subject Name" value={sub.name} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'name'], e.target.value)} />
+                            <input placeholder="Code" value={sub.code} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'code'], e.target.value)} className="short" />
+                            <select value={sub.semesterCode} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'semesterCode'], e.target.value)}>
+                              <option value="">-- Select Semester --</option>
+                              {currentCurriculum.semesters.map(s => <option key={s.code} value={s.code}>{s.name}</option>)}
+                            </select>
+                            <textarea placeholder="Description" value={sub.description} onChange={(e) => updateNestedState(['branches', selectedBranchIndex, 'subjects', subIdx, 'description'], e.target.value)} />
+                          </div>
+                          <button className="se-icon-btn" onClick={() => removeListItem(['branches', selectedBranchIndex, 'subjects', subIdx])}><Trash2 size={16} /></button>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-
-                  <div className="se-semester-list">
-                    {selectedBranchIndex === null && <div className="muted">Select a branch to manage semesters.</div>}
-                    {selectedBranchIndex !== null && (currentCurriculum.branches[selectedBranchIndex].semesters?.length === 0) && <div className="muted">No semesters yet.</div>}
-
-                    {selectedBranchIndex !== null && currentCurriculum.branches[selectedBranchIndex].semesters.map((sem, sIdx) => (
-                      <div
-                        key={sIdx}
-                        className={`se-semester-item ${selectedSemesterIndex === sIdx ? 'selected' : ''}`}
-                        onClick={() => setSelectedSemesterIndex(sIdx)}
-                      >
-                        <div className="se-semester-main">
-                          <input
-                            className="se-input-semester-name"
-                            placeholder="Semester name"
-                            value={sem.name}
-                            onChange={(e) => updateNestedState(selectedBranchIndex, sIdx, null, 'name', e.target.value)}
-                          />
-                          <input
-                            className="se-input-semester-code short"
-                            placeholder="Code"
-                            value={sem.code}
-                            onChange={(e) => updateNestedState(selectedBranchIndex, sIdx, null, 'code', e.target.value)}
-                          />
-                        </div>
-                        <div className="se-semester-actions">
-                          <button className="se-icon-btn" onClick={(e) => { e.stopPropagation(); removeListItem('semester', selectedBranchIndex, sIdx); }} title="Remove semester">✕</button>
-                        </div>
-                      </div>
-                    ))}
-
-                  </div>
+                  ) : <div className="muted">Select a branch to manage subjects.</div>}
                 </div>
               </section>
-
-              {selectedSemesterIndex !== null && (
-                <section className="se-card">
-                  <div className="se-card-header">
-                    <h3>Subjects — {currentCurriculum.branches[selectedBranchIndex].semesters[selectedSemesterIndex].name || `Semester ${selectedSemesterIndex + 1}`}</h3>
-                    <div>
-                      <button
-                        className="se-btn"
-                        onClick={() => addListItem('subject', selectedBranchIndex, selectedSemesterIndex)}
-                      >+ Add Subject</button>
-                    </div>
-                  </div>
-
-                  <div className="se-subjects">
-                    {currentCurriculum.branches[selectedBranchIndex].semesters[selectedSemesterIndex].subjects?.length === 0 && <div className="muted">No subjects yet.</div>}
-
-                    {currentCurriculum.branches[selectedBranchIndex].semesters[selectedSemesterIndex].subjects.map((sub, subIdx) => (
-                      <div className="se-subject-item" key={subIdx}>
-                        <div className="se-subject-fields">
-                          <input className="se-input-subject-name" placeholder="Subject Name" value={sub.name} onChange={(e) => updateNestedState(selectedBranchIndex, selectedSemesterIndex, subIdx, 'name', e.target.value)} />
-                          <input className="se-input-subject-code short" placeholder="Code" value={sub.code} onChange={(e) => updateNestedState(selectedBranchIndex, selectedSemesterIndex, subIdx, 'code', e.target.value)} />
-                          <textarea placeholder="Short description" value={sub.description} onChange={(e) => updateNestedState(selectedBranchIndex, selectedSemesterIndex, subIdx, 'description', e.target.value)} />
-                        </div>
-                        <div className="se-subject-actions">
-                          <button className="se-btn se-btn-ghost" onClick={() => removeListItem('subject', selectedBranchIndex, selectedSemesterIndex, subIdx)}>Remove</button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
             </div>
           )}
         </main>
       </div>
-
     </div>
   );
 }

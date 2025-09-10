@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Search, FileText, AlertCircle, X, ChevronDown } from "lucide-react";
+import { Search, FileText, X, ChevronDown } from "lucide-react";
 import syllabusService from "../../services/syllabusService";
 import "../../styles/AcademicsStyles/Syllabus.css";
 import Fuse from 'fuse.js';
@@ -46,18 +46,14 @@ const SyllabusSection = () => {
     const subjects = [];
     curricula.forEach(curriculum => {
       curriculum.branches.forEach(branch => {
-        branch.semesters.forEach(semester => {
-          semester.subjects.forEach(subject => {
+        branch.subjects.forEach(subject => {
             subjects.push({
               ...subject,
               curriculumId: curriculum._id,
               curriculumCode: curriculum.code,
               branchId: branch.department._id,
               branchName: branch.department.name,
-              semesterId: semester._id,
-              semesterName: semester.name,
             });
-          });
         });
       });
     });
@@ -89,48 +85,25 @@ const SyllabusSection = () => {
     }
   }, [selectedCurriculum, availableBranches, selectedBranch]);
 
-  const filteredSubjects = useMemo(() => {
-    const q = (searchQuery || "").trim();
+  const semesters = useMemo(() => {
+    if (!currentCurriculum) return [];
+    const branch = availableBranches.find(b => b.department._id === selectedBranch);
+    if (!branch) return [];
 
-    if (q) {
-      const fuseResults = fuse.search(q);
-      const groupedResults = {};
-
-      fuseResults.forEach(({ item: subject }) => {
-        const curriculumKey = subject.curriculumId;
-        const branchKey = subject.branchId;
-        const semesterKey = subject.semesterId;
-
-        if (!groupedResults[curriculumKey]) {
-          groupedResults[curriculumKey] = { code: subject.curriculumCode, branches: {} };
+    const subjectsBySem = branch.subjects.reduce((acc, subject) => {
+        const sem = currentCurriculum.semesters.find(s => s.code === subject.semesterCode);
+        if (sem) {
+            if (!acc[sem.code]) {
+                acc[sem.code] = { ...sem, subjects: [] };
+            }
+            acc[sem.code].subjects.push(subject);
         }
-        if (!groupedResults[curriculumKey].branches[branchKey]) {
-          groupedResults[curriculumKey].branches[branchKey] = { name: subject.branchName, semesters: {} };
-        }
-        if (!groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey]) {
-          groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey] = {
-            id: semesterKey,
-            name: subject.semesterName,
-            subjects: [],
-          };
-        }
-        groupedResults[curriculumKey].branches[branchKey].semesters[semesterKey].subjects.push(subject);
-      });
+        return acc;
+    }, {});
 
-      const finalResults = [];
-      for (const currKey in groupedResults) {
-        for (const branchKey in groupedResults[currKey].branches) {
-          for (const semKey in groupedResults[currKey].branches[branchKey].semesters) {
-            finalResults.push(groupedResults[currKey].branches[branchKey].semesters[semKey]);
-          }
-        }
-      }
-      return finalResults;
-    }
+    return Object.values(subjectsBySem);
 
-    const branch = availableBranches.find((b) => b.department._id === selectedBranch);
-    return branch?.semesters || [];
-  }, [searchQuery, curricula, availableBranches, selectedBranch, fuse]);
+  }, [currentCurriculum, availableBranches, selectedBranch]);
 
   const SubjectCard = ({ subject }) => (
     <article className="syllabus__subject-card" aria-labelledby={`sub-${subject._id}`}>
@@ -195,7 +168,7 @@ const SyllabusSection = () => {
         </div>
 
         <div className="syllabus__content-area">
-          {filteredSubjects.length === 0 ? (
+          {semesters.length === 0 ? (
             <div className="syllabus__empty-state" role="status" aria-live="polite">
               <FileText size={48} />
               <h3>{searchQuery ? `No results for "${searchQuery}"` : "No subjects found"}</h3>
@@ -203,8 +176,8 @@ const SyllabusSection = () => {
             </div>
           ) : (
             <div className="syllabus__results">
-              {filteredSubjects.map((semester) => (
-                <div key={semester._id} className="syllabus__semester-group">
+              {semesters.map((semester) => (
+                <div key={semester.code} className="syllabus__semester-group">
                   <h3 className="syllabus__semester-title">{semester.name}</h3>
                   <div className="syllabus__grid">
                     {semester.subjects.map((sub) => (

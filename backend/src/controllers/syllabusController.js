@@ -17,8 +17,7 @@ const getSyllabus = async (req, res) => {
 // @access  Admin
 const createCurriculum = async (req, res) => {
   try {
-    const { code, start_year, end_year } = req.body;
-    const newCurriculum = new Syllabus({ code, start_year, end_year, branches: [] });
+    const newCurriculum = new Syllabus(req.body);
     const savedCurriculum = await newCurriculum.save();
     res.status(201).json(savedCurriculum);
   } catch (error) {
