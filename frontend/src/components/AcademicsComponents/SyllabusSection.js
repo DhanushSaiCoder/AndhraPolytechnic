@@ -139,12 +139,7 @@ const SyllabusSection = () => {
         <div className="syllabus__card-info">
           <h4 id={`sub-${subject._id}`} className="syllabus__subject-name">{subject.name}</h4>
           <span className="syllabus__subject-code">{subject.code}</span>
-        </div>
-      </div>
-      <div className="syllabus__card-actions">
-        <div className="syllabus__missing-indicator">
-            <AlertCircle size={16} />
-            <span>{subject.description || "No description"}</span>
+          <p className="syllabus__subject-description">{subject.description || "No description available."}</p>
         </div>
       </div>
     </article>
