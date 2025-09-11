@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const AboutUsAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
@@ -42,7 +43,10 @@ const AboutUsAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
           </div>
           <div className="form-group">
             <label>Image URL</label>
-            <input type="text" name="image" value={currentAchievement.image} onChange={handleChange} />
+            <div className="image-input-group">
+              <input type="text" name="image" value={currentAchievement.image} onChange={handleChange} />
+              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+            </div>
           </div>
         </div>
         <div className="editor-modal-footer">

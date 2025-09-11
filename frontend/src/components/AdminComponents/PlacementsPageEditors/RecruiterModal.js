@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const RecruiterModal = ({ isOpen, onClose, onSave, recruiter }) => {
@@ -38,7 +39,10 @@ const RecruiterModal = ({ isOpen, onClose, onSave, recruiter }) => {
           </div>
           <div className="form-group">
             <label htmlFor="logo">Logo URL</label>
-            <input type="text" id="logo" name="logo" value={currentRecruiter.logo} onChange={handleChange} />
+            <div className="image-input-group">
+              <input type="text" id="logo" name="logo" value={currentRecruiter.logo} onChange={handleChange} />
+              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+            </div>
           </div>
         </div>
         <div className="editor-modal-footer">

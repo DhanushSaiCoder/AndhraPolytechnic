@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const AcademicAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
@@ -70,13 +71,14 @@ const AcademicAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
           <div className="form-section">
             <h4>Images</h4>
             {currentAchievement.images.map((image, index) => (
-              <div key={index} className="dynamic-list-item">
+              <div key={index} className="dynamic-list-item image-input-group">
                 <input
                   type="text"
                   value={image}
                   onChange={(e) => handleImageChange(index, e.target.value)}
                   placeholder="Image URL"
                 />
+                <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
                 <button type="button" onClick={() => handleRemoveImage(index)} className="remove-btn">Remove</button>
               </div>
             ))}

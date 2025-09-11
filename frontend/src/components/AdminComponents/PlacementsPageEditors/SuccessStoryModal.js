@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const SuccessStoryModal = ({ isOpen, onClose, onSave, story }) => {
@@ -50,7 +51,10 @@ const SuccessStoryModal = ({ isOpen, onClose, onSave, story }) => {
           </div>
           <div className="form-group">
             <label htmlFor="image">Image URL</label>
-            <input type="text" id="image" name="image" value={currentStory.image} onChange={handleChange} />
+            <div className="image-input-group">
+              <input type="text" id="image" name="image" value={currentStory.image} onChange={handleChange} />
+              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+            </div>
           </div>
         </div>
         <div className="editor-modal-footer">

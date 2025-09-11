@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
@@ -148,7 +149,10 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
           </div>
           <div className="form-group">
             <label>Image URL</label>
-            <input type="text" name="image" value={currentDepartment.image} onChange={handleChange} />
+            <div className="image-input-group">
+              <input type="text" name="image" value={currentDepartment.image} onChange={handleChange} />
+              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+            </div>
           </div>
           <div className="form-group">
             <label>Vision</label>
@@ -182,7 +186,10 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
                 <input type="text" value={member.name} onChange={(e) => handleObjectListChange('faculty', index, 'name', e.target.value)} placeholder="Name" />
                 <input type="text" value={member.designation} onChange={(e) => handleObjectListChange('faculty', index, 'designation', e.target.value)} placeholder="Designation" />
                 <input type="text" value={member.specialization} onChange={(e) => handleObjectListChange('faculty', index, 'specialization', e.target.value)} placeholder="Specialization" />
-                <input type="text" value={member.imageUrl} onChange={(e) => handleObjectListChange('faculty', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+                <div className="image-input-group">
+                  <input type="text" value={member.imageUrl} onChange={(e) => handleObjectListChange('faculty', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+                  <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+                </div>
                 
                 <h6>Socials</h6>
                 {member.socials && member.socials.map((social, socialIndex) => (
@@ -206,7 +213,10 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
               <div key={index} className="dynamic-object-item">
                 <input type="text" value={lab.name} onChange={(e) => handleObjectListChange('labs', index, 'name', e.target.value)} placeholder="Lab Name" />
                 <textarea value={lab.description} onChange={(e) => handleObjectListChange('labs', index, 'description', e.target.value)} placeholder="Lab Description"></textarea>
-                <input type="text" value={lab.imageUrl} onChange={(e) => handleObjectListChange('labs', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+                <div className="image-input-group">
+                  <input type="text" value={lab.imageUrl} onChange={(e) => handleObjectListChange('labs', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
+                  <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+                </div>
                 <button type="button" onClick={() => handleRemoveItem('labs', index)} className="remove-btn">Remove</button>
               </div>
             ))}

@@ -180,3 +180,27 @@
 .year-entry-row .form-group {
   margin-bottom: 0;
 }
+
+.image-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between input and button */
+}
+
+.image-input-group input {
+  flex-grow: 1; /* Allow input to take up available space */
+}
+
+.image-input-group .btn-icon {
+  flex-shrink: 0; /* Prevent button from shrinking */
+  padding: 0.6rem; /* Adjust padding to make it visually balanced with the input */
+  border-radius: 8px; /* Match input border-radius */
+  color: var(--admin-text-secondary); /* Default icon color */
+  background-color: var(--admin-input-bg); /* Match input background */
+  border: 1px solid var(--admin-input-border-light); /* Match input border */
+}
+
+.image-input-group .btn-icon:hover {
+  background-color: var(--admin-input-bg-code); /* Hover background */
+  color: var(--admin-text-primary); /* Hover icon color */
+}

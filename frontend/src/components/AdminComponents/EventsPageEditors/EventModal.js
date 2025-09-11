@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
 import '../EditorModal.css';
 
 const EventModal = ({ isOpen, onClose, onSave, event }) => {
@@ -42,7 +43,10 @@ const EventModal = ({ isOpen, onClose, onSave, event }) => {
           </div>
           <div className="form-group">
             <label>Image URL</label>
-            <input type="text" name="image" value={currentEvent.image} onChange={handleChange} />
+            <div className="image-input-group">
+              <input type="text" name="image" value={currentEvent.image} onChange={handleChange} />
+              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+            </div>
           </div>
           <div className="form-group">
             <label>Category</label>
