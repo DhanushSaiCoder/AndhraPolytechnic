@@ -355,3 +355,10 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
+.card-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
