@@ -80,6 +80,10 @@ app.use('/api/about-us-contact', aboutUsContactRouter);
 const syllabusRouter = require('./routes/syllabus');
 app.use('/api/syllabus', syllabusRouter);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime() });
+});
+
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
