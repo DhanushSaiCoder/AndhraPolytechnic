@@ -204,3 +204,14 @@
   background-color: var(--admin-input-bg-code); /* Hover background */
   color: var(--admin-text-primary); /* Hover icon color */
 }
+
+.image-preview {
+  margin-top: 1rem;
+}
+
+.image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 4px;
+  border: 1px solid var(--admin-border-color);
+}

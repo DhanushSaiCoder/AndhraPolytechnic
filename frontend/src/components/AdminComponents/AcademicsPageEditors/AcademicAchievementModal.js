@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Upload } from 'lucide-react';
 import '../EditorModal.css';
+import { getOptimizedImageUrl } from '../../../utils/cloudinaryUtils';
 
 const AcademicAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
   const [currentAchievement, setCurrentAchievement] = useState(achievement);
+  const [isLoadingImage, setIsLoadingImage] = useState({}); // Use object to track loading for multiple images
+  const fileInputRefs = useRef({}); // Use object to store refs for multiple file inputs
 
   useEffect(() => {
     setCurrentAchievement(achievement);
@@ -20,6 +23,41 @@ const AcademicAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
     const updatedImages = [...currentAchievement.images];
     updatedImages[index] = value;
     setCurrentAchievement(prevState => ({ ...prevState, images: updatedImages }));
+  };
+
+  const handleImageUpload = async (event, index) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setIsLoadingImage(prev => ({ ...prev, [index]: true }));
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'First Preset'); // Your upload preset
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/drs62gumc/image/upload`, // Your Cloudinary URL
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      if (data.secure_url && data.public_id) {
+        const updatedImages = [...currentAchievement.images];
+        updatedImages[index] = data.public_id;
+        setCurrentAchievement(prevState => ({ ...prevState, images: updatedImages }));
+        alert('Image uploaded successfully!');
+      } else {
+        alert('Image upload failed: ' + (data.error ? data.error.message : 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Error uploading image.');
+    } finally {
+      setIsLoadingImage(prev => ({ ...prev, [index]: false }));
+      event.target.value = '';
+    }
   };
 
   const handleAddImage = () => {
@@ -71,14 +109,36 @@ const AcademicAchievementModal = ({ isOpen, onClose, onSave, achievement }) => {
           <div className="form-section">
             <h4>Images</h4>
             {currentAchievement.images.map((image, index) => (
-              <div key={index} className="dynamic-list-item image-input-group">
-                <input
-                  type="text"
-                  value={image}
-                  onChange={(e) => handleImageChange(index, e.target.value)}
-                  placeholder="Image URL"
-                />
-                <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+              <div key={index} className="dynamic-list-item">
+                <div className="image-input-group">
+                  <input
+                    type="text"
+                    value={isLoadingImage[index] ? 'Uploading...' : getOptimizedImageUrl(image)}
+                    readOnly
+                    placeholder="Upload an image to see the URL"
+                  />
+                  <input
+                    type="file"
+                    ref={el => fileInputRefs.current[index] = el}
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageUpload(e, index)}
+                    accept="image/*"
+                  />
+                  <button
+                    type="button"
+                    className="btn-icon"
+                    title="Upload Image"
+                    onClick={() => fileInputRefs.current[index].click()}
+                    disabled={isLoadingImage[index]}
+                  >
+                    <Upload size={20} />
+                  </button>
+                </div>
+                {image && !isLoadingImage[index] && (
+                  <div className="image-preview">
+                    <img src={getOptimizedImageUrl(image, { w: 100 })} alt="Preview" />
+                  </div>
+                )}
                 <button type="button" onClick={() => handleRemoveImage(index)} className="remove-btn">Remove</button>
               </div>
             ))}

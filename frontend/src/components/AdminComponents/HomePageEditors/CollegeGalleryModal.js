@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Upload } from 'lucide-react';
 import '../EditorModal.css';
+import { getOptimizedImageUrl, uploadImage } from '../../../utils/cloudinaryUtils';
 
 const CollegeGalleryModal = ({ isOpen, onClose, onSave, slide }) => {
   const [currentSlide, setCurrentSlide] = useState(slide);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setCurrentSlide(slide);
@@ -16,9 +19,26 @@ const CollegeGalleryModal = ({ isOpen, onClose, onSave, slide }) => {
     setCurrentSlide(prevState => ({ ...prevState, [name]: value }));
   };
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setIsLoadingImage(true);
+    try {
+      const publicId = await uploadImage(file);
+      setCurrentSlide(prevState => ({ ...prevState, image: publicId }));
+      alert('Image uploaded successfully!');
+    } catch (error) {
+      alert('Image upload failed: ' + error.message);
+    } finally {
+      setIsLoadingImage(false);
+      event.target.value = '';
+    }
+  };
+
   const handleSave = () => {
     if (currentSlide.image.trim() === '' || currentSlide.title.trim() === '') {
-      alert('Image URL and Title are required!');
+      alert('Image and Title are required!');
       return;
     }
     onSave(currentSlide);
@@ -36,9 +56,36 @@ const CollegeGalleryModal = ({ isOpen, onClose, onSave, slide }) => {
           <div className="form-group">
             <label htmlFor="slideImage">Image URL</label>
             <div className="image-input-group">
-              <input type="text" id="slideImage" name="image" value={currentSlide.image} onChange={handleChange} />
-              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+              <input
+                type="text"
+                id="slideImage"
+                name="image"
+                value={isLoadingImage ? 'Uploading...' : getOptimizedImageUrl(currentSlide.image)}
+                readOnly
+                placeholder="Upload an image to see the URL"
+              />
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+                accept="image/*"
+              />
+              <button
+                type="button"
+                className="btn-icon"
+                title="Upload Image"
+                onClick={() => fileInputRef.current.click()}
+                disabled={isLoadingImage}
+              >
+                <Upload size={20} />
+              </button>
             </div>
+            {currentSlide.image && !isLoadingImage && (
+              <div className="image-preview">
+                <img src={getOptimizedImageUrl(currentSlide.image, { w: 100 })} alt="Preview" />
+              </div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="slideTitle">Title</label>

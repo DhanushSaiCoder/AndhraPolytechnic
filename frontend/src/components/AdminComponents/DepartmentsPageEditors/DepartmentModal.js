@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Upload } from 'lucide-react';
 import '../EditorModal.css';
+import { getOptimizedImageUrl, uploadImage } from '../../../utils/cloudinaryUtils';
 
 const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
   const [currentDepartment, setCurrentDepartment] = useState(department);
+  const [isLoadingImage, setIsLoadingImage] = useState({}); // Use object to track loading for multiple images
+  const fileInputRefs = useRef({}); // Use object to store refs for multiple file inputs
 
   useEffect(() => {
     setCurrentDepartment(department);
@@ -47,6 +50,32 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
     updatedSocials[socialIndex] = { ...updatedSocials[socialIndex], [subField]: value };
     updatedFaculty[facultyIndex] = { ...updatedFaculty[facultyIndex], socials: updatedSocials };
     setCurrentDepartment(prevState => ({ ...prevState, faculty: updatedFaculty }));
+  }; 
+  
+
+  const handleImageUpload = async (event, fieldName, index = null) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const loadingKey = fieldName + (index !== null ? index : '');
+    setIsLoadingImage(prev => ({ ...prev, [loadingKey]: true }));
+
+    try {
+      const publicId = await uploadImage(file);
+      if (index !== null) {
+        const updatedList = [...currentDepartment[fieldName]];
+        updatedList[index] = { ...updatedList[index], imageUrl: publicId };
+        setCurrentDepartment(prevState => ({ ...prevState, [fieldName]: updatedList }));
+      } else {
+        setCurrentDepartment(prevState => ({ ...prevState, [fieldName]: publicId }));
+      }
+      alert('Image uploaded successfully!');
+    } catch (error) {
+      alert('Image upload failed: ' + error.message);
+    } finally {
+      setIsLoadingImage(prev => ({ ...prev, [loadingKey]: false }));
+      event.target.value = '';
+    }
   };
 
   const handleAddItem = (field) => {
@@ -150,9 +179,35 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
           <div className="form-group">
             <label>Image URL</label>
             <div className="image-input-group">
-              <input type="text" name="image" value={currentDepartment.image} onChange={handleChange} />
-              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+              <input
+                type="text"
+                name="image"
+                value={isLoadingImage.image ? 'Uploading...' : getOptimizedImageUrl(currentDepartment.image)}
+                readOnly
+                placeholder="Upload an image to see the URL"
+              />
+              <input
+                type="file"
+                ref={el => fileInputRefs.current.image = el}
+                style={{ display: 'none' }}
+                onChange={(e) => handleImageUpload(e, 'image')}
+                accept="image/*"
+              />
+              <button
+                type="button"
+                className="btn-icon"
+                title="Upload Image"
+                onClick={() => fileInputRefs.current.image.click()}
+                disabled={isLoadingImage.image}
+              >
+                <Upload size={20} />
+              </button>
             </div>
+            {currentDepartment.image && !isLoadingImage.image && (
+              <div className="image-preview">
+                <img src={getOptimizedImageUrl(currentDepartment.image, { w: 100 })} alt="Preview" />
+              </div>
+            )}
           </div>
           <div className="form-group">
             <label>Vision</label>
@@ -187,9 +242,34 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
                 <input type="text" value={member.designation} onChange={(e) => handleObjectListChange('faculty', index, 'designation', e.target.value)} placeholder="Designation" />
                 <input type="text" value={member.specialization} onChange={(e) => handleObjectListChange('faculty', index, 'specialization', e.target.value)} placeholder="Specialization" />
                 <div className="image-input-group">
-                  <input type="text" value={member.imageUrl} onChange={(e) => handleObjectListChange('faculty', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
-                  <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+                  <input
+                    type="text"
+                    value={isLoadingImage[`faculty${index}`] ? 'Uploading...' : getOptimizedImageUrl(member.imageUrl)}
+                    readOnly
+                    placeholder="Upload an image to see the URL"
+                  />
+                  <input
+                    type="file"
+                    ref={el => fileInputRefs.current[`faculty${index}`] = el}
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageUpload(e, 'faculty', index)}
+                    accept="image/*"
+                  />
+                  <button
+                    type="button"
+                    className="btn-icon"
+                    title="Upload Image"
+                    onClick={() => fileInputRefs.current[`faculty${index}`].click()}
+                    disabled={isLoadingImage[`faculty${index}`]}
+                  >
+                    <Upload size={20} />
+                  </button>
                 </div>
+                {member.imageUrl && !isLoadingImage[`faculty${index}`] && (
+                  <div className="image-preview">
+                    <img src={getOptimizedImageUrl(member.imageUrl, { w: 100 })} alt="Preview" />
+                  </div>
+                )}
                 
                 <h6>Socials</h6>
                 {member.socials && member.socials.map((social, socialIndex) => (
@@ -214,9 +294,34 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
                 <input type="text" value={lab.name} onChange={(e) => handleObjectListChange('labs', index, 'name', e.target.value)} placeholder="Lab Name" />
                 <textarea value={lab.description} onChange={(e) => handleObjectListChange('labs', index, 'description', e.target.value)} placeholder="Lab Description"></textarea>
                 <div className="image-input-group">
-                  <input type="text" value={lab.imageUrl} onChange={(e) => handleObjectListChange('labs', index, 'imageUrl', e.target.value)} placeholder="Image URL" />
-                  <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+                  <input
+                    type="text"
+                    value={isLoadingImage[`labs${index}`] ? 'Uploading...' : getOptimizedImageUrl(lab.imageUrl)}
+                    readOnly
+                    placeholder="Upload an image to see the URL"
+                  />
+                  <input
+                    type="file"
+                    ref={el => fileInputRefs.current[`labs${index}`] = el}
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageUpload(e, 'labs', index)}
+                    accept="image/*"
+                  />
+                  <button
+                    type="button"
+                    className="btn-icon"
+                    title="Upload Image"
+                    onClick={() => fileInputRefs.current[`labs${index}`].click()}
+                    disabled={isLoadingImage[`labs${index}`]}
+                  >
+                    <Upload size={20} />
+                  </button>
                 </div>
+                {lab.imageUrl && !isLoadingImage[`labs${index}`] && (
+                  <div className="image-preview">
+                    <img src={getOptimizedImageUrl(lab.imageUrl, { w: 100 })} alt="Preview" />
+                  </div>
+                )}
                 <button type="button" onClick={() => handleRemoveItem('labs', index)} className="remove-btn">Remove</button>
               </div>
             ))}

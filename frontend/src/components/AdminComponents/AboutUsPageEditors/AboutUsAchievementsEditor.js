@@ -3,6 +3,7 @@ import { Edit2, Trash2 } from 'lucide-react';
 import aboutUsAchievementService from '../../../services/aboutUsAchievementService';
 import AboutUsAchievementModal from './AboutUsAchievementModal';
 import Loader from '../../Loader';
+// import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils'; // Not needed here as images are not displayed directly
 
 const initialAchievementState = {
   _id: '',

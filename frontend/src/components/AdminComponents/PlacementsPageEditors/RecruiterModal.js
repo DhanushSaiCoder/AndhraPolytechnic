@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Upload } from 'lucide-react';
 import '../EditorModal.css';
+import { getOptimizedImageUrl, uploadImage } from '../../../utils/cloudinaryUtils';
 
 const RecruiterModal = ({ isOpen, onClose, onSave, recruiter }) => {
   const [currentRecruiter, setCurrentRecruiter] = useState(recruiter);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setCurrentRecruiter(recruiter);
@@ -16,9 +19,26 @@ const RecruiterModal = ({ isOpen, onClose, onSave, recruiter }) => {
     setCurrentRecruiter(prevState => ({ ...prevState, [name]: value }));
   };
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setIsLoadingImage(true);
+    try {
+      const publicId = await uploadImage(file);
+      setCurrentRecruiter(prevState => ({ ...prevState, logo: publicId }));
+      alert('Image uploaded successfully!');
+    } catch (error) {
+      alert('Image upload failed: ' + error.message);
+    } finally {
+      setIsLoadingImage(false);
+      event.target.value = '';
+    }
+  };
+
   const handleSave = () => {
     if (currentRecruiter.name.trim() === '' || currentRecruiter.logo.trim() === '') {
-      alert('Company Name and Logo URL are required!');
+      alert('Company Name and Logo are required!');
       return;
     }
     onSave(currentRecruiter);
@@ -40,9 +60,36 @@ const RecruiterModal = ({ isOpen, onClose, onSave, recruiter }) => {
           <div className="form-group">
             <label htmlFor="logo">Logo URL</label>
             <div className="image-input-group">
-              <input type="text" id="logo" name="logo" value={currentRecruiter.logo} onChange={handleChange} />
-              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+              <input
+                type="text"
+                id="logo"
+                name="logo"
+                value={isLoadingImage ? 'Uploading...' : getOptimizedImageUrl(currentRecruiter.logo)}
+                readOnly
+                placeholder="Upload an image to see the URL"
+              />
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+                accept="image/*"
+              />
+              <button
+                type="button"
+                className="btn-icon"
+                title="Upload Image"
+                onClick={() => fileInputRef.current.click()}
+                disabled={isLoadingImage}
+              >
+                <Upload size={20} />
+              </button>
             </div>
+            {currentRecruiter.logo && !isLoadingImage && (
+              <div className="image-preview">
+                <img src={getOptimizedImageUrl(currentRecruiter.logo, { w: 100 })} alt="Logo Preview" />
+              </div>
+            )}
           </div>
         </div>
         <div className="editor-modal-footer">

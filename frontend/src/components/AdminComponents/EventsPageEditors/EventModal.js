@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Upload } from 'lucide-react';
 import '../EditorModal.css';
+import { getOptimizedImageUrl, uploadImage } from '../../../utils/cloudinaryUtils';
 
 const EventModal = ({ isOpen, onClose, onSave, event }) => {
   const [currentEvent, setCurrentEvent] = useState(event);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setCurrentEvent(event);
@@ -14,6 +17,23 @@ const EventModal = ({ isOpen, onClose, onSave, event }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCurrentEvent(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setIsLoadingImage(true);
+    try {
+      const publicId = await uploadImage(file);
+      setCurrentEvent(prevState => ({ ...prevState, image: publicId }));
+      alert('Image uploaded successfully!');
+    } catch (error) {
+      alert('Image upload failed: ' + error.message);
+    } finally {
+      setIsLoadingImage(false);
+      event.target.value = '';
+    }
   };
 
   const handleSave = () => {
@@ -44,9 +64,35 @@ const EventModal = ({ isOpen, onClose, onSave, event }) => {
           <div className="form-group">
             <label>Image URL</label>
             <div className="image-input-group">
-              <input type="text" name="image" value={currentEvent.image} onChange={handleChange} />
-              <button type="button" className="btn-icon" title="Upload Image"><Upload size={20} /></button>
+              <input
+                type="text"
+                name="image"
+                value={isLoadingImage ? 'Uploading...' : getOptimizedImageUrl(currentEvent.image)}
+                readOnly
+                placeholder="Upload an image to see the URL"
+              />
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+                accept="image/*"
+              />
+              <button
+                type="button"
+                className="btn-icon"
+                title="Upload Image"
+                onClick={() => fileInputRef.current.click()}
+                disabled={isLoadingImage}
+              >
+                <Upload size={20} />
+              </button>
             </div>
+            {currentEvent.image && !isLoadingImage && (
+              <div className="image-preview">
+                <img src={getOptimizedImageUrl(currentEvent.image, { w: 100 })} alt="Preview" />
+              </div>
+            )}
           </div>
           <div className="form-group">
             <label>Category</label>
