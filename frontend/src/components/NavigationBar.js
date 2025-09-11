@@ -242,7 +242,14 @@ const NavigationBar = () => {
 
                     {/* Admin Link for Desktop */}
                     {currentUser && currentUser.role === 'admin' && (
-                        <NavLink to="/admin" className="nav-action__button nav-action__button--admin">
+                        <NavLink
+                            to="/admin"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "nav-action__button nav-action__button--admin active-admin-link"
+                                    : "nav-action__button nav-action__button--admin"
+                            }
+                        >
                             <UserCog size={20} />
                             <span>Admin</span>
                         </NavLink>
