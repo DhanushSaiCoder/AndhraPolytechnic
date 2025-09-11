@@ -86,20 +86,20 @@
 }
 
 .skeleton {
-  background-color: #4a5568;
+  background-color: rgba(200, 200, 200, 0.6);
   border-radius: 4px;
   animation: skeleton-loading 1.5s infinite;
 }
 
 @keyframes skeleton-loading {
   0% {
-    background-color: #4a5568;
+    background-color: rgba(200, 200, 200, 0.6);
   }
   50% {
-    background-color: #718096;
+    background-color: rgba(180, 180, 180, 0.4);
   }
   100% {
-    background-color: #4a5568;
+    background-color: rgba(200, 200, 200, 0.6);
   }
 }
 
