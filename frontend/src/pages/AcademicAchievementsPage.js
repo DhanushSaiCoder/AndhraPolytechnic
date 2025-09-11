@@ -3,6 +3,7 @@ import { Award } from 'lucide-react';
 import academicAchievementService from '../services/academicAchievementService';
 import '../styles/AcademicsStyles/AcademicAchievementsPage.css';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
+import { getOptimizedImageUrl } from '../utils/cloudinaryUtils';
 
 const AchievementItem = ({ achievement }) => {
   const hasImages = achievement.images && achievement.images.length > 0;
@@ -18,7 +19,7 @@ const AchievementItem = ({ achievement }) => {
       </div>
       {hasImages && (
         <div className="achievements-page-image-slider">
-          <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: img, title: '', subtitle: '' }))} />
+          <ImageSlider slides={achievement.images.map((img, idx) => ({ id: idx, image: getOptimizedImageUrl(img, { w: 1200, h: 800 }), title: '', subtitle: '' }))} />
         </div>
       )}
     </div>

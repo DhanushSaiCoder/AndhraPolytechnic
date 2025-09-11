@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/SuccessStories.css';
 import successStoryService from '../../services/successStoryService'; // Import service
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const SuccessStories = () => {
   const [stories, setStories] = useState([]);
@@ -31,7 +32,7 @@ const SuccessStories = () => {
           {stories.map((story) => (
             <div key={story._id} className="story-card"> {/* Use _id for key */}
               <div className="story-card-header">
-                <img src={story.image} alt={story.name} className="story-avatar" />
+                <img src={getOptimizedImageUrl(story.image, { w: 80, h: 80 })} alt={story.name} className="story-avatar" />
                 <div className="story-info">
                   <h3 className="story-name">{story.name}</h3>
                   <p className="story-role">{story.role} at {story.company}</p>

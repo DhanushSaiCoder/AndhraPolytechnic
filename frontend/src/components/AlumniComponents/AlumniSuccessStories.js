@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/AlumniStyles/AlumniSuccessStories.css';
 import { Star, Briefcase } from 'lucide-react'; // Using Star icon for success stories
 import alumniSuccessStoryService from '../../services/alumniSuccessStoryService';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const AlumniSuccessStoryCard = ({ name, year, branch, story, image, company, position }) => {
     return (
         <div className="alumni-story-card">
             <div className="alumni-story-header">
-                <img src={image} alt={name} className="alumni-story-image" />
+                <img src={getOptimizedImageUrl(image, { w: 100, h: 100 })} alt={name} className="alumni-story-image" />
                 <div className="alumni-story-info">
                     <h3 className="alumni-story-name">{name}</h3>
                     <div className="alumni-story-meta">

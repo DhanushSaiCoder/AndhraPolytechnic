@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/TopRecruiters.css';
 import recruiterService from '../../services/recruiterService'; // Import service
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const TopRecruiters = () => {
   const [recruiters, setRecruiters] = useState([]);
@@ -31,13 +32,13 @@ const TopRecruiters = () => {
           <div className="recruiters-track">
             {recruiters.map((recruiter) => (
               <div key={recruiter._id} className="recruiter-item"> {/* Use _id for key */}
-                <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
+                <img src={getOptimizedImageUrl(recruiter.logo, { h: 80 })} alt={recruiter.name} className="recruiter-logo" />
               </div>
             ))}
             {/* Duplicate for seamless loop */}
             {recruiters.map((recruiter) => (
               <div key={`dup-${recruiter._id}`} className="recruiter-item"> {/* Use _id for key */}
-                <img src={recruiter.logo} alt={recruiter.name} className="recruiter-logo" />
+                <img src={getOptimizedImageUrl(recruiter.logo, { h: 80 })} alt={recruiter.name} className="recruiter-logo" />
               </div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/HighestPackages.css';
 import highestPackageService from '../../services/highestPackageService'; // Import service
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const HighestPackages = () => {
   const [studentPackages, setStudentPackages] = useState([]);
@@ -30,7 +31,7 @@ const HighestPackages = () => {
         <div className="package-cards-grid">
           {studentPackages.map((student) => (
             <div key={student._id} className="package-card"> {/* Use _id for key */}
-              <img src={student.image} alt={student.name} className="student-avatar" />
+              <img src={getOptimizedImageUrl(student.image, { w: 100, h: 100 })} alt={student.name} className="student-avatar" />
               <h3 className="student-name">{student.name}</h3>
               <p className="student-department">{student.department}</p>
               <div className="package-details">

@@ -3,6 +3,7 @@ import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventService from '../../services/eventService';
 import '../../styles/EventsStyles/EventsPage.css';
 import { Users } from 'lucide-react';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const CoCurricularEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +14,13 @@ const CoCurricularEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = await eventService.getEvents();
-        setSlides(response.data.filter(event => event.category === 'co-curricular'));
+        const coCurricularEvents = response.data.filter(event => event.category === 'co-curricular');
+        const formattedSlides = coCurricularEvents.map(slide => ({
+          ...slide,
+          id: slide._id,
+          image: getOptimizedImageUrl(slide.image, { w: 1200, h: 800 })
+        }));
+        setSlides(formattedSlides);
       } catch (error) {
         console.error('Error fetching co-curricular events:', error);
       }

@@ -3,6 +3,7 @@ import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventService from '../../services/eventService';
 import '../../styles/EventsStyles/EventsPage.css';
 import { MoreHorizontal } from 'lucide-react';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const OtherEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +14,13 @@ const OtherEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = await eventService.getEvents();
-        setSlides(response.data.filter(event => event.category === 'other'));
+        const otherEvents = response.data.filter(event => event.category === 'other');
+        const formattedSlides = otherEvents.map(slide => ({
+          ...slide,
+          id: slide._id,
+          image: getOptimizedImageUrl(slide.image, { w: 1200, h: 800 })
+        }));
+        setSlides(formattedSlides);
       } catch (error) {
         console.error('Error fetching other events:', error);
       }

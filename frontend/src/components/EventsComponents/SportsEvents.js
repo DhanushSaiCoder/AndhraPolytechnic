@@ -3,6 +3,7 @@ import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
 import eventService from '../../services/eventService';
 import '../../styles/EventsStyles/EventsPage.css';
 import { Trophy } from 'lucide-react';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const SportsEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +14,13 @@ const SportsEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = await eventService.getEvents();
-        setSlides(response.data.filter(event => event.category === 'sports'));
+        const sportsEvents = response.data.filter(event => event.category === 'sports');
+        const formattedSlides = sportsEvents.map(slide => ({
+          ...slide,
+          id: slide._id,
+          image: getOptimizedImageUrl(slide.image, { w: 1200, h: 800 })
+        }));
+        setSlides(formattedSlides);
       } catch (error) {
         console.error('Error fetching sports events:', error);
       }

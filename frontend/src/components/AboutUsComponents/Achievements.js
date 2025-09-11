@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ImageSlider from '../HomeComponents/ImageSlider';
 import aboutUsAchievementService from '../../services/aboutUsAchievementService';
 import '../../styles/HomeStyles/CollegeGallery.css'; // Adjust the path as necessary
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const Acheivements = () => {
     const [achievements, setAchievements] = useState([]);
@@ -10,7 +11,12 @@ const Acheivements = () => {
         const fetchAchievements = async () => {
             try {
                 const response = await aboutUsAchievementService.getAchievements();
-                setAchievements(response.data);
+                const formattedAchievements = response.data.map(achievement => ({
+                    ...achievement,
+                    id: achievement._id,
+                    image: getOptimizedImageUrl(achievement.image, { w: 1200, h: 800 })
+                }));
+                setAchievements(formattedAchievements);
             } catch (error) {
                 console.error('Error fetching achievements:', error);
             }
