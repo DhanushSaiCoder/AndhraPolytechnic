@@ -43,7 +43,7 @@ const HighestPackages = () => {
               <h3 className="student-name">{student.name}</h3>
               <p className="student-department">{student.department}</p>
               <div className="package-details">
-                <span className="package-value">{student.package}</span>
+                <span className="package-value">{student.package} LPA</span>
                 <span className="company-name">{student.company}</span>
               </div>
               <p className="package-year">Batch of {student.year}</p>
