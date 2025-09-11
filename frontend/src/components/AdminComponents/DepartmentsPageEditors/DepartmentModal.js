@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Upload } from 'lucide-react';
+import { Upload, Trash2, UploadCloud, Plus, X } from 'lucide-react';
 import '../EditorModal.css';
 import { getOptimizedImageUrl, uploadImage } from '../../../utils/cloudinaryUtils';
 
@@ -236,96 +236,115 @@ const DepartmentModal = ({ isOpen, onClose, onSave, department }) => {
           <div className="form-section">
             <h4>Faculty</h4>
             {currentDepartment.faculty.map((member, index) => (
-              <div key={index} className="dynamic-object-item bordered-section">
-                <h5>Faculty Member #{index + 1}</h5>
-                <input type="text" value={member.name} onChange={(e) => handleObjectListChange('faculty', index, 'name', e.target.value)} placeholder="Name" />
-                <input type="text" value={member.designation} onChange={(e) => handleObjectListChange('faculty', index, 'designation', e.target.value)} placeholder="Designation" />
-                <input type="text" value={member.specialization} onChange={(e) => handleObjectListChange('faculty', index, 'specialization', e.target.value)} placeholder="Specialization" />
-                <div className="image-input-group">
-                  <input
-                    type="text"
-                    value={isLoadingImage[`faculty${index}`] ? 'Uploading...' : getOptimizedImageUrl(member.imageUrl)}
-                    readOnly
-                    placeholder="Upload an image to see the URL"
-                  />
-                  <input
-                    type="file"
-                    ref={el => fileInputRefs.current[`faculty${index}`] = el}
-                    style={{ display: 'none' }}
-                    onChange={(e) => handleImageUpload(e, 'faculty', index)}
-                    accept="image/*"
-                  />
-                  <button
-                    type="button"
-                    className="btn-icon"
-                    title="Upload Image"
-                    onClick={() => fileInputRefs.current[`faculty${index}`].click()}
-                    disabled={isLoadingImage[`faculty${index}`]}
-                  >
-                    <Upload size={20} />
-                  </button>
+              <div key={index} className="faculty-card">
+                <div className="card-header">
+                  <img className="avatar" src={getOptimizedImageUrl(member.imageUrl, { w: 64, h: 64, c: 'fill', g: 'face' }) || '/placeholder.png'} alt={member.name} />
+                  <div className="header-meta">
+                    <div className="title">{member.name || `Faculty #${index + 1}`}</div>
+                    <div className="subtitle">{member.designation || 'Designation'}</div>
+                  </div>
+                  <div className="header-actions">
+                    <button title="Remove" onClick={() => handleRemoveItem('faculty', index)} className="icon-btn danger">
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
                 </div>
-                {member.imageUrl && !isLoadingImage[`faculty${index}`] && (
-                  <div className="image-preview">
-                    <img src={getOptimizedImageUrl(member.imageUrl, { w: 100 })} alt="Preview" />
+
+                <div className="card-body">
+                  <div className="input-group">
+                      <label htmlFor={`faculty-name-${index}`}>Name</label>
+                      <input id={`faculty-name-${index}`} className="input" value={member.name} placeholder="Full Name" onChange={e => handleObjectListChange('faculty', index, 'name', e.target.value)} />
                   </div>
-                )}
-                
-                <h6>Socials</h6>
-                {member.socials && member.socials.map((social, socialIndex) => (
-                  <div key={socialIndex} className="dynamic-list-item">
-                    <input type="text" value={social.type} onChange={(e) => handleSocialsChange(index, socialIndex, 'type', e.target.value)} placeholder="Type (e.g., LinkedIn)" />
-                    <input type="text" value={social.url} onChange={(e) => handleSocialsChange(index, socialIndex, 'url', e.target.value)} placeholder="URL" />
-                    <button type="button" onClick={() => handleRemoveSocial(index, socialIndex)} className="remove-btn">Remove</button>
+                  <div className="input-group">
+                      <label htmlFor={`faculty-designation-${index}`}>Designation</label>
+                      <input id={`faculty-designation-${index}`} className="input" value={member.designation} placeholder="e.g., Head of Department" onChange={e => handleObjectListChange('faculty', index, 'designation', e.target.value)} />
                   </div>
-                ))}
-                <button type="button" onClick={() => handleAddSocial(index)} className="add-btn">Add Social</button>
-                
-                <button type="button" onClick={() => handleRemoveItem('faculty', index)} className="remove-btn" style={{marginTop: '10px'}}>Remove Faculty Member</button>
+                  <div className="input-group">
+                      <label htmlFor={`faculty-specialization-${index}`}>Specialization</label>
+                      <input id={`faculty-specialization-${index}`} className="input" value={member.specialization} placeholder="e.g., Machine Learning" onChange={e => handleObjectListChange('faculty', index, 'specialization', e.target.value)} />
+                  </div>
+
+                  <div className="meta-row">
+                    <label className="upload">
+                      <input type="file" ref={el => fileInputRefs.current[`faculty${index}`] = el} onChange={(e) => handleImageUpload(e, 'faculty', index)} accept="image/*" />
+                      <span className="upload-btn">
+                        <UploadCloud size={16} />
+                        <span>{isLoadingImage[`faculty${index}`] ? 'Uploading...' : 'Upload Photo'}</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="socials-compact-section">
+                      <h6>Social Links</h6>
+                      {member.socials && member.socials.map((social, socialIndex) => (
+                          <div key={socialIndex} className="social-compact-item">
+                              <input type="text" value={social.type} onChange={(e) => handleSocialsChange(index, socialIndex, 'type', e.target.value)} placeholder="Type (e.g., LinkedIn)" className="input" />
+                              <input type="text" value={social.url} onChange={(e) => handleSocialsChange(index, socialIndex, 'url', e.target.value)} placeholder="https://linkedin.com/in/..." className="input" />
+                              <button type="button" onClick={() => handleRemoveSocial(index, socialIndex)} className="icon-btn danger"><X size={16} /></button>
+                          </div>
+                      ))}
+                      <button type="button" onClick={() => handleAddSocial(index)} className="btn-small add-btn">
+                          <Plus size={16} />
+                          <span>Add Social</span>
+                      </button>
+                  </div>
+                </div>
               </div>
             ))}
-            <button type="button" onClick={() => handleAddItem('faculty')} className="add-btn">Add Faculty Member</button>
+
+            <div className="section-actions">
+              <button className="btn btn-primary" onClick={() => handleAddItem('faculty')}>
+                  <Plus size={16} />
+                  <span>Add Faculty Member</span>
+              </button>
+            </div>
           </div>
 
           <div className="form-section">
             <h4>Labs</h4>
             {currentDepartment.labs.map((lab, index) => (
-              <div key={index} className="dynamic-object-item">
-                <input type="text" value={lab.name} onChange={(e) => handleObjectListChange('labs', index, 'name', e.target.value)} placeholder="Lab Name" />
-                <textarea value={lab.description} onChange={(e) => handleObjectListChange('labs', index, 'description', e.target.value)} placeholder="Lab Description"></textarea>
-                <div className="image-input-group">
-                  <input
-                    type="text"
-                    value={isLoadingImage[`labs${index}`] ? 'Uploading...' : getOptimizedImageUrl(lab.imageUrl)}
-                    readOnly
-                    placeholder="Upload an image to see the URL"
-                  />
-                  <input
-                    type="file"
-                    ref={el => fileInputRefs.current[`labs${index}`] = el}
-                    style={{ display: 'none' }}
-                    onChange={(e) => handleImageUpload(e, 'labs', index)}
-                    accept="image/*"
-                  />
-                  <button
-                    type="button"
-                    className="btn-icon"
-                    title="Upload Image"
-                    onClick={() => fileInputRefs.current[`labs${index}`].click()}
-                    disabled={isLoadingImage[`labs${index}`]}
-                  >
-                    <Upload size={20} />
-                  </button>
-                </div>
-                {lab.imageUrl && !isLoadingImage[`labs${index}`] && (
-                  <div className="image-preview">
-                    <img src={getOptimizedImageUrl(lab.imageUrl, { w: 100 })} alt="Preview" />
+              <div key={index} className="faculty-card">
+                <div className="card-header">
+                  <img className="avatar" src={getOptimizedImageUrl(lab.imageUrl, { w: 64, h: 64, c: 'fill' }) || '/placeholder.png'} alt={lab.name} />
+                  <div className="header-meta">
+                    <div className="title">{lab.name || `Lab #${index + 1}`}</div>
                   </div>
-                )}
-                <button type="button" onClick={() => handleRemoveItem('labs', index)} className="remove-btn">Remove</button>
+                  <div className="header-actions">
+                    <button title="Remove" onClick={() => handleRemoveItem('labs', index)} className="icon-btn danger">
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="card-body is-single-column">
+                  <div className="input-group">
+                      <label htmlFor={`lab-name-${index}`}>Lab Name</label>
+                      <input id={`lab-name-${index}`} className="input" value={lab.name} placeholder="e.g., Advanced Communication Lab" onChange={e => handleObjectListChange('labs', index, 'name', e.target.value)} />
+                  </div>
+                  <div className="input-group">
+                      <label htmlFor={`lab-desc-${index}`}>Description</label>
+                      <textarea id={`lab-desc-${index}`} className="input" value={lab.description} placeholder="A brief description of the lab..." onChange={e => handleObjectListChange('labs', index, 'description', e.target.value)} rows={4}></textarea>
+                  </div>
+
+                  <div className="meta-row">
+                    <label className="upload">
+                      <input type="file" ref={el => fileInputRefs.current[`labs${index}`] = el} onChange={(e) => handleImageUpload(e, 'labs', index)} accept="image/*" />
+                      <span className="upload-btn">
+                        <UploadCloud size={16} />
+                        <span>{isLoadingImage[`labs${index}`] ? 'Uploading...' : 'Upload Photo'}</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
             ))}
-            <button type="button" onClick={() => handleAddItem('labs')} className="add-btn">Add Lab</button>
+
+            <div className="section-actions">
+              <button className="btn btn-primary" onClick={() => handleAddItem('labs')}>
+                  <Plus size={16} />
+                  <span>Add Lab</span>
+              </button>
+            </div>
           </div>
 
           <div className="form-section">

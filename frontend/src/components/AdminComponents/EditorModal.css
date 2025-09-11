@@ -16,7 +16,7 @@
   padding: 0;
   border-radius: 12px;
   width: 90%;
-  max-width: 650px;
+  max-width: 920px;
   box-shadow: 0 10px 25px var(--admin-shadow-medium);
   display: flex;
   flex-direction: column;
@@ -214,4 +214,144 @@
   max-height: 100px;
   border-radius: 4px;
   border: 1px solid var(--admin-border-color);
+}
+
+/* --- START REPLACEMENT --- */
+/* Added from ChatGPT suggestion - IMPROVED */
+:root {
+  --gap: 16px;
+  --card-pad: 16px;
+  --avatar-size: 60px;
+  --input-height: 38px;
+  --radius: 10px;
+}
+.faculty-card {
+  border: 1px solid var(--admin-border-color);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  /* display: grid; */
+  /* gap: var(--gap); */
+  background: var(--admin-bg-light);
+  margin-bottom: 1.5rem;
+}
+.card-header {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  margin-bottom: var(--gap);
+}
+.avatar { 
+  width: var(--avatar-size); 
+  height: var(--avatar-size); 
+  object-fit: cover; 
+  border-radius: 50%; /* circular avatar */
+  background: var(--admin-input-bg);
+  border: 2px solid var(--admin-border-color);
+}
+.header-meta { flex: 1; min-width: 0; }
+.title { font-weight: 600; font-size: 1rem; color: var(--admin-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.subtitle { font-size: 0.85rem; color: var(--admin-text-secondary); }
+
+.header-actions { display:flex; gap:8px; }
+.icon-btn { 
+  background:transparent; 
+  border:none; 
+  cursor:pointer; 
+  padding:6px; 
+  color: var(--admin-text-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+.icon-btn:hover {
+  background-color: var(--admin-border-color);
+  color: var(--admin-text-primary);
+}
+.icon-btn.danger { color: var(--admin-danger); }
+.icon-btn.danger:hover { 
+  background-color: var(--admin-danger-alpha-10);
+  color: var(--admin-danger);
+}
+
+.card-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1 1 220px;
+    /* min-width: 220px; */
+}
+.input-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--admin-text-secondary);
+}
+.input { 
+  height: var(--input-height); 
+  padding: 6px 12px; 
+  border-radius: var(--radius); 
+  border: 1px solid var(--admin-input-border-light); 
+  font-size: 0.9rem;
+  background-color: var(--admin-input-bg);
+  color: var(--admin-text-primary);
+}
+.card-body textarea.input { height: auto; min-height: 80px; }
+
+.meta-row {
+  width: 100%;
+  display:flex; 
+  gap: 16px; 
+  align-items:center;
+  margin-top: 8px;
+}
+.upload input[type="file"]{ display:none; }
+.upload .upload-btn { 
+  border: 1px solid var(--admin-input-border-light); 
+  padding: 8px 12px; 
+  border-radius: var(--radius); 
+  cursor:pointer; 
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+.upload .upload-btn:hover {
+    background-color: var(--admin-border-color);
+}
+
+.section-actions { margin-top: 1rem; display:flex; justify-content:flex-end; }
+.btn, .btn-small { 
+  height:38px; 
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.socials-compact-section {
+    width: 100%;
+    margin-top: 10px;
+    border-top: 1px solid var(--admin-border-color);
+    padding-top: var(--gap);
+}
+.socials-compact-section h6 {
+    margin: 0 0 12px 0;
+    font-size: 0.9rem;
+    color: var(--admin-text-secondary);
+    font-weight: 500;
+}
+.social-compact-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
 }
