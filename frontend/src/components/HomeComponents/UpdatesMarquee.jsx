@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import './UpdatesMarquee.css';
 import updateService from '../../services/updateService'; // Import the service
+import UpdatesMarqueeSkeleton from './UpdatesMarqueeSkeleton';
 
 const UpdatesMarquee = ({ speed = 120 }) => {
   const [updates, setUpdates] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
   const marqueeRef = useRef(null);
   const contentRef = useRef(null);
+  const [loading, setLoading] = useState(true);
   
   const animationFrameId = useRef(null);
   const position = useRef(0);
@@ -48,6 +50,8 @@ const UpdatesMarquee = ({ speed = 120 }) => {
     } catch (error) {
       console.error("Failed to fetch updates:", error);
       setUpdates([]); // Show no updates if fetch fails
+    } finally {
+      setLoading(false);
     }
   }, [announceNewUpdate]); // Removed 'updates' from dependency array
 
@@ -205,6 +209,10 @@ const UpdatesMarquee = ({ speed = 120 }) => {
     setIsPaused(false);
     if (isAnimating && !reducedMotion && !isMobile) startMarquee();
   };
+
+  if (loading) {
+    return <UpdatesMarqueeSkeleton />;
+  }
 
   // If no updates, show fallback message
   if (updates.length === 0) {

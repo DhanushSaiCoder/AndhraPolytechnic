@@ -4,6 +4,7 @@ import academicAchievementService from '../services/academicAchievementService';
 import '../styles/AcademicsStyles/AcademicAchievementsPage.css';
 import ImageSlider from '../components/HomeComponents/ImageSlider';
 import { getOptimizedImageUrl } from '../utils/cloudinaryUtils';
+import AchievementItemSkeleton from '../components/AcademicsComponents/AchievementItemSkeleton';
 
 const AchievementItem = ({ achievement }) => {
   const hasImages = achievement.images && achievement.images.length > 0;
@@ -28,6 +29,7 @@ const AchievementItem = ({ achievement }) => {
 
 const AcademicAchievementsPage = () => {
   const [achievements, setAchievements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAchievements = async () => {
@@ -36,6 +38,8 @@ const AcademicAchievementsPage = () => {
         setAchievements(response.data);
       } catch (error) {
         console.error('Error fetching achievements:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -44,6 +48,38 @@ const AcademicAchievementsPage = () => {
 
   const studentAchievements = achievements.filter(a => a.category === 'student');
   const facultyAchievements = achievements.filter(a => a.category === 'faculty');
+
+  if (loading) {
+    return (
+      <div className="achievements-page-container">
+        <main className="achievements-page-content">
+          <section className="achievements-page-category">
+            <h2 className="achievements-page-category-title">
+              Student Achievements
+            </h2>
+            <p className="achievements-page-category-description">
+              Celebrating the outstanding accomplishments of our talented students.
+            </p>
+            <div className="achievements-page-list">
+              <AchievementItemSkeleton />
+              <AchievementItemSkeleton />
+            </div>
+          </section>
+          <section className="achievements-page-category">
+            <h2 className="achievements-page-category-title">
+              Faculty Achievements
+            </h2>
+            <p className="achievements-page-category-description">
+              Recognizing the dedication and contributions of our esteemed faculty.
+            </p>
+            <div className="achievements-page-list">
+              <AchievementItemSkeleton />
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="achievements-page-container">

@@ -3,6 +3,7 @@ import '../../styles/PlacementsStyles/PlacementsHeroSection.css';
 import { Briefcase } from 'lucide-react';
 import { LineChart, BarChart } from '@mui/x-charts';
 import placementHeroService from '../../services/placementHeroService';
+import PlacementsHeroSkeleton from './PlacementsHeroSkeleton';
 
 const PlacementsHeroSection = () => {
     const [chartData, setChartData] = useState({
@@ -29,6 +30,10 @@ const PlacementsHeroSection = () => {
         };
         fetchHeroData();
     }, []);
+
+    if (loading) {
+        return <PlacementsHeroSkeleton />;
+    }
 
     return (
         <header className="placements-hero-section">

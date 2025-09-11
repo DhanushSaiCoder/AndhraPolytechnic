@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/SuccessStories.css';
 import successStoryService from '../../services/successStoryService'; // Import service
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
+import SuccessStoriesSkeleton from './SuccessStoriesSkeleton';
 
 const SuccessStories = () => {
   const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -14,11 +16,17 @@ const SuccessStories = () => {
       } catch (error) {
         console.error('Error fetching success stories:', error);
         setStories([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchStories();
   }, []);
+
+  if (loading) {
+    return <SuccessStoriesSkeleton />;
+  }
 
   return (
     <section className="success-stories-section">

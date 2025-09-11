@@ -4,9 +4,11 @@ import '../styles/DepartmentsStyles/DepartmentsPage.css';
 import { ChevronRight, Building } from 'lucide-react';
 import { departmentIcons, DefaultIcon } from '../data/departmentIcons';
 import departmentService from '../services/departmentService'; // Import departmentService
+import DepartmentsPageSkeleton from '../components/DepartmentsComponents/DepartmentsPageSkeleton';
 
 const DepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -16,11 +18,17 @@ const DepartmentsPage = () => {
       } catch (error) {
         console.error('Error fetching departments:', error);
         setDepartments([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchDepartments();
   }, []);
+
+  if (loading) {
+    return <DepartmentsPageSkeleton />;
+  }
 
   return (
     <div className="departments-page-container">

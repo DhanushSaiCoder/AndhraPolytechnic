@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/HighestPackages.css';
 import highestPackageService from '../../services/highestPackageService'; // Import service
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
+import HighestPackagesSkeleton from './HighestPackagesSkeleton';
 
 const HighestPackages = () => {
   const [studentPackages, setStudentPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPackages = async () => {
@@ -14,11 +16,17 @@ const HighestPackages = () => {
       } catch (error) {
         console.error('Error fetching highest packages:', error);
         setStudentPackages([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPackages();
   }, []);
+
+  if (loading) {
+    return <HighestPackagesSkeleton />;
+  }
 
   return (
     <section className="highest-packages-section">

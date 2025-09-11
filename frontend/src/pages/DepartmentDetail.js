@@ -8,6 +8,7 @@ import LabsSection from '../components/DepartmentsComponents/DepartmentDetail/La
 import EventsSection from '../components/DepartmentsComponents/DepartmentDetail/EventsSection'; // Import EventsSection
 import '../styles/DepartmentsStyles/DepartmentDetail.css';
 import departmentService from '../services/departmentService'; // Import departmentService
+import DepartmentDetailSkeleton from '../components/DepartmentsComponents/DepartmentDetail/DepartmentDetailSkeleton';
 
 const DepartmentDetail = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const DepartmentDetail = () => {
   }, [id]); // Re-fetch if ID changes
 
   if (loading) {
-    return <div className="department-detail-container not-found">Loading department details...</div>; // Simple loading indicator
+    return <DepartmentDetailSkeleton />;
   }
 
   if (!department) {

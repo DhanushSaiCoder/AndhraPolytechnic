@@ -4,6 +4,7 @@ import { GraduationCap } from 'lucide-react';
 import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessary
 import { departmentIcons, DefaultIcon } from '../../data/departmentIcons';
 import departmentService from '../../services/departmentService';
+import DepartmentsSkeleton from './DepartmentsSkeleton';
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
@@ -27,7 +28,7 @@ const Departments = () => {
   }, []);
 
   if (loading) {
-    return <section className="departmentsComponent-section"><div className="departments-container">Loading departments...</div></section>;
+    return <DepartmentsSkeleton />;
   }
 
   if (error) {

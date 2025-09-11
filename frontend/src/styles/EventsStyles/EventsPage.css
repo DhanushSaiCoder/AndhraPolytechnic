@@ -120,3 +120,55 @@
         font-size: 2rem;
     }
 }
+
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+.skeleton-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.skeleton-title {
+  width: 200px;
+  height: 2.25rem;
+}
+
+.skeleton-subtitle {
+  width: 300px;
+  height: 1.125rem;
+  margin-top: 0.75rem;
+}
+
+.skeleton-slider {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.skeleton-event-title {
+  width: 80%;
+  height: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-event-subtitle {
+  width: 100%;
+  height: 4rem;
+}

@@ -122,3 +122,52 @@
         font-size: 0.9rem;
     }
 }
+
+.skeleton {
+  background-color: #4a5568;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #4a5568;
+  }
+  50% {
+    background-color: #718096;
+  }
+  100% {
+    background-color: #4a5568;
+  }
+}
+
+.skeleton-title {
+  width: 40%;
+  height: 2rem;
+  margin: 0 auto 1rem auto;
+}
+
+.skeleton-subtitle {
+  width: 60%;
+  height: 1.125rem;
+  margin: 0 auto;
+}
+
+.skeleton-step-number {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+}
+
+.skeleton-step-title {
+  width: 70%;
+  height: 1.5rem;
+  margin: 0 auto 0.75rem auto;
+}
+
+.skeleton-step-description {
+  width: 100%;
+  height: 4rem;
+  margin: 0 auto;
+}

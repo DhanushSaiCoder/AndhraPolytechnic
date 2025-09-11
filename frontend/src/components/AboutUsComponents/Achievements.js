@@ -6,9 +6,11 @@ import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const Acheivements = () => {
     const [achievements, setAchievements] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchAchievements = async () => {
+            setIsLoading(true);
             try {
                 const response = await aboutUsAchievementService.getAchievements();
                 const formattedAchievements = response.data.map(achievement => ({
@@ -19,6 +21,8 @@ const Acheivements = () => {
                 setAchievements(formattedAchievements);
             } catch (error) {
                 console.error('Error fetching achievements:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 

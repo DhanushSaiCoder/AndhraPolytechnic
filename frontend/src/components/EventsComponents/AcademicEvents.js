@@ -4,11 +4,13 @@ import eventService from '../../services/eventService';
 import '../../styles/EventsStyles/EventsPage.css';
 import { BookOpen } from 'lucide-react';
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
+import EventCardSkeleton from './EventCardSkeleton';
 
 const AcademicEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -23,6 +25,8 @@ const AcademicEvents = () => {
         setSlides(formattedSlides);
       } catch (error) {
         console.error('Error fetching academic events:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchEvents();
@@ -50,6 +54,10 @@ const AcademicEvents = () => {
     if (!slides || slides.length === 0) return;
     setCurrentSlide(index);
   };
+
+  if (loading) {
+    return <EventCardSkeleton />;
+  }
 
   const activeSlide = slides[currentSlide];
 

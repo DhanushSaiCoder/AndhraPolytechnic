@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Users, GraduationCap, TrendingUp } from 'lucide-react';
 import '../../styles/HomeStyles/CurrentInfo.css';
 import statService from '../../services/statService'; // Import statService
+import CurrentInfoSkeleton from './CurrentInfoSkeleton';
 
 const iconMap = {
   Users: Users,
@@ -14,6 +15,7 @@ const iconMap = {
 
 const StatsSection = () => {
   const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -23,11 +25,17 @@ const StatsSection = () => {
       } catch (error) {
         console.error('Error fetching stats:', error);
         setStats([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchStats();
   }, []);
+
+  if (loading) {
+    return <CurrentInfoSkeleton />;
+  }
 
   return (
     <section className="stats-section">

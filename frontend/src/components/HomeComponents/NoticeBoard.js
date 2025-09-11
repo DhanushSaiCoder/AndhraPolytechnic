@@ -5,11 +5,13 @@ import NewsCard from "./NewsCard";
 import NotificationCard from "./NotificationCard";
 import newsService from '../../services/newsService'; // Import newsService
 import notificationService from '../../services/notificationService'; // Import notificationService
+import NoticeBoardSkeleton from './NoticeBoardSkeleton';
 
 import "../../styles/HomeStyles/NoticeBoard.css"; // Adjust the path as necessary
 const NoticeBoard = () => {
   const [newsItems, setNewsItems] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -24,11 +26,17 @@ const NoticeBoard = () => {
         // Optionally set empty arrays or show an error message
         setNewsItems([]);
         setNotifications([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchContent();
   }, []);
+
+  if (loading) {
+    return <NoticeBoardSkeleton />;
+  }
 
   return (
     <div className="notice-board">

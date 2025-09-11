@@ -6,14 +6,18 @@ import '../../styles/AboutUsStyles/ContactUs.css'; // Importing the CSS file for
 
 const ContactUs = () => {
   const [contact, setContact] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchContact = async () => {
+      setIsLoading(true);
       try {
         const response = await aboutUsContactService.getContact();
         setContact(response.data);
       } catch (error) {
         console.error('Error fetching contact info:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -21,7 +25,7 @@ const ContactUs = () => {
   }, []);
 
   if (!contact) {
-    return <div>Loading...</div>;
+    return <div>No contact information available.</div>;
   }
 
   return (

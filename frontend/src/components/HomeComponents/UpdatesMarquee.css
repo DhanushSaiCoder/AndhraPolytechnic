@@ -304,3 +304,37 @@
   font-size: 0.9rem;
   color: #6c757d;
 }
+
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+.skeleton-badge {
+  width: 80px;
+  height: 24px;
+  border-radius: 16px;
+}
+
+.skeleton-item-title {
+  width: 200px;
+  height: 1rem;
+}
+
+.skeleton-item-date {
+  width: 80px;
+  height: 1rem;
+}

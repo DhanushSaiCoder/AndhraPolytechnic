@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/TopRecruiters.css';
 import recruiterService from '../../services/recruiterService'; // Import service
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
+import TopRecruitersSkeleton from './TopRecruitersSkeleton';
 
 const TopRecruiters = () => {
   const [recruiters, setRecruiters] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecruiters = async () => {
@@ -14,11 +16,17 @@ const TopRecruiters = () => {
       } catch (error) {
         console.error('Error fetching recruiters:', error);
         setRecruiters([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchRecruiters();
   }, []);
+
+  if (loading) {
+    return <TopRecruitersSkeleton />;
+  }
 
   return (
     <section className="top-recruiters-section">

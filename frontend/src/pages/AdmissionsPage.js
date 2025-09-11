@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FileText, CheckSquare, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 import admissionsContentService from '../services/admissionsContentService';
 import '../styles/AcademicsStyles/Admissions.css';
+import AdmissionsPageSkeleton from '../components/AcademicsComponents/AdmissionsPageSkeleton';
 
 const iconMap = {
   FileText: <FileText />,
@@ -22,6 +23,7 @@ const AdmissionProcessStep = ({ icon, title, description }) => (
 
 const AdmissionsPage = () => {
   const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -30,14 +32,20 @@ const AdmissionsPage = () => {
         setContent(response.data);
       } catch (error) {
         console.error('Error fetching admissions content:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchContent();
   }, []);
 
+  if (loading) {
+    return <AdmissionsPageSkeleton />;
+  }
+
   if (!content) {
-    return <div>Loading...</div>; // Or a proper loader
+    return <div>Error loading content.</div>; // Or a proper error component
   }
 
   const { processSteps, eligibilityCriteria, importantDates, contact } = content;

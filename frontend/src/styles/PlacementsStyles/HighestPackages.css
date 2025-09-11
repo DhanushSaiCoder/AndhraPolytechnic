@@ -127,3 +127,70 @@
         font-size: 2rem;
     }
 }
+
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+.skeleton-title {
+  width: 40%;
+  height: 2.25rem;
+  margin: 0 auto 1rem auto;
+}
+
+.skeleton-subtitle {
+  width: 60%;
+  height: 1.125rem;
+  margin: 0 auto;
+}
+
+.skeleton-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+}
+
+.skeleton-name {
+  width: 60%;
+  height: 1.5rem;
+  margin: 0 auto 0.25rem auto;
+}
+
+.skeleton-department {
+  width: 40%;
+  height: 1rem;
+  margin: 0 auto 1.5rem auto;
+}
+
+.skeleton-package {
+  width: 50%;
+  height: 2.25rem;
+  margin: 0 auto 0.5rem auto;
+}
+
+.skeleton-company {
+  width: 70%;
+  height: 1.1rem;
+  margin: 0 auto;
+}
+
+.skeleton-year {
+  width: 30%;
+  height: 0.9rem;
+  margin: 1rem auto 0 auto;
+}

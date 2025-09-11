@@ -3,6 +3,7 @@ import { Search, FileText, X, ChevronDown } from "lucide-react";
 import syllabusService from "../../services/syllabusService";
 import "../../styles/AcademicsStyles/Syllabus.css";
 import Fuse from 'fuse.js';
+import SyllabusSectionSkeleton from './SyllabusSectionSkeleton';
 
 const StyledSelect = ({ value, onChange, options = [], id, ariaLabel, placeholder, disabled }) => (
   <div className="syllabus__select-wrapper">
@@ -27,6 +28,7 @@ const SyllabusSection = () => {
 
   useEffect(() => {
     const fetchSyllabusData = async () => {
+      setIsLoading(true);
       try {
         const response = await syllabusService.getSyllabus();
         setCurricula(response.data);
@@ -119,7 +121,7 @@ const SyllabusSection = () => {
   );
 
   if (isLoading) {
-    return <div>Loading syllabus...</div>;
+    return <SyllabusSectionSkeleton />;
   }
 
   return (

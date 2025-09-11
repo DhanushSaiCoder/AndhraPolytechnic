@@ -3,10 +3,11 @@ import ImageSlider from './ImageSlider';
 import '../../styles/HomeStyles/CollegeGallery.css'; // Adjust the path as necessary
 import galleryService from '../../services/galleryService'; // Import galleryService
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
-
+import CollegeGallerySkeleton from './CollegeGallerySkeleton';
 
 const CollegeGallery = () => {
   const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -25,11 +26,17 @@ const CollegeGallery = () => {
         console.error('Error fetching gallery slides:', error);
 
         setSlides([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchSlides();
   }, []);
+
+  if (loading) {
+    return <CollegeGallerySkeleton />;
+  }
 
   return (
     <div className="campus-gallery">

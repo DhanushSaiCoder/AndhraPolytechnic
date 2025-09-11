@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/PlacementsStyles/PlacementProcess.css';
 import placementProcessService from '../../services/placementProcessService'; // Import service
+import PlacementProcessSkeleton from './PlacementProcessSkeleton';
 
 const PlacementProcess = () => {
   const [steps, setSteps] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSteps = async () => {
@@ -13,11 +15,17 @@ const PlacementProcess = () => {
       } catch (error) {
         console.error('Error fetching placement process steps:', error);
         setSteps([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchSteps();
   }, []);
+
+  if (loading) {
+    return <PlacementProcessSkeleton />;
+  }
 
   return (
     <section className="placement-process-section">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Users, Briefcase, DollarSign } from 'lucide-react';
 import '../../styles/PlacementsStyles/PlacementStats.css';
 import placementStatService from '../../services/placementStatService'; // Import service
+import PlacementStatsSkeleton from './PlacementStatsSkeleton';
 
 const iconMap = {
   Users: Users,
@@ -12,6 +13,7 @@ const iconMap = {
 
 const PlacementStats = () => {
   const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -21,11 +23,17 @@ const PlacementStats = () => {
       } catch (error) {
         console.error('Error fetching placement stats:', error);
         setStats([]); // Set empty array on error
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchStats();
   }, []);
+
+  if (loading) {
+    return <PlacementStatsSkeleton />;
+  }
 
   return (
     <section className="placement-stats-section">

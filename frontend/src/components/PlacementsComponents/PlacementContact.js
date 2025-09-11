@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import '../../styles/PlacementsStyles/PlacementContact.css';
 import placementContactService from '../../services/placementContactService'; // Import service
+import PlacementContactSkeleton from './PlacementContactSkeleton';
 
 const PlacementContact = () => {
   const [contactInfo, setContactInfo] = useState({
@@ -9,6 +10,7 @@ const PlacementContact = () => {
     phone: 'loading...',
     address: 'loading...',
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchContactInfo = async () => {
@@ -24,11 +26,17 @@ const PlacementContact = () => {
           phone: 'N/A',
           address: 'N/A',
         });
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchContactInfo();
   }, []);
+
+  if (loading) {
+    return <PlacementContactSkeleton />;
+  }
 
   return (
     <section className="placement-contact-section">

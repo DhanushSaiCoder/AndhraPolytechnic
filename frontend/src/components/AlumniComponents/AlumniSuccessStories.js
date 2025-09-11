@@ -3,6 +3,7 @@ import '../../styles/AlumniStyles/AlumniSuccessStories.css';
 import { Star, Briefcase } from 'lucide-react'; // Using Star icon for success stories
 import alumniSuccessStoryService from '../../services/alumniSuccessStoryService';
 import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
+import AlumniSuccessStoryCardSkeleton from './AlumniSuccessStoryCardSkeleton';
 
 const AlumniSuccessStoryCard = ({ name, year, branch, story, image, company, position }) => {
     return (
@@ -31,6 +32,7 @@ const AlumniSuccessStoryCard = ({ name, year, branch, story, image, company, pos
 
 const AlumniSuccessStories = () => {
     const [successStories, setSuccessStories] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         alumniSuccessStoryService.getAlumniSuccessStories()
@@ -39,8 +41,25 @@ const AlumniSuccessStories = () => {
             })
             .catch(error => {
                 console.error('Error fetching alumni success stories:', error);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
+
+    if (loading) {
+        return (
+            <section className="alumni-success-stories-section">
+                <div className="alumni-success-stories-container">
+                    <div className="alumni-stories-grid">
+                        {[...Array(3)].map((_, index) => (
+                            <AlumniSuccessStoryCardSkeleton key={index} />
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <section className="alumni-success-stories-section">
