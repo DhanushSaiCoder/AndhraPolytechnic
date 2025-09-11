@@ -16,7 +16,7 @@
 .commName {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #112D4E;
+    color: #112d4e;
     margin: 0;
     margin-top: 10px;
 }
@@ -26,7 +26,7 @@
 }
 .commRole {
     font-size: 1.2rem;
-    color: #3F72AF;
+    color: #3f72af;
     margin-top: 5px;
     margin-bottom: 20px;
 }
@@ -35,20 +35,20 @@
     width: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 6px solid #DBE2EF;
+    border: 6px solid #dbe2ef;
 }
 .comm-message {
     width: 35%;
     padding: 20px;
     border-radius: 10px;
     /* font-style: italic; Removed as it might not apply to all new elements */
-    color: #112D4E; /* Set a default text color */
+    color: #112d4e; /* Set a default text color */
 }
 
 .comm-message h2 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #3F72AF; /* A distinct color for headings */
+    color: #3f72af; /* A distinct color for headings */
     margin-top: 15px;
     margin-bottom: 8px;
 }
@@ -78,7 +78,7 @@
 
 .comm-message svg {
     width: 60px;
-    color: #3F72AF;
+    color: #3f72af;
     margin-top: 20px; /* Add some space above the SVG */
     display: block; /* Ensure SVG is on its own line */
     margin-left: auto; /* Center the SVG */
@@ -112,4 +112,15 @@
     .comm-message li {
         font-size: 1rem;
     }
+}
+
+.comm-message-txt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    gap: 20px;
+    font-size: 1.2rem;
+    color: #3f72af;
+    font-style: italic;
 }
