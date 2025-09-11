@@ -1,0 +1,76 @@
+.dsm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--admin-overlay-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dsm-modal-content {
+  background: var(--admin-bg-panel);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dsm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--admin-modal-header-border);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dsm-modal-header h3 {
+  margin: 0;
+}
+
+.dsm-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dsm-modal-body {
+  overflow-y: auto;
+}
+
+.dsm-search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--admin-input-border-light);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.dsm-dept-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dsm-dept-item {
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dsm-dept-item:hover {
+  background-color: var(--admin-light-hover-bg-admin);
+}
+
+.dsm-dept-item.selected {
+  background-color: var(--admin-accent);
+  color: var(--admin-bg-panel);
+}

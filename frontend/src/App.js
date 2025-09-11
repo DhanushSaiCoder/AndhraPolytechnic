@@ -18,6 +18,12 @@ import SyllabusPage from './pages/SyllabusPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './pages/NotFound'; // optional
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import AdminPage from './pages/AdminPage';
+import UserManagementPage from './pages/UserManagementPage';
+import PrivateRoute from './components/PrivateRoute';
+import AdminContentPage from './pages/AdminContentPage'; // New import
 
 function App() {
   return (
@@ -38,6 +44,13 @@ function App() {
         
         <Route path="departments" element={<DepartmentsPage />} />
         <Route path="/departments/:id" element={<DepartmentDetail />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/admin" element={<PrivateRoute />}>
+          <Route index element={<AdminPage />} />
+          <Route path="users" element={<UserManagementPage />} />
+          <Route path="content/*" element={<AdminContentPage />} /> {/* New route with nested routes */}
+        </Route>
         {/* catch-all route, optional */}
         <Route path="*" element={<NotFound />} />
       </Routes>

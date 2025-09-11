@@ -1,0 +1,335 @@
+:root {
+  --primary-color: var(--admin-primary);
+  --navy-color: var(--admin-navy);
+  --muted-color: var(--admin-muted-light);
+  --bg-color: var(--admin-bg-light);
+  --white-color: var(--admin-bg-panel);
+  --text-primary: var(--admin-text-primary);
+  --text-secondary: var(--admin-text-secondary);
+  --border-color: var(--admin-border-color);
+  --success-color: var(--admin-success);
+  --danger-color: var(--admin-danger);
+}
+
+.user-management-page {
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--admin-very-light-blue-bg), var(--admin-light-blue-gradient-start) 100%);
+  min-height: calc(100vh - 120px);
+  font-family: 'Poppins', sans-serif;
+}
+
+.user-management-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  border-radius: 1rem;
+}
+
+.user-management-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.header-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-color), var(--navy-color));
+  color: var(--white-color);
+  border-radius: 50%;
+}
+
+.user-management-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.user-management-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.search-bar input {
+  width: 300px;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--admin-primary-alpha-20);
+}
+
+.add-user-btn {
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-user-btn:hover {
+  background: var(--navy-color);
+  transform: translateY(-2px);
+}
+
+.user-table-container {
+  overflow-x: auto;
+  background-color: var(--white-color); /* Solid background for the table */
+  border-radius: 1rem; /* Rounded corners for the container */
+  box-shadow: 0 10px 30px var(--admin-shadow-light); /* Subtle shadow */
+  margin-top: 2rem; /* Add some space from toolbar */
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate to allow border-radius on cells */
+  border-spacing: 0; /* Remove space between cells */
+  font-size: 1rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 1.5rem 1.25rem; /* Increased padding */
+  text-align: left;
+  /* Remove border-bottom here, will add subtle border to rows */
+}
+
+.user-table th {
+  background-color: var(--admin-table-header-bg); /* Lighter background for header */
+  font-weight: 600;
+  color: var(--admin-table-header-text); /* Softer text color */
+  text-transform: uppercase;
+  font-size: large; /* Slightly smaller font for header */
+  letter-spacing: 0.08em; /* Increased letter spacing */
+  position: sticky; /* Make header sticky for scroll */
+  top: 0;
+  z-index: 1;
+}
+
+/* Rounded corners for first and last header cells */
+.user-table th:first-child {
+  border-top-left-radius: 1rem;
+}
+
+.user-table th:last-child {
+  border-top-right-radius: 1rem;
+}
+
+.user-table tbody tr {
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  border-bottom: 1px solid var(--border-color); /* Subtle border for rows */
+}
+
+.user-table tbody tr:last-child {
+  border-bottom: none; /* No border for the last row */
+}
+
+.user-table tbody tr:hover {
+  background-color: var(--admin-table-row-hover-bg); /* Very light transparent background on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 8px 20px var(--admin-shadow-medium); /* Stronger shadow on hover */
+}
+
+/* Style for cells to ensure rounded corners on rows */
+.user-table tbody td {
+  background-color: var(--white-color);
+}
+
+/* Rounded corners for first and last cells in a row */
+.user-table tbody tr:first-child td:first-child {
+  border-top-left-radius: 1rem;
+}
+.user-table tbody tr:first-child td:last-child {
+  border-top-right-radius: 1rem;
+}
+.user-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 1rem;
+}
+.user-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.user-id {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.user-email {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.user-email:hover {
+  color: var(--navy-color);
+  text-decoration: underline;
+}
+
+.role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.role-admin {
+  background-color: var(--admin-info-light);
+  color: var(--admin-info);
+}
+
+.role-user {
+  background-color: var(--admin-success-light);
+  color: var(--admin-success);
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.edit-btn {
+  background-color: var(--admin-info);
+  color: var(--white-color);
+}
+
+.edit-btn:hover {
+  background-color: var(--admin-info-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--admin-info-alpha-20);
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+
+.delete-btn:hover {
+  background-color: var(--admin-danger);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--admin-danger-alpha-20);
+}
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px; /* Ensure enough space for the spinner */
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.loading-spinner {
+  border: 4px solid var(--admin-shadow-light); /* Keep rgba(0, 0, 0, 0.1) for now */
+  border-left-color: var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.no-users-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .user-management-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .user-management-container {
+    padding: 1.5rem;
+  }
+
+  .user-management-title {
+    font-size: 2rem;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+}

@@ -1,38 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, CheckSquare, Calendar, Mail, Phone, MapPin } from 'lucide-react';
+import admissionsContentService from '../services/admissionsContentService';
 import '../styles/AcademicsStyles/Admissions.css';
+
+const iconMap = {
+  FileText: <FileText />,
+  CheckSquare: <CheckSquare />,
+  Calendar: <Calendar />,
+  Mail: <Mail />,
+  Phone: <Phone />,
+  MapPin: <MapPin />,
+};
 
 const AdmissionProcessStep = ({ icon, title, description }) => (
   <div className="admission-step-card">
-    <div className="admission-step-icon-wrapper">{icon}</div>
+    <div className="admission-step-icon-wrapper">{iconMap[icon] || <FileText />}</div>
     <h3 className="admission-step-title">{title}</h3>
     <p className="admission-step-description">{description}</p>
   </div>
 );
 
 const AdmissionsPage = () => {
-  const processSteps = [
-    {
-      icon: <FileText />,
-      title: 'Online Application',
-      description: 'Submit your application through our online portal with all required documents.',
-    },
-    {
-      icon: <CheckSquare />,
-      title: 'Entrance Examination',
-      description: 'Appear for the state-level entrance test as per the scheduled dates.',
-    },
-    {
-      icon: <Calendar />,
-      title: 'Counseling & Verification',
-      description: 'Attend counseling and document verification sessions based on your rank.',
-    },
-    {
-      icon: <MapPin />,
-      title: 'Enrollment & Fee Payment',
-      description: 'Complete the enrollment process by paying the prescribed fees.',
-    },
-  ];
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await admissionsContentService.getAdmissionsContent();
+        setContent(response.data);
+      } catch (error) {
+        console.error('Error fetching admissions content:', error);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  if (!content) {
+    return <div>Loading...</div>; // Or a proper loader
+  }
+
+  const { processSteps, eligibilityCriteria, importantDates, contact } = content;
 
   return (
     <div className="admissions-page-container">
@@ -65,19 +73,17 @@ const AdmissionsPage = () => {
                 <div className="admission-info-card">
                     <h3 className="admission-info-title">Eligibility Criteria</h3>
                     <ul className="admission-info-list">
-                        <li>Passed 10th Standard/SSC Examination.</li>
-                        <li>Obtained at least 35% marks in the qualifying examination.</li>
-                        <li>Appeared for the state-level POLYCET entrance examination.</li>
-                        <li>Must be a citizen of India.</li>
+                        {eligibilityCriteria.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
                     </ul>
                 </div>
                 <div className="admission-info-card">
                     <h3 className="admission-info-title">Important Dates</h3>
                     <ul className="admission-info-list">
-                        <li><strong>Application Start:</strong> March 15, 2024</li>
-                        <li><strong>Application Deadline:</strong> April 30, 2024</li>
-                        <li><strong>Entrance Exam (POLYCET):</strong> May 15, 2024</li>
-                        <li><strong>Counseling Starts:</strong> June 10, 2024</li>
+                        {importantDates.map((item, index) => (
+                          <li key={index}><strong>{item.title}:</strong>  {item.date}</li>
+                        ))}
                     </ul>
                 </div>
             </div>
@@ -90,17 +96,17 @@ const AdmissionsPage = () => {
                 <div className="admission-contact-card">
                     <Mail size={28} className="admission-contact-icon" />
                     <h3 className="admission-contact-title">Email Us</h3>
-                    <p>admissions@andhrapolytechnic.ac.in</p>
+                    <p>{contact?.email || ''}</p>
                 </div>
                 <div className="admission-contact-card">
                     <Phone size={28} className="admission-contact-icon" />
                     <h3 className="admission-contact-title">Call Us</h3>
-                    <p>+91-9876543210</p>
+                    <p>{contact?.phone || ''}</p>
                 </div>
                 <div className="admission-contact-card">
                     <MapPin size={28} className="admission-contact-icon" />
                     <h3 className="admission-contact-title">Visit Us</h3>
-                    <p>Andhra Polytechnic College, Kakinada</p>
+                    <p>{contact?.address || ''}</p>
                 </div>
             </div>
         </section>

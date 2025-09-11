@@ -34,7 +34,7 @@
     aspect-ratio: 1/1;
     width: 200px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
     border: 6px solid #DBE2EF;
 }
 .prp-message {

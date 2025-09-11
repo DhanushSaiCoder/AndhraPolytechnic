@@ -1,0 +1,98 @@
+@import './AdminVariables.css';
+
+.admin-page {
+  padding: 4rem 1rem;
+  background-color: var(--admin-bg-light);
+  min-height: calc(100vh - 120px);
+}
+
+.admin-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.admin-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--admin-navy);
+  margin-bottom: 1rem;
+}
+
+.admin-subtitle {
+  font-size: 1.125rem;
+  color: var(--admin-text-secondary);
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.admin-card {
+  background: var(--admin-bg-panel);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px var(--admin-primary-alpha-10);
+  border: 1px solid var(--admin-white-alpha-30);
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px var(--admin-primary-alpha-15);
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-card-icon {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-darker-accent-blue) 100%);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-bg-panel);
+}
+
+.admin-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--admin-navy);
+}
+
+.admin-card-description {
+  color: var(--admin-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.admin-card-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-darker-accent-blue) 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.admin-card-button:hover {
+  background: linear-gradient(135deg, var(--admin-darker-accent-blue) 0%, #1e3f73 100%); /* Keep #1e3f73 for now */
+  box-shadow: 0 4px 12px var(--admin-primary-alpha-30);
+  transform: scale(1.05);
+}

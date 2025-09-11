@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import ControlledImageSlider from '../HomeComponents/ControlledImageSlider';
-import eventsData from '../../data/eventsData.json';
+import eventService from '../../services/eventService';
 import '../../styles/EventsStyles/EventsPage.css';
 import { Users } from 'lucide-react';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 const CoCurricularEvents = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const slides = eventsData['co-curricular'];
+  const [slides, setSlides] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await eventService.getEvents();
+        const coCurricularEvents = response.data.filter(event => event.category === 'co-curricular');
+        const formattedSlides = coCurricularEvents.map(slide => ({
+          ...slide,
+          id: slide._id,
+          image: getOptimizedImageUrl(slide.image, { w: 1200, h: 800 })
+        }));
+        setSlides(formattedSlides);
+      } catch (error) {
+        console.error('Error fetching co-curricular events:', error);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying || !slides || slides.length === 0) return;
@@ -33,6 +52,10 @@ const CoCurricularEvents = () => {
   };
 
   const activeSlide = slides[currentSlide];
+
+  if (!activeSlide) {
+    return null; // Or some loader
+  }
 
   return (
     <section className="event-category-section co-curricular-events">

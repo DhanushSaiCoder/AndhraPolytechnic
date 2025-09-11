@@ -1,4 +1,3 @@
-//home page
 import React from 'react';
 import '../styles/HomeStyles/Home.css';
 import HomeHeroSection from '../components/HomeComponents/HomeHeroSection';
@@ -13,25 +12,44 @@ import Departments from '../components/HomeComponents/Departments';
 import Hero from '../components/Hero';
 import UpdatesMarquee from '../components/HomeComponents/UpdatesMarquee';
 
+import aptCampus from '../images/aptCampus.jpeg';
+import aptImg from '../images/aptImg.png';
+import aptCampus2 from '../images/aptCampus2.webp';
+import aptCampus3 from '../images/aptCampus3.jpg';
+import aptStudents from '../images/aptStudents.webp';
+
 const slides = [
   {
     id: 's1',
-    image: 'https://picsum.photos/seed/picsum1/1920/1080',
-    image2x: 'https://picsum.photos/seed/picsum1/1920/1080',
-    alt: 'Random placeholder image from Lorem Picsum',
+    image: aptCampus,
+    image2x: aptCampus,
+    alt: 'Andhra Polytechnic Campus View',
   },
   {
     id: 's2',
-    image: 'https://picsum.photos/seed/picsum2/1920/1080',
-    image2x: 'https://picsum.photos/seed/picsum2/1920/1080',
-    alt: 'Random placeholder image from Lorem Picsum',
+    image: aptImg,
+    image2x: aptImg,
+    alt: 'Andhra Polytechnic Building',
   },
   {
     id: 's3',
-    image: 'https://picsum.photos/seed/picsum3/1920/1080',
-    image2x: 'https://picsum.photos/seed/picsum3/1920/1080',
-    alt: 'Random placeholder image from Lorem Picsum',
+    image: aptCampus2,
+    image2x: aptCampus2,
+    alt: 'Andhra Polytechnic Campus View',
+  },
+  {
+    id: 's4',
+    image: aptCampus3,
+    image2x: aptCampus3,
+    alt: 'Andhra Polytechnic Building',
+  },
+  {
+    id: 's5',
+    image: aptStudents,
+    image2x: aptStudents,
+    alt: 'Andhra Polytechnic Campus View',
   }
+  
 ];
 
 export default function HomePage() {

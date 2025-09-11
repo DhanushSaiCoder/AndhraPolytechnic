@@ -424,68 +424,7 @@ a.activeNavLink svg {
     }
 }
 
-/* Login Button Styles - Mobile */
-.loginButton {
-    height: 100%; /* Takes 100% of nav bar height */
-    background-color: #3f72af20;
-    border-radius: 0; /* No border radius */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3f72af;
-    padding: 0 15px; /* Add some padding */
-    text-decoration: none; /* Remove underline for NavLink */
-    font-weight: bold;
-    gap: 5px; /* Space between icon and text */
-    margin-left: auto; /* Push to the right */
-}
 
-.loginButton:hover {
-    background-color: var(--primary);
-    color: white;
-    opacity: 0.9; /* Slight opacity change on hover */
-}
-
-/* Desktop Login Button Styles */
-.desktopLoginButton {
-    height: 100%;
-    background-color: #3f72af20;
-    border-radius: 0;
-    display: none; /* Hidden by default, shown on desktop */
-    align-items: center;
-    justify-content: center;
-    color: #3f72af;
-    padding: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    gap: 5px;
-    margin-left: 10px;
-    transition: background-color .3s ease-in-out ;
-}
-
-.desktopLoginButton:hover {
-    background-color: var(--primary);
-    color: white;
-    opacity: 0.9;
-}
-
-/* Hide mobile login button on desktop, show desktop login button */
-@media (min-width: 601px) {
-    .loginButton {
-        display: none;
-    }
-    
-    .desktopLoginButton {
-        display: flex;
-    }
-}
-
-/* Hide desktop login button on mobile */
-@media (max-width: 600px) {
-    .desktopLoginButton {
-        display: none !important;
-    }
-}
 
 /* Dropdown Styles */
 .navLinkWrapper {
@@ -623,3 +562,67 @@ a.activeNavLink svg {
     }
 }
 
+/* Action Buttons (Login, Logout, Admin) */
+.nav-action__button {
+    height: 100%;
+    background-color: #3f72af20;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f72af;
+    padding: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    gap: 5px;
+    transition: background-color .3s ease-in-out;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.nav-action__button:hover {
+    background-color: var(--primary);
+    color: white;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+/* Modifier for logout button */
+.nav-action__button--logout {
+    background-color: transparent;
+}
+
+.nav-action__button--logout:hover {
+    color: #3f72af;
+    background-color: #3f72af10;
+}
+
+/* Mobile and Desktop specific styles */
+@media (max-width: 600px) {
+    .navLinks .nav-action__button {
+        width: 100%;
+        justify-content: flex-start; /* Align content to the start */
+        padding-left: 32px; /* Match existing mobile navLink padding */
+        height: 56px; /* Match existing mobile navLink height */
+    }
+}
+
+@media (min-width: 601px) {
+    .navLinks .nav-action__button {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .navLinks .nav-action__button--logout {
+        background-color: transparent;
+        color: #112d4e;
+        font-weight: normal;
+    }
+
+    .navLinks .nav-action__button--logout:hover {
+        background-color: #3f72af10;
+        color: #3f72af;
+    }
+}

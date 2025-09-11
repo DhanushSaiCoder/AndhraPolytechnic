@@ -65,6 +65,7 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .alumni-story-card:hover {
@@ -91,6 +92,7 @@
 .alumni-story-info {
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .alumni-story-name {
@@ -98,19 +100,31 @@
     font-weight: 600;
     color: #112D4E;
     margin: 0;
+    margin-bottom: 0.25rem;
 }
 
-.alumni-story-year {
+.alumni-story-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.alumni-story-work {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.9rem;
-    color: #4b5563;
-    margin: 0;
+    color: #374151;
+    font-weight: 500;
+    margin-top: 0.25rem;
 }
 
-.alumni-story-field {
-    font-size: 0.95rem;
-    color: #3F72AF;
-    font-weight: 500;
-    margin: 0;
+.alumni-story-work strong {
+    font-weight: 600;
+    color: #112D4E;
 }
 
 .alumni-story-description {

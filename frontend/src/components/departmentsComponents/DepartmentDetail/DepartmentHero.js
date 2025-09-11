@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import '../../../styles/DepartmentsStyles/DepartmentDetail.css';
+import ImageLoader from '../../ImageLoader/ImageLoader';
+import { getOptimizedImageUrl } from '../../../utils/cloudinaryUtils';
 
 const DepartmentHero = ({ department }) => {
   return (
@@ -10,7 +12,7 @@ const DepartmentHero = ({ department }) => {
         <ArrowLeft size={20} />
         <span>Back to Departments</span>
       </Link>
-      <img src={department.image} alt={department.name} className="department-header-image" />
+      <ImageLoader src={getOptimizedImageUrl(department.image)} alt={department.name} className="department-header-image" />
       <div className="department-header-overlay"></div>
       <div className="department-header-content">
         <div className="department-header-text-wrapper">

@@ -1,0 +1,48 @@
+:root {
+  /* Core Admin Palette */
+  --admin-primary: #3F72AF; /* Main blue */
+  --admin-navy: #112D4E; /* Dark navy */
+  --admin-accent: #0b5cff; /* Bright accent blue */
+  --admin-accent-hover: #0a50e0;
+  --admin-darker-accent-blue: #1e3f73;
+  --admin-bg-light: #f7f9fc; /* Very light background */
+  --admin-bg-panel: #ffffff; /* White panel background */
+  --admin-border-color: #e5e7eb; /* Light gray border */
+  --admin-text-primary: #1f2937; /* Dark text */
+  --admin-text-secondary: #6b7280; /* Muted text */
+  --admin-muted-light: #eef2ff; /* Light accent background */
+  --admin-danger: #e11d48; /* Red for danger */
+  --admin-danger-light: rgba(225, 29, 72, 0.1); /* Light red for danger */
+  --admin-success: #22c55e; /* Green for success */
+  --admin-success-light: #f0fdf4; /* Light green for success */
+  --admin-info: #0ea5e9; /* Blue for info */
+  --admin-info-hover: #0284c7;
+  --admin-info-light: #e0f2fe; /* Light blue for info */
+
+  /* Specific Admin Component Colors */
+  --admin-modal-header-border: #eee;
+  --admin-modal-close-btn: #9ca3af;
+  --admin-input-border-light: #ccc;
+  --admin-input-bg-code: #f3f4f6;
+  --admin-table-header-bg: #DBE2EF;
+  --admin-table-header-text: #112D4E;
+  --admin-table-row-hover-bg: rgba(63, 114, 175, 0.05);
+  --admin-modal-primary-btn: #007bff;
+  --admin-modal-cancel-btn-bg: #f0f0f0;
+
+  /* Alpha values for shadows and overlays */
+  --admin-shadow-light: rgba(0, 0, 0, 0.05);
+  --admin-shadow-medium: rgba(0, 0, 0, 0.1);
+  --admin-shadow-strong: rgba(0, 0, 0, 0.2);
+  --admin-overlay-dark: rgba(0, 0, 0, 0.6);
+  --admin-overlay-medium: rgba(0, 0, 0, 0.5);
+  --admin-primary-alpha-10: rgba(63, 114, 175, 0.1);
+  --admin-primary-alpha-15: rgba(63, 114, 175, 0.15);
+  --admin-white-alpha-30: rgba(255, 255, 255, 0.3);
+  --admin-accent-alpha-08: rgba(11,92,255,0.08);
+  --admin-accent-alpha-02: rgba(11,92,255,0.02);
+  --admin-accent-alpha-12: rgba(11,92,255,0.12);
+  --admin-danger-alpha-10: rgba(225, 29, 72, 0.1);
+  --admin-danger-alpha-20: rgba(220, 53, 69, 0.2);
+  --admin-info-alpha-20: rgba(14, 165, 233, 0.2);
+}

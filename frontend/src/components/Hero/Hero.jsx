@@ -4,7 +4,6 @@ import { GraduationCap, ChevronLeft, ChevronRight } from "lucide-react"; // Adde
 
 const Hero = ({
   slides,
-  defaultLanguage = "en",
   autoplay = true,
   interval = 5000,
 }) => {
@@ -12,6 +11,7 @@ const Hero = ({
   const [isPaused, setIsPaused] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [touchStartX, setTouchStartX] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState({});
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -32,6 +32,10 @@ const Hero = ({
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
+  };
+
+  const handleImageLoad = (index) => {
+    setLoadedSlides((prev) => ({ ...prev, [index]: true }));
   };
 
   useEffect(() => {
@@ -94,24 +98,28 @@ const Hero = ({
             className={`${styles.slide} ${index === currentIndex ? styles.active : ""}`}
             aria-hidden={index !== currentIndex}
           >
-            <picture>
-              {slide.imageWebp && (
-                <source
-                  srcSet={slide.imageWebp}
-                  type="image/webp"
+            <div className={styles.slideImageWrapper}>
+              {!loadedSlides[index] && <div className={styles.skeletonLoader}></div>}
+              <picture>
+                {slide.imageWebp && (
+                  <source
+                    srcSet={slide.imageWebp}
+                    type="image/webp"
+                    sizes="(max-width: 480px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                  />
+                )}
+                <img
+                  srcSet={`${slide.image} 1x, ${slide.image2x} 2x`}
+                  src={slide.image}
+                  alt={slide.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                   sizes="(max-width: 480px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                  className={`${styles.slideImg} ${loadedSlides[index] ? styles.loaded : ''}`}
+                  onLoad={() => handleImageLoad(index)}
                 />
-              )}
-              <img
-                srcSet={`${slide.image} 1x, ${slide.image2x} 2x`}
-                src={slide.image}
-                alt={slide.alt}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                sizes="(max-width: 480px) 100vw, (max-width: 1024px) 90vw, 1200px"
-                className={styles.slideImg}
-              />
-            </picture>
+              </picture>
+            </div>
             <div className={styles.overlay}></div>
           </div>
         ))}

@@ -240,7 +240,7 @@
   border-radius: var(--radius-sm);
   padding: 1.25rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
   box-shadow: 0 2px 8px var(--color-shadow-light);
@@ -255,7 +255,7 @@
 
 .syllabus__card-main {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   flex-grow: 1;
 }
@@ -273,6 +273,8 @@
 
 .syllabus__card-info {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .syllabus__subject-name {
@@ -285,6 +287,13 @@
 .syllabus__subject-code {
   font-size: 0.9rem;
   color: var(--color-text-light);
+}
+
+.syllabus__subject-description {
+  font-size: 0.9rem;
+  color: var(--color-text-medium);
+  margin-top: 0.5rem;
+  line-height: 1.5;
 }
 
 .syllabus__card-actions {

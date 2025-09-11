@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Briefcase, DollarSign } from 'lucide-react';
 import '../../styles/PlacementsStyles/PlacementStats.css';
+import placementStatService from '../../services/placementStatService'; // Import service
+
+const iconMap = {
+  Users: Users,
+  Briefcase: Briefcase,
+  DollarSign: DollarSign,
+  // Add other icons as needed
+};
 
 const PlacementStats = () => {
-  const stats = [
-    {
-      icon: Users,
-      value: '1000+',
-      label: 'Students Placed',
-      description: 'Successfully placed in top companies annually'
-    },
-    {
-      icon: Briefcase,
-      value: '200+',
-      label: 'Recruiting Companies',
-      description: 'Diverse range of industries and sectors'
-    },
-    {
-      icon: DollarSign,
-      value: '12 LPA',
-      label: 'Highest Package',
-      description: 'Achieved by our talented graduates'
-    }
-  ];
+  const [stats, setStats] = useState([]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await placementStatService.getPlacementStats();
+        setStats(response.data);
+      } catch (error) {
+        console.error('Error fetching placement stats:', error);
+        setStats([]); // Set empty array on error
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   return (
     <section className="placement-stats-section">
@@ -33,12 +36,12 @@ const PlacementStats = () => {
         </header>
 
         <div className="placement-stats-grid">
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
+          {stats.map((stat) => {
+            const Icon = iconMap[stat.icon]; // Use iconMap to get the component
             return (
-              <div key={idx} className="placement-stat-card">
+              <div key={stat._id} className="placement-stat-card"> {/* Use stat._id for key */}
                 <div className="placement-stat-icon">
-                  <Icon size={32} />
+                  {Icon && <Icon size={32} />} {/* Render Icon if it exists */}
                 </div>
 
                 <div className="placement-stat-value">{stat.value}</div>
@@ -48,7 +51,7 @@ const PlacementStats = () => {
             );
           })}
         </div>
-      </div>
+        </div>
     </section>
   );
 };

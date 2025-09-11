@@ -2,6 +2,12 @@
 import { Calendar } from "lucide-react";
 import "../../styles/HomeStyles/NotificationCard.css"; // Adjust the path as necessary
 const NotificationCard = ({ title, description, date }) => {
+  const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <div className="notification-card">
       <div className="notification-card-content">
@@ -9,7 +15,7 @@ const NotificationCard = ({ title, description, date }) => {
         <p className="notification-card-description">{description}</p>
         <div className="notification-card-date">
           <Calendar className="notification-card-icon" />
-          <span>{date}</span>
+          <span>{formattedDate}</span>
         </div>
       </div>
     </div>

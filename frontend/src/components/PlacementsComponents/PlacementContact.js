@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import '../../styles/PlacementsStyles/PlacementContact.css';
+import placementContactService from '../../services/placementContactService'; // Import service
 
 const PlacementContact = () => {
+  const [contactInfo, setContactInfo] = useState({
+    email: 'loading...',
+    phone: 'loading...',
+    address: 'loading...',
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await placementContactService.getPlacementContact();
+        if (response.data) {
+          setContactInfo(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching placement contact info:', error);
+        setContactInfo({
+          email: 'N/A',
+          phone: 'N/A',
+          address: 'N/A',
+        });
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
   return (
     <section className="placement-contact-section">
       <div className="placement-contact-container">
@@ -15,17 +42,17 @@ const PlacementContact = () => {
           <div className="contact-card">
             <Mail size={32} className="contact-icon" />
             <h3>Email Us</h3>
-            <p>placement@andhrapolytechnic.ac.in</p>
+            <p>{contactInfo.email}</p>
           </div>
           <div className="contact-card">
             <Phone size={32} className="contact-icon" />
             <h3>Call Us</h3>
-            <p>+91-1234567890</p>
+            <p>{contactInfo.phone}</p>
           </div>
           <div className="contact-card">
             <MapPin size={32} className="contact-icon" />
             <h3>Visit Us</h3>
-            <p>Andhra Polytechnic College, Kakinada, Andhra Pradesh</p>
+            <p>{contactInfo.address}</p>
           </div>
         </div>
       </div>

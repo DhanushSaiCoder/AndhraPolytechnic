@@ -1,0 +1,38 @@
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f0f2f5;
+}
+
+.login-form-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-form-card h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.login-form-card .MuiTextField-root {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.login-form-card .MuiButton-root {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+}
+
+.login-form-card p {
+  color: red;
+  margin-bottom: 15px;
+}

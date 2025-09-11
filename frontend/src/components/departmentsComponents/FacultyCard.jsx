@@ -1,9 +1,6 @@
-// FacultyCard.jsx
-// Place the JS code in `FacultyCard.jsx` and the CSS in `FacultyCard.css` (both provided below).
-// Usage: import './FacultyCard.css';
-// <FacultyCard imageUrl="/path.jpg" name="Dr. Jane Doe" designation="Head of Department" specialization="Machine Learning & AI" socials={[{type:'linkedin', url:'...'}, {type:'email', url:'mailto:...'}]} active={true} />
-
 import React from 'react';
+import ImageLoader from '../ImageLoader/ImageLoader';
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 export default function FacultyCard({
   imageUrl,
@@ -50,7 +47,7 @@ export default function FacultyCard({
       aria-pressed={active}
     >
       <div className="faculty-card__image-wrap" aria-hidden="true">
-        <img src={imageUrl} alt={`Photo of ${name}`} className="faculty-card__image" />
+        <ImageLoader src={getOptimizedImageUrl(imageUrl)} alt={`Photo of ${name}`} className="faculty-card__image" />
       </div>
 
       <div className="faculty-card__content-wrapper">
