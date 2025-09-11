@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ImageSlider from './ImageSlider';
 import '../../styles/HomeStyles/CollegeGallery.css'; // Adjust the path as necessary
 import galleryService from '../../services/galleryService'; // Import galleryService
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 
 
 const CollegeGallery = () => {
@@ -15,10 +16,14 @@ const CollegeGallery = () => {
         const formattedSlides = response.data.map(slide => ({
           ...slide,
           id: slide._id, // Ensure 'id' is present for ImageSlider
+          image: getOptimizedImageUrl(slide.image, { w: 1200, h: 800 })
         }));
+        console.log('Fetched slides:', formattedSlides);  
         setSlides(formattedSlides);
+
       } catch (error) {
         console.error('Error fetching gallery slides:', error);
+
         setSlides([]); // Set empty array on error
       }
     };

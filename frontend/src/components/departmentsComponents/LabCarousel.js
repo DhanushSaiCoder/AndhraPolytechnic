@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import icons
 import { Maximize } from 'lucide-react'; // Import Maximize icon
 import ImageModal from '../ImageModal'; // Import ImageModal
 import ImageLoader from '../ImageLoader/ImageLoader'; // Import ImageLoader
+import { getOptimizedImageUrl } from '../../utils/cloudinaryUtils';
 import '../../styles/DepartmentsStyles/LabCarousel.css';
 
 const LabCarousel = ({ labs }) => {
@@ -57,8 +58,7 @@ const LabCarousel = ({ labs }) => {
     }
   }, [currentIndex]);
 
-  const handleExpandClick = (labName) => {
-    const imageUrl = `https://picsum.photos/seed/${labName}/1200/800`; // Larger image for expanded view
+  const handleExpandClick = (imageUrl) => {
     setSelectedImage(imageUrl);
     setIsModalOpen(true);
   };
@@ -81,11 +81,11 @@ const LabCarousel = ({ labs }) => {
         {labs.map((lab, index) => (
           <div key={index} className={`lab-card ${index === currentIndex ? 'active' : ''}`}>
             <div className="lab-card__image-wrap">
-              <ImageLoader src={`https://picsum.photos/seed/${lab.name}/300/200`} alt={lab.name} className="lab-card__image" />
+              <ImageLoader src={getOptimizedImageUrl(lab.imageUrl, { w: 300, h: 200 })} alt={lab.name} className="lab-card__image" />
               <button
                 className="lab-card__expand-button"
                 aria-label="Expand Image"
-                onClick={() => handleExpandClick(lab.name)} // Add onClick handler
+                onClick={() => handleExpandClick(getOptimizedImageUrl(lab.imageUrl, { w: 1200, h: 800 }))} // Add onClick handler
               >
                 <Maximize size={20} />
               </button>
