@@ -19,17 +19,24 @@ import aptCampus3 from '../images/aptCampus3.jpg';
 import aptStudents from '../images/aptStudents.webp';
 
 const slides = [
-  {
-    id: 's1',
-    image: aptCampus,
-    image2x: aptCampus,
-    alt: 'Andhra Polytechnic Campus View',
-  },
+  // {
+  //   id: 's1',
+  //   image: aptCampus,
+  //   image2x: aptCampus,
+  //   alt: 'Andhra Polytechnic Campus View',
+  // },
   {
     id: 's2',
     image: aptImg,
     image2x: aptImg,
     alt: 'Andhra Polytechnic Building',
+  }
+  ,
+  {
+    id: 's5',
+    image: aptStudents,
+    image2x: aptStudents,
+    alt: 'Andhra Polytechnic Campus View',
   },
   {
     id: 's3',
@@ -42,14 +49,8 @@ const slides = [
     image: aptCampus3,
     image2x: aptCampus3,
     alt: 'Andhra Polytechnic Building',
-  },
-  {
-    id: 's5',
-    image: aptStudents,
-    image2x: aptStudents,
-    alt: 'Andhra Polytechnic Campus View',
   }
-  
+
 ];
 
 export default function HomePage() {
