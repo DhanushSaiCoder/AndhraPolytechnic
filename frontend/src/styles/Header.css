@@ -80,9 +80,7 @@ a.activeNavLink {
     height: 100%;
     color: #3F72AF !important;
     text-decoration: none;
-    border-width: 0 0 3.5px 0;
-    border-style: solid;
-    border-image: linear-gradient(to right, transparent, #3F72AF 15%, #3F72AF 85%, transparent) 1;
+    border-bottom: 3.5px solid #3F72AF;
     background-color: rgba(63, 114, 175, 0.08) !important;
     display: flex;
     align-items: center;
