@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Hero.module.css";
 import { GraduationCap, ChevronLeft, ChevronRight } from "lucide-react"; // Added ChevronLeft, ChevronRight
+import { Link } from 'react-router-dom';
 
 const Hero = ({
   slides,
@@ -141,12 +142,12 @@ const Hero = ({
         </p>
 
         <div className={styles.ctaRow}>
-          <a href="/apply" className={styles.cta} aria-label="Apply Now">
-            Apply Now
-          </a>
-          <a href="/programs" className={styles.secondaryCta} aria-label="View Programs">
-            Programs
-          </a>
+          <Link to="/departments" className={styles.cta} aria-label="Explore Departments">
+            Explore Departments
+          </Link>
+          <Link to="/about" className={styles.secondaryCta} aria-label="About Us">
+            About Us
+          </Link>
         </div>
       </div>
 

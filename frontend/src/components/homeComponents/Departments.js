@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap } from 'lucide-react';
 import '../../styles/HomeStyles/Departments.css'; // Adjust the path as necessary
-import departmentsData from '../../data/departmentsData.json';
 import { departmentIcons, DefaultIcon } from '../../data/departmentIcons';
+import departmentService from '../../services/departmentService';
 
 const Departments = () => {
+  const [departments, setDepartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await departmentService.getDepartments();
+        setDepartments(response.data);
+      } catch (err) {
+        console.error('Error fetching departments:', err);
+        setError('Failed to load departments.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
+  if (loading) {
+    return <section className="departmentsComponent-section"><div className="departments-container">Loading departments...</div></section>;
+  }
+
+  if (error) {
+    return <section className="departmentsComponent-section"><div className="departments-container" style={{ color: 'red' }}>{error}</div></section>;
+  }
+
   return (
     <section className="departmentsComponent-section">
       <div className="departments-container">
@@ -26,11 +54,11 @@ const Departments = () => {
 
         {/* Departments Grid */}
         <div className="departments-grid">
-          {departmentsData.map((dept, index) => {
-            const IconComponent = departmentIcons[dept.id] || DefaultIcon; // Use iconMap with dept.id
+          {departments.map((dept, index) => {
+            const IconComponent = departmentIcons[dept.shortName] || DefaultIcon; // Use iconMap with dept.shortName
             return (
               <div
-                key={dept.id} // dept.id is now a string
+                key={dept._id} // Use _id from database
                 className="department-card"
                 style={{
                   animationDelay: `${index * 150}ms`
@@ -47,14 +75,13 @@ const Departments = () => {
                 {/* Department Code */}
                 <div className="department-info">
                   <span className="department-code">
-                    {dept.shortName} {/* Use shortName from imported data */}
+                    {dept.shortName} 
                   </span>
-                  {/* Removed established and students as they are not in the new data */}
                 </div>
 
                 {/* Title */}
                 <h3 className="department-title">
-                  {dept.name} {/* Use name from imported data */}
+                  {dept.name} 
                 </h3>
 
                 {/* Description */}
@@ -63,8 +90,8 @@ const Departments = () => {
                 </p>
 
                 {/* Learn More Button */}
-                <div className="department-stats"> {/* Re-using department-stats for layout */}
-                  <Link to={`/departments/${dept.id}`} className="learn-more-btn">
+                <div className="department-stats"> 
+                  <Link to={`/departments/${dept._id}`} className="learn-more-btn">
                     Learn More →
                   </Link>
                 </div>

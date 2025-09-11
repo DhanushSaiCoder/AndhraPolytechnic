@@ -16,20 +16,20 @@ const AdminPage = () => {
       description: 'Add, edit, or remove user accounts and manage their roles and permissions.',
       icon: <Users size={24} />,
       link: '/admin/users',
-    },
+    }
 
-    {
-      title: 'System Settings',
-      description: 'Configure system-wide settings, such as maintenance mode and API integrations.',
-      icon: <Settings size={24} />,
-      link: '/admin/settings',
-    },
-    {
-      title: 'View Audit Logs',
-      description: 'Review a log of all administrative actions for security and accountability purposes.',
-      icon: <Shield size={24} />,
-      link: '/admin/logs',
-    },
+    // {
+    //   title: 'System Settings',
+    //   description: 'Configure system-wide settings, such as maintenance mode and API integrations.',
+    //   icon: <Settings size={24} />,
+    //   link: '/admin/settings',
+    // },
+    // {
+    //   title: 'View Audit Logs',
+    //   description: 'Review a log of all administrative actions for security and accountability purposes.',
+    //   icon: <Shield size={24} />,
+    //   link: '/admin/logs',
+    // },
   ];
 
   return (
