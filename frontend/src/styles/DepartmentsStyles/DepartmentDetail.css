@@ -490,6 +490,12 @@
     left: 1.5rem;
     z-index: 20;
     pointer-events: auto;
+    background: rgba(255, 255, 255, 0.012); /* Lighter, more subtle background */
+    backdrop-filter: blur(8px); /* Add blur for sleekness */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    color: #F9F7F7;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smoother transitions */
+
 }
 
 /* small responsive adjustment */
