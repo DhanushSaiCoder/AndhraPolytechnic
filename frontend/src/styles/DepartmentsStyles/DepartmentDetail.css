@@ -495,7 +495,7 @@
 /* small responsive adjustment */
 @media (max-width: 768px) {
     .department-detail-header {
-        height: 570px;
+        height: 560px;
     }
     .department-header-text-wrapper { padding: 0.75rem; }
     .back-button { top: 1rem; left: 1rem; padding: 0.55rem 0.9rem; }
