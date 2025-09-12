@@ -263,7 +263,7 @@ a.activeNavLink svg {
     }
 
     .clgTitleDiv {
-        align-items: flex-start;
+        align-items: center;
         gap: 2px;
     }
 
