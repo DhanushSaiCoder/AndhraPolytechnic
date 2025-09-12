@@ -246,7 +246,7 @@ a.activeNavLink svg {
 @media (max-width: 600px) {
     .headerContent {
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 15px;
         padding: 0px 15px;
     }
@@ -368,10 +368,7 @@ a.activeNavLink svg {
         color: #3F72AF !important;
     }
 
-    /* optional: hide the right logo on small screens to save space */
-    .rightLogo {
-        display: none;
-    }
+  
 }
 
 /* Ensure reduced-motion removes stagger delays */
