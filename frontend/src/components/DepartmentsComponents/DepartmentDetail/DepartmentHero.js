@@ -10,7 +10,7 @@ const DepartmentHero = ({ department }) => {
     <div className="department-detail-header">
       <Link to="/departments" className="back-button">
         <ArrowLeft size={20} />
-        <span>Back to Departments</span>
+        <span>Back</span>
       </Link>
       <ImageLoader src={getOptimizedImageUrl(department.image)} alt={department.name} className="department-header-image" />
       <div className="department-header-overlay"></div>
