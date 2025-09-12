@@ -136,6 +136,11 @@ const NavigationBar = () => {
             />
 
             <div className="navInner" ref={navRef}>
+                
+                 <span className="currentPageName">
+                    {iconMap[currentPage] && React.createElement(iconMap[currentPage], { size: 20 })}
+                    {currentPage}
+                </span>
                 <button
                     className={`hamburger ${open ? 'is-active' : ''}`}
                     onClick={() => setOpen(v => {
@@ -154,10 +159,7 @@ const NavigationBar = () => {
                     </svg>
                 </button>
 
-                <span className="currentPageName">
-                    {iconMap[currentPage] && React.createElement(iconMap[currentPage], { size: 20 })}
-                    {currentPage}
-                </span>
+               
 
                 <div
                     id="primary-navigation"

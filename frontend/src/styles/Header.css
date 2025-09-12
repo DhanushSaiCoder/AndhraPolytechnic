@@ -297,7 +297,7 @@ a.activeNavLink svg {
 
     /* Adjust navInner for mobile to place page name next to hamburger */
     .headerNav .navInner {
-        justify-content: flex-start; /* Align items to the start */
+        justify-content: space-between; /* Align items to the start */
         gap: 10px; /* Space between hamburger and page name */
     }
 
